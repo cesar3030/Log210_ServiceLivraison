@@ -64,8 +64,8 @@
       	 <div class="modal fade" id="signup" role="dialog">
       	 	<div class="modal-dialog">
       	 		<div class="modal-content">
-      	 			<form class="form-horizontal" id="SignInForm" method=post action="<c:url value="/Subscribe"/>">
-	      	 		 <div class="modal-header">
+
+					<form  class="form-signin" role="form" method=post action="<c:url value="/Subscribe"/>">   	      	 		 <div class="modal-header">
 	      	 			<h3>Inscription</h3>
 	      	 		</div>
 	      	 		<div class="modal-body">
