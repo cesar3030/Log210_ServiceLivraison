@@ -3,9 +3,10 @@
     pageEncoding="US-ASCII"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 
+<!-- Formulaire de connection -->
 	<div class='row'>
 	<div class="wrapper">
-		<form  class="form-signin"role="form" method=post action="<c:url value="/UserConnection"/>">   
+		<form  class="form-signin" role="form" method=post action="<c:url value="/UserConnection"/>">   
 		 
 		
             <div class="form-group">
@@ -49,19 +50,21 @@
 		     </div>            
             
             
-            <%-- Vérification de la présence d'un objet utilisateur en session --%>
+            <%-- V��rification de la pr��sence d'un objet utilisateur en session --%>
             <c:if test="${!empty sessionScope.userSession}">
                 <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-              <p class="succes">Vous etes connecté(e) avec l'adresse : ${sessionScope.userSession.email}</p>            
+              <p class="succes">Vous etes connect��(e) avec l'adresse : ${sessionScope.userSession.email}</p>            
             </c:if>
             
+            
+  <!-- Formulaire d'inscription -->
       	</form>
       	 </div>
       	  </div>
       	 <div class="modal fade" id="signup" role="dialog">
       	 	<div class="modal-dialog">
       	 		<div class="modal-content">
-      	 			<form class="form-horizontal">
+      	 			<form class="form-horizontal" id="SignInForm" method=post action="<c:url value="/Subscribe"/>">
 	      	 		 <div class="modal-header">
 	      	 			<h3>Inscription</h3>
 	      	 		</div>
@@ -75,35 +78,35 @@
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contcat-firstname" class="col-lg-4 control-label">Prenom:</label>
+	      	 				<label for="contact-firstname" class="col-lg-4 control-label">Prenom:</label>
 	      	 				<div class="col-lg-8">
 	      	 					<input type="text" class="form-control" id="contact-firstname" placeholder="Prenom"/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contcat-emai" class="col-lg-4 control-label">Nom:</label>
+	      	 				<label for="contact-emai" class="col-lg-4 control-label">Courriel:</label>
 	      	 				<div class="col-lg-8">
 	      	 					<input type="text" class="form-control" id="contact-email" placeholder="Courriel"/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contcat-password1" class="col-lg-4 control-label">Mot de passe:</label>
+	      	 				<label for="contact-password1" class="col-lg-4 control-label">Mot de passe:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-password1" placeholder="Mot de passe"/>
+	      	 					<input type="password" class="form-control" id="contact-password1" placeholder="Mot de passe"/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contcat-password2" class="col-lg-4 control-label">Verification:</label>
+	      	 				<label for="contact-password2" class="col-lg-4 control-label">Verification:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-password2" placeholder="Confirmer mot de passe"/>
+	      	 					<input type="password" class="form-control" id="contact-password2" placeholder="Confirmer mot de passe"/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contcat-birthday" class="col-lg-4 control-label">Date de naissance:</label>
+	      	 				<label for="contact-birthday" class="col-lg-4 control-label">Date de naissance:</label>
 	      	 				<div class="col-lg-8">
 	      	 					<input type="text" class="form-control" id="contact-brithday" placeholder="Ex: 01/01/2014"/>
 	      	 				</div>	      	 				
@@ -111,9 +114,9 @@
 	      	 			
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contcat-adresse" class="col-lg-4 control-label">Adresse:</label>
+	      	 				<label for="contact-adresse" class="col-lg-4 control-label">Adresse:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-adresse" placeholder="4589 Bd Saint-Denis H3P 1O2 Montréal"/>
+	      	 					<input type="text" class="form-control" id="contact-adresse" placeholder="4589 Bd Saint-Denis H3P1O2 Montreal"/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			      	 			
@@ -121,13 +124,15 @@
 	      	 		<div class="modal-footer">
 	      	 		
 	      	 			<a class="btn btn-default" data-dismiss="modal" >Annuler</a>
-	      	 			<button class="btn btn-primary" type="submit" >Inscription</button>
+	      	 			<button id="SubmitForm" class="btn btn-primary" type="submit" >Inscription</button>
 	      	 		</div>
 	      	 		</form>
       	 		</div>
       	 	</div>
       	 </div>
-      
+      	 
+      	 <!-- J'inclus le script qui vérifie le formulaire d'inscription lorsqu'il est soumis -->
+      	 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
       
 
               

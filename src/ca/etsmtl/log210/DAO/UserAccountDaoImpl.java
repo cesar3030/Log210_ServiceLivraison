@@ -20,12 +20,21 @@ public class UserAccountDaoImpl implements UserAccountDao
 	 		+ "WHERE USR_email=? "
 	 		+ "AND USR_password=?";
 	
+	
+	
+	
+
+	
 	public UserAccountDaoImpl(DAOFactory daoFactory)
 	{
 		this.daoFactory = daoFactory;
 	}
 	
-	
+	/**
+	 * Méthode qui se connecte a la BD et retourne un objet 
+	 * UserAccountBean correspondant au mot de passe et au passeword qui ont été fournis par l'utilisateur.
+	 * Si l'utilisateur n'est pas trouvé, la méthode retourne le UserAccountBean mais sans informations setté.
+	 */
 	public UserAccountBean getUserAccount(String email, String password) {
 		
 		Connection connexion = null;
@@ -33,23 +42,27 @@ public class UserAccountDaoImpl implements UserAccountDao
 	    ResultSet resultSet = null;
 	    UserAccountBean userAccount =new UserAccountBean();
 	    
-  try {	        
-	    	/* R�cup�ration d'une connexion depuis la Factory */
+	    try {	        
+	  		/* Récupération d'une connexion depuis la Factory */
 	        connexion = daoFactory.getConnection();
+	        
+	        /*Nos ajoutons les attributes email et password à la place des ? dans la requetes SQL_GET_USER_ACCOUNT. 
+	         * Attention Il faut les rentrer dans le meme ordre qu'ils apparessent dans la requete.
+	         */
 	        preparedStatement = initialisationRequetePreparee( connexion,SQL_GET_USER_ACCOUNT, false, email, password );
 	        
+	        //J'execute la requete
 	        resultSet = preparedStatement.executeQuery();
 	        
-	        /* Parcours de la ligne de donn�es de l'�ventuel ResulSet retourn� */
+	        /* Parcours de la ligne de donn���es de l'���ventuel ResulSet retourn��� */
 	        while ( resultSet.next() ) 
 	        {
-		        	userAccount=mapTableauApplication(resultSet);
-		        	System.out.println(userAccount.getEmail());
+		        	userAccount=mapUserAccount(resultSet);
 	        }
 	        
 	    }
   		catch ( SQLException e ) 
-  		{
+  		{  		
 	        throw new DAOException( e );
 	    } 
   		finally 
@@ -60,13 +73,14 @@ public class UserAccountDaoImpl implements UserAccountDao
 		return userAccount;
 	}
 	
+	
 	/**
 	 * Methode who create a new {@link UserAccountBean} and who set the values returned by the DB to the bean. 
 	 * @param resultSet (The DB answer)
 	 * @return userFromBD (The UserAccountBean with the values returned by the DB)
 	 * @throws SQLException
 	 */
-	private static UserAccountBean mapTableauApplication(ResultSet resultSet) throws SQLException
+	private static UserAccountBean mapUserAccount(ResultSet resultSet) throws SQLException
 	{
 		UserAccountBean userAccountFromBD= new UserAccountBean();
 		
@@ -79,8 +93,6 @@ public class UserAccountDaoImpl implements UserAccountDao
 		userAccountFromBD.setEmail(resultSet.getString("USR_email"));
 		userAccountFromBD.setPassWord(resultSet.getString("USR_password"));
 		 
-		 
-
 		return userAccountFromBD;
 	}
 

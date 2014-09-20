@@ -60,48 +60,46 @@ public class UserConnection extends HttpServlet
 	}
     
     /**
-     * Cette méthode va traiter la requete Post qui a été envoyé par le formulaire de connexion de la page connection.jsp
-     * Elle teste la validité du format de l'email et du mot de passe. Si ils ont un bon format, on fait la requete BD.
+     * Cette m��thode va traiter la requete Post qui a ��t�� envoy�� par le formulaire de connexion de la page connection.jsp
+     * Elle teste la validit�� du format de l'email et du mot de passe. Si ils ont un bon format, on fait la requete BD.
      * Sinon on retourne a la page du formulaire et on affiche les erreurs pour que l'utilisateur se corrige.
      */
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
 	{
     	
-	    	//On créé un UserAccountBean qui va nous servir a stocker le email et le mot de passe saisi dans le formulaire de connexion
+	    	//On cr���� un UserAccountBean qui va nous servir a stocker le email et le mot de passe saisi dans le formulaire de connexion
 	    	UserAccountBean user= new UserAccountBean();
 	    	
-	    	//On récupère l'email saisi par l'utilisateur
+	    	//On r��cup��re l'email saisi par l'utilisateur
 	    	String email = UserAccountBean.getValeurChamp( request, EMAIL );
     	
-	    	//On récupère le mot de passe saisi par l'utilisateur
+	    	//On r��cup��re le mot de passe saisi par l'utilisateur
         String password = UserAccountBean.getValeurChamp( request, PASS );
         
-        //cette ma va nous servir a socker le résultat du test de la validité du format de l'email et du mot de passe 
+        //cette ma va nous servir a socker le r��sultat du test de la validit�� du format de l'email et du mot de passe 
         Map<String,String> errors;
         
-        //Je vérifie le format de l'email et du mot de passe. Si il y a des erreurs, elles seront enregistrées dans une map 
+        //Je v��rifie le format de l'email et du mot de passe. Si il y a des erreurs, elles seront enregistr��es dans une map 
         // qu'on renverra au formulaire et qui affichera le contenu de la map
 		errors=user.verifyValidityOfDatas(email, password);
 		
 		 
 
-		//Si les données du formulaires sont au bon format, je fais la requete au serveur
+		//Si les donn��es du formulaires sont au bon format, je fais la requete au serveur
 		if ( errors.isEmpty() ) 
 		{
 			//Ici, on va chercher dans la BD si il y a un utilisateur avec le couple email/password saisi.
-			//On passe en parrametre le bean qu'on a créé et qui contient le user et le mot de passe.
-			//Cette methode va nous retourner un autre bean contenant toutes les données recues de la BD 
+			//On passe en parrametre le bean qu'on a cr���� et qui contient le user et le mot de passe.
+			//Cette methode va nous retourner un autre bean contenant toutes les donn��es recues de la BD 
 			user=userAccountDao.getUserAccount(email, password);
 			
-			System.out.println(user.getEmail());
-			
-			//On récupère la variable de session
+			//On r��cup��re la variable de session
 			HttpSession session = request.getSession(); 
 
 			//Si l'utilisateur est inconnu, null est renvoye par la methode getUserAccount
 			if(user.getEmail()==null)
 			{
-				//Si le user est inconnu, on créé une erreur
+				//Si le user est inconnu, on cr���� une erreur
 				errors.put("unknowUser","L'utilisateur n'est pas connu. Veuillez verifier votre corriel et votre mot de passe.");
 				
 				//On set la map d'erreurs pour pouvoir les afficher sur le formulaire
@@ -115,7 +113,7 @@ public class UserConnection extends HttpServlet
 				//On lui set le bean user recu et on l'associe au nom contenu dans SESSION_USER.
 	            session.setAttribute( SESSION_USER, user );
 				
-	            //On redirige vers la page de bienvenu des utilisateures connectés
+	            //On redirige vers la page de bienvenu des utilisateures connect��s
 	    			this.getServletContext().getRequestDispatcher(WELCOME_PAGE).forward( request, response );
 			}
 
@@ -123,7 +121,7 @@ public class UserConnection extends HttpServlet
         } 
 		else 
 		{
-			//On récupère la variable de session
+			//On r��cup��re la variable de session
 			HttpSession session = request.getSession();
 			
 			//On set la map d'erreurs pour pouvoir les afficher sur le formulaire
