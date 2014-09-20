@@ -13,6 +13,7 @@ import ca.etsmtl.log210.DAO.UserAccountDao;
 
 public class Subscribe extends HttpServlet {
 
+	public static final String FORM = "/connection.jsp";
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	// The instance of UserAccountDao who give us the possibility to execute
 	// requests to the DB about userAccount
@@ -31,12 +32,13 @@ public class Subscribe extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//On créé un userAccountBean pour stocker les valeurs rentrées dans le formulaire.
-		
+		// On créé un userAccountBean pour stocker les valeurs rentrées dans le
+		// formulaire.
+
 		UserAccountBean newUser = new UserAccountBean();
-		
-		//On set newUser les valeurs rentrées dans le formulaire ok nickel.
-		
+
+		// On set newUser les valeurs rentrées dans le formulaire ok nickel.
+
 		newUser.setName(request.getParameter("name"));
 		newUser.setFirstName(request.getParameter("firstname"));
 		newUser.setEmail(request.getParameter("email"));
@@ -44,5 +46,15 @@ public class Subscribe extends HttpServlet {
 		newUser.setBirthdayDate(request.getParameter("birthday"));
 		newUser.setHomeAddress(request.getParameter("adress"));
 		newUser.setPhoneNumber(request.getParameter("phone"));
+
+		
+		System.out.println(request.getParameter("name"));
+		// On ajoute le nouvel utilisateur dans la BDD
+		userAccountDao.newUserAccount(newUser);
+
+		// On retourne sur la page de connection pour que l'utilisateur puisse se connecter
+		this.getServletContext().getRequestDispatcher(FORM)
+				.forward(request, response);
+
 	}
 }

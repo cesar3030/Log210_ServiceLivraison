@@ -70,6 +70,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
 					newUser.getPassWord(), newUser.getUserRights(),
 					newUser.getBirthdayDate());
 
+			System.out.println(preparedStatement);
+			
 			resultSet = preparedStatement.executeQuery();
 			
 

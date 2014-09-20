@@ -64,8 +64,8 @@ public class UserConnection extends HttpServlet
      * Elle teste la validit�� du format de l'email et du mot de passe. Si ils ont un bon format, on fait la requete BD.
      * Sinon on retourne a la page du formulaire et on affiche les erreurs pour que l'utilisateur se corrige.
      */
-    public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
-	{
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
     	
 	    	//On cr���� un UserAccountBean qui va nous servir a stocker le email et le mot de passe saisi dans le formulaire de connexion
 	    	UserAccountBean user= new UserAccountBean();
