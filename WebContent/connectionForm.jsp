@@ -71,52 +71,59 @@
 	      	 		<div class="modal-body">
 	      	 		
 	      	 			<div class="form-group">
-	      	 				<label for="contact-name" class="col-lg-4 control-label">Nom:</label>
+	      	 				<label for="name" class="col-lg-4 control-label">Nom:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-name" placeholder="Nom"/>
+	      	 					<input type="text" class="form-control" id="name" placeholder="Nom"/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contact-firstname" class="col-lg-4 control-label">Prenom:</label>
+	      	 				<label for="firstname" class="col-lg-4 control-label">Prenom:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-firstname" placeholder="Prenom"/>
+	      	 					<input type="text" class="form-control" id="firstname" placeholder="Prenom"/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contact-emai" class="col-lg-4 control-label">Courriel:</label>
+	      	 				<label for="emai" class="col-lg-4 control-label">Courriel:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-email" placeholder="Courriel"/>
+	      	 					<input type="text" class="form-control" id="email" placeholder="Courriel"/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contact-password1" class="col-lg-4 control-label">Mot de passe:</label>
+	      	 				<label for="phone" class="col-lg-4 control-label">Telephone:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="password" class="form-control" id="contact-password1" placeholder="Mot de passe"/>
+	      	 					<input type="text" class="form-control" id="phone" placeholder="514 111 1111"/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contact-password2" class="col-lg-4 control-label">Verification:</label>
+	      	 				<label for="password1" class="col-lg-4 control-label">Mot de passe:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="password" class="form-control" id="contact-password2" placeholder="Confirmer mot de passe"/>
+	      	 					<input type="password" class="form-control" id="password1" placeholder="Mot de passe"/>
+	      	 				</div>
+	      	 			</div>
+	      	 			
+	      	 			<div class="form-group">
+	      	 				<label for="password2" class="col-lg-4 control-label">Verification:</label>
+	      	 				<div class="col-lg-8">
+	      	 					<input type="password" class="form-control" id="password2" placeholder="Confirmer mot de passe"/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contact-birthday" class="col-lg-4 control-label">Date de naissance:</label>
+	      	 				<label for="birthday" class="col-lg-4 control-label">Date de naissance:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-brithday" placeholder="Ex: 01/01/2014"/>
+	      	 					<input type="text" class="form-control" id="brithday" placeholder="Ex: 01/01/2014"/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="contact-adresse" class="col-lg-4 control-label">Adresse:</label>
+	      	 				<label for="adress" class="col-lg-4 control-label">Adresse:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="contact-adresse" placeholder="4589 Bd Saint-Denis H3P1O2 Montreal"/>
+	      	 					<input type="text" class="form-control" id="adress" placeholder="4589 Bd Saint-Denis H3P1O2 Montreal"/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			      	 			
