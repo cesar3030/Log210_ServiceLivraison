@@ -47,6 +47,14 @@
     <servlet-name>Search</servlet-name>
     <url-pattern>/Search</url-pattern>
   </servlet-mapping>
+     <servlet>
+    <servlet-name>Subscribe</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.Subscribe</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Subscribe</servlet-name>
+    <url-pattern>/Subscribe</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>ApplicationFilter</filter-name>
     <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>
@@ -55,4 +63,5 @@
     <filter-name>ApplicationFilter</filter-name>
     <url-pattern>/Restrict/*</url-pattern>
   </filter-mapping>
+  
 </web-app>
