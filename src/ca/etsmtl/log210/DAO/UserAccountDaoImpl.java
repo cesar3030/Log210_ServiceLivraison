@@ -17,8 +17,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			+ "AND USR_password=?";
 
 	private static final String SQL_NEW_USER_ACCOUNT = ""
-			+ "INSERT INTO tbUserAccount" + "FROM tbUserAccount "
-			+ "VALUES( ,?,?,?,?,?,?,?,?)";
+			+ "INSERT INTO `tbUserAccount`( `USR_name`, `USR_firstName`, `USR_homeAddress`, `USR_email`, `USR_phoneNumber`, `USR_password`, `USR_rights`, `USR_birthday`)  "
+			+ "VALUES( ?,?,?,?,?,?,?,?) ";
 
 	public UserAccountDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
@@ -59,6 +59,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		int codeRetour;
 
 		try {
 			/* R�cup�ration d'une connexion depuis la Factory */
@@ -72,7 +73,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 
 			System.out.println(preparedStatement);
 			
-			resultSet = preparedStatement.executeQuery();
+			codeRetour = preparedStatement.executeUpdate();
 			
 
 		} catch (SQLException e) {

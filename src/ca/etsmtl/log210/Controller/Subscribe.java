@@ -1,5 +1,7 @@
 package ca.etsmtl.log210.Controller;
 
+
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -29,15 +31,24 @@ public class Subscribe extends HttpServlet {
 		this.userAccountDao = ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getUserAccountDao();
 	}
+	
+	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
+	{
+		
+	
+		
+	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// On créé un userAccountBean pour stocker les valeurs rentrées dans le
+		// On cr���� un userAccountBean pour stocker les valeurs rentr��es dans le
 		// formulaire.
 
 		UserAccountBean newUser = new UserAccountBean();
 
-		// On set newUser les valeurs rentrées dans le formulaire ok nickel.
+		request.setCharacterEncoding("UTF-8");
+		
+		// On set newUser les valeurs rentr��es dans le formulaire ok nickel.
 
 		newUser.setName(request.getParameter("name"));
 		newUser.setFirstName(request.getParameter("firstname"));
