@@ -15,6 +15,7 @@ import ca.etsmtl.log210.DAO.UserAccountDao;
  */
 public class UserAccountBean 
 {
+	private String id;
 	private String name;
 	private String firstName;
 	private String birthdayDate;
@@ -168,6 +169,15 @@ public class UserAccountBean
 	public void setUserRights(int userRights) {
 		this.userRights = userRights;
 	}
+
+	public String getUserId() {
+		return id;
+	}
+
+	public void setUserId(String id) {
+		this.id = id;
+	}
+
 	
 
 }

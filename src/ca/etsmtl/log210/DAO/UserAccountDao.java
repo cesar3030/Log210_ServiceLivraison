@@ -9,4 +9,6 @@ public interface UserAccountDao
 	UserAccountBean getUserAccount(String email, String password);
 	
 	void newUserAccount(UserAccountBean newUser);
+	
+	int modifyUserAccount(UserAccountBean newUser);
 }

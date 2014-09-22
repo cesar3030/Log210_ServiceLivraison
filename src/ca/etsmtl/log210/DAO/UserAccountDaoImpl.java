@@ -16,7 +16,13 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			+ "FROM tbUserAccount " + "WHERE USR_email=? "
 			+ "AND USR_password=?";
 
+	private static final String SQL_MODIFY_USER_ACCOUNT = ""
+			+ "UPDATE 'tbUserAccount'"
+			+ "SET 'USR_homeAddress'=?,'USR_phoneNumber'=?,'USR_password'=?"
+			+ "WHERE 'USR_id'=?";;
+
 	private static final String SQL_NEW_USER_ACCOUNT = ""
+
 			+ "INSERT INTO `tbUserAccount`( `USR_name`, `USR_firstName`, `USR_homeAddress`, `USR_email`, `USR_phoneNumber`, `USR_password`, `USR_rights`, `USR_birthday`)  "
 			+ "VALUES( ?,?,?,?,?,?,?,?) ";
 
@@ -72,15 +78,41 @@ public class UserAccountDaoImpl implements UserAccountDao {
 					newUser.getBirthdayDate());
 
 			System.out.println(preparedStatement);
-			
+
 			codeRetour = preparedStatement.executeUpdate();
-			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
+	}
+
+	public int modifyUserAccount(UserAccountBean modUser) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour;
+
+		try {
+			/* R�cup�ration d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_MODIFY_USER_ACCOUNT, false, modUser.getUserId(),
+					modUser.getHomeAddress(), modUser.getPhoneNumber(),
+					modUser.getPassWord());
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return codeRetour;
 	}
 
 	/**
@@ -96,7 +128,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	private static UserAccountBean mapTableauApplication(ResultSet resultSet)
 			throws SQLException {
 		UserAccountBean userAccountFromBD = new UserAccountBean();
-
+		userAccountFromBD.setUserId(resultSet.getString("USR_idUser"));
 		userAccountFromBD.setName(resultSet.getString("USR_name"));
 		userAccountFromBD.setFirstName(resultSet.getString("USR_firstName"));
 		userAccountFromBD
@@ -112,4 +144,3 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	}
 
 }
-
