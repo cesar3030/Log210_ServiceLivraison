@@ -53,7 +53,7 @@ public class Subscribe extends HttpServlet {
 		newUser.setName(request.getParameter("name"));
 		newUser.setFirstName(request.getParameter("firstname"));
 		newUser.setEmail(request.getParameter("email"));
-		newUser.setPassWord(request.getParameter("password1"));
+		newUser.setPassword(request.getParameter("password1"));
 		newUser.setBirthdayDate(request.getParameter("birthday"));
 		newUser.setHomeAddress(request.getParameter("adress"));
 		newUser.setPhoneNumber(request.getParameter("phone"));

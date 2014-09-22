@@ -100,7 +100,7 @@ public class UserConnection extends HttpServlet
 			if(user.getEmail()==null)
 			{
 				//Si le user est inconnu, on cr���� une erreur
-				errors.put("unknowUser","L'utilisateur n'est pas connu. Veuillez verifier votre corriel et votre mot de passe.");
+				errors.put("unknowUser","L'utilisateur n'est pas connu. Veuillez verifier votre courriel et votre mot de passe.");
 				
 				//On set la map d'erreurs pour pouvoir les afficher sur le formulaire
 	            session.setAttribute( ERRORS_FORM, errors );
@@ -110,6 +110,7 @@ public class UserConnection extends HttpServlet
 			}
 			else
 			{
+				
 				//On lui set le bean user recu et on l'associe au nom contenu dans SESSION_USER.
 	            session.setAttribute( SESSION_USER, user );
 				

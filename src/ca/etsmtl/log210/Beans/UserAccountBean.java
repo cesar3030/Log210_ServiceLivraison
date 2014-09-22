@@ -15,7 +15,6 @@ import ca.etsmtl.log210.DAO.UserAccountDao;
  */
 public class UserAccountBean 
 {
-	private String id;
 	private String name;
 	private String firstName;
 	private String birthdayDate;
@@ -25,6 +24,7 @@ public class UserAccountBean
 	private String password;
 	//User's rights (0:not connected, 1:client, 2:Restarter, 3:administrator )
 	private int    userRights=0;
+	private int userId;
 	
 	
 	private static final String EMAIL  = "email";
@@ -66,12 +66,12 @@ public class UserAccountBean
         }
         
 
-        /* Initialisation du résultat global de la validation. */
+        /* Initialisation du r��sultat global de la validation. */
         if ( errors.isEmpty() ) 
         {        	
-        	results = "Succès de la connexion.";
+        	results = "Succ��s de la connexion.";
         } else {
-        	results = "Échec de la connexion.";
+        	results = "��chec de la connexion.";
         }
         System.out.println("erreurs du form:"+errors);
         
@@ -101,14 +101,14 @@ public class UserAccountBean
     }
 
     /*
-     * Ajoute un message correspondant au champ spécifié à la map des erreurs.
+     * Ajoute un message correspondant au champ sp��cifi�� �� la map des erreurs.
      */
     private void setErreur( String champ, String message ) {
         errors.put( champ, message );
     }
 
     /*
-     * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
+     * M��thode utilitaire qui retourne null si un champ est vide, et son contenu
      * sinon.
      */
     public static String getValeurChamp( HttpServletRequest request, String fieldName ) {
@@ -156,10 +156,10 @@ public class UserAccountBean
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public String getPassWord() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassWord(String passWord) {
+	public void setPassword(String passWord) {
 		this.password = passWord;
 	}
 	public int getUserRights() {
@@ -170,14 +170,13 @@ public class UserAccountBean
 		this.userRights = userRights;
 	}
 
-	public String getUserId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserId(String id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-
 	
 
 }

@@ -7,6 +7,8 @@
   <welcome-file-list>
     <welcome-file>connection.jsp</welcome-file>
   </welcome-file-list>
+  
+  
   <servlet>
     <servlet-name>UserConnection</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.UserConnection</servlet-class>
@@ -15,6 +17,8 @@
     <servlet-name>UserConnection</servlet-name>
     <url-pattern>/UserConnection</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>Restriction</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.Restriction</servlet-class>
@@ -23,6 +27,8 @@
     <servlet-name>Restriction</servlet-name>
     <url-pattern>/Restriction</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>Logout</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.Deconnection</servlet-class>
@@ -31,6 +37,8 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
   </servlet-mapping>
+  
+  
    <servlet>
     <servlet-name>MyAccount</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.MyAccount</servlet-class>
@@ -39,7 +47,8 @@
     <servlet-name>MyAccount</servlet-name>
     <url-pattern>/MyAccount</url-pattern>
   </servlet-mapping>
-     <servlet>
+   
+  <servlet>
     <servlet-name>Search</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.Search</servlet-class>
   </servlet>
@@ -47,14 +56,28 @@
     <servlet-name>Search</servlet-name>
     <url-pattern>/Search</url-pattern>
   </servlet-mapping>
+  
+  
      <servlet>
     <servlet-name>Subscribe</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.Subscribe</servlet-class>
-  </servlet>
+  </servlet>  
   <servlet-mapping>
     <servlet-name>Subscribe</servlet-name>
     <url-pattern>/Subscribe</url-pattern>
   </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>UpdateUserAccount</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.UpdateUserAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateUserAccount</servlet-name>
+    <url-pattern>/UpdateUserAccount</url-pattern>
+  </servlet-mapping>
+  
+  
   <filter>
     <filter-name>ApplicationFilter</filter-name>
     <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>

@@ -17,9 +17,9 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			+ "AND USR_password=?";
 
 	private static final String SQL_MODIFY_USER_ACCOUNT = ""
-			+ "UPDATE 'tbUserAccount'"
-			+ "SET 'USR_homeAddress'=?,'USR_phoneNumber'=?,'USR_password'=?"
-			+ "WHERE 'USR_id'=?";;
+			+ "UPDATE tbUserAccount "
+			+ "SET USR_homeAddress=?, USR_phoneNumber=?,  USR_password =? "
+			+ "WHERE USR_idUser=?";
 
 	private static final String SQL_NEW_USER_ACCOUNT = ""
 
@@ -38,14 +38,14 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		UserAccountBean userAccount = new UserAccountBean();
 
 		try {
-			/* R�cup�ration d'une connexion depuis la Factory */
+			/* R���cup���ration d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_USER_ACCOUNT, false, email, password);
 
 			resultSet = preparedStatement.executeQuery();
 
-			/* Parcours de la ligne de donn�es de l'�ventuel ResulSet retourn� */
+			/* Parcours de la ligne de donn���es de l'���ventuel ResulSet retourn��� */
 			while (resultSet.next()) {
 				userAccount = mapTableauApplication(resultSet);
 				System.out.println(userAccount.getEmail());
@@ -68,13 +68,13 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		int codeRetour;
 
 		try {
-			/* R�cup�ration d'une connexion depuis la Factory */
+			/* R���cup���ration d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_NEW_USER_ACCOUNT, false, newUser.getName(),
 					newUser.getFirstName(), newUser.getHomeAddress(),
 					newUser.getEmail(), newUser.getPhoneNumber(),
-					newUser.getPassWord(), newUser.getUserRights(),
+					newUser.getPassword(), newUser.getUserRights(),
 					newUser.getBirthdayDate());
 
 			System.out.println(preparedStatement);
@@ -96,12 +96,12 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		int codeRetour;
 
 		try {
-			/* R�cup�ration d'une connexion depuis la Factory */
+			/* R���cup���ration d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_MODIFY_USER_ACCOUNT, false, modUser.getUserId(),
+					SQL_MODIFY_USER_ACCOUNT, false,
 					modUser.getHomeAddress(), modUser.getPhoneNumber(),
-					modUser.getPassWord());
+					modUser.getPassword(),modUser.getUserId());
 
 			System.out.println(preparedStatement);
 
@@ -128,7 +128,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	private static UserAccountBean mapTableauApplication(ResultSet resultSet)
 			throws SQLException {
 		UserAccountBean userAccountFromBD = new UserAccountBean();
-		userAccountFromBD.setUserId(resultSet.getString("USR_idUser"));
+		userAccountFromBD.setUserId(resultSet.getInt("USR_idUser"));
 		userAccountFromBD.setName(resultSet.getString("USR_name"));
 		userAccountFromBD.setFirstName(resultSet.getString("USR_firstName"));
 		userAccountFromBD
@@ -138,7 +138,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 				.setPhoneNumber(resultSet.getString("USR_phoneNumber"));
 		userAccountFromBD.setUserRights(resultSet.getInt("USR_rights"));
 		userAccountFromBD.setEmail(resultSet.getString("USR_email"));
-		userAccountFromBD.setPassWord(resultSet.getString("USR_password"));
+		userAccountFromBD.setPassword(resultSet.getString("USR_password"));
 
 		return userAccountFromBD;
 	}
