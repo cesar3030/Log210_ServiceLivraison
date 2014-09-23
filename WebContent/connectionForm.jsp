@@ -50,7 +50,7 @@
 		     </div>            
             
             
-            <%-- V������������������rification de la pr������������������sence d'un objet utilisateur en session --%>
+            <%-- V������������������������������������������������������rification de la pr������������������������������������������������������sence d'un objet utilisateur en session --%>
             <c:if test="${!empty sessionScope.userSession}">
                 <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
               <p class="succes">Vous etes connecte(e) avec l'adresse : ${sessionScope.userSession.email}</p>            
@@ -77,14 +77,14 @@
 	      	 			<div class="form-group">
 	      	 				<label for="name" class="col-lg-4 control-label">Nom:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" name="name" id="name" placeholder="Nom" />
+	      	 					<input type="text" class="form-control" name="name" id="name" placeholder="Nom"  required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
 	      	 				<label for="firstname" class="col-lg-4 control-label">Prenom:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prenom"/>
+	      	 					<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prenom" required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
@@ -144,7 +144,7 @@
       	 	</div>
       	 </div>
       	 
-      	 <!-- J'inclus le script qui v������rifie le formulaire d'inscription lorsqu'il est soumis -->
+      	 <!-- J'inclus le script qui v������������������rifie le formulaire d'inscription lorsqu'il est soumis -->
       	 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
       
 
