@@ -106,28 +106,28 @@
 	      	 			<div class="form-group">
 	      	 				<label for="adress" class="col-lg-4 control-label">Adresse:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="adress" name="adress" placeholder="4589 Bd Saint-Denis H3P1O2 Montreal" value="${sessionScope.userSession.homeAddress}"/>
+	      	 					<input type="text" class="form-control" id="adress" name="adress" placeholder="4589 Bd Saint-Denis H3P1O2 Montreal" value="${sessionScope.userSession.homeAddress}" required/>
 	      	 				</div>	      	 				
 	      	 			</div> 
 	      	 			
 	      	 			<div class="form-group">
 	      	 				<label for="phone" class="col-lg-4 control-label">Telephone:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="phone" name="phone" placeholder="514 111 1111" value="${sessionScope.userSession.phoneNumber}"/>
+	      	 					<input type="text" class="form-control" id="phone" name="phone" placeholder="514 111 1111" value="${sessionScope.userSession.phoneNumber}"  required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
 	      	 				<label for="password1" class="col-lg-4 control-label">Mot de passe:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="password" class="form-control" id="password1" name="password1" placeholder="Mot de passe" value="${sessionScope.userSession.password}"/>
+	      	 					<input type="password" class="form-control" id="password1" name="password1" placeholder="Mot de passe" value="${sessionScope.userSession.password}"  required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
 	      	 				<label for="password2" class="col-lg-4 control-label" >Verification:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmer mot de passe"/>
+	      	 					<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmer mot de passe"  required/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			

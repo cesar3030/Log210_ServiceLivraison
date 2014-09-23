@@ -50,7 +50,7 @@
 		     </div>            
             
             
-            <%-- V������rification de la pr������sence d'un objet utilisateur en session --%>
+            <%-- V������������������rification de la pr������������������sence d'un objet utilisateur en session --%>
             <c:if test="${!empty sessionScope.userSession}">
                 <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
               <p class="succes">Vous etes connecte(e) avec l'adresse : ${sessionScope.userSession.email}</p>            
@@ -77,7 +77,7 @@
 	      	 			<div class="form-group">
 	      	 				<label for="name" class="col-lg-4 control-label">Nom:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" name="name" id="name" placeholder="Nom"/>
+	      	 					<input type="text" class="form-control" name="name" id="name" placeholder="Nom" />
 	      	 				</div>
 	      	 			</div>
 	      	 			
@@ -89,45 +89,45 @@
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="emai" class="col-lg-4 control-label">Courriel:</label>
+	      	 				<label for="emai" class="col-lg-4 control-label">Courriel*:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="email" class="form-control" name="email" id="email" placeholder="Courriel"/>
+	      	 					<input type="email" class="form-control" name="email" id="email" placeholder="Courriel" required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="phone" class="col-lg-4 control-label">Telephone:</label>
+	      	 				<label for="phone" class="col-lg-4 control-label">Telephone*:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="phone" name="phone" placeholder="514 111 1111"/>
+	      	 					<input type="text" class="form-control" id="phone" name="phone" placeholder="514 111 1111" required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="password1" class="col-lg-4 control-label">Mot de passe:</label>
+	      	 				<label for="password1" class="col-lg-4 control-label">Mot de passe*:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="password" class="form-control" id="password1" name="password1" placeholder="Mot de passe"/>
+	      	 					<input type="password" class="form-control" id="password1" name="password1" placeholder="Mot de passe" required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="password2" class="col-lg-4 control-label" >Verification:</label>
+	      	 				<label for="password2" class="col-lg-4 control-label" >Verification*:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmer mot de passe"/>
+	      	 					<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmer mot de passe" required/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			
 	      	 			<div class="form-group">
 	      	 				<label for="birthday" class="col-lg-4 control-label">Date de naissance:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="brithday" name="birthday" placeholder="Ex: 01/01/2014"/>
+	      	 					<input type="text" class="form-control" id="brithday" name="birthday" placeholder="Ex: AAAA-MM-JJ" required/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			
 	      	 			
 	      	 			<div class="form-group">
-	      	 				<label for="adress" class="col-lg-4 control-label">Adresse:</label>
+	      	 				<label for="adress" class="col-lg-4 control-label">Adresse*:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="adress" name="adress" placeholder="4589 Bd Saint-Denis H3P1O2 Montreal"/>
+	      	 					<input type="text" class="form-control" id="adress" name="adress" placeholder="4589 Bd Saint-Denis H3P1O2 Montreal" required/>
 	      	 				</div>	      	 				
 	      	 			</div>
 	      	 			
@@ -144,7 +144,7 @@
       	 	</div>
       	 </div>
       	 
-      	 <!-- J'inclus le script qui v��rifie le formulaire d'inscription lorsqu'il est soumis -->
+      	 <!-- J'inclus le script qui v������rifie le formulaire d'inscription lorsqu'il est soumis -->
       	 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
       
 
