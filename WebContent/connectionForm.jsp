@@ -57,7 +57,7 @@
 			</div>
 
 
-			<%-- V������������������������������������������������������rification de la pr������������������������������������������������������sence d'un objet utilisateur en session --%>
+			<%-- V������������������������������������������������������������������������������������������������������������������������������������������������������������������rification de la pr������������������������������������������������������������������������������������������������������������������������������������������������������������������sence d'un objet utilisateur en session --%>
 			<c:if test="${!empty sessionScope.userSession}">
 				<%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
 				<p class="succes">Vous etes connecte(e) avec l'adresse :
@@ -128,7 +128,7 @@
 					<div class="form-group">
 						<label for="password2" class="col-lg-4 control-label">Verification*:</label>
 						<div class="col-lg-8">
-							<input type="password" class="form-control" id="password2"
+							<input onblur="concordanceMdp();" type="password" class="form-control" id="password2"
 								name="password2" placeholder="Confirmer mot de passe" required />
 						</div>
 					</div>
@@ -167,7 +167,7 @@
 	</div>
 </div>
 
-<!-- J'inclus le script qui v������������������rifie le formulaire d'inscription lorsqu'il est soumis -->
+<!-- J'inclus le script qui v������������������������������������������������������rifie le formulaire d'inscription lorsqu'il est soumis -->
 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
 
 
