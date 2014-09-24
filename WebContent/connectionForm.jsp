@@ -112,7 +112,7 @@
 						<label for="phone" class="col-lg-4 control-label">Telephone*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" id="phone" name="phone"
-								placeholder="514 111 1111"  onblur="verifierNumeroTel();" required />
+								placeholder="5141245678"  onblur="verifierNumeroTel();" required />
 						</div>
 					</div>
 

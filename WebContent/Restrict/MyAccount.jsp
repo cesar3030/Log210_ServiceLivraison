@@ -113,7 +113,7 @@
 	      	 			<div class="form-group">
 	      	 				<label for="phone" class="col-lg-4 control-label">Telephone:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="phone" name="phone" placeholder="514 111 1111" value="${sessionScope.userSession.phoneNumber}"  required/>
+	      	 					<input type="text" class="form-control" id="phone" name="phone" placeholder="5141245678" value="${sessionScope.userSession.phoneNumber}"  onblur="verifierNumeroTel();" required/>
 	      	 				</div>
 	      	 			</div>
 	      	 			
@@ -155,5 +155,7 @@
       	 	</div>
       	 </div>
       	</div>
+      	<!-- J'inclus le script qui v������������������rifie le formulaire d'inscription lorsqu'il est soumis -->
+<script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
 	
 <jsp:include page="/footer.jsp"></jsp:include>
