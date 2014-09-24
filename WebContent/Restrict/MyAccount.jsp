@@ -78,30 +78,10 @@
 
 			<!-- <form  class="form-horizontal" role="form" method=post action="<c:url value="/Subscribe"/>">    -->	
 				<form  name=cmpid class="form-horizontal" role="form" method="post"  action="<c:url value="/UpdateUserAccount"/>">   	      	 		 <div class="modal-header">
-	      	 			<h3>Inscription</h3>
+	      	 			<h3>Modification</h3>
 	      	 		</div>
 	      	 		<div class="modal-body">
-	      	 		
-	      	 		<!--  
-	      	 			<div class="form-group">
-	      	 				<label for="name" class="col-lg-4 control-label">Nom:</label>
-	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" name="name" id="name" placeholder="Nom" value="${sessionScope.userSession.name}"/>
-	      	 				</div>
-	      	 			</div>
-	      	 			
-	      	 			<div class="form-group">
-	      	 				<label for="firstname" class="col-lg-4 control-label">Prenom:</label>
-	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prenom" value="${sessionScope.userSession.firstName}"/>
-	      	 				</div>
-	      	 			</div>  
-	      	 			<div class="form-group">
-	      	 				<label for="emai" class="col-lg-4 control-label">Courriel:</label>
-	      	 				<div class="col-lg-8">
-	      	 					<input type="email" class="form-control" name="email" id="email" placeholder="Courriel" value="${sessionScope.userSession.email}"/>
-	      	 				</div>
-	      	 			</div>-->
+
 	      	 			
 	      	 			<div class="form-group">
 	      	 				<label for="adress" class="col-lg-4 control-label">Adresse:</label>
@@ -127,21 +107,10 @@
 	      	 			<div class="form-group">
 	      	 				<label for="password2" class="col-lg-4 control-label" >Verification:</label>
 	      	 				<div class="col-lg-8">
-	      	 					<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmer mot de passe"  required/>
+	      	 					<input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmer mot de passe"  onblur="concordanceMdp();" required/>
 	      	 				</div>	      	 				
 	      	 			</div>
-	      	 			
-	      	 			<!--  
-	      	 			<div class="form-group">
-	      	 				<label for="birthday" class="col-lg-4 control-label">Date de naissance:</label>
-	      	 				<div class="col-lg-8">
-	      	 					<input type="text" class="form-control" id="brithday" name="birthday" placeholder="Ex: AAAA-MM-JJ" value="${sessionScope.userSession.birthdayDate}"/>
-	      	 				</div>	      	 				
-	      	 			</div>
-	      	 			
-	      	 			
-	      	 			  -->
-	      	 			
+		      	 			
 	      	 			      	 			
 	      	 		</div>
 	      	 		<div class="modal-footer">

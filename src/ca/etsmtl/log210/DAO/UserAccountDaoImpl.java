@@ -48,7 +48,6 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			/* Parcours de la ligne de donn���es de l'���ventuel ResulSet retourn��� */
 			while (resultSet.next()) {
 				userAccount = mapTableauApplication(resultSet);
-				System.out.println(userAccount.getEmail());
 			}
 
 		} catch (SQLException e) {

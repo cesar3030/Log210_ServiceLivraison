@@ -19,10 +19,8 @@ function verifierDate() {
 
 function verifierNumeroTel() {
 	var numtel = document.getElementById('phone').value;
-	
-	
-	
-	if(numtel.length==10) {
+
+	if (numtel.length == 10) {
 
 	} else {
 		document.getElementById('phone').value = "";
@@ -31,19 +29,14 @@ function verifierNumeroTel() {
 
 }
 
-function concordanceMdp(){
+function concordanceMdp() {
 	var mdp = document.getElementById('password1').value;
 	var mdp2 = document.getElementById('password2').value;
 
-	if(mdp!=mdp2) {
+	if (mdp != mdp2) {
 
-	alert('Revérifier votre saisie');
-	document.getElementById('password1').value = "";
-	document.getElementById('password2').value = "";
-	return false;
-	} else {
-
-	alert('les mots de passe concordent');
-	return true;
+		alert('Les mots de passe de concordent pas.');
+		document.getElementById('password1').value = "";
+		document.getElementById('password2').value = "";
 	}
-	}
+}
