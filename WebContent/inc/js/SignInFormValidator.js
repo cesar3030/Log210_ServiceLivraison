@@ -30,3 +30,20 @@ function verifierNumeroTel() {
 	}
 
 }
+
+function concordanceMdp(){
+	var mdp = document.getElementById('password1').value;
+	var mdp2 = document.getElementById('password2').value;
+
+	if(mdp!=mdp2) {
+
+	alert('Revérifier votre saisie');
+	document.getElementById('password1').value = "";
+	document.getElementById('password2').value = "";
+	return false;
+	} else {
+
+	alert('les mots de passe concordent');
+	return true;
+	}
+	}
