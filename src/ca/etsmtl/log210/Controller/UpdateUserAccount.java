@@ -58,7 +58,10 @@ public class UpdateUserAccount extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserAccountBean userAlreadyConnected = (UserAccountBean) session
 				.getAttribute("userSession");
-
+		
+		//On met a jour l'affichage du compte client
+		miseAjourDesVarSessionUser(userAlreadyConnected,request);
+		
 		// On set newUser les valeurs rentr������es dans le formulaire
 
 		user.setEmail(UserAccountBean.getValeurChamp(request, EMAIL));
@@ -138,7 +141,14 @@ public class UpdateUserAccount extends HttpServlet {
 			this.getServletContext().getRequestDispatcher(MYACCOUNT_PAGE)
 					.forward(request, response);
 		}
+		
+	
 
+	}
+	public void miseAjourDesVarSessionUser(UserAccountBean sessionClientActive,HttpServletRequest requeteRecu ){
+	
+		sessionClientActive.setHomeAddress(requeteRecu.getParameter("adress"));
+		sessionClientActive.setPhoneNumber(requeteRecu.getParameter("phone"));
 	}
 
 }
