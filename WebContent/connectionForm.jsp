@@ -85,7 +85,7 @@
 				<div class="modal-body">
 
 					<div class="form-group">
-						<label for="name" class="col-lg-4 control-label">Nom:</label>
+						<label for="name" class="col-lg-4 control-label">Nom*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="name" id="name"
 								placeholder="Nom" required />
@@ -93,7 +93,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="firstname" class="col-lg-4 control-label">Prenom:</label>
+						<label for="firstname" class="col-lg-4 control-label">Prenom:*</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" id="firstname"
 								name="firstname" placeholder="Prenom" required />
@@ -112,7 +112,7 @@
 						<label for="phone" class="col-lg-4 control-label">Telephone*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" id="phone" name="phone"
-								placeholder="514 111 1111" required />
+								placeholder="514 111 1111"  onblur="verifierNumeroTel();" required />
 						</div>
 					</div>
 
@@ -135,7 +135,7 @@
 
 					<div class="form-group">
 						<label for="birthday" class="col-lg-4 control-label">Date
-							de naissance:</label>
+							de naissance*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" id="brithday"
 								name="birthday" placeholder="JJ/MM/AAAA"
