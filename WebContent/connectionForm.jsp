@@ -16,6 +16,22 @@
 				<div class='row'>
 					<div class="col-md-offset-4 col-md-4">
 
+  		 <c:if test="${!empty form.NewUserCompleted}">
+				<div class="row">
+		  		 	<div class="alert alert-success" role="alert">
+		  		 		<h5>${form.NewUserCompleted}</h5>
+		  		 	</div> 		 
+		  		 </div>
+		</c:if>
+  		 
+  		 <c:if test="${!empty form.NewUserFail}">
+				<div class="row">
+		  		 	<div class="alert alert-danger" role="alert">
+		  		 		<h5>${form.NewUserFail}</h5>
+		  		 	</div> 		 
+		  		 </div>
+		</c:if>
+
 						<legend>Formulaire de connexion</legend>
 
 						<label for="email">Adresse courriel <span class="requis">*</span></label>
