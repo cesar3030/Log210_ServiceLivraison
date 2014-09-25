@@ -139,7 +139,7 @@
 							de naissance*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" id="brithday"
-								name="birthday" placeholder="JJ/MM/AAAA"
+								name="birthday" placeholder="AAAA-MM-JJ"
 								onblur="verifierDate();" required />
 
 
