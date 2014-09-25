@@ -11,6 +11,23 @@
   		 
   		 <div class="col-md-offset-1 col-md-11 "> 	
   		 
+  		 
+  		 <c:if test="${!empty form.UpdateCompleted}">
+				<div class="row">
+		  		 	<div class="alert alert-success" role="alert">
+		  		 		<h5>${form.UpdateCompleted}</h5>
+		  		 	</div> 		 
+		  		 </div>
+		</c:if>
+  		 
+  		 <c:if test="${!empty form.UpdateFail}">
+				<div class="row">
+		  		 	<div class="alert alert-danger" role="alert">
+		  		 		<h5>${form.UpdateFail}</h5>
+		  		 	</div> 		 
+		  		 </div>
+		</c:if>
+  		 
   		 <div class="row">
   		 	<label for="name" class="col-md-3 control-label">Nom:</label>
       	 	<div class="col-md-8">
