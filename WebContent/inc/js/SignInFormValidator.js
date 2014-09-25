@@ -11,8 +11,15 @@ function verifierDate() {
 			&& ma_date.getDate() == date_temp[2]) {
 
 	} else {
-		document.getElementById('brithday').value = "";
-		alert('Veuillez rentrer une date correct');
+
+		if (date_pas_sure == "") {
+
+		} else {
+
+			document.getElementById('brithday').value = "";
+			alert('Veuillez rentrer une date correct');
+		}
+
 	}
 
 }
@@ -20,11 +27,17 @@ function verifierDate() {
 function verifierNumeroTel() {
 	var numtel = document.getElementById('phone').value;
 
+	if (numtel == "") {
+
+	} else {
+
+	}
+
 	if (numtel.length == 10) {
 
 	} else {
 		document.getElementById('phone').value = "";
-		alert('Veuillez rentrer une date correct');
+		alert('Veuillez rentrer un numéro correct');
 	}
 
 }
@@ -33,10 +46,15 @@ function concordanceMdp() {
 	var mdp = document.getElementById('password1').value;
 	var mdp2 = document.getElementById('password2').value;
 
-	if (mdp != mdp2) {
+	if (mdp2 == "") {
 
-		alert('Les mots de passe de concordent pas.');
-		document.getElementById('password1').value = "";
-		document.getElementById('password2').value = "";
+	} else {
+
+		if (mdp != mdp2) {
+
+			alert('Les mots de passe de concordent pas.');
+			document.getElementById('password1').value = "";
+			document.getElementById('password2').value = "";
+		}
 	}
 }
