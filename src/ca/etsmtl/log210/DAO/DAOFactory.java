@@ -27,8 +27,8 @@ public class DAOFactory {
     }
 
     /*
-     * M�thode charg�e de r�cup�rer les informations de connexion � la base de
-     * donn�es, charger le driver JDBC et retourner une instance de la Factory
+     * M���thode charg���e de r���cup���rer les informations de connexion ��� la base de
+     * donn���es, charger le driver JDBC et retourner une instance de la Factory
      */
     public static DAOFactory getInstance() throws DAOConfigurationException {
         Properties properties = new Properties();
@@ -50,7 +50,7 @@ public class DAOFactory {
             driver = properties.getProperty( PROPERTY_DRIVER );
             nomUtilisateur = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
             motDePasse = properties.getProperty( PROPERTY_MOT_DE_PASSE );
-            System.out.println(driver+nomUtilisateur+motDePasse+url);
+           
         } catch ( IOException e ) {
             throw new DAOConfigurationException( "Impossible de charger le fichier properties " + FICHIER_PROPERTIES, e );
         }
@@ -66,7 +66,7 @@ public class DAOFactory {
         return instance;
     }
 
-    /* M�thode charg�e de fournir une connexion � la base de donn�es */
+    /* M���thode charg���e de fournir une connexion ��� la base de donn���es */
      /* package */ Connection getConnection() throws SQLException {
         return DriverManager.getConnection( url, username, password );
     }

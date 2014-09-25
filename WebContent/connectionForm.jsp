@@ -57,7 +57,7 @@
 			</div>
 
 
-			<%-- V������������������������������������������������������������������������������������������������������������������������������������������������������������������rification de la pr������������������������������������������������������������������������������������������������������������������������������������������������������������������sence d'un objet utilisateur en session --%>
+			<%-- V������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������rification de la pr������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������sence d'un objet utilisateur en session --%>
 			<c:if test="${!empty sessionScope.userSession}">
 				<%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
 				<p class="succes">Vous etes connecte(e) avec l'adresse :
@@ -100,11 +100,12 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="emai" class="col-lg-4 control-label">Courriel*:</label>
+					<div id="email_part" class="form-group">
+						<label for="email_subscribe" class="col-lg-4 control-label">Courriel*:</label>
 						<div class="col-lg-8">
-							<input type="email" class="form-control" name="email" id="email"
-								placeholder="Courriel" required />
+							<input type="email" class="form-control" name="email" id="email_subscribe"
+								placeholder="Courriel" onblur="Requete_AJAX_Email();" required />
+							<div id="error-message"></div>
 						</div>
 					</div>
 
@@ -167,8 +168,10 @@
 	</div>
 </div>
 
-<!-- J'inclus le script qui v������������������������������������������������������rifie le formulaire d'inscription lorsqu'il est soumis -->
+<!-- J'inclus le script qui v������������������������������������������������������������������������������������������������������������������������������������������������������������������rifie le formulaire d'inscription lorsqu'il est soumis -->
 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
 
+<!-- Scripte qui implement les methodes pour verifier en ajax si l'email inscrit dans le formulaire d'inscription n'est pas deja utilise -->
+<script src="<c:url value="/inc/js/ajax.js"/>"></script>
 
 

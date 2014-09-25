@@ -12,7 +12,8 @@ import ca.etsmtl.log210.Beans.UserAccountBean;
 public class UserAccountDaoImpl implements UserAccountDao {
 
 	private DAOFactory daoFactory;
-	private static final String SQL_GET_USER_ACCOUNT = "" + "SELECT * "
+	private static final String SQL_GET_USER_ACCOUNT = "" 
+			+ "SELECT * "
 			+ "FROM tbUserAccount " + "WHERE USR_email=? "
 			+ "AND USR_password=?";
 
@@ -22,9 +23,13 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			+ "WHERE USR_idUser=?";
 
 	private static final String SQL_NEW_USER_ACCOUNT = ""
-
 			+ "INSERT INTO `tbUserAccount`( `USR_name`, `USR_firstName`, `USR_homeAddress`, `USR_email`, `USR_phoneNumber`, `USR_password`, `USR_rights`, `USR_birthday`)  "
 			+ "VALUES( ?,?,?,?,?,?,?,?) ";
+	
+	private static final String SQL_TEST_EMAIL = "" 
+			+ "SELECT * "
+			+ "FROM tbUserAccount " 
+			+ "WHERE USR_email=? ";
 
 	public UserAccountDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
@@ -38,14 +43,14 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		UserAccountBean userAccount = new UserAccountBean();
 
 		try {
-			/* R���cup���ration d'une connexion depuis la Factory */
+			/* R���������cup���������ration d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_USER_ACCOUNT, false, email, password);
 
 			resultSet = preparedStatement.executeQuery();
 
-			/* Parcours de la ligne de donn���es de l'���ventuel ResulSet retourn��� */
+			/* Parcours de la ligne de donn���������es de l'���������ventuel ResulSet retourn��������� */
 			while (resultSet.next()) {
 				userAccount = mapTableauApplication(resultSet);
 			}
@@ -67,7 +72,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		int codeRetour;
 
 		try {
-			/* R���cup���ration d'une connexion depuis la Factory */
+			/* R���������cup���������ration d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_NEW_USER_ACCOUNT, false, newUser.getName(),
@@ -95,7 +100,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		int codeRetour;
 
 		try {
-			/* R���cup���ration d'une connexion depuis la Factory */
+			/* R���������cup���������ration d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_MODIFY_USER_ACCOUNT, false,
@@ -113,6 +118,53 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		}
 		return codeRetour;
 	}
+	
+	@Override
+	/**
+	 * Methode qui demande a la BD de lui renvoyer le compte lie a l'email passe en parametre.
+	 * Si null est renvoyer, cela veut dire qu'il n'y a pas d'utilisateur lie a ce compte donc l'adresse email peut etre utilisee.
+	 * Si une instance UserAccountBean est renvoyé, cela veut dit qu'il y a deja un utilisateur qui a cet email. Dans ce cas on retourne true.
+	 */
+	public boolean emailAlreadyUsed(String testingEmail) 
+	{				
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		UserAccountBean userAccount = null;
+
+		try {
+			/* R���������cup���������ration d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_TEST_EMAIL, false, testingEmail);
+System.out.println(preparedStatement);
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donn���������es de l'���������ventuel ResulSet retourn��������� */
+			while (resultSet.next()) {
+				userAccount = mapTableauApplication(resultSet);
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		System.out.println(userAccount);
+		if(userAccount==null)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+		
+		
+		
+	}
+
 
 	/**
 	 * Methode who create a new {@link UserAccountBean} and who set the values
@@ -141,5 +193,6 @@ public class UserAccountDaoImpl implements UserAccountDao {
 
 		return userAccountFromBD;
 	}
+
 
 }

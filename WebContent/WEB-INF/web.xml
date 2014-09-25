@@ -77,6 +77,15 @@
     <url-pattern>/UpdateUserAccount</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>CheckEmailNotUsed</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.CheckEmailNotUsed</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckEmailNotUsed</servlet-name>
+    <url-pattern>/CheckEmailNotUsed</url-pattern>
+  </servlet-mapping>
+  
   
   <filter>
     <filter-name>ApplicationFilter</filter-name>
