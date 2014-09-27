@@ -95,7 +95,9 @@
 							<button type="button" class="btn btn-success">Finaliser Création</button>
 		
 						</div>
+						</form>
 				</div>
+			</div>
 			</div>
 		  		 
   		 
