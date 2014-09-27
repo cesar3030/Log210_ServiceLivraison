@@ -22,7 +22,7 @@ public class UserAccountBean
 	private String email;
 	private String phoneNumber;
 	private String password;
-	//User's rights (0:not connected, 1:client, 2:Restarter, 3:administrator )
+	//Regles des droits (0:client, 1:restaurateur, 2:entrepreneur )
 	private int    userRights=0;
 	private int userId;
 	
