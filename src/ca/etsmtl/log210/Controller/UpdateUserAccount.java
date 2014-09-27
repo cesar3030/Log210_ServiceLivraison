@@ -36,24 +36,24 @@ public class UpdateUserAccount extends HttpServlet {
 	}
     
     /**
-     * Cette m������������������������������������������������������thode va traiter la requete Post qui a ������������������������������������������������������t������������������������������������������������������ envoy������������������������������������������������������ par le formulaire de de modification de compte de la page ������������������myAccount.jsp
-     * Elle teste la validit������������������������������������������������������ du format de l'email et du mot de passe. Si ils ont un bon format, on fait la requete BD.
+     * Cette mthode va traiter la requete Post qui a t envoy par le formulaire de de modification de compte de la page myAccount.jsp
+     * Elle teste la validit du format de l'email et du mot de passe. Si ils ont un bon format, on fait la requete BD.
      * Sinon on retourne a la page du formulaire et on affiche les erreurs pour que l'utilisateur se corrige.
      */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
     	
-	    	//On cr������������������������������������������������������������������������������������������������������������ un UserAccountBean qui va nous servir a stocker le email et le mot de passe saisi dans le formulaire de connexion
+	    	//On cr un UserAccountBean qui va nous servir a stocker le email et le mot de passe saisi dans le formulaire de connexion
 	    	UserAccountBean user= new UserAccountBean();
 	 
 	    			
 	    	request.setCharacterEncoding("UTF-8");
 	    	
-	    	//On r������������������������������������������������������cup������������������������������������������������������re la variable de session
+	    	//On rcupre la variable de session
 		HttpSession session = request.getSession(); 
 	   	UserAccountBean userAlreadyConnected= (UserAccountBean) session.getAttribute("userSession");
 			
-			// On set newUser les valeurs rentr������������������������������������������������������es dans le formulaire ok nickel.
+			// On set newUser les valeurs rentres dans le formulaire ok nickel.
 
 			user.setEmail(userAlreadyConnected.getEmail());
 			user.setPassword(UserAccountBean.getValeurChamp( request, PASS ));
@@ -62,19 +62,19 @@ public class UpdateUserAccount extends HttpServlet {
 			user.setUserId( userAlreadyConnected.getUserId());
 	    	
         
-        //cette ma va nous servir a socker le r������������������������������������������������������sultat du test de la validit������������������������������������������������������ du format de l'email et du mot de passe 
+        //cette ma va nous servir a socker le rsultat du test de la validit du format de l'email et du mot de passe 
         Map<String,String> errors;
         
-        //Je v������������������������������������������������������rifie le format de l'email et du mot de passe. Si il y a des erreurs, elles seront enregistr������������������������������������������������������es dans une map 
+        //Je vrifie le format de l'email et du mot de passe. Si il y a des erreurs, elles seront enregistres dans une map 
         // qu'on renverra au formulaire et qui affichera le contenu de la map
 		errors=user.verifyValidityOfDatas(user.getEmail(), user.getPassword());
 		
 		 
 
-		//Si les donn������������������������������������������������������es du formulaires sont au bon format, je fais la requete au serveur
+		//Si les donnes du formulaires sont au bon format, je fais la requete au serveur
 		if ( errors.isEmpty() ) 
 		{
-			//Ici on va stocker le retour de l'update(si 0 tout s'est bien pass������������������, si 1 il y a eu un probl������������������me)
+			//Ici on va stocker le retour de l'update(si 0 tout s'est bien pass, si 1 il y a eu un problme)
 			int returnedValue=0;		
 			
 			returnedValue=userAccountDao.modifyUserAccount(user);			
@@ -82,7 +82,7 @@ public class UpdateUserAccount extends HttpServlet {
 			//Si la requete retourne une erreur
 			if(returnedValue==0)
 			{
-				//on cree une erreur a afficher et on l'ins������������������re dans la map qu'on utilise pour afficher les erreurs
+				//on cree une erreur a afficher et on l'insre dans la map qu'on utilise pour afficher les erreurs
 				errors.put("UpdateFail","Votre compte n'a pas pu etre mis a jours. Veuillez reessayer.");
 				
 				//On set la map d'erreurs pour pouvoir les afficher sur le formulaire
@@ -95,11 +95,11 @@ public class UpdateUserAccount extends HttpServlet {
 			else
 			{
 				
-				//Si les informations ont ������������������t������������������ updat������������������es dans la BD alors on set le user avec ses valeurs modifi������������������s 
-				//a la variable global qui contient le bean de l'utilisateur connect������������������
+				//Si les informations ont t updates dans la BD alors on set le user avec ses valeurs modifis 
+				//a la variable global qui contient le bean de l'utilisateur connect
 				
 				
-				//On r������������������cup������������������re l'ancienne version
+				//On rcupre l'ancienne version
 				UserAccountBean userConnected= (UserAccountBean) session.getAttribute("userSession");
 				
 				//On lui set les nouvelles valeurs
@@ -109,7 +109,7 @@ public class UpdateUserAccount extends HttpServlet {
 				
 				
 
-				//On set le bean user avec les valeurs modifi������������������es dans la variable globale
+				//On set le bean user avec les valeurs modifies dans la variable globale
 	            session.setAttribute( SESSION_USER, userConnected );
 	            
 	            errors.put("UpdateCompleted","Votre compte a ete mis a jours correctement");
