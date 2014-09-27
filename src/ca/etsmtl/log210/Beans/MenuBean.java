@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class restaurantBean {
+public class MenuBean {
 	private int idMenu;
 	private int idRestaurant;
 	private String nameRestaurant;
