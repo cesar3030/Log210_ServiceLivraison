@@ -18,7 +18,7 @@ public class UpdateUserAccount extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	private static final String EMAIL  = "email";
     private static final String PASS   = "password2"; 
-    public static final String MYACCOUNT_PAGE = "/Restrict/MyAccount.jsp";
+    public static final String MYACCOUNT_PAGE = "/Restrict/Client/MyAccount.jsp";
     public static final String SESSION_USER = "userSession";    
     public static final String ERRORS_FORM         = "form";
     
@@ -36,7 +36,7 @@ public class UpdateUserAccount extends HttpServlet {
 	}
     
     /**
-     * Cette mthode va traiter la requete Post qui a t envoy par le formulaire de de modification de compte de la page myAccount.jsp
+     * Cette methode va traiter la requete Post qui a t envoy par le formulaire de de modification de compte de la page myAccount.jsp
      * Elle teste la validit du format de l'email et du mot de passe. Si ils ont un bon format, on fait la requete BD.
      * Sinon on retourne a la page du formulaire et on affiche les erreurs pour que l'utilisateur se corrige.
      */
