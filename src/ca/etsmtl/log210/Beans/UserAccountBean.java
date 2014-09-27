@@ -66,12 +66,12 @@ public class UserAccountBean
         }
         
 
-        /* Initialisation du r��sultat global de la validation. */
+        /* Initialisation du resultat global de la validation. */
         if ( errors.isEmpty() ) 
         {        	
-        	results = "Succ��s de la connexion.";
+        	results = "Succes de la connexion.";
         } else {
-        	results = "��chec de la connexion.";
+        	results = "echec de la connexion.";
         }
         System.out.println("erreurs du form:"+errors);
         
@@ -101,7 +101,7 @@ public class UserAccountBean
     }
 
     /*
-     * Ajoute un message correspondant au champ sp��cifi�� �� la map des erreurs.
+     * Ajoute un message correspondant au champ spe la map des erreurs.
      */
     private void setErreur( String champ, String message ) {
         errors.put( champ, message );
