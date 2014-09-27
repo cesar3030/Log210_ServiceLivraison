@@ -22,8 +22,7 @@ public class UserAccountBean
 	private String email;
 	private String phoneNumber;
 	private String password;
-	
-	//Regles des droits (0:client, 1:restaurateur, 2:entrepreneur )
+	//User's rights (0:not connected, 1:client, 2:Restarter, 3:administrator )
 	private int    userRights=0;
 	private int userId;
 	
