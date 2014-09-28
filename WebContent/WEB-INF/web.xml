@@ -96,4 +96,27 @@
     <url-pattern>/Restrict/*</url-pattern>
   </filter-mapping>
   
+  
+  
+    <servlet>
+    <servlet-name>ShowAllMenuResto</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowAllMenuResto</servlet-name>
+    <url-pattern>/ShowAllMenuResto</url-pattern>
+  </servlet-mapping>
+  
+  
+     <servlet>
+    <servlet-name>AddMenuFormulaire</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddMenuFormulaire</servlet-name>
+    <url-pattern>/AddMenuFormulaire</url-pattern>
+  </servlet-mapping>
+  
+  
+  
 </web-app>
