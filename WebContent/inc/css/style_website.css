@@ -80,11 +80,3 @@ body {
 	  border-top-right-radius: 0;
 	}
 }
-
-/* Classe utilisee pour centrer les icines dans les tableaux de la page ADMIN gestion des restaurants*/
-.center 
-{ 
-	float: none; 
-	margin-left: auto; 
-	margin-right: auto; 
-}
