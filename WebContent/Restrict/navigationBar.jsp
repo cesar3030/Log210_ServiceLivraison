@@ -28,7 +28,7 @@
 
  <!--  Barre de navigation des clients ( droit 0) -->
  <c:if test="${sessionScope.userSession.userRights==0}">
-   	<li><a href="<c:url value="/Search"/>">Recherche</a></li>
+ 	<li><a href="<c:url value="/MyAccount"/>"> Trouver un restaurant</a></li>
     <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li>    
     <li><a href="<c:url value="/Logout"/>">Deconnexion</a></li>
  </c:if> 
@@ -37,7 +37,8 @@
  
  <!--  Barre de navigation des restaurateurs ( droit 1) -->
   <c:if test="${sessionScope.userSession.userRights==1}">
-    <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li>    
+    <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li>
+    <li><a href="<c:url value="/MyAccount"/>">Mes Restaurants</a></li>          
     <li><a href="<c:url value="/Logout"/>">Deconnexion</a></li>
  </c:if> 
  
@@ -45,7 +46,9 @@
  
  <!--  Barre de navigation des administrateurs (2) -->
   <c:if test="${sessionScope.userSession.userRights==2}">
-    <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li>    
+    <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li> 
+    <li><a href="<c:url value="/MyAccount"/>">Gerer Restaurants</a></li> 
+    <li><a href="<c:url value="/MyAccount"/>">Gerer Restaurateurs</a></li>       
     <li><a href="<c:url value="/Logout"/>">Deconnexion</a></li>
  </c:if> 
   

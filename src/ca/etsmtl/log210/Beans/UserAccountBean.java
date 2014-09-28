@@ -23,7 +23,9 @@ public class UserAccountBean
 	private String phoneNumber;
 	private String password;
 	//Regles des droits (0:client, 1:restaurateur, 2:entrepreneur )
-	private int    userRights=0;
+	
+	// PROBLEME AVEC LES DROITS UTILISATEURS
+	private int    userRights;
 	private int userId;
 	
 	
