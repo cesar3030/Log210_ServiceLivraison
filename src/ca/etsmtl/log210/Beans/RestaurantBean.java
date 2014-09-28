@@ -3,20 +3,18 @@ package ca.etsmtl.log210.Beans;
 
 public class RestaurantBean 
 {
-	private int idResaturant;
+	private int idRestaurant;
+
 	private int idUserAccountRestaurateur;	//L'identifiant du restaurateur en charge de ce restaurant
+	private String name;
 	private String address;
 	private String phoneNumber;
 	private String kindOfFood;
 	private boolean visible;	//Si visible = 1 cela veut dire que le restaurant est actif. Si la valeur est 0, cela veut dire que le resaurant est cache car il a ete supprimie.
 	
 	
-	public int getIdResaturant() {
-		return idResaturant;
-	}
-
-	public void setIdResaturant(int idResaturant) {
-		this.idResaturant = idResaturant;
+	public void setIdRestaurant(int idRestaurant) {
+		this.idRestaurant = idRestaurant;
 	}
 
 	public int getIdUserAccountRestaurateur() {
@@ -58,5 +56,18 @@ public class RestaurantBean
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	public int getIdRestaurant() {
+		return idRestaurant;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 }

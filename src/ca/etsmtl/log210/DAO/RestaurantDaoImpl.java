@@ -3,26 +3,176 @@
  */
 package ca.etsmtl.log210.DAO;
 
+import static ca.etsmtl.log210.DAO.DAOUtilitaire.fermeturesSilencieuses;
+import static ca.etsmtl.log210.DAO.DAOUtilitaire.initialisationRequetePreparee;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.RestaurantBean;
+import ca.etsmtl.log210.Beans.UserAccountBean;
 
 /**
  * @author Iron_Cesar
  *
  */
 public class RestaurantDaoImpl implements RestaurantDao {
+	
+	
+	private DAOFactory daoFactory;
+	
+	private static final String SQL_GET_ACTIVE_RESTAURANTS = "" 
+			+ "SELECT * "
+			+ "FROM tbrestaurant " 
+			+ "WHERE  RES_visible=1";
+	
+	private static final String SQL_GET_INACTIVE_RESTAURANTS = "" 
+			+ "SELECT * "
+			+ "FROM tbrestaurant " 
+			+ "WHERE  RES_visible=0";
+	
+	private static final String SQL_NEW_RESTAURANT = "" 
+			+ "INSERT INTO `tbrestaurant`"
+			+ "(RES_idUserAccount, RES_name, RES_address, "
+			+ "RES_phoneNumber, RES_kindOfFood, RES_visible) "
+			+ "VALUES (?,?,?,?,?,1)";
+	
+	
+	
+	public RestaurantDaoImpl(DAOFactory daoFactory) 
+	{
+		this.daoFactory = daoFactory;		
+	}
+	
 
 	@Override
 	public ArrayList<RestaurantBean> getActiveRestaurants() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<RestaurantBean> restaurantList = new ArrayList<RestaurantBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ACTIVE_RESTAURANTS, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				restaurantList.add(mapRestaurateur(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return restaurantList;
 	}
+
+
 
 	@Override
 	public ArrayList<RestaurantBean> getInnactiveRestaurants() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<RestaurantBean> restaurantList = new ArrayList<RestaurantBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_INACTIVE_RESTAURANTS, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				restaurantList.add(mapRestaurateur(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return restaurantList;
 	}
+	
+	
+	@Override
+	public boolean addNewRestaurant(RestaurantBean newRestaurant) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* R���������cup���������ration d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_NEW_RESTAURANT, false,newRestaurant.getIdUserAccountRestaurateur(),
+					newRestaurant.getName(),newRestaurant.getAddress(),newRestaurant.getPhoneNumber(),newRestaurant.getKindOfFood());
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
+
+	
+	private RestaurantBean mapRestaurateur(ResultSet resultSet) throws SQLException 
+	{
+		RestaurantBean restaurant = new RestaurantBean();
+		
+		restaurant.setIdRestaurant(resultSet.getInt("RES_idRestaurant"));
+		restaurant.setIdUserAccountRestaurateur(resultSet.getInt("RES_idUserAccount"));
+		restaurant.setName(resultSet.getString("RES_name"));
+		restaurant.setAddress(resultSet.getString("RES_address"));
+		restaurant.setPhoneNumber(resultSet.getString("RES_phoneNumber"));
+		restaurant.setKindOfFood(resultSet.getString("RES_kindOfFood"));
+		restaurant.setVisible(resultSet.getBoolean("RES_visible"));		
+		
+		return restaurant;
+	}
+
+
+	
+	
+
 
 }

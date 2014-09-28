@@ -12,8 +12,15 @@ public interface RestaurantDao
 	ArrayList<RestaurantBean> getActiveRestaurants();
 	
 	/**
-	 * Methode qui retourne les restaurants innactifs, c'est a dire ceux qui n'ont pas été supprimés par le gerant.
+	 * Methode qui retourne les restaurants innactifs, c'est a dire ceux qui n'ont pas ete supprimés par le gerant.
 	 */
 	ArrayList<RestaurantBean> getInnactiveRestaurants();
+	
+	/**
+	 * Methode qui ajoute dans la BD un nouveau restaurant
+	 * @param newRestaurant
+	 * @return True ou false pour savoir si la requete s'est bien executee.
+	 */
+	boolean addNewRestaurant(RestaurantBean newRestaurant);
 	
 }

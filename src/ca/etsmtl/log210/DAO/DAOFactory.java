@@ -73,7 +73,12 @@ public class DAOFactory {
      
      public UserAccountDao getUserAccountDao()
      {
-    	 return new UserAccountDaoImpl(this);     
+    	 	return new UserAccountDaoImpl(this);     
+     }
+     
+     public RestaurantDao getRestaurantDao()
+     {
+    	 	return new RestaurantDaoImpl(this);     
      }
      
     /* 

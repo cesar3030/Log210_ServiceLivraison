@@ -73,11 +73,12 @@
 			</div>
 
 
-			<%-- V������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������rification de la pr������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������sence d'un objet utilisateur en session --%>
+			<%-- Verification de la presence d'un objet UserAccount en session --%>
 			<c:if test="${!empty sessionScope.userSession}">
+				
 				<%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-				<p class="succes">Vous etes connecte(e) avec l'adresse :
-					${sessionScope.userSession.email}</p>
+				<p class="succes">Vous etes connecte(e) avec l'adresse : ${sessionScope.userSession.email}</p>
+				
 			</c:if>
 
 
@@ -184,7 +185,7 @@
 	</div>
 </div>
 
-<!-- J'inclus le script qui v������������������������������������������������������������������������������������������������������������������������������������������������������������������rifie le formulaire d'inscription lorsqu'il est soumis -->
+
 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
 
 <!-- Scripte qui implement les methodes pour verifier en ajax si l'email inscrit dans le formulaire d'inscription n'est pas deja utilise -->
