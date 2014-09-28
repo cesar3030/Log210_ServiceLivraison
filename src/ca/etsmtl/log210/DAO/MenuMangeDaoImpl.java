@@ -1,4 +1,4 @@
-package ManageMenu;
+package ca.etsmtl.log210.DAO;
 
 import static ca.etsmtl.log210.DAO.DAOUtilitaire.fermeturesSilencieuses;
 import static ca.etsmtl.log210.DAO.DAOUtilitaire.initialisationRequetePreparee;

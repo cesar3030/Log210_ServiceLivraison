@@ -4,6 +4,24 @@
 
 <jsp:include page="/header.jsp"></jsp:include>	
   		 
-  		 <p>connecte au site<p> 
+  		 <p>Bonjour vous etes desormais connecte au site<p> 
+  		 <p>${sessionScope.userSession.email}<p>
+  		 
+  		<!--  Client ( droit 0) -->
+  		<c:if test="${sessionScope.userSession.userRights==0}">
+ 		</c:if> 
+ 
+ 		<!--  restaurateurs ( droit 1) -->
+  		<c:if test="${sessionScope.userSession.userRights==1}">
+ 		</c:if>
+ 		
+ 		<!--  administrateurs (2) -->
+ 		 <c:if test="${sessionScope.userSession.userRights==2}">
+ 		</c:if>
+  
+ 
+ 
+ 
+ 
 	
 <jsp:include page="/footer.jsp"></jsp:include>
