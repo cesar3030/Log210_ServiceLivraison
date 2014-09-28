@@ -47,8 +47,8 @@
  <!--  Barre de navigation des administrateurs (2) -->
   <c:if test="${sessionScope.userSession.userRights==2}">
     <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li> 
-    <li><a href="<c:url value="/MyAccount"/>">Gerer Restaurants</a></li> 
-    <li><a href="<c:url value="/MyAccount"/>">Gerer Restaurateurs</a></li>       
+    <li><a href="<c:url value="/RestaurantManagement"/>">Gerer Restaurants</a></li> 
+    <li><a href="<c:url value="/RestaurateurManagement"/>">Gerer Restaurateurs</a></li>       
     <li><a href="<c:url value="/Logout"/>">Deconnexion</a></li>
  </c:if> 
   

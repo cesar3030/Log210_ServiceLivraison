@@ -84,21 +84,9 @@
   <servlet-mapping>
     <servlet-name>CheckEmailNotUsed</servlet-name>
     <url-pattern>/CheckEmailNotUsed</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  
   
-  
-  <filter>
-    <filter-name>ApplicationFilter</filter-name>
-    <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>ApplicationFilter</filter-name>
-    <url-pattern>/Restrict/*</url-pattern>
-  </filter-mapping>
-  
-  
-  
-    <servlet>
+  <servlet>
     <servlet-name>ShowAllMenuResto</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
   </servlet>
@@ -108,7 +96,7 @@
   </servlet-mapping>
   
   
-     <servlet>
+  <servlet>
     <servlet-name>AddMenuFormulaire</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
   </servlet>
@@ -117,6 +105,42 @@
     <url-pattern>/AddMenuFormulaire</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>RestaurateurManagement</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.RestaurateurManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestaurateurManagement</servlet-name>
+    <url-pattern>/RestaurateurManagement</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>RestaurantManagement</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.RestaurantManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestaurantManagement</servlet-name>
+    <url-pattern>/RestaurantManagement</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewRestaurant</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.NewRestaurant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewRestaurant</servlet-name>
+    <url-pattern>/NewRestaurant</url-pattern>
+  </servlet-mapping>
+  
+    
+  <filter>
+    <filter-name>ApplicationFilter</filter-name>
+    <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ApplicationFilter</filter-name>
+    <url-pattern>/Restrict/*</url-pattern>
+  </filter-mapping>
   
   
 </web-app>
