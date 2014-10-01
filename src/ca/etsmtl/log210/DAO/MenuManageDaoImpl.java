@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import ca.etsmtl.log210.Beans.MenuBean;
 
-public class MenuMangeDaoImpl implements MenuManageDao  {
+public class MenuManageDaoImpl implements MenuManageDao  {
 	
 	static final String SQL_ADD_NEW_MENU = ""
 			+ "INSERT INTO `tbMenu`( `MEN_idRestaurant`, `MEN_name`, `MEN_description`, `MEN_visible`)  "
