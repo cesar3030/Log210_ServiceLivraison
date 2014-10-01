@@ -6,13 +6,11 @@
 
 
   <!-- Affiche tous les menus par restaurant-->
-  
-			<form name="showAllMenuForm" class="form-horizontal" role="form" method="post"
-				action="<c:url value="/Subscribe"/>">
-				
-				<div class="modal-header">
-					<h3>Tous les menus du restaurant</h3>
-				</div>
+  				
+		<div class="modal-header">
+				<h3>Tous les menus du Restaurant : Afficher nameRestaurant</h3>
+		</div>
+			
 				 		  
   		  <c:if test="${!empty returnMessage.succes}">
 				<div class="row">
@@ -20,7 +18,8 @@
 		  		 		<h5 class="text-center" >${returnMessage.succes}</h5>
 		  		 	</div> 		 
 		  		 </div>
-		</c:if>
+		 </c:if>
+  		 
   		 
   		 <c:if test="${!empty returnMessage.fail}">
 				<div class="row">
@@ -29,33 +28,14 @@
 		  		 	</div> 		 
 		  		 </div>
 		</c:if>
-			 <c:if test="${empty returnMessage}">
+		
+		<c:if test="${empty returnMessage}">
 				<br>
 		 	    <br>
 		</c:if>  
-				
-			  	<div class="row"> 	
-					<!-- BOUTON -->
-						<div class="btn-group">
-							<label for="nameMenu" class="col-lg-4 control-label">Nom du menu*:</label><button type="button" class="btn btn-info">Menu1</button>
-								<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-									<span class="caret"></span>
-									<span class="sr-only">Toggle Dropdown</span>
-								</button>
-																				  
-										  	<c:forEach items="${activeMenuRestaurantList}" var="activeMenu">
-						  		 				<tr>
-						  		 					<li><a href="#"></a></li>
-										   		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
-									  		 	</tr>			  		 	
-									  	   </c:forEach> 
-										  <ul class="dropdown-menu" role="menu">
-										    
-										  </ul>
-										</div>
-							</div>
+										  		
 								
-									  <div class="row">
+			<div class="row">
   		 	<div class="col-md-8 col-md-offset-2">
 		  		 <div class="table-responsive">
 					  <table class="table table-striped">

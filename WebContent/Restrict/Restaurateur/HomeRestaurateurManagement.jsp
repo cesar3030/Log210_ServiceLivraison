@@ -7,7 +7,7 @@
 
 		 <div class="row">
   		  	<div class="col-md-12"> 		 
-  		 		 <h2 class="text-center" >Liste des restaurants</h1>  		 		 
+  		 		 <h2 class="text-center" >Ma Liste de restaurants</h1>  		 		 
   		 	</div>
   		  </div>
   		  <c:if test="${!empty returnMessage.succes}">
@@ -31,16 +31,7 @@
 		 	    <br>
 		</c:if>  		  
   		  
-  		 <div class="row">
-  		 	<div class="col-md-5 col-md-offset-1">  
-  				 <h4>Mes restaurants :</h2> 
-  		  	</div>
-  		 </div>
-  		  
-  		  <br>
-  		  <br>
-  		  
-  		  <div class="row">
+   		  <div class="row">
   		 	<div class="col-md-8 col-md-offset-2">
 		  		 <div class="table-responsive">
 					  <table class="table table-striped">
