@@ -64,9 +64,9 @@
 					
 		
 					
-						<div class="modal-footer">
+						<div class="col-md-5 col-md-offset-5">
 		
-						<button type="button" class="btn btn-danger">Retourner a la liste des restaurants</button>		
+						<button type="button" class="btn btn-info">Retourner a la liste des restaurants</button>		
 						</div>
 						</form>
 		  		 
