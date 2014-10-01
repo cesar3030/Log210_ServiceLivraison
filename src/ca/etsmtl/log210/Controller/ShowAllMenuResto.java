@@ -24,7 +24,7 @@ public class ShowAllMenuResto extends HttpServlet {
     
     
     private int idRestauranReceived=1;
-    //private int numéroRestauteur=1;
+   
     
     
    /**
@@ -33,12 +33,13 @@ public class ShowAllMenuResto extends HttpServlet {
     */
 	 public void init() throws ServletException 
 	 {
+		 	
 		 	System.out.println("JE suis dans init de  ShowAllMenuResto");
 	    	this.menuDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getMenuRestaurantDao();
 	 }
 	
 	 
-	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
+	 public synchronized void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 System.out.println("JE suis dans doGet de ShowAllMenuResto");
 		 ArrayList<MenuBean> activeMenuRestaurantList;
@@ -56,7 +57,7 @@ public class ShowAllMenuResto extends HttpServlet {
 	 }
 	 
 	
-	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
+	public synchronized void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 System.out.println("JE suis dans doPost de ShowAllMenuResto");
 		 ArrayList<MenuBean>  activeMenuRestaurantList;

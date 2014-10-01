@@ -15,21 +15,21 @@ import ca.etsmtl.log210.Beans.RestaurantBean;
 public class MenuManageDaoImpl implements MenuManageDao  {
 	
 	static final String SQL_ADD_NEW_MENU = ""
-			+ "INSERT INTO `tbMenu`( `MEN_idRestaurant`, `MEN_name`, `MEN_description`, `MEN_visible`)  "
+			+ "INSERT INTO `tbmenu`( `MEN_idRestaurant`, `MEN_name`, `MEN_description`, `MEN_visible`)  "
 			+ "VALUES( ?,?,?,?) ";
 	
 	
 	static final String SQL_GET_ALL_ACTIVE_MENU_RESTAURANT = "" 
 			+ "SELECT * "
-			+ "FROM tbMenu " + "WHERE MEN_idRestaurant=? ";
+			+ "FROM tbmenu " + "WHERE MEN_idRestaurant=? ";
 	
 	static final String SQL_GET_ALL_INACTIVE_MENU_RESTAURANT = "" 
 			+ "SELECT * "
-			+ "FROM tbMenu " + "WHERE MEN_idRestaurant=? and MEN_visible=?";
+			+ "FROM tbmenu " + "WHERE MEN_idRestaurant=? and MEN_visible=?";
 
 	
 	static final String SQL_MODIFY_MENU_RESTAURANT = ""
-			+ "UPDATE tbMenu "
+			+ "UPDATE tbmenu "
 			+ "SET MEN_name=?, MEN_description=?"
 			+ "WHERE MEN_idMenu=? and MEN_idRestaurant=?"  ;
 
@@ -41,11 +41,7 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 
 	private DAOFactory daoFactory;
 	
-	private Connection connexion = null;
-	private PreparedStatement preparedStatement = null;
-	private ResultSet resultRequest = null;
 	
-		
 	
 	public MenuManageDaoImpl(DAOFactory daoFactory) 
 	{
@@ -67,7 +63,9 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 
 	@Override
 	public ArrayList<MenuBean> showAllActiveMenuForOneResto(int restaurantNumber) {
-		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		ArrayList<MenuBean> activeMenuRestaurantList = new ArrayList<MenuBean>();
 		
 		try {
@@ -80,15 +78,15 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 			
 			//ICIIII TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 
-			resultRequest = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 			System.out.println("JE SUIS DANS MENU MANAGE DAO IMP");
 			System.out.println(preparedStatement.executeQuery());
-			System.out.println(resultRequest);
+			System.out.println(resultSet);
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
-			while (resultRequest.next()) 
+			while (resultSet.next()) 
 			{
-				activeMenuRestaurantList.add(mapMenuBean(resultRequest));
+				activeMenuRestaurantList.add(mapMenuBean(resultSet));
 				for(int i=0;i<3;i++){
 					System.out.println(activeMenuRestaurantList.get(i));
 				}
@@ -102,13 +100,16 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 		} 
 		finally 
 		{
-			fermeturesSilencieuses(resultRequest, preparedStatement, connexion);
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
+		System.out.println(activeMenuRestaurantList);
 		return activeMenuRestaurantList;
 	}
 	
 	public ArrayList<MenuBean> showAllInactiveMenuForOneResto(int restaurantNumber) {
-		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		ArrayList<MenuBean> inactiveMenuRestaurantList = new ArrayList<MenuBean>();
 		try {
 			/* Faire une connexion depuis la Factory */
@@ -120,12 +121,12 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 			
 			//ICIIII TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 
-			resultRequest = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
-			while (resultRequest.next()) 
+			while (resultSet.next()) 
 			{
-				inactiveMenuRestaurantList.add(mapMenuBean(resultRequest));
+				inactiveMenuRestaurantList.add(mapMenuBean(resultSet));
 			}
 
 		} 
@@ -135,10 +136,10 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 		} 
 		finally 
 		{
-			fermeturesSilencieuses(resultRequest, preparedStatement, connexion);
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		
-		
+		System.out.println(inactiveMenuRestaurantList);
 		return inactiveMenuRestaurantList;
 	}
 	
