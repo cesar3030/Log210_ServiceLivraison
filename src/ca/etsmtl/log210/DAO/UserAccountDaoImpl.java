@@ -43,14 +43,14 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		UserAccountBean userAccount = new UserAccountBean();
 
 		try {
-			/* R���������cup���������ration d'une connexion depuis la Factory */
+			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_USER_ACCOUNT, false, email, password);
 
 			resultSet = preparedStatement.executeQuery();
 
-			/* Parcours de la ligne de donn���������es de l'���������ventuel ResulSet retourn��������� */
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultSet.next()) {
 				userAccount = mapTableauApplication(resultSet);
 			}

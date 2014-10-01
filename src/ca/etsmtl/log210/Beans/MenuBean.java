@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 public class MenuBean {
 	private int idMenu;
 	private int idRestaurant;
-	private String nameRestaurant;
-	private String descriptionRestaurant;
+	private String name;
+	private String description;
 	private Boolean visible;
 	
 
@@ -39,12 +39,12 @@ public class MenuBean {
 		return this.idRestaurant;
 	}
 	
-	public String getNameRestaurant() {
-			return this.nameRestaurant;
+	public String getNameMenu() {
+			return this.name;
 		}
 	
-	public String getDescriptionRestaurant(){
-		return this.descriptionRestaurant;
+	public String getDescriptionMenu(){
+		return this.description;
 	}
 	
 	public Boolean getVisible(){
@@ -64,11 +64,11 @@ public class MenuBean {
 		this.idRestaurant = idRestaurantRecu;
 	}
 
-	public void setnameRestaurant(String nameRestoRecu) {
-		this.nameRestaurant = nameRestoRecu;
+	public void setnameMenu(String nameMenuRecu) {
+		this.name = nameMenuRecu;
 	}
-	public void setDescriptionRestaurant(String descriptionRestoRecu) {
-		this.descriptionRestaurant = descriptionRestoRecu;
+	public void setDescriptionMenu(String descriptionRestoRecu) {
+		this.description = descriptionRestoRecu;
 	}
 
 

@@ -17,35 +17,55 @@
 				<div class="modal-body">
 							<div class="form-group">
 								<label for="nameMenu" class="col-lg-4 control-label">Nom du menu*:</label>
-								<div class="col-lg-8">
-									<input type="text" class="form-control" name="Nom du menu" id="nameMenu"
-										placeholder="nameMenu" required />
-								</div>
+								<!-- Split button -->
+										<div class="btn-group">
+										  <button type="button" class="btn btn-info">Menu1</button>
+										  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+										    <span class="caret"></span>
+										    <span class="sr-only">Toggle Dropdown</span>
+										  </button>
+										  <br>
+										  <br>
+										  <br>
+											  
+										  	<c:forEach items="${activeMenuRestaurantList}" var="activeMenu">
+						  		 				<tr>
+						  		 					<li><a href="#">${activeMenu.name}</a></li>
+										   		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
+									  		 	</tr>			  		 	
+									  	   </c:forEach> 
+										  <ul class="dropdown-menu" role="menu">
+										    
+										  </ul>
+										</div>
 							</div>
 								
+									  <div class="row">
+  		 	<div class="col-md-8 col-md-offset-2">
+		  		 <div class="table-responsive">
+					  <table class="table table-striped">
+					   	<thead>
+					   		<tr>
+					   			<th>ID du menu</th>
+					   			<th>Nom du menu</th>
+					   			<th>Description du menu</th>
+					   		</tr>
+					   	</thead>
+					   	<tbody>
+					   		<c:forEach items="${activeMenuRestaurantList}" var="activeMenu">
+		  		 				<tr>
+						  		 	<td><c:out value="${activeMenu.idMenu}"/></td>
+						  		 	<td><c:out value="${activeResto.name}"/></td>
+						  		 	<td> <c:out value="${activeResto.description}"/></td>
+						  		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
+					  		 	</tr>			  		 	
+					  	   </c:forEach> 		 
+		  		 		</tbody>			   
+					 </table>
+				   </div>
+				</div>
+			</div>
 							
-							<!-- Liste des restaurants -->
-								
-							<div class="bs-example">
-														
-							<div class="table-responsive" id="tabMenu">
-							      <table class="table table-bordered">
-							        <thead>
-							          <tr>
-							            <th>Nom du menu</th>				           
-							          </tr>
-							        </thead>
-							        <tbody>
-							          <tr>
-							         	<!-- Ligne UNEE ICI qui serq affecter a une fonction Javascript-->
-							            <td>menu 1 test </td>
-													        
-							          </tr>
-							     							      
-							        </tbody>
-							      </table>
-							    </div>
-							    </div>
 							    <!--  Affichage des menus -->
 						</div>
 		

@@ -105,6 +105,16 @@
     <url-pattern>/AddMenuFormulaire</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <servlet-name>HomeRestaurateurRestaurantManagement</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.RestaurantManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HomeRestaurateurRestaurantManagement</servlet-name>
+    <url-pattern>/HomeRestaurateurRestaurantManagement</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>RestaurateurManagement</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.RestaurateurManagement</servlet-class>
