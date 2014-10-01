@@ -13,24 +13,39 @@
 				<div class="modal-header">
 					<h3>Tous les menus du restaurant</h3>
 				</div>
+				 		  
+  		  <c:if test="${!empty returnMessage.succes}">
+				<div class="row">
+		  		 	<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
+		  		 		<h5 class="text-center" >${returnMessage.succes}</h5>
+		  		 	</div> 		 
+		  		 </div>
+		</c:if>
+  		 
+  		 <c:if test="${!empty returnMessage.fail}">
+				<div class="row">
+		  		 	<div class="col-md-6 col-md-offset-3 alert alert-danger" role="alert">
+		  		 		<h5 class="text-center">${returnMessage.fail}</h5>
+		  		 	</div> 		 
+		  		 </div>
+		</c:if>
+			 <c:if test="${empty returnMessage}">
+				<br>
+		 	    <br>
+		</c:if>  
 				
-				<div class="modal-body">
-							<div class="form-group">
-								<label for="nameMenu" class="col-lg-4 control-label">Nom du menu*:</label>
-								<!-- Split button -->
-										<div class="btn-group">
-										  <button type="button" class="btn btn-info">Menu1</button>
-										  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-										    <span class="caret"></span>
-										    <span class="sr-only">Toggle Dropdown</span>
-										  </button>
-										  <br>
-										  <br>
-										  <br>
-											  
+			  	<div class="row"> 	
+					<!-- BOUTON -->
+						<div class="btn-group">
+							<label for="nameMenu" class="col-lg-4 control-label">Nom du menu*:</label><button type="button" class="btn btn-info">Menu1</button>
+								<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+									<span class="caret"></span>
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
+																				  
 										  	<c:forEach items="${activeMenuRestaurantList}" var="activeMenu">
 						  		 				<tr>
-						  		 					<li><a href="#">${activeMenu.name}</a></li>
+						  		 					<li><a href="#"></a></li>
 										   		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
 									  		 	</tr>			  		 	
 									  	   </c:forEach> 
@@ -65,9 +80,8 @@
 				   </div>
 				</div>
 			</div>
-							
-							    <!--  Affichage des menus -->
-						</div>
+			<!--  Affichage des menus -->
+					
 		
 					
 						<div class="modal-footer">

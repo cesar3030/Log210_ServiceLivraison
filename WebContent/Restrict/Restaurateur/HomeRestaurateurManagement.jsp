@@ -33,13 +33,11 @@
   		  
   		 <div class="row">
   		 	<div class="col-md-5 col-md-offset-1">  
-  				 <h4>Liste des restaurants visibles:</h2> 
+  				 <h4>Mes restaurants :</h2> 
   		  	</div>
-  		  	<div class="col-md-2 col-md-offset-4">  
-  				 <a href="#newRestaurant" data-toggle="modal"><h5>Ajouter un restaurant</h5></a>
-  		  	</div>
-  		  </div>
+  		 </div>
   		  
+  		  <br>
   		  <br>
   		  
   		  <div class="row">
@@ -71,49 +69,5 @@
 				</div>
 			</div>
 		
-		
-			<br>
-			<br>
-		
-		
-		  <div class="row">
-		  	<div class="col-md-3 col-md-offset-1">  		 
-				 <h4>Restaurants supprimés:</h2> 
-		  	</div>
-		  </div>
-  		 
-  		 <br>
-  		 
-  		 <div class="row">
-  		 	<div class="col-md-8 col-md-offset-2">
-		  		 <div class="table-responsive">
-					  <table class="table table-striped">
-					   	<thead>				
-					   		<tr>
-					   			<th>Nom</th>
-					   			<th>Adresse</th>
-					   			<th>Numéro de téléphone</th>
-					   			<th>Type de nourriture</th>
-					   			<th>Opérations</th>
-					   		</tr>
-					   	</thead>
-					   	<tbody>
-					   		<c:forEach items="${inactiveRestaurantList}" var="inactiveResto">
-		  		 				<tr>
-						  		 	<td><c:out value="${inactiveResto.name}"/></td>
-						  		 	<td><c:out value="${inactiveResto.address}"/></td>
-						  		 	<td> <c:out value="${inactiveResto.phoneNumber}"/></td>
-						  		 	<td><c:out value="${inactiveResto.kindOfFood}"/></td>	
-						  		 	<td><span class="glyphicon glyphicon-repeat center"></span></td>						  		 						  		 	
-					  		 	</tr>			  		 	
-					  	   </c:forEach> 		 
-		  		 		</tbody>			   
-					 </table>
-				   </div>
-				</div>
-			</div>
-			
-			
-			
-<jsp:include page="/Restrict/Admin/NewRestaurantForm.jsp"></jsp:include>
+					
 <jsp:include page="/footer.jsp"></jsp:include>

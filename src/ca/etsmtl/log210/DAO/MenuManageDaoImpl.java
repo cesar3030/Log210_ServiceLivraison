@@ -81,6 +81,9 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 			//ICIIII TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 
 			resultRequest = preparedStatement.executeQuery();
+			System.out.println("JE SUIS DANS MENU MANAGE DAO IMP");
+			System.out.println(preparedStatement.executeQuery());
+			System.out.println(resultRequest);
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultRequest.next()) 
