@@ -40,6 +40,15 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			+ "RES_phoneNumber, RES_kindOfFood, RES_visible) "
 			+ "VALUES (?,?,?,?,?,1)";
 	
+	private static final String SQL_CHANGE_VISIBILITY_TO_0_RESTAURANT = "" 
+			+ "UPDATE tbrestaurant "
+			+ "SET RES_visible=0 "
+			+ "WHERE RES_idRestaurant=?";
+	
+	private static final String SQL_CHANGE_VISIBILITY_TO_1_RESTAURANT = "" 
+			+ "UPDATE tbrestaurant "
+			+ "SET RES_visible=1 "
+			+ "WHERE RES_idRestaurant=?";
 	
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
@@ -171,6 +180,87 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 
+	@Override
+	/**
+	 * La methode change la visibilite du restaurant dont l'identifiant est passe en parametre.
+	 * Cela permet de garder un historique des restaurant au lieu de tout supprimer.
+	 * Cette methode passe la visibilite du restaurant, de 1 a 0
+	 * @param idRestaurant
+	 * @return
+	 */
+	public boolean  switchToNotVisibleRestaurant(int idRestaurant) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_CHANGE_VISIBILITY_TO_0_RESTAURANT, false, idRestaurant);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
+
+
+	/**
+	 * La methode change la visibilite du restaurant dont l'identifiant est passe en parametre.
+	 * Cela permet de garder un historique des restaurant au lieu de tout supprimer.
+	 * Cette methode passe la visibilite du restaurant, de 0 a 1
+	 * @param idRestaurant
+	 * @return
+	 */
+	public boolean switchToVisibleRestaurant(int idRestaurant) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_CHANGE_VISIBILITY_TO_1_RESTAURANT, false, idRestaurant);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
 	
 	
 

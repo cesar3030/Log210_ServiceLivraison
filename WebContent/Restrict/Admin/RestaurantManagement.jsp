@@ -57,7 +57,7 @@
 					   	</thead>
 					   	<tbody>
 					   		<c:forEach items="${activeRestaurantList}" var="activeResto">
-		  		 				<tr>
+		  		 				<tr id="<c:out value="${activeResto.idRestaurant}"/>">
 						  		 	<td><c:out value="${activeResto.name}"/></td>
 						  		 	<td><c:out value="${activeResto.address}"/></td>
 						  		 	<td> <c:out value="${activeResto.phoneNumber}"/></td>
