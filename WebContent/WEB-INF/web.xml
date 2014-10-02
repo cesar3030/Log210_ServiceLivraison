@@ -124,6 +124,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>SwitchRestaurantToNotVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurantToNotVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurantToNotVisible</servlet-name>
+    <url-pattern>/SwitchRestaurantToNotVisible</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>NewRestaurant</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.NewRestaurant</servlet-class>
   </servlet>
@@ -132,6 +141,15 @@
     <url-pattern>/NewRestaurant</url-pattern>
   </servlet-mapping>
   
+  
+  <servlet>
+    <servlet-name>SwitchRestaurantToVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurantToVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurantToVisible</servlet-name>
+    <url-pattern>/SwitchRestaurantToVisible</url-pattern>
+  </servlet-mapping>
     
   <filter>
     <filter-name>ApplicationFilter</filter-name>

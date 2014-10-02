@@ -28,7 +28,7 @@ public interface RestaurantDao
 	 * Cela permet de garder un historique des restaurant au lieu de tout supprimer.
 	 * Cette methode passe la visibilite du restaurant, de 1 a 0
 	 * @param idRestaurant
-	 * @return
+	 * @return true si l'update s'est bien fait, false si il y a eu un soucis
 	 */
 	boolean switchToNotVisibleRestaurant(int idRestaurant);
 	
@@ -37,7 +37,7 @@ public interface RestaurantDao
 	 * Cela permet de garder un historique des restaurant au lieu de tout supprimer.
 	 * Cette methode passe la visibilite du restaurant, de 0 a 1
 	 * @param idRestaurant
-	 * @return
+	 * @return true si l'update s'est bien fait, false si il y a eu un soucis
 	 */
 	boolean switchToVisibleRestaurant(int idRestaurant);
 }

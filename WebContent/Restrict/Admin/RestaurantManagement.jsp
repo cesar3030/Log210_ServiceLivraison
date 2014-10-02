@@ -58,11 +58,11 @@
 					   	<tbody>
 					   		<c:forEach items="${activeRestaurantList}" var="activeResto">
 		  		 				<tr id="<c:out value="${activeResto.idRestaurant}"/>">
-						  		 	<td><c:out value="${activeResto.name}"/></td>
-						  		 	<td><c:out value="${activeResto.address}"/></td>
-						  		 	<td> <c:out value="${activeResto.phoneNumber}"/></td>
-						  		 	<td><c:out value="${activeResto.kindOfFood}"/></td>
-						  		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
+						  		 	<td id="name_<c:out value="${activeResto.idRestaurant}"/>" ><c:out value="${activeResto.name}"/></td>
+						  		 	<td id="address_<c:out value="${activeResto.idRestaurant}"/>"><c:out value="${activeResto.address}"/></td>
+						  		 	<td id="phoneNumber_<c:out value="${activeResto.idRestaurant}"/>"> <c:out value="${activeResto.phoneNumber}"/></td>
+						  		 	<td id="kindOfFood_<c:out value="${activeResto.idRestaurant}"/>"><c:out value="${activeResto.kindOfFood}"/></td>
+						  		 	<td ><a  onclick="updateRestaurantDatas(this.parentNode.parentNode.id);"><span class="glyphicon glyphicon-cog text-center"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value="/SwitchRestaurantToNotVisible?idRestaurant=${activeResto.idRestaurant}"/>"><span class="glyphicon glyphicon-trash text-center"></span></a></td>						  		 	
 					  		 	</tr>			  		 	
 					  	   </c:forEach> 		 
 		  		 		</tbody>			   
@@ -99,12 +99,12 @@
 					   	</thead>
 					   	<tbody>
 					   		<c:forEach items="${inactiveRestaurantList}" var="inactiveResto">
-		  		 				<tr>
+		  		 				<tr  id="<c:out value="${inactiveResto.idRestaurant}"/>">
 						  		 	<td><c:out value="${inactiveResto.name}"/></td>
 						  		 	<td><c:out value="${inactiveResto.address}"/></td>
 						  		 	<td> <c:out value="${inactiveResto.phoneNumber}"/></td>
 						  		 	<td><c:out value="${inactiveResto.kindOfFood}"/></td>	
-						  		 	<td><span class="glyphicon glyphicon-repeat center"></span></td>						  		 						  		 	
+						  		 	<td>&nbsp;&nbsp;&nbsp;<a href="<c:url value="/SwitchRestaurantToVisible?idRestaurant=${inactiveResto.idRestaurant}"/>"><span class="glyphicon glyphicon-repeat center"></span></a></td>						  		 						  		 	
 					  		 	</tr>			  		 	
 					  	   </c:forEach> 		 
 		  		 		</tbody>			   
@@ -114,6 +114,7 @@
 			</div>
 			
 			
-			
+<script src="<c:url value="/inc/js/fillRestaurantForm.js"/>"></script>
 <jsp:include page="/Restrict/Admin/NewRestaurantForm.jsp"></jsp:include>
+<jsp:include page="/Restrict/Admin/UpdateRestaurantForm.jsp"></jsp:include>
 <jsp:include page="/footer.jsp"></jsp:include>

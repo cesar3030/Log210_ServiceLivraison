@@ -1,7 +1,11 @@
 package ca.etsmtl.log210.Controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +18,8 @@ public class SwitchRestaurantToNotVisible extends HttpServlet
 	{
 
 		 public static final String CONF_DAO_FACTORY = "daofactory";
-		 public static final String RESTAURANT_MANAGEMENT_ACCESS     = "/Restrict/Admin/RestaurantManagement.jsp";
-		 public static final String INACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "inactiveRestaurantList";
-		 public static final String ACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "activeRestaurantList";
+		 public static final String RESTAURANT_MANAGEMENT_ACCESS     = "/RestaurantManagement";
+		 public static final String REQUEST_FINISHED_STATE = "returnMessage";
 		 
 	     //The instance of UserAccountDao who give us the possibility to execute requests to the DB about userAccount
 	     private RestaurantDao restaurantDao;
@@ -35,8 +38,33 @@ public class SwitchRestaurantToNotVisible extends HttpServlet
 		 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 		 {
 			 int idRestaurant=Integer.parseInt( request.getParameter("idRestaurant"));
-			 
+			 System.out.println(idRestaurant);
 			 boolean retour = restaurantDao.switchToNotVisibleRestaurant(idRestaurant);
+			 
+			 Map<String, String>  returnMessage= new HashMap<String, String>();
+			 
+			 if(retour==true)
+			 {
+				 returnMessage.put("succes", "Le restaurant desomais non visible");
+				 
+				 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+				 
+				 ServletContext context= getServletContext();
+				 RequestDispatcher rd= context.getRequestDispatcher(RESTAURANT_MANAGEMENT_ACCESS);
+				 rd.forward(request, response);
+			 }
+			 else if(retour==false)
+			 {
+				 returnMessage.put("fail", "Une erreur est survenu, veuillez reessayer.");
+				 
+				 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+				 
+				 ServletContext context= getServletContext();
+				 RequestDispatcher rd= context.getRequestDispatcher(RESTAURANT_MANAGEMENT_ACCESS);
+				 rd.forward(request, response);
+				
+			 }
+			 
 			 
 		 }
 }
