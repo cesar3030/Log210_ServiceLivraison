@@ -13,6 +13,22 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 
+			<c:if test="${!empty form.DescriptionOk}">
+				<div class="row">
+					<div class="alert alert-success" role="alert">
+						<h5>${form.UpdateCompleted}</h5>
+					</div>
+				</div>
+			</c:if>
+
+			<c:if test="${!empty form.DescriptionFail}">
+				<div class="row">
+					<div class="alert alert-danger" role="alert">
+						<h5>${form.UpdateFail}</h5>
+					</div>
+				</div>
+			</c:if>
+
 
 			<form name=cmpid class="form-horizontal" role="form" method="post"
 				action="<c:url value="/Subscribe"/>">
@@ -33,15 +49,15 @@
 						<label for="description" class="col-lg-4 control-label">Description:*</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" id="description"
-								name="description" placeholder="Plat typique de Lyon" required />
+								name="description" placeholder="Plat typique de Lyon" />
 						</div>
 					</div>
 
-					<div id="email_part" class="form-group">
+					<div class="form-group">
 						<label for="price" class="col-lg-4 control-label">Prix*:</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="price"
-								id="price" placeholder="15" required />
+							<input type="text" class="form-control" name="price" id="price"
+								placeholder="15" required />
 							<div id="error-message"></div>
 						</div>
 					</div>
@@ -57,6 +73,6 @@
 
 
 
-
+<script src="<c:url value="/inc/js/NewMealFormValidator.js"/>"></script>
 
 <jsp:include page="/footer.jsp"></jsp:include>
