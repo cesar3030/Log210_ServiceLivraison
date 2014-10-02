@@ -7,6 +7,7 @@ public interface MealDao {
 	
 
 	public boolean addNewMeal(MealBean mealRecept);
+	public boolean deleteNewMeal(MealBean mealRecept);
 
 
 }

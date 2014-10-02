@@ -41,7 +41,7 @@
 						<label for="price" class="col-lg-4 control-label">Prix*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="price"
-								id="email_subscribe" placeholder="15" required />
+								id="price" placeholder="15" required />
 							<div id="error-message"></div>
 						</div>
 					</div>

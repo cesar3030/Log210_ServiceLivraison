@@ -21,6 +21,9 @@ public class MealDaoImpl  implements MealDao{
 			+ "INSERT INTO `tbplat`( `PLA_idPlat`, `PLA_idMenu`, `PLA_price`, `PLA_name`, `PLA_description`)  "
 			+ "VALUES( ?,?,?,?,?) ";
 	
+	static final String SQL_DELETE_MEAL = "" 
+			+ "DELETE FROM `tbplat` "
+			+ "WHERE PLA_idPlat=?"  ;
 	
 	private DAOFactory daoFactory;
 	
@@ -43,7 +46,7 @@ public class MealDaoImpl  implements MealDao{
 		
 		
 		try {
-			/* R���������cup���������ration d'une connexion depuis la Factory */
+			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_ADD_NEW_MEAL, false,mealRecept.getIdPlat(),
@@ -81,4 +84,39 @@ public class MealDaoImpl  implements MealDao{
 				
 		return meal;
 	}
+
+	@Override
+	public boolean deleteNewMeal(MealBean mealRecept) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_DELETE_MEAL, false,mealRecept.getIdPlat());
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
+	
 }
