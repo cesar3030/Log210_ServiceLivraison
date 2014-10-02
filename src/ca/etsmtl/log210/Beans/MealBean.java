@@ -8,7 +8,7 @@ package ca.etsmtl.log210.Beans;
  */
 public class MealBean {
 
-	private int idPlat;
+	private int idMeal;
 	private int idMenu;
 	private int price;
 	private String name;
@@ -78,7 +78,7 @@ public class MealBean {
 	 * @return the idPlat
 	 */
 	public int getIdPlat() {
-		return idPlat;
+		return idMeal;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class MealBean {
 	 *            the idPlat to set
 	 */
 	public void setIdPlat(int idPlat) {
-		this.idPlat = idPlat;
+		this.idMeal = idPlat;
 	}
 
 }

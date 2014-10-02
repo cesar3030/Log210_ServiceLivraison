@@ -12,40 +12,36 @@ import ca.etsmtl.log210.Beans.MenuBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MenuManageDao;
 
+public class ShowAllMenuResto extends HttpServlet {
 
-
-public class ManageMenuController extends HttpServlet {
-	
-	/**
-	 * 
-	 */
-	 private static final long serialVersionUID = 1L;
 	 public static final String CONF_DAO_FACTORY = "daofactory";
 	 public static final String MENU_MANAGEMENT_ACCESS     = "/Restrict/Restaurateur/ShowAllMenuResto.jsp";
 	 public static final String INACTIVE_MENU_RESTAURANT_ATTRIBUTE = "inactiveMenuRestaurantList";
 	 public static final String ACTIVE_MENU_RESTAURANT_ATTRIBUTE = "activeMenuRestaurantList";
 	 
 	//Instance de menu qui va nous permettre de faire des requetes sur la BD
-     private MenuManageDao menuDao;
-     
-     
-     private int idRestauranReceived=1;
-     //private int numéroRestauteur=1;
-     
-     
-    /**
-     * Method who is executed the fist time that the servlet is create. Here we get the connection to the DB throw UserAccountDao class.
-     * We must get the connection just once if we don't want to have a too many connection error in MySql.
-     */
+    private MenuManageDao menuDao;
+    
+    
+    private int idRestauranReceived=1;
+   
+    
+    
+   /**
+    * Method who is executed the fist time that the servlet is create. Here we get the connection to the DB throw UserAccountDao class.
+    * We must get the connection just once if we don't want to have a too many connection error in MySql.
+    */
 	 public void init() throws ServletException 
 	 {
+		 	
+		 	System.out.println("JE suis dans init de  ShowAllMenuResto");
 	    	this.menuDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getMenuRestaurantDao();
 	 }
 	
 	 
-	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
+	 public synchronized void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
-		 
+		 System.out.println("JE suis dans doGet de ShowAllMenuResto");
 		 ArrayList<MenuBean> activeMenuRestaurantList;
 		 ArrayList<MenuBean> inactiveMenuRestaurantList;
 		 
@@ -60,21 +56,18 @@ public class ManageMenuController extends HttpServlet {
 		 this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );
 	 }
 	 
-	 @SuppressWarnings("unused")
-	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
+	
+	public synchronized void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
-		 
+		 System.out.println("JE suis dans doPost de ShowAllMenuResto");
 		 ArrayList<MenuBean>  activeMenuRestaurantList;
 		 ArrayList<MenuBean> inactiveMenuRestaurantList;
 		 
 		 activeMenuRestaurantList = menuDao.showAllActiveMenuForOneResto(this.idRestauranReceived);
 		 inactiveMenuRestaurantList = menuDao.showAllInactiveMenuForOneResto(this.idRestauranReceived);
-		 
+		
 		 
 		 this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS ).forward( request, response );
 	 }
 	 
-	 
 }
-
-

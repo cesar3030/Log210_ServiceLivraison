@@ -66,7 +66,7 @@ public class DAOFactory {
         return instance;
     }
 
-    /* M���thode charg���e de fournir une connexion ��� la base de donn���es */
+    /* Methode chargee de fournir une connexion a la base de donnees */
      /* package */ Connection getConnection() throws SQLException {
         return DriverManager.getConnection( url, username, password );
     }
@@ -79,6 +79,10 @@ public class DAOFactory {
      public RestaurantDao getRestaurantDao()
      {
     	 	return new RestaurantDaoImpl(this);     
+     }
+     public MenuManageDao getMenuRestaurantDao()
+     {
+    	 	return new MenuManageDaoImpl(this);     
      }
      
     /* 

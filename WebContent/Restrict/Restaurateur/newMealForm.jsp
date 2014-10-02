@@ -6,7 +6,7 @@
 
 
 
-<a href="#newMeal" data-toggle="modal">S'inscrire ?</a>
+<a href="#newMeal" data-toggle="modal">Nouveau plat</a>
 
 <!-- Formulaire de creation d un nouveau plat -->
 <div class="modal fade" id="newMeal" role="dialog">
