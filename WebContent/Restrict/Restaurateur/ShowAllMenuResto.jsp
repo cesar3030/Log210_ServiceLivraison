@@ -10,48 +10,30 @@
 		<div class="modal-header">
 				<h3>Tous les menus du Restaurant : Afficher nameRestaurant</h3>
 		</div>
-			
-				 		  
-  		  <c:if test="${!empty returnMessage.succes}">
-				<div class="row">
-		  		 	<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
-		  		 		<h5 class="text-center" >${returnMessage.succes}</h5>
-		  		 	</div> 		 
-		  		 </div>
-		 </c:if>
-  		 
-  		 
-  		 <c:if test="${!empty returnMessage.fail}">
-				<div class="row">
-		  		 	<div class="col-md-6 col-md-offset-3 alert alert-danger" role="alert">
-		  		 		<h5 class="text-center">${returnMessage.fail}</h5>
-		  		 	</div> 		 
-		  		 </div>
-		</c:if>
-		
-		<c:if test="${empty returnMessage}">
-				<br>
-		 	    <br>
-		</c:if>  
-										  		
-								
+				  		
+		<form class="form"  method=post  action="<c:out value="/ShowAllMenuResto"/>">		
 			<div class="row">
   		 	<div class="col-md-8 col-md-offset-2">
-		  		 <div class="table-responsive">
+		  		 <div class="table-responsive" >
 					  <table class="table table-striped">
 					   	<thead>
 					   		<tr>
 					   			<th>ID du menu</th>
 					   			<th>Nom du menu</th>
+					   			<th>Id du restaurant</th>
 					   			<th>Description du menu</th>
-					   		</tr>
+					   		 </tr>
 					   	</thead>
 					   	<tbody>
-					   		<c:forEach items="${activeMenuRestaurantList}" var="activeMenu">
+					   		<c:forEach items="${activeMenuRestaurantList}" var="ListeMenuActive">
 		  		 				<tr>
-						  		 	<td><c:out value="${activeMenu.idMenu}"/></td>
-						  		 	<td><c:out value="${activeResto.name}"/></td>
-						  		 	<td> <c:out value="${activeResto.description}"/></td>
+						  		 	<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
+						  			<td><c:out value="${ListeMenuActive.idMenu}"/></td>
+						  			<td><c:out value="${ListeMenuActive.name}"/></td>
+						  		 	<td><c:out value="${ListeMenuActive.idRestaurant}"/></td>
+						  		 	<td><c:out value="${ListeMenuActive.description}"/></td>
+						  		 	<td><c:out value="${ListeMenuActive.visible}"/></td>
+						  		 					  		 	
 						  		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
 					  		 	</tr>			  		 	
 					  	   </c:forEach> 		 
@@ -60,17 +42,18 @@
 				   </div>
 				</div>
 			</div>
+		</form>
 			<!--  Affichage des menus -->
 					
 		
 					
-						<div class="col-md-5 col-md-offset-5">
-		
-						<button type="button" class="btn btn-info">Retourner a la liste des restaurants</button>		
+						
+		 				<div class="col-md-5 col-md-offset-5">
+			  				 <a href="<c:url value="/HomeRestaurateurManagement"/>" data-toggle="modal">
+			  				 <button type="button" class="btn btn-info" >Retourner a la liste des restaurants</button></a>		
 						</div>
-						</form>
+		
 		  		 
   		 
   		 
-<script src="<c:url value="/inc/js/AddMenu.js"/>"></script>
 <jsp:include page="/footer.jsp"></jsp:include>

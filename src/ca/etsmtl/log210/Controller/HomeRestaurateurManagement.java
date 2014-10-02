@@ -7,8 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ca.etsmtl.log210.Beans.RestaurantBean;
+import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.RestaurantDao;
 
@@ -18,6 +20,9 @@ public class HomeRestaurateurManagement extends HttpServlet{
 	 public static final String RESTAURANT_MANAGEMENT_ACCESS     = "/Restrict/Restaurateur/HomeRestaurateurManagement.jsp";
 	 public static final String INACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "inactiveRestaurantList";
 	 public static final String ACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "activeRestaurantList";
+	 
+	 public static final String SESSION_USER = "userSession";
+	 
 	 
     //The instance of UserAccountDao who give us the possibility to execute requests to the DB about userAccount
     private RestaurantDao restaurantDao;
@@ -35,6 +40,9 @@ public class HomeRestaurateurManagement extends HttpServlet{
 	 
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
+		 
+		 String idRestaurateur = request.getRequestedSessionId();
+		 System.out.println(idRestaurateur);
 		 
 		 ArrayList<RestaurantBean> activeRestaurantList;
 		 ArrayList<RestaurantBean> inactiveRestaurantList;
@@ -55,6 +63,9 @@ public class HomeRestaurateurManagement extends HttpServlet{
 		 
 		 ArrayList<RestaurantBean> activeRestaurantList;
 		 ArrayList<RestaurantBean> inactiveRestaurantList;
+		 
+		 HttpSession session= request.getSession();
+		 UserAccountBean restaurateurConnected = (UserAccountBean) session.getAttribute("userSession");
 		 
 		 activeRestaurantList = restaurantDao.getActiveRestaurants();
 		 inactiveRestaurantList = restaurantDao.getInnactiveRestaurants();

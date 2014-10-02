@@ -6,8 +6,8 @@
 
 
 		 <div class="row">
-  		  	<div class="col-md-12"> 		 
-  		 		 <h2 class="text-center" >Ma Liste de restaurants</h1>  		 		 
+  		  	<div class="col-md-11 col-md-offset-1"> 		 
+  		 		 <h1 class="text-center" >Ma Liste de restaurants</h1>  		 		 
   		 	</div>
   		  </div>
   		  <c:if test="${!empty returnMessage.succes}">
@@ -41,18 +41,22 @@
 					   			<th>Adresse</th>
 					   			<th>Numéro de téléphone</th>
 					   			<th>Type de nourriture</th>
-					   			<th>Opérations</th>
+					   			<th>Visualiser les menus resturant</th>
 					   		</tr>
 					   	</thead>
 					   	<tbody>
 					   		<c:forEach items="${activeRestaurantList}" var="activeResto">
+		  		 				
 		  		 				<tr>
-						  		 	<td><c:out value="${activeResto.name}"/></td>
+		  		 					
+						  		 	<td><a href="<c:url value="/ShowAllMenuResto?idRestaurant=${activeResto.idRestaurant}"/>"><c:out value="${activeResto.name}"/></a></td>
 						  		 	<td><c:out value="${activeResto.address}"/></td>
 						  		 	<td> <c:out value="${activeResto.phoneNumber}"/></td>
 						  		 	<td><c:out value="${activeResto.kindOfFood}"/></td>
-						  		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
-					  		 	</tr>			  		 	
+						  		 	<td><a href="<c:url value="/ShowAllMenuResto?idRestaurant=${activeResto.idRestaurant}"/>"><span class="glyphicon glyphicon-eye-open"></span></a></td>						  		 	
+					  		
+					  		 	</tr>
+					  					  		 	
 					  	   </c:forEach> 		 
 		  		 		</tbody>			   
 					 </table>

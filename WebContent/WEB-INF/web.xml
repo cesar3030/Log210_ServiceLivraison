@@ -47,7 +47,9 @@
     <servlet-name>MyAccount</servlet-name>
     <url-pattern>/MyAccount</url-pattern>
   </servlet-mapping>
-   
+  
+  <session-config><session-timeout>15</session-timeout></session-config>
+  
   <servlet>
     <servlet-name>Search</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.Search</servlet-class>
@@ -86,37 +88,37 @@
     <url-pattern>/CheckEmailNotUsed</url-pattern>
   </servlet-mapping>  
   
-  <servlet>
-    <servlet-name>ShowAllMenuResto</servlet-name>
-    <servlet-class>ca.etsmtl.log210.Controller.ShowAllMenuResto</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ShowAllMenuResto</servlet-name>
-    <url-pattern>/ShowAllMenuResto</url-pattern>
-  </servlet-mapping>
   
 
   
-  <servlet>
-    <servlet-name>AddMenuFormulaire</servlet-name>
-    <servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AddMenuFormulaire</servlet-name>
-    <url-pattern>/AddMenuFormulaire</url-pattern>
-  </servlet-mapping>
-  
+
   
    <servlet>
-    <servlet-name>HomeRestaurateurManagement</servlet-name>
-    <servlet-class>ca.etsmtl.log210.Controller.HomeRestaurateurManagement</servlet-class>
+    	<servlet-name>HomeRestaurateurManagement</servlet-name>
+   	    <servlet-class>ca.etsmtl.log210.Controller.HomeRestaurateurManagement</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>HomeRestaurateurManagement</servlet-name>
-    <url-pattern>/HomeRestaurateurManagement</url-pattern>
+   	 	<servlet-name>HomeRestaurateurManagement</servlet-name>
+    	<url-pattern>/HomeRestaurateurManagement</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    	<servlet-name>ShowAllMenuResto</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.ShowAllMenuResto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>ShowAllMenuResto</servlet-name>
+    	<url-pattern>/ShowAllMenuResto</url-pattern>
+  </servlet-mapping>  
   
+    <servlet>
+    	<servlet-name>AddMenuFormulaire</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>AddMenuFormulaire</servlet-name>
+    	<url-pattern>/AddMenuFormulaire</url-pattern>
+  </servlet-mapping>
   
   
   

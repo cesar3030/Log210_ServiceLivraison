@@ -19,25 +19,22 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 			+ "VALUES( ?,?,?,?) ";
 	
 	
-	static final String SQL_GET_ALL_ACTIVE_MENU_RESTAURANT = "" 
-			+ "SELECT * "
-			+ "FROM tbmenu " + "WHERE MEN_idRestaurant=? ";
+	static final String SQL_GET_ALL_ACTIVE_MENU_RESTAURANT = "SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=1";
 	
-	static final String SQL_GET_ALL_INACTIVE_MENU_RESTAURANT = "" 
-			+ "SELECT * "
-			+ "FROM tbmenu " + "WHERE MEN_idRestaurant=? and MEN_visible=?";
+	static final String SQL_GET_ALL_INACTIVE_MENU_RESTAURANT = "SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=0"; 
+			
 
 	
 	static final String SQL_MODIFY_MENU_RESTAURANT = ""
 			+ "UPDATE tbmenu "
 			+ "SET MEN_name=?, MEN_description=?"
-			+ "WHERE MEN_idMenu=? and MEN_idRestaurant=?"  ;
+			+ "WHERE MEN_idMenu=?, MEN_idRestaurant=?"  ;
 
 	
 	static final String SQL_DELETE_MENU_RESTAURANT = "" 
 			+ "UPDATE tbMenu "
 			+ "SET MEN_visible=?"
-			+ "WHERE MEN_idMenu=? and MEN_idRestaurant=?"  ;
+			+ "WHERE MEN_idMenu=?, MEN_idRestaurant=?"  ;
 
 	private DAOFactory daoFactory;
 	
@@ -71,25 +68,24 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 		try {
 			/* Faire une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
+			System.out.println(daoFactory.getConnection().toString());
 			
 			//ON PREPARE LA REQUETE
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_ALL_ACTIVE_MENU_RESTAURANT, false,restaurantNumber);
 			
 			//ICIIII TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-
+			System.out.println("Resultset");
 			resultSet = preparedStatement.executeQuery();
-			System.out.println("JE SUIS DANS MENU MANAGE DAO IMP");
-			System.out.println(preparedStatement.executeQuery());
-			System.out.println(resultSet);
-
+			System.out.println(resultSet.toString()+"ICIIIII");
+			
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultSet.next()) 
 			{
+				System.out.println("Avant");
 				activeMenuRestaurantList.add(mapMenuBean(resultSet));
-				for(int i=0;i<3;i++){
-					System.out.println(activeMenuRestaurantList.get(i));
-				}
+				System.out.println("Apres");
+				
 				
 			}
 
@@ -97,6 +93,7 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 		catch (SQLException e) 
 		{
 			throw new DAOException(e);
+			
 		} 
 		finally 
 		{
@@ -117,9 +114,9 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 			
 			//ON PREPARE LA REQUETE
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_GET_ALL_ACTIVE_MENU_RESTAURANT, false,restaurantNumber,0);
+					SQL_GET_ALL_ACTIVE_MENU_RESTAURANT, false,restaurantNumber);
 			
-			//ICIIII TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+			
 
 			resultSet = preparedStatement.executeQuery();
 
@@ -127,6 +124,7 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 			while (resultSet.next()) 
 			{
 				inactiveMenuRestaurantList.add(mapMenuBean(resultSet));
+				System.out.println(mapMenuBean(resultSet).getName());
 			}
 
 		} 
@@ -151,9 +149,10 @@ public class MenuManageDaoImpl implements MenuManageDao  {
 		
 		menu.setIdMenu(resultSet.getInt("MEN_idMenu"));
 		menu.setIdRestaurant(resultSet.getInt("MEN_idRestaurant"));
-		menu.setnameMenu(resultSet.getString("MEN_name"));
-		menu.setDescriptionMenu(resultSet.getString("MEN_description"));
-				
+		menu.setname(resultSet.getString("MEN_name"));
+		menu.setDescription(resultSet.getString("MEN_description"));
+		menu.setVisible(resultSet.getInt("MEN_visible"));
+		
 		return menu;
 	}
 
