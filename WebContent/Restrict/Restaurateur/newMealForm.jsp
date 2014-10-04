@@ -41,7 +41,7 @@
 						<label for="name" class="col-lg-4 control-label">Nom*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="name" id="name"
-								placeholder="Poulet frites" required />
+								placeholder="Poulet frites" onblur="checkMealName();" required />
 						</div>
 					</div>
 

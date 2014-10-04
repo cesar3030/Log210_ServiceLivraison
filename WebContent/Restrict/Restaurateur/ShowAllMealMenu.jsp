@@ -8,20 +8,20 @@
   <!-- Affiche tous les menus par restaurant-->
   				
 		<div class="modal-header">
-				<h3>Tous les menus du Restaurant :</h3>
-				<p class="text-center">${restaurantTitreName}</p>
+				<h3>Tous les plats du Menu :</h3>
+				<p class="text-center">${menuName}</p>
 		</div>
 				  		
-		<form class="form"  method=post  action="<c:out value="/ShowAllMenuResto"/>">		
+		<form class="form"  method=post  action="<c:out value="ShowAllMealMenu"/>">		
 			<div class="row">
   		 	<div class="col-md-8 col-md-offset-2">s
 		  		 <div class="table-responsive" >
 					  <table class="table table-striped">
 					   	<thead>
 					   		<tr>
-					   		 	<th>Nom du menu</th>
-					   			<th>Description du menu</th>
-					   			<th>Modifier ou supprimer menu</th>
+					   		 	<th>Nom du plat</th>
+					   			<th>Description du plat</th>
+					   			<th>Supprimer plat</th>
 					   		 </tr>
 					   	</thead>
 					   	<tbody>

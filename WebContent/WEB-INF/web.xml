@@ -120,6 +120,14 @@
     	<url-pattern>/AddMenuFormulaire</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    	<servlet-name>ShowAllMealMenu</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.ShowAllMealMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>ShowAllMealMenu</servlet-name>
+    	<url-pattern>/ShowAllMealMenu</url-pattern>
+  </servlet-mapping>  
   
   
   

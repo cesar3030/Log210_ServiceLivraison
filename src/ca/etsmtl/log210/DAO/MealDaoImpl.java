@@ -143,7 +143,7 @@ public class MealDaoImpl implements MealDao {
 			resultSet = preparedStatement.executeQuery();
 
 			// On ajoute chaque retour de la requete SQL dans notre Map de
-			// MEalBean
+			// MealBean
 			while (resultSet.next()) {
 
 				showAllMealFromMenu.add(mapMealBean(resultSet));
