@@ -50,6 +50,10 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			+ "SET RES_visible=1 "
 			+ "WHERE RES_idRestaurant=?";
 	
+	private static final String SQL_GET_ONE_RESTAURANT = "" 
+			+ "SELECT * "
+			+ "FROM tbrestaurant " 
+			+ "WHERE  RES_idRestaurant=?";
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
 	{
@@ -162,22 +166,39 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		
 		return etatRetour;
 	}
+public RestaurantBean getNomRestaurant(int idRestaurantReceved) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		RestaurantBean nameRestaurant = null ;
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ONE_RESTAURANT, false,idRestaurantReceved);
 
-	
-	private RestaurantBean mapRestaurateur(ResultSet resultSet) throws SQLException 
-	{
-		RestaurantBean restaurant = new RestaurantBean();
-		
-		restaurant.setIdRestaurant(resultSet.getInt("RES_idRestaurant"));
-		restaurant.setIdUserAccountRestaurateur(resultSet.getInt("RES_idUserAccount"));
-		restaurant.setName(resultSet.getString("RES_name"));
-		restaurant.setAddress(resultSet.getString("RES_address"));
-		restaurant.setPhoneNumber(resultSet.getString("RES_phoneNumber"));
-		restaurant.setKindOfFood(resultSet.getString("RES_kindOfFood"));
-		restaurant.setVisible(resultSet.getBoolean("RES_visible"));		
-		
-		return restaurant;
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) 
+			{
+				System.out.println(mapRestaurateur(resultSet).getName());
+				nameRestaurant = mapRestaurateur(resultSet);
+			}
+			
+			
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nameRestaurant;
 	}
+	
 
 
 	@Override
@@ -262,7 +283,19 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		return etatRetour;
 	}
 	
-	
-
+	private RestaurantBean mapRestaurateur(ResultSet resultSet) throws SQLException 
+	{
+		RestaurantBean restaurant = new RestaurantBean();
+		
+		restaurant.setIdRestaurant(resultSet.getInt("RES_idRestaurant"));
+		restaurant.setIdUserAccountRestaurateur(resultSet.getInt("RES_idUserAccount"));
+		restaurant.setName(resultSet.getString("RES_name"));
+		restaurant.setAddress(resultSet.getString("RES_address"));
+		restaurant.setPhoneNumber(resultSet.getString("RES_phoneNumber"));
+		restaurant.setKindOfFood(resultSet.getString("RES_kindOfFood"));
+		restaurant.setVisible(resultSet.getBoolean("RES_visible"));		
+		
+		return restaurant;
+	}
 
 }

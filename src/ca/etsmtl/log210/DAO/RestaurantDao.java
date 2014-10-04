@@ -40,4 +40,6 @@ public interface RestaurantDao
 	 * @return true si l'update s'est bien fait, false si il y a eu un soucis
 	 */
 	boolean switchToVisibleRestaurant(int idRestaurant);
+
+	RestaurantBean getNomRestaurant(int idRestaurantReceved);
 }
