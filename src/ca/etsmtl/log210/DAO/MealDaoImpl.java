@@ -53,7 +53,7 @@ public class MealDaoImpl implements MealDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_ADD_NEW_MEAL, false, mealRecept.getIdPlat(),
+					SQL_ADD_NEW_MEAL, false, mealRecept.getIdMeal(),
 					mealRecept.getIdMenu(), mealRecept.getPrice(),
 					mealRecept.getName(), mealRecept.getDescription());
 
@@ -79,7 +79,7 @@ public class MealDaoImpl implements MealDao {
 	private MealBean mapMealBean(ResultSet resultSet) throws SQLException {
 		MealBean meal = new MealBean();
 
-		meal.setIdPlat(resultSet.getInt("PLA_idPlat"));
+		meal.setIdMeal(resultSet.getInt("PLA_idPlat"));
 		meal.setIdMenu(resultSet.getInt("PLA_idMenu"));
 		meal.setPrice(resultSet.getInt("PLA_price"));
 		meal.setName(resultSet.getString("PLA_name"));
@@ -101,7 +101,7 @@ public class MealDaoImpl implements MealDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_DELETE_MEAL, false, mealRecept.getIdPlat());
+					SQL_DELETE_MEAL, false, mealRecept.getIdMeal());
 
 			System.out.println(preparedStatement);
 

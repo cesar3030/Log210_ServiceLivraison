@@ -12,7 +12,6 @@ import ca.etsmtl.log210.Beans.MealBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 
-
 public class ShowAllMealMenu extends HttpServlet {
 
 	/**
@@ -26,7 +25,7 @@ public class ShowAllMealMenu extends HttpServlet {
 	public int ID_MENU;
 	public int ID_RESTAURANT;
 
-	public String MENU_NAME_TITRE = "menuTitleName" ;
+	public String MENU_NAME_TITRE = "menuTitleName";
 	public String MENU_NAME = "menuName";
 
 	// Instance de menu qui va nous permettre de faire des requetes sur la BD
@@ -56,20 +55,19 @@ public class ShowAllMealMenu extends HttpServlet {
 		ID_MENU = Integer.parseInt(request.getParameter("idMenu"));
 		MENU_NAME = request.getParameter("menuName");
 		ID_RESTAURANT = Integer.parseInt(request.getParameter("idRestaurant"));
-		System.out.println("voici l'id du menu" + ID_RESTAURANT);
+		System.out.println("voici l'id du menu : " + ID_MENU);
+		System.out.println("voici le nom du menu : " + MENU_NAME);
+		System.out.println("voici MENU_NAME_TITRE : " + MENU_NAME_TITRE);
 		// Creation des liste de donnes de requete
 		ArrayList<MealBean> mealList;
 
-		
-
 		// On recupere les donnees qui seront recu avec la requete sql
 		mealList = mealDao.showAllMealFromMenu(ID_MENU);
-		
+
 		// AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		request.setAttribute(MEAL_MENU_ATTRIBUTE, mealList);
 		request.setAttribute(MENU_NAME_TITRE, MENU_NAME);
 		request.setAttribute("idRestaurant", ID_RESTAURANT);
-
 
 		// On renvoie la requete de reponse au bon endroit du restrict
 		this.getServletContext().getRequestDispatcher(MENU_MANAGEMENT_ACCESS)

@@ -26,7 +26,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${mealList}" var="mealMenuList">
+						<c:forEach items="${mealMenuList}" var="mealMenuList">
 							<tr>
 							<tr id="<c:out value="${mealMenuList.idMeal}"/>">
 								<td><c:out value="${mealMenuList.name}" /></td>

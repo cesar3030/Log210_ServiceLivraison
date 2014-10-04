@@ -25,7 +25,7 @@
 
 
 			<form name=cmpid class="form-horizontal" role="form" method="post"
-				action="<c:url value="/Subscribe"/>">
+				action="<c:url value="/ShowAllMealMenu"/>">
 				<div class="modal-header">
 					<h3>Nouveau plat</h3>
 				</div>
