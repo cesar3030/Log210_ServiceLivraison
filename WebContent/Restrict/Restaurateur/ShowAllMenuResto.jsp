@@ -28,10 +28,10 @@
 					   		<c:forEach items="${activeMenuRestaurantList}" var="ListeMenuActive">
 		  		 				<tr>
 						  		 	<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
-						  			<td><c:out value="${ListeMenuActive.name}"/></td>
+						  			<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}"/>"><c:out value="${ListeMenuActive.name}"/></a></td>
 						  		 	<td><c:out value="${ListeMenuActive.description}"/></td>
 						  		 	<!--  ON PEUT AUSSI RECUPERE LID MENU RESTO ET VISIBILITE SI ON VEUT -->			  		 					  		 	
-						  		 	<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
+						  		 	<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}"/>"><span class="glyphicon glyphicon-eye-open"></span></a><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-trash text-center"></span></td>						  		 	
 					  		 	</tr>			  		 	
 					  	   </c:forEach> 	
 		  		 		</tbody>			   
