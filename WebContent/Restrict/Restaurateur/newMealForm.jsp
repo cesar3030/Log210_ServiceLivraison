@@ -2,12 +2,6 @@
 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 
-<jsp:include page="/header.jsp"></jsp:include>
-
-
-
-<a href="#newMeal" data-toggle="modal">Nouveau plat</a>
-
 <!-- Formulaire de creation d un nouveau plat -->
 <div class="modal fade" id="newMeal" role="dialog">
 	<div class="modal-dialog">
@@ -74,5 +68,3 @@
 
 
 <script src="<c:url value="/inc/js/NewMealFormValidator.js"/>"></script>
-
-<jsp:include page="/footer.jsp"></jsp:include>
