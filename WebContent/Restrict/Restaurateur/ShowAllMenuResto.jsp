@@ -36,7 +36,7 @@
 								<td><c:out value="${ListeMenuActive.description}" /></td>
 								<!--  ON PEUT AUSSI RECUPERE LID MENU RESTO ET VISIBILITE SI ON VEUT -->
 								<td><a
-									href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}"/>"><span
+									href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}&idRestaurant=${ListeMenuActive.idRestaurant}"/>"><span
 										class="glyphicon glyphicon-eye-open"></span></a><span
 									class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
 									class="glyphicon glyphicon-trash text-center"></span></td>
