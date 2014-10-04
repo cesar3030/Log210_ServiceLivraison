@@ -57,22 +57,21 @@ public class MenuManageDaoImpl implements MenuManageDao {
 		try {
 			/* Faire une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			System.out.println(daoFactory.getConnection().toString());
+			
 
 			// ON PREPARE LA REQUETE
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_ALL_ACTIVE_MENU_RESTAURANT, false, restaurantNumber);
 
-			// ICIIII TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-			System.out.println("Resultset");
+		
 			resultSet = preparedStatement.executeQuery();
-			System.out.println(resultSet.toString() + "ICIIIII");
+			
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultSet.next()) {
-				System.out.println("Avant");
+				
 				activeMenuRestaurantList.add(mapMenuBean(resultSet));
-				System.out.println("Apres");
+			
 
 			}
 
@@ -82,8 +81,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		System.out.println(activeMenuRestaurantList);
-		return activeMenuRestaurantList;
+			return activeMenuRestaurantList;
 	}
 
 	public ArrayList<MenuBean> showAllInactiveMenuForOneResto(
