@@ -116,12 +116,6 @@
     <url-pattern>/HomeRestaurateurManagement</url-pattern>
   </servlet-mapping>
   
-  
-  
-  
-  
-  
-  
   <servlet>
     <servlet-name>RestaurateurManagement</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.RestaurateurManagement</servlet-class>

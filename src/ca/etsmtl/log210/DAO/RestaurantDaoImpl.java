@@ -61,8 +61,9 @@ public class RestaurantDaoImpl implements RestaurantDao
 	
 	private static final String SQL_GET_ONE_RESTAURANT = "" 
 			+ "SELECT * "
-			+ "FROM tbrestaurant " 
-			+ "WHERE  RES_idRestaurant=?";
+			+ "FROM tbrestaurant r, tbuseraccount u " 
+			+ "WHERE  RES_idRestaurant=? "
+			+ "AND r.RES_idUserAccount=u.USR_idUser";
 	
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
@@ -326,11 +327,11 @@ public RestaurantBean getNomRestaurant(int idRestaurantReceved) {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_ONE_RESTAURANT, false,idRestaurantReceved);
-
+System.out.println(preparedStatement);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) 
 			{
-				System.out.println(mapRestaurateur(resultSet).getName());
+				//System.out.println(mapRestaurateur(resultSet).getName());
 				nameRestaurant = mapRestaurateur(resultSet);
 			}
 			

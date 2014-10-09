@@ -52,6 +52,8 @@ public class ShowAllMenuResto extends HttpServlet {
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
+		 System.out.println("voici l'Id du restaurant " + ID_RESTAURANT_RECEIVED);
+		 
 		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED).getName();
 		 
 		 
@@ -59,7 +61,6 @@ public class ShowAllMenuResto extends HttpServlet {
 		 ArrayList<MenuBean> activeMenuRestaurantList;
 		 ArrayList<MenuBean> inactiveMenuRestaurantList;
 		 
-		 System.out.println("voici l'Id du restaurant" + ID_RESTAURANT_RECEIVED);
 		 
 		 //On recupere les donnees qui seront recu avec la requete sql
 		 activeMenuRestaurantList = menuDao.showAllActiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
