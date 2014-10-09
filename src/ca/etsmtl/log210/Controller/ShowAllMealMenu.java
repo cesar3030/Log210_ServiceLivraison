@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ca.etsmtl.log210.Beans.MealBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
@@ -17,11 +18,13 @@ public class ShowAllMealMenu extends HttpServlet {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 6561975988106199732L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String MENU_MANAGEMENT_ACCESS = "/Restrict/Restaurateur/ShowAllMealMenu.jsp";
 	public static final String MEAL_MENU_ATTRIBUTE = "mealMenuList";
 	public static final String MEAL_MENU_TITLE_ATTRIBUTE = "mealMenu";
+	public static final String ID_MENU_SESSION = "idMenuSession";
 	public int ID_MENU;
 	public int ID_RESTAURANT;
 
@@ -52,7 +55,12 @@ public class ShowAllMealMenu extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		 /* Récupération de la session depuis la requête */
+        HttpSession session = request.getSession();
+        
 		ID_MENU = Integer.parseInt(request.getParameter("idMenu"));
+		session.setAttribute(ID_MENU_SESSION,request.getParameter("idMenu"));
+		
 		MENU_NAME = request.getParameter("menuName");
 		ID_RESTAURANT = Integer.parseInt(request.getParameter("idRestaurant"));
 		System.out.println("voici l'id du menu : " + ID_MENU);

@@ -89,6 +89,11 @@ public class DAOFactory {
      {
     	 	return new MealDaoImpl(this);     
      }
+
+	public MealDao getMealDao() {
+		return new MealDaoImpl(this);
+
+	}
      
     /* 
      public TableauProcessusDao getTableauProcessusDao()
