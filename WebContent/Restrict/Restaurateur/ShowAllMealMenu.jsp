@@ -33,7 +33,7 @@
 								<td><c:out value="${mealMenuList.price}" /></td>
 								<td><c:out value="${mealMenuList.description}" /></td>
 
-								<td><span class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+								<td><a href="<c:url value="/DeleteMeal"/>"><span
 									class="glyphicon glyphicon-trash text-center"></span></td>
 							</tr>
 						</c:forEach>
