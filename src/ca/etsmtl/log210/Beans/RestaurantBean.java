@@ -10,6 +10,7 @@ public class RestaurantBean
 	private String address;
 	private String phoneNumber;
 	private String kindOfFood;
+	private String restaurateurName;
 	private boolean visible;	//Si visible = 1 cela veut dire que le restaurant est actif. Si la valeur est 0, cela veut dire que le resaurant est cache car il a ete supprimie.
 	
 	
@@ -68,6 +69,28 @@ public class RestaurantBean
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getRestaurateurName() {
+		return restaurateurName;
+	}
+
+	public void setRestaurateurName(String restaurateurName) {
+		this.restaurateurName = restaurateurName;
+	}
+
+	@Override
+	public String toString() {
+		return "RestaurantBean idRestaurant:\n\t- " + idRestaurant
+				+ ": idUserAccountRestaurateur:\n\t- "
+				+ idUserAccountRestaurateur + ": name:\n\t- " + name
+				+ ": address:\n\t- " + address + ": phoneNumber:\n\t- "
+				+ phoneNumber + ": kindOfFood:\n\t- " + kindOfFood
+				+ ": restaurateurName:\n\t- " + restaurateurName
+				+ ": visible:\n\t- " + visible;
+	}
+
+	
+	
 
 
 }

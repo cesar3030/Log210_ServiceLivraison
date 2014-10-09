@@ -23,8 +23,8 @@
 							  <option>1</option>				     						
 						</select> -->
 						<div class="col-lg-8">
-							<select class="form-control"   id="updateRestaurateurId" name="restaurateurId" required>
-							 	  <option>1</option>	
+							<select class="form-control"   id="updateRestaurateurId" name="updateRestaurateurId"  required>
+							 
 							</select>
 						</div>
 					</div>
@@ -32,7 +32,7 @@
 					<div class="form-group">
 						<label for="phone" class="col-lg-4 control-label">Telephone*:</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" id="updatePhone" name="phone"
+							<input type="text" class="form-control" id="updatePhone" name="updatePhone"
 								placeholder="5141245678"  onblur="verifierNumeroTel();" required />
 						</div>
 					</div>		
@@ -41,7 +41,7 @@
 					<div class="form-group">
 						<label for="address" class="col-lg-4 control-label">Adresse*:</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" id="updateAddress" name="address"
+							<input type="text" class="form-control" id="updateAddress" name="updateAddress"
 								placeholder="4589 Bd Saint-Denis H3P1O2 Montreal" required />
 						</div>
 					</div>
@@ -49,20 +49,20 @@
 					<div class="form-group">
 						<label for="typeFood" class="col-lg-4 control-label">Type nourriture*:</label>
 						<div class="col-lg-8">
-							<select class="form-control" id="updateTypeFood" name="typeFood" required>
-							  <option>Francais</option>
-						      <option>Italien</option>
-						      <option>Snack</option>
-							  <option>Libanais</option>
-						      <option>Québecois</option>
-						      <option>Chinois</option>						
+							<select class="form-control" id="updateTypeFood" name="updateTypeFood" required>
+							  <option  value="Francais">Francais</option>
+						      <option  value="Italien">Italien</option>
+						      <option  value="Snack">Snack</option>
+							  <option  value="Libanais">Libanais</option>
+						      <option  value="Québecois">Québecois</option>
+						      <option  value="Chinois">Chinois</option>						
 							</select>
 						</div>
 					</div>
 
 					<!-- On stocke dans ce champ cache, l'idRestaurant afin de pouvoir le recuperer depuis le servlet 
 					pour faire executer la requete sql -->
-					<input type="hidden" class="form-control" id="updateIdRestaurant" />
+					<input type="hidden" class="form-control" id="updateIdRestaurant" name="updateIdRestaurant" />
 
 				</div>
 				<div class="modal-footer">
@@ -75,5 +75,9 @@
 		</div>
 	</div>
 </div>
-
+<script type="text/javascript">
+$('#UpdateRestaurant').on('shown.bs.modal', function () {
+	Requete_AJAX_GetActiveRestaurateurList();
+	})
+</script>
 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>

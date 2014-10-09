@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+
 <div class="modal fade" id="newRestaurant" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -19,9 +20,12 @@
 					
 					<div class="form-group">
 						<label for="restaurateurId" class="col-lg-4 control-label">Restaurateur*:</label>
-						<select class="selectpicker" id="restaurateurId" name="restaurateurId" required>
-							  <option>1</option>				     						
-						</select>
+						
+						<div class="col-lg-8">
+								<select class="form-control"   id="restaurateurId" name="restaurateurId"  required>
+								 
+								</select>
+						</div>
 					</div>
 			
 					<div class="form-group">
@@ -43,14 +47,17 @@
 					
 					<div class="form-group">
 						<label for="typeFood" class="col-lg-4 control-label">Type nourriture*:</label>
-						<select class="selectpicker" id="typeFood" name="typeFood" required>
-							  <option>Francais</option>
-						      <option>Italien</option>
-						      <option>Snack</option>
-							  <option>Libanais</option>
-						      <option>Québecois</option>
-						      <option>Chinois</option>						
-						</select>
+						
+						<div class="col-lg-8">
+								<select class="form-control"   id="typeFood" name="typeFood"  required>
+								  <option>Francais</option>
+							      <option>Italien</option>
+							      <option>Snack</option>
+								  <option>Libanais</option>
+							      <option>Québecois</option>
+							      <option>Chinois</option>		
+								</select>
+						</div>
 					</div>
 
 
@@ -66,4 +73,12 @@
 	</div>
 </div>
 
+
+<script type="text/javascript">
+$('#newRestaurant').on('shown.bs.modal', function () {
+	Requete_AJAX_GetActiveRestaurateurList();
+	})
+</script>
+
 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
+<script src="<c:url value="/inc/js/ajax.js"/>"></script>

@@ -8,16 +8,18 @@ function updateRestaurantDatas(id)
 	var address= document.getElementById("address_"+id).innerHTML;
 	var phoneNumber= document.getElementById("phoneNumber_"+id).innerHTML;
 	var kindOfFood= document.getElementById("kindOfFood_"+id).innerHTML;
-	
-	alert(id+" "+name+" "+address+" "+phoneNumber+" "+kindOfFood);
+	var restaurateurName = document.getElementById("resaurateurName_"+id).innerHTML;
+
 	
 	$('#UpdateRestaurant').modal('show') ;
 	
 	document.getElementById("updateName").value=name;
-	document.getElementById("updatePhone").value=address;
-	document.getElementById("updateAddress").value=phoneNumber;
-	document.getElementById("updateRestaurateurId").value=1;
-	document.getElementById("updateTypeFood").value=kindOfFood;
+	document.getElementById("updatePhone").value=phoneNumber;
+	document.getElementById("updateAddress").value=address;
+	document.getElementById("updateIdRestaurant").value=id;
+	$("#updateTypeFood").val(kindOfFood);
+	$("#updateupdateRestaurateurId").val(restaurateurName);
+	
 	
 }
 

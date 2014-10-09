@@ -11,19 +11,46 @@
   		 	</div>
   		  </div>
   		  <c:if test="${!empty returnMessage.succes}">
-				<div class="row">
-		  		 	<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
-		  		 		<h5 class="text-center" >${returnMessage.succes}</h5>
-		  		 	</div> 		 
-		  		 </div>
+			<script>
+		  	
+	  		toastr.options = {
+	  			  "closeButton": true,
+	  			  "debug": false,
+	  			  "positionClass": "toast-top-right",
+	  			  "onclick": null,
+	  			  "showDuration": "300",
+	  			  "hideDuration": "1000",
+	  			  "timeOut": "5000",
+	  			  "extendedTimeOut": "1000",
+	  			  "showEasing": "swing",
+	  			  "hideEasing": "linear",
+	  			  "showMethod": "fadeIn",
+	  			  "hideMethod": "fadeOut"
+	  			}
+	  		  
+	  			 toastr.success('${returnMessage.succes}', 'Succes');
+	  		 </script>
 		</c:if>
   		 
   		 <c:if test="${!empty returnMessage.fail}">
-				<div class="row">
-		  		 	<div class="col-md-6 col-md-offset-3 alert alert-danger" role="alert">
-		  		 		<h5 class="text-center">${returnMessage.fail}</h5>
-		  		 	</div> 		 
-		  		 </div>
+			<script>
+			
+	 		toastr.options = {
+		  			  "closeButton": true,
+		  			  "debug": false,
+		  			  "positionClass": "toast-top-right",
+		  			  "onclick": null,
+		  			  "showDuration": "300",
+		  			  "hideDuration": "1000",
+		  			  "timeOut": "5000",
+		  			  "extendedTimeOut": "1000",
+		  			  "showEasing": "swing",
+		  			  "hideEasing": "linear",
+		  			  "showMethod": "fadeIn",
+		  			  "hideMethod": "fadeOut"
+		  			}
+	  			 toastr.error('${returnMessage.fail}', 'Erreur')
+	  		</script>
 		</c:if>
 		
 		 <c:if test="${empty returnMessage}">
@@ -52,6 +79,7 @@
 					   			<th>Adresse</th>
 					   			<th>Numéro de téléphone</th>
 					   			<th>Type de nourriture</th>
+					   			<th>Restaurateur</th>
 					   			<th>Opérations</th>
 					   		</tr>
 					   	</thead>
@@ -60,9 +88,10 @@
 		  		 				<tr id="<c:out value="${activeResto.idRestaurant}"/>">
 						  		 	<td id="name_<c:out value="${activeResto.idRestaurant}"/>" ><c:out value="${activeResto.name}"/></td>
 						  		 	<td id="address_<c:out value="${activeResto.idRestaurant}"/>"><c:out value="${activeResto.address}"/></td>
-						  		 	<td id="phoneNumber_<c:out value="${activeResto.idRestaurant}"/>"> <c:out value="${activeResto.phoneNumber}"/></td>
+						  		 	<td id="phoneNumber_<c:out value="${activeResto.idRestaurant}"/>"><c:out value="${activeResto.phoneNumber}"/></td>
 						  		 	<td id="kindOfFood_<c:out value="${activeResto.idRestaurant}"/>"><c:out value="${activeResto.kindOfFood}"/></td>
-						  		 	<td ><a  onclick="updateRestaurantDatas(this.parentNode.parentNode.id);"><span class="glyphicon glyphicon-cog text-center"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value="/SwitchRestaurantToNotVisible?idRestaurant=${activeResto.idRestaurant}"/>"><span class="glyphicon glyphicon-trash text-center"></span></a></td>						  		 	
+						  		 	<td id="resaurateurName_<c:out value="${activeResto.idRestaurant}"/>"><c:out value="${activeResto.restaurateurName}"/></td>
+						  		 	<td><a  onclick="updateRestaurantDatas(this.parentNode.parentNode.id);"><span class="glyphicon glyphicon-cog text-center"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value="/SwitchRestaurantToNotVisible?idRestaurant=${activeResto.idRestaurant}"/>"><span class="glyphicon glyphicon-trash text-center"></span></a></td>						  		 	
 					  		 	</tr>			  		 	
 					  	   </c:forEach> 		 
 		  		 		</tbody>			   
@@ -94,16 +123,18 @@
 					   			<th>Adresse</th>
 					   			<th>Numéro de téléphone</th>
 					   			<th>Type de nourriture</th>
+					   			<th>Restaurateur</th>
 					   			<th>Opérations</th>
 					   		</tr>
 					   	</thead>
 					   	<tbody>
 					   		<c:forEach items="${inactiveRestaurantList}" var="inactiveResto">
 		  		 				<tr  id="<c:out value="${inactiveResto.idRestaurant}"/>">
-						  		 	<td><c:out value="${inactiveResto.name}"/></td>
-						  		 	<td><c:out value="${inactiveResto.address}"/></td>
-						  		 	<td> <c:out value="${inactiveResto.phoneNumber}"/></td>
-						  		 	<td><c:out value="${inactiveResto.kindOfFood}"/></td>	
+						  		 	<td id="name_<c:out value="${inactiveResto.idRestaurant}"/>" ><c:out value="${inactiveResto.name}"/></td>
+						  		 	<td id="address_<c:out value="${inactiveResto.idRestaurant}"/>"><c:out value="${inactiveResto.address}"/></td>
+						  		 	<td id="phoneNumber_<c:out value="${inactiveResto.idRestaurant}"/>"><c:out value="${inactiveResto.phoneNumber}"/></td>
+						  		 	<td id="kindOfFood_<c:out value="${inactiveResto.idRestaurant}"/>"><c:out value="${inactiveResto.kindOfFood}"/></td>	
+						  		 	<td id="resaurateurName_<c:out value="${inactiveResto.idRestaurant}"/>"><c:out value="${inactiveResto.restaurateurName}"/></td>
 						  		 	<td>&nbsp;&nbsp;&nbsp;<a href="<c:url value="/SwitchRestaurantToVisible?idRestaurant=${inactiveResto.idRestaurant}"/>"><span class="glyphicon glyphicon-repeat center"></span></a></td>						  		 						  		 	
 					  		 	</tr>			  		 	
 					  	   </c:forEach> 		 

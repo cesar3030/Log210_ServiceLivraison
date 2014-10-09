@@ -21,7 +21,24 @@
   
  
  
- 
- 
+  <script>
+
+	  toastr.options = {
+			  "closeButton": true,
+			  "debug": false,
+			  "positionClass": "toast-top-left",
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+		  toastr.success('${sessionScope.userSession.firstName} ${sessionScope.userSession.name} !', 'Bonjour ');
+
+ </script>
 	
 <jsp:include page="/footer.jsp"></jsp:include>

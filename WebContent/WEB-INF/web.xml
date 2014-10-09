@@ -158,6 +158,14 @@
     <url-pattern>/NewRestaurant</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>GetActiveResataurateur</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.GetActiveResataurateur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetActiveResataurateur</servlet-name>
+    <url-pattern>/GetActiveResataurateur</url-pattern>
+  </servlet-mapping>
   
   <servlet>
     <servlet-name>SwitchRestaurantToVisible</servlet-name>
@@ -167,7 +175,51 @@
     <servlet-name>SwitchRestaurantToVisible</servlet-name>
     <url-pattern>/SwitchRestaurantToVisible</url-pattern>
   </servlet-mapping>
-    
+  
+  <servlet>
+    <servlet-name>UpdateRestaurant</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.UpdateRestaurant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateRestaurant</servlet-name>
+    <url-pattern>/UpdateRestaurant</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NewRestaurateur</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.NewRestaurateur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewRestaurateur</servlet-name>
+    <url-pattern>/NewRestaurateur</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SwitchRestaurateurToVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurateurToVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurateurToVisible</servlet-name>
+    <url-pattern>/SwitchRestaurateurToVisible</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SwitchRestaurateurToNotVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurateurToNotVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurateurToNotVisible</servlet-name>
+    <url-pattern>/SwitchRestaurateurToNotVisible</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>UpdateRestaurateur</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.UpdateRestaurateurAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateRestaurateur</servlet-name>
+    <url-pattern>/UpdateRestaurateur</url-pattern>
+  </servlet-mapping>
+  
   <filter>
     <filter-name>ApplicationFilter</filter-name>
     <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>

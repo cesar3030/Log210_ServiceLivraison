@@ -26,13 +26,15 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	
 	private static final String SQL_GET_ACTIVE_RESTAURANTS = "" 
 			+ "SELECT * "
-			+ "FROM tbrestaurant " 
-			+ "WHERE  RES_visible=1";
+			+ "FROM tbrestaurant res, tbuseraccount usr " 
+			+ "WHERE  RES_visible=1 "
+			+ "AND res.RES_idUserAccount= usr.USR_idUser";
 	
 	private static final String SQL_GET_INACTIVE_RESTAURANTS = "" 
 			+ "SELECT * "
-			+ "FROM tbrestaurant " 
-			+ "WHERE  RES_visible=0";
+			+ "FROM tbrestaurant res, tbuseraccount usr " 
+			+ "WHERE  RES_visible=0 "
+			+ "AND res.RES_idUserAccount= usr.USR_idUser";
 	
 	private static final String SQL_NEW_RESTAURANT = "" 
 			+ "INSERT INTO `tbrestaurant`"
@@ -48,6 +50,12 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	private static final String SQL_CHANGE_VISIBILITY_TO_1_RESTAURANT = "" 
 			+ "UPDATE tbrestaurant "
 			+ "SET RES_visible=1 "
+			+ "WHERE RES_idRestaurant=?";
+	
+	private static final String SQL_UPDATE_RESTAURANT = "" 
+			+ "UPDATE tbrestaurant "
+			+ "SET RES_idUserAccount=?,RES_name=?,RES_address=?, "
+			+ "RES_phoneNumber=?,RES_kindOfFood=? "
 			+ "WHERE RES_idRestaurant=?";
 	
 	
@@ -139,7 +147,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		
 		
 		try {
-			/* R���������cup���������ration d'une connexion depuis la Factory */
+			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_NEW_RESTAURANT, false,newRestaurant.getIdUserAccountRestaurateur(),
@@ -175,6 +183,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		restaurant.setPhoneNumber(resultSet.getString("RES_phoneNumber"));
 		restaurant.setKindOfFood(resultSet.getString("RES_kindOfFood"));
 		restaurant.setVisible(resultSet.getBoolean("RES_visible"));		
+		restaurant.setRestaurateurName(resultSet.getString("USR_firstName")+" "+resultSet.getString("USR_name"));
 		
 		return restaurant;
 	}
@@ -225,7 +234,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	/**
 	 * La methode change la visibilite du restaurant dont l'identifiant est passe en parametre.
 	 * Cela permet de garder un historique des restaurant au lieu de tout supprimer.
-	 * Cette methode passe la visibilite du restaurant, de 0 a 1
+	 * Cette methode passe la visibilite du restaurant de 0 a 1
 	 * @param idRestaurant
 	 * @return
 	 */
@@ -243,6 +252,43 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_CHANGE_VISIBILITY_TO_1_RESTAURANT, false, idRestaurant);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
+
+
+	@Override
+	public boolean updateResataurant(RestaurantBean restaurantToUpdate) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_UPDATE_RESTAURANT, false, restaurantToUpdate.getIdUserAccountRestaurateur(),
+															restaurantToUpdate.getName(),restaurantToUpdate.getAddress(), 
+															restaurantToUpdate.getPhoneNumber(),restaurantToUpdate.getKindOfFood(),restaurantToUpdate.getIdRestaurant());
 
 			System.out.println(preparedStatement);
 

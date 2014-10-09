@@ -17,12 +17,14 @@
 	
 	<link rel="stylesheet" type="text/css" href="<c:url value="/inc/css/style_website.css"/>" />
 	<link rel="stylesheet" type="text/css" href="<c:url value="/inc/css/bootstrap/css/bootstrap.css"/>"/>
+	<link rel="stylesheet" type="text/css" href="<c:url value="/inc/js/toastr/toastr.css"/>"/>
 	<link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'/>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/inc/css/bootstrap-select.min.css"/>" />
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="<c:url value="/inc/css/bootstrap/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/inc/js/bootstrap-select.js"/>"></script>
+	<script src="<c:url value="/inc/js/toastr/toastr.js"/>"></script>
 	
 	
 	

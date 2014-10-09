@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static ca.etsmtl.log210.DAO.DAOUtilitaire.fermeturesSilencieuses;
 import static ca.etsmtl.log210.DAO.DAOUtilitaire.initialisationRequetePreparee;
+import ca.etsmtl.log210.Beans.RestaurantBean;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 
 public class UserAccountDaoImpl implements UserAccountDao {
@@ -14,13 +16,26 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	private DAOFactory daoFactory;
 	private static final String SQL_GET_USER_ACCOUNT = "" 
 			+ "SELECT * "
-			+ "FROM tbUserAccount " + "WHERE USR_email=? "
+			+ "FROM tbUserAccount " 
+			+ "WHERE USR_email=? "
 			+ "AND USR_password=?";
 
 	private static final String SQL_MODIFY_USER_ACCOUNT = ""
 			+ "UPDATE tbUserAccount "
 			+ "SET USR_homeAddress=?, USR_phoneNumber=?,  USR_password =? "
 			+ "WHERE USR_idUser=?";
+	
+	private static final String SQL_GET_ACTIVE_RESTAURATEUR = ""
+			+ "SELECT * "
+			+ "FROM tbUserAccount " 
+			+ "WHERE USR_rights=1 "
+			+ "AND USR_visible=1";
+	
+	private static final String SQL_GET_INACTIVE_RESTAURATEUR = ""
+			+ "SELECT * "
+			+ "FROM tbUserAccount " 
+			+ "WHERE USR_rights=1 "
+			+ "AND USR_visible=0";
 
 	private static final String SQL_NEW_USER_ACCOUNT = ""
 			+ "INSERT INTO `tbUserAccount`( `USR_name`, `USR_firstName`, `USR_homeAddress`, `USR_email`, `USR_phoneNumber`, `USR_password`, `USR_rights`, `USR_birthday`)  "
@@ -30,6 +45,16 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			+ "SELECT * "
 			+ "FROM tbUserAccount " 
 			+ "WHERE USR_email=? ";
+	
+	private static final String SQL_CHANGE_VISIBILITY_TO_0_RESTAURATEUR = "" 
+			+ "UPDATE tbUserAccount "
+			+ "SET USR_visible=0 "
+			+ "WHERE USR_idUser=?";
+	
+	private static final String SQL_CHANGE_VISIBILITY_TO_1_RESTAURATEUR = "" 
+			+ "UPDATE tbUserAccount "
+			+ "SET USR_visible=1 "
+			+ "WHERE USR_idUser=?";
 
 	public UserAccountDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
@@ -52,7 +77,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultSet.next()) {
-				userAccount = mapTableauApplication(resultSet);
+				userAccount = mapUserAccount(resultSet);
 			}
 
 		} catch (SQLException e) {
@@ -137,12 +162,12 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_TEST_EMAIL, false, testingEmail);
-System.out.println(preparedStatement);
+			System.out.println(preparedStatement);
 			resultSet = preparedStatement.executeQuery();
 
 			/* Parcours de la ligne de donn���������es de l'���������ventuel ResulSet retourn��������� */
 			while (resultSet.next()) {
-				userAccount = mapTableauApplication(resultSet);
+				userAccount = mapUserAccount(resultSet);
 			}
 
 		} catch (SQLException e) {
@@ -176,7 +201,7 @@ System.out.println(preparedStatement);
 	 *         DB)
 	 * @throws SQLException
 	 */
-	private static UserAccountBean mapTableauApplication(ResultSet resultSet)
+	private static UserAccountBean mapUserAccount(ResultSet resultSet)
 			throws SQLException {
 		UserAccountBean userAccountFromBD = new UserAccountBean();
 		userAccountFromBD.setUserId(resultSet.getInt("USR_idUser"));
@@ -194,5 +219,161 @@ System.out.println(preparedStatement);
 		return userAccountFromBD;
 	}
 
+	@Override
+	/**
+	 * Methode qui retourne un arrayList de UserAccountBean contenant les restaurateurs actifs
+	 */
+	public ArrayList<UserAccountBean> getListActiveRestaurateur() {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<UserAccountBean> restaurateurList = new ArrayList<UserAccountBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ACTIVE_RESTAURATEUR, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				restaurateurList.add(mapUserAccount(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return restaurateurList;
+		
+	}
+
+	
+	
+	@Override
+	/**
+	 * Methode qui retourne un arrayList de UserAccountBean contenant les restaurateurs actifs
+	 */
+	public ArrayList<UserAccountBean> getListInactiveRestaurateur() {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<UserAccountBean> restaurateurList = new ArrayList<UserAccountBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_INACTIVE_RESTAURATEUR, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				restaurateurList.add(mapUserAccount(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return restaurateurList;
+		
+	}
+
+	/**
+	 * La methode change la visibilite du restaurateur dont l'identifiant est passe en parametre.
+	 * Cela permet de garder un historique des restaurateur au lieu de tout supprimer.
+	 * Cette methode passe la visibilite du restaurateur de 0 a 1
+	 * @param idRestaurant
+	 * @return
+	 */
+	public boolean swtichRestaurateurToNotVisible(int idRestaurateur) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_CHANGE_VISIBILITY_TO_0_RESTAURATEUR, false,idRestaurateur);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
+
+	/**
+	 * La methode change la visibilite du restaurateur dont l'identifiant est passe en parametre.
+	 * Cela permet de garder un historique des restaurateur au lieu de tout supprimer.
+	 * Cette methode passe la visibilite du restaurateur de 0 a 1
+	 * @param idRestaurant
+	 * @return
+	 */
+	public boolean swtichRestaurateurToVisible(int idRestaurateur) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_CHANGE_VISIBILITY_TO_1_RESTAURATEUR, false, idRestaurateur);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
 
 }

@@ -63,6 +63,7 @@ public class Subscribe extends HttpServlet {
 		newUser.setBirthdayDate(request.getParameter("birthday"));
 		newUser.setHomeAddress(request.getParameter("adress"));
 		newUser.setPhoneNumber(request.getParameter("phone"));
+		newUser.setUserRights(0);
 
 		System.out.println(request.getParameter("name"));
 		// On ajoute le nouvel utilisateur dans la BDD

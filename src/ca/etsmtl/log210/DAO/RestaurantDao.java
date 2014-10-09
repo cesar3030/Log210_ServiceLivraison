@@ -40,4 +40,11 @@ public interface RestaurantDao
 	 * @return true si l'update s'est bien fait, false si il y a eu un soucis
 	 */
 	boolean switchToVisibleRestaurant(int idRestaurant);
+	
+	/**
+	 * Update la table restaurant avec les valeurs du restaurant contenues dans le RestaurantBean
+	 * @param restaurantToUpdate
+	 * @return true si l'update s'est bien fait, false si il y a eu un soucis
+	 */
+	boolean updateResataurant(RestaurantBean restaurantToUpdate);
 }
