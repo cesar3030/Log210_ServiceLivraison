@@ -5,32 +5,6 @@
 <jsp:include page="/header.jsp"></jsp:include>	
 
 
-		 <div class="row">
-  		  	<div class="col-md-11 col-md-offset-1"> 		 
-  		 		 <h1 class="text-center" >Ma Liste de restaurants</h1>  		 		 
-  		 	</div>
-  		  </div>
-  		  <c:if test="${!empty returnMessage.succes}">
-				<div class="row">
-		  		 	<div class="col-md-6 col-md-offset-3 alert alert-success" role="alert">
-		  		 		<h5 class="text-center" >${returnMessage.succes}</h5>
-		  		 	</div> 		 
-		  		 </div>
-		</c:if>
-  		 
-  		 <c:if test="${!empty returnMessage.fail}">
-				<div class="row">
-		  		 	<div class="col-md-6 col-md-offset-3 alert alert-danger" role="alert">
-		  		 		<h5 class="text-center">${returnMessage.fail}</h5>
-		  		 	</div> 		 
-		  		 </div>
-		</c:if>
-		
-		 <c:if test="${empty returnMessage}">
-				<br>
-		 	    <br>
-		</c:if>  		  
-  		  
    		  <div class="row">
   		 	<div class="col-md-8 col-md-offset-2">
 		  		 <div class="table-responsive">

@@ -326,7 +326,9 @@ public RestaurantBean getNomRestaurant(int idRestaurantReceved) {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_ONE_RESTAURANT, false,idRestaurantReceved);
-
+			
+			System.out.println(preparedStatement);
+			
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) 
 			{
@@ -338,7 +340,7 @@ public RestaurantBean getNomRestaurant(int idRestaurantReceved) {
 		} 
 		catch (SQLException e) 
 		{
-			throw new DAOException(e);
+			
 		} 
 		finally 
 		{
