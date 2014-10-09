@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log210.Beans.MenuBean;
+import ca.etsmtl.log210.Beans.RestaurantBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MenuManageDao;
 import ca.etsmtl.log210.DAO.RestaurantDao;
@@ -24,7 +25,7 @@ public class ShowAllMenuResto extends HttpServlet {
 	 public int ID_RESTAURANT_RECEIVED;// A CHANGER PAS LA SUITE
 	 
 	 public String RESTAURANT_NAME_TITRE = "restaurantTitreName" ;
-	 public String RESTAURANT_NAME;
+	 public RestaurantBean RESTAURANT_NAME;
 	 
 	//Instance de menu qui va nous permettre de faire des requetes sur la BD
     private MenuManageDao menuDao;
@@ -52,9 +53,14 @@ public class ShowAllMenuResto extends HttpServlet {
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
+<<<<<<< HEAD
 		 System.out.println("voici l'Id du restaurant " + ID_RESTAURANT_RECEIVED);
 		 
 		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED).getName();
+=======
+				 
+		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
+>>>>>>> 3b6ceb43d53924ebcf678f1cd7c5267dc26681ad
 		 
 		 
 		 //Creation des liste de donnes de requete
@@ -70,7 +76,7 @@ public class ShowAllMenuResto extends HttpServlet {
 		 //AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		 request.setAttribute(ACTIVE_MENU_RESTAURANT_ATTRIBUTE,  activeMenuRestaurantList);
 		 request.setAttribute(INACTIVE_MENU_RESTAURANT_ATTRIBUTE, inactiveMenuRestaurantList);
-		 request.setAttribute(RESTAURANT_NAME_TITRE, RESTAURANT_NAME);
+		 //request.setAttribute(RESTAURANT_NAME_TITRE, RESTAURANT_NAME.getName());
 		 
 		 //On renvoie la requete de reponse au bon endroit du restrict
 		 this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );

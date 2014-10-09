@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>SimpleJspServletDB</display-name>
@@ -224,3 +225,253 @@
   </filter-mapping>
   
   </web-app>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>SimpleJspServletDB</display-name>
+  <listener>
+    <listener-class>ca.etsmtl.log210.DAO.InitialisationDaoFactory</listener-class>
+  </listener>
+  <welcome-file-list>
+    <welcome-file>connection.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  <servlet>
+    <servlet-name>UserConnection</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.UserConnection</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserConnection</servlet-name>
+    <url-pattern>/UserConnection</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>Restriction</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.Restriction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Restriction</servlet-name>
+    <url-pattern>/Restriction</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.Deconnection</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>MyAccount</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.MyAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyAccount</servlet-name>
+    <url-pattern>/MyAccount</url-pattern>
+  </servlet-mapping>
+   
+  <servlet>
+    <servlet-name>Search</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.Search</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Search</servlet-name>
+    <url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+  
+  
+     <servlet>
+    <servlet-name>Subscribe</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.Subscribe</servlet-class>
+  </servlet>  
+  <servlet-mapping>
+    <servlet-name>Subscribe</servlet-name>
+    <url-pattern>/Subscribe</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>UpdateUserAccount</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.UpdateUserAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateUserAccount</servlet-name>
+    <url-pattern>/UpdateUserAccount</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CheckEmailNotUsed</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.CheckEmailNotUsed</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckEmailNotUsed</servlet-name>
+    <url-pattern>/CheckEmailNotUsed</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>ShowAllMenuResto</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.ShowAllMenuResto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowAllMenuResto</servlet-name>
+    <url-pattern>/ShowAllMenuResto</url-pattern>
+  </servlet-mapping>
+  
+
+  
+  <servlet>
+    <servlet-name>AddMenuFormulaire</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddMenuFormulaire</servlet-name>
+    <url-pattern>/AddMenuFormulaire</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>HomeRestaurateurManagement</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.HomeRestaurateurManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HomeRestaurateurManagement</servlet-name>
+    <url-pattern>/HomeRestaurateurManagement</url-pattern>
+  </servlet-mapping>
+  
+  
+      <servlet>
+    	<servlet-name>ShowAllMealMenu</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.ShowAllMealMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>ShowAllMealMenu</servlet-name>
+    	<url-pattern>/ShowAllMealMenu</url-pattern>
+  </servlet-mapping>  
+  
+      <servlet>
+    	<servlet-name>NewMeal</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.NewMeal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>NewMeal</servlet-name>
+    	<url-pattern>/NewMeal</url-pattern>
+  </servlet-mapping> 
+  
+  
+  
+  
+  <servlet>
+    <servlet-name>RestaurateurManagement</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.RestaurateurManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestaurateurManagement</servlet-name>
+    <url-pattern>/RestaurateurManagement</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>RestaurantManagement</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.RestaurantManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestaurantManagement</servlet-name>
+    <url-pattern>/RestaurantManagement</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SwitchRestaurantToNotVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurantToNotVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurantToNotVisible</servlet-name>
+    <url-pattern>/SwitchRestaurantToNotVisible</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewRestaurant</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.NewRestaurant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewRestaurant</servlet-name>
+    <url-pattern>/NewRestaurant</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>GetActiveResataurateur</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.GetActiveResataurateur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetActiveResataurateur</servlet-name>
+    <url-pattern>/GetActiveResataurateur</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SwitchRestaurantToVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurantToVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurantToVisible</servlet-name>
+    <url-pattern>/SwitchRestaurantToVisible</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>UpdateRestaurant</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.UpdateRestaurant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateRestaurant</servlet-name>
+    <url-pattern>/UpdateRestaurant</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NewRestaurateur</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.NewRestaurateur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewRestaurateur</servlet-name>
+    <url-pattern>/NewRestaurateur</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SwitchRestaurateurToVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurateurToVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurateurToVisible</servlet-name>
+    <url-pattern>/SwitchRestaurateurToVisible</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SwitchRestaurateurToNotVisible</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchRestaurateurToNotVisible</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchRestaurateurToNotVisible</servlet-name>
+    <url-pattern>/SwitchRestaurateurToNotVisible</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>UpdateRestaurateur</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.UpdateRestaurateurAccount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateRestaurateur</servlet-name>
+    <url-pattern>/UpdateRestaurateur</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <filter-name>ApplicationFilter</filter-name>
+    <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ApplicationFilter</filter-name>
+    <url-pattern>/Restrict/*</url-pattern>
+  </filter-mapping>
+  
+  </web-app>
+>>>>>>> 3b6ceb43d53924ebcf678f1cd7c5267dc26681ad
