@@ -344,6 +344,15 @@
     <url-pattern>/HomeRestaurateurManagement</url-pattern>
   </servlet-mapping>
   
+        <servlet>
+    	<servlet-name>DeleteMeal</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.DeleteMeal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>DeleteMeal</servlet-name>
+    	<url-pattern>/DeleteMeal</url-pattern>
+  </servlet-mapping> 
+  
   
       <servlet>
     	<servlet-name>ShowAllMealMenu</servlet-name>
