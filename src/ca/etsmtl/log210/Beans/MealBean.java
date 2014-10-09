@@ -75,18 +75,18 @@ public class MealBean {
 	}
 
 	/**
-	 * @return the idPlat
+	 * @return the idMeal
 	 */
-	public int getIdPlat() {
+	public int getIdMeal() {
 		return idMeal;
 	}
 
 	/**
-	 * @param idPlat
-	 *            the idPlat to set
+	 * @param idMeal the idMeal to set
 	 */
-	public void setIdPlat(int idPlat) {
-		this.idMeal = idPlat;
+	public void setIdMeal(int idMeal) {
+		this.idMeal = idMeal;
 	}
+
 
 }

@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -13,13 +14,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.RestaurantBean;
-import ca.etsmtl.log210.Beans.UserAccountBean;
 
 /**
  * @author Iron_Cesar
  *
  */
-public class RestaurantDaoImpl implements RestaurantDao {
+public class RestaurantDaoImpl implements RestaurantDao 
+{
 	
 	
 	private DAOFactory daoFactory;
@@ -57,6 +58,11 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			+ "SET RES_idUserAccount=?,RES_name=?,RES_address=?, "
 			+ "RES_phoneNumber=?,RES_kindOfFood=? "
 			+ "WHERE RES_idRestaurant=?";
+	
+	private static final String SQL_GET_ONE_RESTAURANT = "" 
+			+ "SELECT * "
+			+ "FROM tbrestaurant " 
+			+ "WHERE  RES_idRestaurant=?";
 	
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
@@ -308,7 +314,39 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		return etatRetour;
 	}
 	
-	
+public RestaurantBean getNomRestaurant(int idRestaurantReceved) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		RestaurantBean nameRestaurant = null ;
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ONE_RESTAURANT, false,idRestaurantReceved);
+
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) 
+			{
+				System.out.println(mapRestaurateur(resultSet).getName());
+				nameRestaurant = mapRestaurateur(resultSet);
+			}
+			
+			
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return nameRestaurant;
+	}
 
 
 }
+

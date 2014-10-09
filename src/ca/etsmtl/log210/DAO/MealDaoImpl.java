@@ -7,28 +7,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.MealBean;
+import ca.etsmtl.log210.Beans.MenuBean;
 
 /**
- * Classe qui va nous permettre d'executer une requete a partir d'un beanMeal. Elle gere la communication avec la BDD
+ * Classe qui va nous permettre d'executer une requete a partir d'un beanMeal.
+ * Elle gere la communication avec la BDD
+ * 
  * @author David
  *
  */
-public class MealDaoImpl  implements MealDao{
-	
+public class MealDaoImpl implements MealDao {
+
 	static final String SQL_ADD_NEW_MEAL = ""
 			+ "INSERT INTO `tbplat`( `PLA_idPlat`, `PLA_idMenu`, `PLA_price`, `PLA_name`, `PLA_description`)  "
 			+ "VALUES( ?,?,?,?,?) ";
-	
-	
+
+	static final String SQL_DELETE_MEAL = "" + "DELETE FROM `tbplat` "
+			+ "WHERE PLA_idPlat=?";
+
+	static final String SQL_GET_ALL_MEAL_FROM_MENU = "" + "SELECT * "
+			+ "FROM tbplat " + "WHERE PLA_idMenu=? ";
+
 	private DAOFactory daoFactory;
-	
-	public MealDaoImpl(DAOFactory daoFactory) 
-	{
-		this.daoFactory = daoFactory;		
+
+	public MealDaoImpl(DAOFactory daoFactory) {
+		this.daoFactory = daoFactory;
 	}
-	
+
 	/**
 	 * Ajoute un plat dans le menu en question
 	 */
@@ -38,24 +46,23 @@ public class MealDaoImpl  implements MealDao{
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int codeRetour=0;
-		boolean etatRetour=true;
-		
-		
+		int codeRetour = 0;
+		boolean etatRetour = true;
+
 		try {
-			/* R���������cup���������ration d'une connexion depuis la Factory */
+			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_ADD_NEW_MEAL, false,mealRecept.getIdPlat(),
-					mealRecept.getIdMenu(),mealRecept.getPrice(),mealRecept.getName(),mealRecept.getDescription());
+					SQL_ADD_NEW_MEAL, false, mealRecept.getIdMeal(),
+					mealRecept.getIdMenu(), mealRecept.getPrice(),
+					mealRecept.getName(), mealRecept.getDescription());
 
 			System.out.println(preparedStatement);
 
 			codeRetour = preparedStatement.executeUpdate();
-			
-			if(codeRetour==0)
-			{
-				etatRetour=false;
+
+			if (codeRetour == 0) {
+				etatRetour = false;
 			}
 
 		} catch (SQLException e) {
@@ -63,22 +70,95 @@ public class MealDaoImpl  implements MealDao{
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		
+
 		return etatRetour;
 	}
 
-	
-	//Permet de reformer un Bean Meal de la BD pour pourvoir travailler avec les donn�es provenant de la requete SQL
-	private MealBean mapMealBean(ResultSet resultSet) throws SQLException 
-	{
+	// Permet de reformer un Bean Meal de la BD pour pourvoir travailler avec
+	// les donn�es provenant de la requete SQL
+	private MealBean mapMealBean(ResultSet resultSet) throws SQLException {
 		MealBean meal = new MealBean();
-		
-		meal.setIdPlat(resultSet.getInt("PLA_idPlat"));
+
+		meal.setIdMeal(resultSet.getInt("PLA_idPlat"));
 		meal.setIdMenu(resultSet.getInt("PLA_idMenu"));
 		meal.setPrice(resultSet.getInt("PLA_price"));
 		meal.setName(resultSet.getString("PLA_name"));
 		meal.setDescription(resultSet.getString("PLA_description"));
-				
+
 		return meal;
 	}
+
+	@Override
+	public boolean deleteNewMeal(MealBean mealRecept) {
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour = 0;
+		boolean etatRetour = true;
+
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_DELETE_MEAL, false, mealRecept.getIdMeal());
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+
+			if (codeRetour == 0) {
+				etatRetour = false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return etatRetour;
+	}
+
+	@Override
+	public ArrayList<MealBean> showAllMealFromMenu(int idMenu) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ArrayList<MealBean> showAllMealFromMenu = new ArrayList<MealBean>();
+
+		try {
+			/* Faire une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			System.out.println(daoFactory.getConnection().toString());
+
+			// Preparation de la requete
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ALL_MEAL_FROM_MENU, false, idMenu);
+
+			System.out.println("Resultset");
+
+			// Execution de la requete
+			resultSet = preparedStatement.executeQuery();
+
+			// On ajoute chaque retour de la requete SQL dans notre Map de
+			// MealBean
+			while (resultSet.next()) {
+
+				showAllMealFromMenu.add(mapMealBean(resultSet));
+
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		
+		return showAllMealFromMenu;
+	}
+
 }

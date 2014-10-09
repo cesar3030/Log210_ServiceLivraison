@@ -1,3 +1,4 @@
+
 package ca.etsmtl.log210.DAO;
 
 import java.util.ArrayList;
@@ -47,4 +48,7 @@ public interface RestaurantDao
 	 * @return true si l'update s'est bien fait, false si il y a eu un soucis
 	 */
 	boolean updateResataurant(RestaurantBean restaurantToUpdate);
+	
+	RestaurantBean getNomRestaurant(int idRestaurantReceved);
+
 }

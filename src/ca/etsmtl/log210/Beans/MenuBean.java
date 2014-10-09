@@ -1,33 +1,15 @@
 package ca.etsmtl.log210.Beans;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.beans.Beans;
 
-import javax.servlet.http.HttpServletRequest;
 
-public class MenuBean {
+public class MenuBean extends Beans{
 	private int idMenu;
 	private int idRestaurant;
 	private String name;
 	private String description;
-	private Boolean visible;
+	private int visible;
 	
-
-
-    /**
-     * 
-     * @param request
-     * @param fieldName
-     * @return
-     */
-    public static String getValeurChamp( HttpServletRequest request, String fieldName ) {
-        String value = request.getParameter( fieldName );
-        if ( value == null || value.trim().length() == 0 ) {
-            return null;
-        } else {
-            return value;
-        }
-    }
 	
  //*******************************************ACCESSEURS******************************
     
@@ -39,15 +21,15 @@ public class MenuBean {
 		return this.idRestaurant;
 	}
 	
-	public String getNameMenu() {
+	public String getName() {
 			return this.name;
 		}
 	
-	public String getDescriptionMenu(){
+	public String getDescription(){
 		return this.description;
 	}
 	
-	public Boolean getVisible(){
+	public int getvisible(){
 		return this.visible;
 	}
 	
@@ -64,11 +46,14 @@ public class MenuBean {
 		this.idRestaurant = idRestaurantRecu;
 	}
 
-	public void setnameMenu(String nameMenuRecu) {
+	public void setname(String nameMenuRecu) {
 		this.name = nameMenuRecu;
 	}
-	public void setDescriptionMenu(String descriptionRestoRecu) {
+	public void setDescription(String descriptionRestoRecu) {
 		this.description = descriptionRestoRecu;
+	}
+	public void setVisible(int visibleRecu) {
+		this.visible = visibleRecu;
 	}
 
 
