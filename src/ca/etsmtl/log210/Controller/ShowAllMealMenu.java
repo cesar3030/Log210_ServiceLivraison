@@ -61,11 +61,12 @@ public class ShowAllMealMenu extends HttpServlet {
 		ID_MENU = Integer.parseInt(request.getParameter("idMenu"));
 		session.setAttribute(ID_MENU_SESSION,request.getParameter("idMenu"));
 		
-		MENU_NAME = request.getParameter("menuName");
+		MENU_NAME = request.getParameter("name");
 		
 		ID_RESTAURANT = Integer.parseInt(request.getParameter("idRestaurant"));
 		System.out.println("voici l'id du menu : " + ID_MENU);
 		System.out.println("voici le nom du menu : " + MENU_NAME);
+		System.out.println("voici l'id du restaurant : " + request.getParameter("idRestaurant"));
 		// Creation des liste de donnes de requete
 		ArrayList<MealBean> mealList;
 

@@ -22,10 +22,13 @@ public class ShowAllMenuResto extends HttpServlet {
 	 public static final String MENU_MANAGEMENT_ACCESS     = "/Restrict/Restaurateur/ShowAllMenuResto.jsp";
 	 public static final String INACTIVE_MENU_RESTAURANT_ATTRIBUTE = "inactiveMenuRestaurantList";
 	 public static final String ACTIVE_MENU_RESTAURANT_ATTRIBUTE = "activeMenuRestaurantList";
+	
+	 
 	 public int ID_RESTAURANT_RECEIVED;// A CHANGER PAS LA SUITE
 	 
 	 public String RESTAURANT_NAME_TITRE = "restaurantTitreName" ;
-	 public RestaurantBean RESTAURANT_NAME;
+	 public String ID_RESTAURANT_REFERENCE = "idRestaurantReference" ;
+	 public RestaurantBean PRESENT_RESTAURANT;
 	 
 	//Instance de menu qui va nous permettre de faire des requetes sur la BD
     private MenuManageDao menuDao;
@@ -53,15 +56,13 @@ public class ShowAllMenuResto extends HttpServlet {
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
-<<<<<<< HEAD
+
 		 System.out.println("voici l'Id du restaurant " + ID_RESTAURANT_RECEIVED);
 		 
-		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED).getName();
-=======
+		 PRESENT_RESTAURANT = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
+
 				 
-		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
->>>>>>> 3b6ceb43d53924ebcf678f1cd7c5267dc26681ad
-		 
+
 		 
 		 //Creation des liste de donnes de requete
 		 ArrayList<MenuBean> activeMenuRestaurantList;
@@ -76,7 +77,8 @@ public class ShowAllMenuResto extends HttpServlet {
 		 //AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		 request.setAttribute(ACTIVE_MENU_RESTAURANT_ATTRIBUTE,  activeMenuRestaurantList);
 		 request.setAttribute(INACTIVE_MENU_RESTAURANT_ATTRIBUTE, inactiveMenuRestaurantList);
-		 //request.setAttribute(RESTAURANT_NAME_TITRE, RESTAURANT_NAME.getName());
+		 request.setAttribute(ID_RESTAURANT_REFERENCE, PRESENT_RESTAURANT.getIdRestaurant());
+		 request.setAttribute(RESTAURANT_NAME_TITRE, PRESENT_RESTAURANT.getName());
 		 
 		 //On renvoie la requete de reponse au bon endroit du restrict
 		 this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );

@@ -45,7 +45,7 @@ public class NewMeal extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		MealBean mealToAdd = new MealBean();
-System.out.println(session.getAttribute("idMenuSession"));
+		System.out.println(session.getAttribute("idMenuSession"));
 		mealToAdd.setIdMenu(Integer.parseInt((String) session.getAttribute("idMenuSession")));
 		mealToAdd.setName(request.getParameter("name"));
 		mealToAdd.setPrice(Integer.parseInt(request.getParameter("price")));

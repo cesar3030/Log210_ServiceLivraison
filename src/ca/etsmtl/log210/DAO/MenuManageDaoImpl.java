@@ -15,7 +15,7 @@ import ca.etsmtl.log210.Beans.RestaurantBean;
 public class MenuManageDaoImpl implements MenuManageDao {
 
 	static final String SQL_ADD_NEW_MENU = ""
-			+ "INSERT INTO `tbmenu`( `MEN_idRestaurant`, `MEN_name`, `MEN_description`, `MEN_visible`)  "
+			+ "INSERT INTO `tbmenu`( `MEN_idRestaurant`,`MEN_name`, `MEN_description`,`MEN_visible`)  "
 			+ "VALUES( ?,?,?,?) ";
 
 	static final String SQL_GET_ALL_ACTIVE_MENU_RESTAURANT = "SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=1";
@@ -27,7 +27,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			+ "WHERE MEN_idMenu=?, MEN_idRestaurant=?";
 
 	static final String SQL_DELETE_MENU_RESTAURANT = "" + "UPDATE tbMenu "
-			+ "SET MEN_visible=?" + "WHERE MEN_idMenu=?, MEN_idRestaurant=?";
+			+ "SET MEN_visible=0" + "WHERE MEN_idMenu=?, MEN_idRestaurant=?";
 
 	private DAOFactory daoFactory;
 
@@ -36,8 +36,39 @@ public class MenuManageDaoImpl implements MenuManageDao {
 	}
 
 	@Override
-	public void addNewMenu(MenuBean menuRecu) {
-		// TODO Auto-generated method stub
+	public boolean addNewMenu(MenuBean menuRecu) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int insertion=0;
+		boolean etatInsertion=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_ADD_NEW_MENU , false,
+					menuRecu.getIdRestaurant(),
+					menuRecu.getName(),
+					menuRecu.getDescription(),1);
+
+			System.out.println(preparedStatement);
+
+			insertion = preparedStatement.executeUpdate();
+			
+			if(insertion==0)
+			{
+				etatInsertion=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatInsertion;
 
 	}
 

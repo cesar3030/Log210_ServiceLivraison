@@ -1,5 +1,7 @@
 package ca.etsmtl.log210.Controller;
 
-public class DeleteMeal {
+import javax.servlet.http.HttpServlet;
+
+public class DeleteMeal extends HttpServlet{
 
 }

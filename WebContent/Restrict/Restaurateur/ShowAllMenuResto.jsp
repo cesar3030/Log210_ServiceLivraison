@@ -7,12 +7,14 @@
 
 <!-- Affiche tous les menus par restaurant-->
 
-<<div class="col-md-5 col-md-offset-5">>
+<div class="col-md-5 col-md-offset-5">
 	<h3>Tous les menus du Restaurant :</h3>
-		<a href="<c:url value="#addMenu"/>" data-toggle="modal">
+		<a href="<c:url value="#addMenu"/>"  data-toggle="modal">
+				<!-- Affiche tous les menus par restaurant-->
 				<button type="button" class="btn btn-warning">Ajouter un
-					menu au restaurant : ${restaurantTitreName}</button>
+					menu : ${restaurantTitreName} + IdRestaurant : ${idRestaurantReference}</button>
 		</a>
+		
 </div>
 
 <form class="form" method=post
@@ -37,14 +39,14 @@
 								<!--  Nom du menu -->
 								<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
 									<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}
-									&idRestaurant=${ListeMenuActive.idRestaurant}"/>">
+									&idRestaurant=${ListeMenuActive.idRestaurant}&name=${ListeMenuActive.name}"/>">
 									<c:out value="${ListeMenuActive.name}" /></a></td>
 				
 									<!--  Description du menu -->
 									<td><c:out value="${ListeMenuActive.description}" /></td>
 									
 									<!--  Les outils du menu -->
-									<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}&idRestaurant=${ListeMenuActive.idRestaurant}"/>"><span
+									<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}&idRestaurant=${ListeMenuActive.idRestaurant}&name=${ListeMenuActive.name}"/>"><span
 											class="glyphicon glyphicon-eye-open"></span></a>
 								<span
 										class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span

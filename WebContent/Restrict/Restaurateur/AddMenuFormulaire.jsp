@@ -4,78 +4,45 @@
 
 
 
-
 <!-- Formulaire d'ajout de menu -->
-<div class="modal fade" id="addMenu" role="dialog">
+<div class="modal fade" id="addMenu" role="dialog" >
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form name="formulaireAddMenu" class="form-horizontal" role="form"
-				method="post" action="<c:url value="/Subscribe"/>">
+
+
+			<form name="formAddMenu" class="form-vertical" role="form" method="post"
+				action="<c:url value="/AddMenuFormulaire"/>">
 				<div class="modal-header">
-					<h3>Ajouter un nouveau Menu</h3>
+					<h3>Ajouter Menu : idRestaurant</h3>
 				</div>
 
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="nameMenu" class="col-lg-4 control-label">Nom
-							du menu*:</label>
-						<div class="col-lg-8">
-							<input type="text" class="form-control" name="nameMenu"
-								id="nameMenu" placeholder="Nom du menu" required />
+						<div class="form-group">
+							<label for="nameMenu" class="col-lg-4 control-label">Nom du Menu:*</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" name="nameMenu" id="nameMenu"
+									placeholder="Nom du Menu"  required />
+							</div>
 						</div>
-					</div>
 
-					<div class="form-group">
-						<label for="descriptionMenu" class="col-lg-4 control-label">Description
-							du menu*:</label>
-						<div class="col-lg-8">
-							<input type="text" class="form-control" name="descriptionMenu"
-								id="descriptionMenu" placeholder="Description du menu" required />
+						<div class="form-group">
+							<label for="descriptionMenu" class="col-lg-4 control-label">Description de Menu:*</label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control" id="descriptionMenu"
+									name="descriptionMenu" placeholder="Unique en son genre" />
+							</div>
 						</div>
-					</div>
-
-					<!-- Tableau Ajout des plats -->
-
-					<div class="bs-example">
-
-						<div class="table-responsive" id="tabMenu">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Nom</th>
-										<th>Description du plat</th>
-										<th>Prix du plat</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<!-- Ligne UNEE ICI qui serq affecter a une fonction Javascript-->
-										<td>1</td>
-										<td>Table cell</td>
-										<td>Table cell</td>
-
-									</tr>
-
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- Fin Tableau Ajout de Menu -->
-				</div>
-
-
-				<div class="modal-footer">
-
+					<!-- On stocke dans ce champ cache, l'idRestaurant afin de pouvoir le recuperer depuis le servlet 
+					pour faire executer la requete sql -->
+					<input type="hidden" class="form-control" id="idRestaurantRef" name="idRestaurantRef" />
+					
 					<a class="btn btn-default" data-dismiss="modal">Annuler</a>
-					<button type="button" class="btn btn-success">Finaliser
-						Création</button>
-
-				</div>
+					<button class="btn btn-primary" type="submit">Ajouter</button>
 			</form>
-
-		</div>
+			
+				</div>
+			
+			</div>
+	
 	</div>
-</div>
 
-<script src="<c:url value="/inc/js/AddMenu.js"/>"></script>
+<script src="<c:url value="/inc/js/addMenu.js"/>"></script>

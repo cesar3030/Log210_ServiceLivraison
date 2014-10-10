@@ -43,6 +43,8 @@ public class HomeRestaurateurManagement extends HttpServlet{
 		 
 		 String idRestaurateur = request.getRequestedSessionId();
 		 System.out.println(idRestaurateur);
+		 HttpSession session= request.getSession();
+		 UserAccountBean restaurateurConnected = (UserAccountBean) session.getAttribute("userSession");
 		 
 		 ArrayList<RestaurantBean> activeRestaurantList;
 		 ArrayList<RestaurantBean> inactiveRestaurantList;

@@ -7,10 +7,15 @@
 
 <!-- Affiche tous les menus par restaurant-->
 
-<div class="modal-header">
+<div class="col-md-5 col-md-offset-5">
 	<h3>Tous les plats du Menu :</h3>
 	<p class="text-center">${menuTitleName}</p>
+		<a href="<c:url value="#newMeal"/>" data-toggle="modal">
+				<button type="button" class="btn btn-warning">Ajouter un
+					plat au menu : ${menuTitleName}</button>
+					</a>
 </div>
+
 
 <form class="form" method=post action="<c:out value="ShowAllMealMenu"/>">
 	<div class="row">
@@ -39,10 +44,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<a href="<c:url value="#newMeal"/>" data-toggle="modal">
-				<button type="button" class="btn btn-warning">Ajouter un
-					plat au menu : ${menuTitleName}</button>
-					</a>
+			
 			</div>
 		</div>
 	</div>
