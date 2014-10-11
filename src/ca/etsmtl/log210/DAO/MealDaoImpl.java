@@ -8,9 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import ca.etsmtl.log210.Beans.MealBean;
-import ca.etsmtl.log210.Beans.MenuBean;
 
 /**
  * Classe qui va nous permettre d'executer une requete a partir d'un beanMeal.
@@ -156,8 +154,7 @@ public class MealDaoImpl implements MealDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		
-		
+
 		return showAllMealFromMenu;
 	}
 

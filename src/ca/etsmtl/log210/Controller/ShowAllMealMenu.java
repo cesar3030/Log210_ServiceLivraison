@@ -63,6 +63,7 @@ public class ShowAllMealMenu extends HttpServlet {
 			ID_MENU = Integer.parseInt(request.getParameter("idMenu"));
 			session.setAttribute(ID_MENU_SESSION,
 					request.getParameter("idMenu"));
+			MENU_NAME = request.getParameter("name");
 		} else {
 			ID_MENU = Integer.parseInt((String) session
 					.getAttribute("idMenuSession"));
@@ -70,7 +71,7 @@ public class ShowAllMealMenu extends HttpServlet {
 					session.getAttribute("idMenuSession"));
 		}
 
-		MENU_NAME = request.getParameter("name");
+		
 
 		if (request.getParameter("idRestaurant") != null) {
 			ID_RESTAURANT = Integer.parseInt(request

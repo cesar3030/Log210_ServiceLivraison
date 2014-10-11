@@ -8,11 +8,11 @@
 <!-- Affiche tous les menus par restaurant-->
 
 <div class="col-md-5 col-md-offset-5">
-	<h3>Tous les plats du Menu :</h3>
-	<p class="text-center">${menuTitleName}</p>
+	<h3>Tous les plats du Menu : ${menuTitleName}</h3>
+
 		<a href="<c:url value="#newMeal"/>" data-toggle="modal">
 				<button type="button" class="btn btn-warning">Ajouter un
-					plat au menu : ${menuTitleName}</button>
+					plat au menu</button>
 					</a>
 </div>
 

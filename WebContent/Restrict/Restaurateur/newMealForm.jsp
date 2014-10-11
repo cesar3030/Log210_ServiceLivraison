@@ -35,7 +35,7 @@
 						<label for="name" class="col-lg-4 control-label">Nom*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="name" id="name"
-								placeholder="Poulet frites" onblur="checkMealName();" required />
+								placeholder="Poulet frites" required />
 						</div>
 					</div>
 
@@ -51,7 +51,7 @@
 						<label for="price" class="col-lg-4 control-label">Prix*:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="price" id="price"
-								placeholder="15" required />
+								placeholder="15" onblur="checkprice()" required />
 							<div id="error-message"></div>
 						</div>
 					</div>
@@ -67,4 +67,4 @@
 
 
 
-<script src="<c:url value="/inc/js/NewMealFormValidator.js"/>"></script>
+<script src="<c:url value="/inc/js/NewMealValidator.js"/>"></script>
