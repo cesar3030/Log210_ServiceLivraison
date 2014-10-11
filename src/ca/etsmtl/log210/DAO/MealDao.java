@@ -9,7 +9,7 @@ public interface MealDao {
 	
 
 	public boolean addNewMeal(MealBean mealRecept);
-	public boolean deleteNewMeal(MealBean mealRecept);
+	public boolean deleteNewMeal(int idMeal);
 	
 	ArrayList<MealBean> showAllMealFromMenu(int idMenu);
 

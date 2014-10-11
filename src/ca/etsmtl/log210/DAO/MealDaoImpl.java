@@ -89,7 +89,7 @@ public class MealDaoImpl implements MealDao {
 	}
 
 	@Override
-	public boolean deleteNewMeal(MealBean mealRecept) {
+	public boolean deleteNewMeal(int idMeal) {
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -101,7 +101,7 @@ public class MealDaoImpl implements MealDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_DELETE_MEAL, false, mealRecept.getIdMeal());
+					SQL_DELETE_MEAL, false, idMeal);
 
 			System.out.println(preparedStatement);
 
