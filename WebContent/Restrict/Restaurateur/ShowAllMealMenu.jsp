@@ -39,7 +39,8 @@
 								<td><c:out value="${mealMenuList.description}" /></td>
 
 								<td><a href="<c:url value="/DeleteMeal?idMeal=${mealMenuList.idMeal}"/>"><span
-									class="glyphicon glyphicon-trash text-center"></span></td>
+									class="glyphicon glyphicon-trash text-center"></span>	</a></td>
+								
 							</tr>
 						</c:forEach>
 					</tbody>

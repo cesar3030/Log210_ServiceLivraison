@@ -3,8 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 
 <jsp:include page="/header.jsp"></jsp:include>	
-
-
+		<div class="col-md-8 col-md-offset-2">
+		<h3>Voici la liste de vos restaurants</h3>
+			<br>
+			<br>
+		</div>
    		  <div class="row">
   		 	<div class="col-md-8 col-md-offset-2">
 		  		 <div class="table-responsive">

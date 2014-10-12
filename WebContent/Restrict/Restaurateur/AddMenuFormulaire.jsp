@@ -10,10 +10,10 @@
 		<div class="modal-content">
 
 
-			<form name="formAddMenu" class="form-vertical" role="form" method="post"
+			<form name=cmpid class="form-vertical" role="form" method="post"
 				action="<c:url value="/AddMenuFormulaire"/>">
 				<div class="modal-header">
-					<h3>Ajouter Menu : idRestaurant</h3>
+					<h3>Ajouter un menu au restaurant  </h3>
 				</div>
 
 						<div class="form-group">
@@ -31,9 +31,6 @@
 									name="descriptionMenu" placeholder="Unique en son genre" />
 							</div>
 						</div>
-					<!-- On stocke dans ce champ cache, l'idRestaurant afin de pouvoir le recuperer depuis le servlet 
-					pour faire executer la requete sql -->
-					<input type="hidden" class="form-control" id="idRestaurantRef" name="idRestaurantRef" />
 					
 					<a class="btn btn-default" data-dismiss="modal">Annuler</a>
 					<button class="btn btn-primary" type="submit">Ajouter</button>

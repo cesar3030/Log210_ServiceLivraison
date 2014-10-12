@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ca.etsmtl.log210.Beans.MenuBean;
 import ca.etsmtl.log210.Beans.RestaurantBean;
@@ -19,7 +20,7 @@ import ca.etsmtl.log210.DAO.RestaurantDao;
 public class ShowAllMenuResto extends HttpServlet {
 
 	 public static final String CONF_DAO_FACTORY = "daofactory";
-	 public static final String MENU_MANAGEMENT_ACCESS     = "/Restrict/Restaurateur/ShowAllMenuResto.jsp";
+	 public static final String MENU_MANAGEMENT_ACCESS     = "/ShowAllMenuResto";
 	 public static final String INACTIVE_MENU_RESTAURANT_ATTRIBUTE = "inactiveMenuRestaurantList";
 	 public static final String ACTIVE_MENU_RESTAURANT_ATTRIBUTE = "activeMenuRestaurantList";
 	
@@ -42,9 +43,7 @@ public class ShowAllMenuResto extends HttpServlet {
     */
 	 public void init() throws ServletException 
 	 {
-		 	
-		 	System.out.println("JE suis dans init de  ShowAllMenuResto");
-	    	this.menuDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getMenuRestaurantDao();
+		   	this.menuDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getMenuRestaurantDao();
 	    	this.restaurantDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getRestaurantDao();
 	 }
 	 public String getServletInfo(){
@@ -55,35 +54,40 @@ public class ShowAllMenuResto extends HttpServlet {
 	 
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
-		 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
-
-		 System.out.println("voici l'Id du restaurant " + ID_RESTAURANT_RECEIVED);
 		 
+		 HttpSession session = request.getSession();
+
+			if (request.getParameter("idRestaurant") != null) {
+				 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
+				 session.setAttribute("restaurantActuel",ID_RESTAURANT_RECEIVED);
+			} else {
+				System.out.println(session
+						.getAttribute("restaurantActuel"));
+				ID_RESTAURANT_RECEIVED = (int)session
+						.getAttribute("restaurantActuel");
+				}
+	
 		 PRESENT_RESTAURANT = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
-
-				 
-
 		 
 		 //Creation des liste de donnes de requete
 		 ArrayList<MenuBean> activeMenuRestaurantList;
-		 ArrayList<MenuBean> inactiveMenuRestaurantList;
-		 
+			 
 		 
 		 //On recupere les donnees qui seront recu avec la requete sql
 		 activeMenuRestaurantList = menuDao.showAllActiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
-		 inactiveMenuRestaurantList = menuDao.showAllInactiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
+		// inactiveMenuRestaurantList = menuDao.showAllInactiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
 		 
 		
 		 //AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		 request.setAttribute(ACTIVE_MENU_RESTAURANT_ATTRIBUTE,  activeMenuRestaurantList);
-		 request.setAttribute(INACTIVE_MENU_RESTAURANT_ATTRIBUTE, inactiveMenuRestaurantList);
-		 request.setAttribute(ID_RESTAURANT_REFERENCE, PRESENT_RESTAURANT.getIdRestaurant());
+		
+		 //request.setAttribute(ID_RESTAURANT_REFERENCE,  ID_RESTAURANT_RECEIVED);
 		 request.setAttribute(RESTAURANT_NAME_TITRE, PRESENT_RESTAURANT.getName());
 		 
 		 //On renvoie la requete de reponse au bon endroit du restrict
-		 this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );
+		 this.getServletContext().getRequestDispatcher( "/Restrict/Restaurateur/ShowAllMenuResto.jsp" ).forward( request, response );
 	 }
-	 
+	 //MENU_MANAGEMENT_ACCESS 
 	
 	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {

@@ -18,7 +18,9 @@ public class AddNewMenu extends HttpServlet {
 
 	 private static final String CONF_DAO_FACTORY = "daofactory";
 	 public static final String SESSION_USER = "userSession";
-	 public static final String MENU_MANAGEMENT_ACCESS     = "/ShowAllMenuResto?idRestaurant=1";
+	 //public String MENU_MANAGEMENT_ACCESS;
+	 public int ID_RESTAURANT_REFERENCE;
+	 public static final String MENU_MANAGEMENT_ACCESS     = "/ShowAllMenuResto";
 	 public static final String ID_RESTAURANT_SESSION = "idRestaurantSession";
 	 private MenuManageDao menuDao;
 
@@ -49,28 +51,18 @@ public class AddNewMenu extends HttpServlet {
 		
 		public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 		 {
-			
-				int idRestaurant=Integer.parseInt( request.getParameter("idRestaurantRef"));
-				System.out.println(idRestaurant);
-				
-			   	HttpSession session = request.getSession();
-			   	System.out.println(request.getPathInfo());
-		   
-				session.setAttribute(ID_RESTAURANT_SESSION,request.getParameter("idRestaurant"));
-				System.out.println("voici l'id du menu : " + request.getParameter("idMenu"));
-				System.out.println("voici le nom du menu : " + request.getParameter("name"));
-				System.out.println("voici l'id du restaurant : " + request.getParameter("idRestaurant"));
-			
-			System.out.println("Voici le nom du nouveau menu "+ request.getParameter("nameMenu")
-					+ request.getParameter("descriptionMenu")
-					);
+			HttpSession session = request.getSession();
+			System.out.println(session.getAttribute("restaurantActuel"));
+			session.setAttribute("insertion", true);
+			//ID_RESTAURANT_REFERENCE = (int) session.getAttribute("restaurantActuel");
 			
 			MenuBean newMenu = new MenuBean();
 			newMenu.setname((String) request.getParameter("nameMenu"));
 			newMenu.setDescription((String) request.getParameter("descriptionMenu"));
-			newMenu.setIdRestaurant(1);
+			newMenu.setIdRestaurant((int)session.getAttribute("restaurantActuel"));
 			
 			if (this.menuDao.addNewMenu(newMenu)){
+				System.out.println("Je vais renvoyer la requete vers "+ MENU_MANAGEMENT_ACCESS);
 				this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );
 			}
 			

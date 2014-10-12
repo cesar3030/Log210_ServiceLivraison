@@ -10,7 +10,7 @@ public interface MenuManageDao {
 
 	boolean addNewMenu(MenuBean menuRecu);
 
-	void deleteMenu(MenuBean menuRecu);
+	boolean deleteMenu(int menuRecu);
 
 	ArrayList<MenuBean> showAllActiveMenuForOneResto(int restaurantNumber);
 

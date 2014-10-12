@@ -7,12 +7,16 @@
 
 <!-- Affiche tous les menus par restaurant-->
 
+<!--<c:set var="insertion" value="false" scope="session" />-->
+
 <div class="col-md-5 col-md-offset-5">
 	<h3>Tous les menus du Restaurant :</h3>
-		<a href="<c:url value="#addMenu"/>"  data-toggle="modal">
-				<!-- Affiche tous les menus par restaurant-->
+		<a 	href="<c:url value="#addMenu"/>"  data-toggle="modal">
+			<!-- Affiche tous les menus par restaurant-->
 				<button type="button" class="btn btn-warning">Ajouter un
-					menu : ${restaurantTitreName} + IdRestaurant : ${idRestaurantReference}</button>
+					menu : ${restaurantTitreName} ID DU RESTAURANT ${sessionScope.restaurantActuel}
+				</button>
+				
 		</a>
 		
 </div>
@@ -27,7 +31,9 @@
 						<tr>
 							<th>Nom du menu</th>
 							<th>Description du menu</th>
-							<th>Outils</th>
+							<th>Voir</th>
+							<th>Modifier</th>
+							<th>Supprimer</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,20 +43,25 @@
 								var="ListeMenuActive">
 								<tr>
 								<!--  Nom du menu -->
-								<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
-									<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}
-									&idRestaurant=${ListeMenuActive.idRestaurant}&name=${ListeMenuActive.name}"/>">
-									<c:out value="${ListeMenuActive.name}" /></a></td>
+								
+									<td><c:out value="${ListeMenuActive.name}" /></td>
 				
-									<!--  Description du menu -->
+								<!--  Description du menu -->
 									<td><c:out value="${ListeMenuActive.description}" /></td>
 									
-									<!--  Les outils du menu -->
-									<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}&idRestaurant=${ListeMenuActive.idRestaurant}&name=${ListeMenuActive.name}"/>"><span
-											class="glyphicon glyphicon-eye-open"></span></a>
-								<span
-										class="glyphicon glyphicon-cog text-center"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-										class="glyphicon glyphicon-trash text-center"></span></td>
+								<!--  Les outils du menu -->
+									<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}
+																&idRestaurant=${sessionScope.restaurantActuel}
+																&name=${ListeMenuActive.name}"/>"><span
+											class="glyphicon glyphicon-eye-open"></span>
+										</a>
+									</td>
+									<td><span class="glyphicon glyphicon-cog text-center"></span></td>
+									
+									<td><a href="<c:url value="/DeleteMenu?idMenu=${ListeMenuActive.idMenu}"/>">
+										<span class="glyphicon glyphicon-trash text-center"></span></a>
+									</td>
+									
 								</tr>
 							</c:forEach>
 					</tbody>
@@ -68,8 +79,9 @@
 <div class="col-md-5 col-md-offset-5">
 	<a href="<c:url value="/HomeRestaurateurManagement"/>"
 		data-toggle="modal">
-		<button type="button" class="btn btn-danger">Retourner a la
-			liste des restaurants</button>
+		<button type="button" class="btn btn-danger">
+		Retour vers liste des restaurants
+		</button>
 	</a>
 </div>
 
