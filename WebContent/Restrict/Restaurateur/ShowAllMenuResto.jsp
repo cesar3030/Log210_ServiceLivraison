@@ -8,13 +8,13 @@
 <!-- Affiche tous les menus par restaurant-->
 
 <!--<c:set var="insertion" value="false" scope="session" />-->
-
+<!--ID DU RESTAURANT ${sessionScope.restaurantActuel}-->
 <div class="col-md-5 col-md-offset-5">
-	<h3>Tous les menus du Restaurant :</h3>
+	<h3>${restaurantTitreName} : Tous les menus</h3>
 		<a 	href="<c:url value="#addMenu"/>"  data-toggle="modal">
 			<!-- Affiche tous les menus par restaurant-->
 				<button type="button" class="btn btn-warning">Ajouter un
-					menu : ${restaurantTitreName} ID DU RESTAURANT ${sessionScope.restaurantActuel}
+					menu
 				</button>
 				
 		</a>
@@ -31,7 +31,7 @@
 						<tr>
 							<th>Nom du menu</th>
 							<th>Description du menu</th>
-							<th>Voir</th>
+							<th>Voir les plats</th>
 							<th>Modifier</th>
 							<th>Supprimer</th>
 						</tr>
@@ -56,7 +56,16 @@
 											class="glyphicon glyphicon-eye-open"></span>
 										</a>
 									</td>
-									<td><span class="glyphicon glyphicon-cog text-center"></span></td>
+									
+									<td><a href="<c:url value="#modifyMenu"/>">
+										<span class="glyphicon glyphicon-cog text-center"></span></a>
+									</td>
+									
+									<!--<td><a href="<c:url value="/ModifyMenu?idMenu=${ListeMenuActive.idMenu}
+																&nameMenu=${ListeMenuActive.name}
+																&descriptionMenu=${ListeMenuActive.description}"/>">
+										<span class="glyphicon glyphicon-cog text-center"></span></a>
+									</td>-->
 									
 									<td><a href="<c:url value="/DeleteMenu?idMenu=${ListeMenuActive.idMenu}"/>">
 										<span class="glyphicon glyphicon-trash text-center"></span></a>
@@ -73,19 +82,7 @@
 <!--  Affichage des menus -->
 
 
-<br>
-<br>
-
-<div class="col-md-5 col-md-offset-5">
-	<a href="<c:url value="/HomeRestaurateurManagement"/>"
-		data-toggle="modal">
-		<button type="button" class="btn btn-danger">
-		Retour vers liste des restaurants
-		</button>
-	</a>
-</div>
-
 
 <jsp:include page="/Restrict/Restaurateur/AddMenuFormulaire.jsp"></jsp:include>
-
+<jsp:include page="/Restrict/Restaurateur/ModifyMenu.jsp"></jsp:include>
 <jsp:include page="/footer.jsp"></jsp:include>

@@ -27,7 +27,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 	static final String SQL_MODIFY_MENU_RESTAURANT = 
 			"" + "UPDATE tbmenu "
 			+ "SET MEN_name=?, MEN_description=?"
-			+ "WHERE MEN_idMenu=?, MEN_idRestaurant=?";
+			+ "WHERE MEN_idMenu=?";
 
 	static final String SQL_DELETE_MENU_RESTAURANT = 
 			 "" + "DELETE FROM `tbmenu` "
@@ -60,7 +60,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 					menuRecu.getIdRestaurant(),
 					menuRecu.getName(),
 					menuRecu.getDescription(),
-					menuRecu.getIdRestaurant());
+					1);
 
 			
 			insertion = preparedStatement.executeUpdate();
@@ -93,6 +93,39 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_DELETE_MENU_RESTAURANT , false, menuRecu);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+
+			if (codeRetour == 0) {
+				etatRetour = false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return etatRetour;
+		
+	}
+	public boolean modifyMenu(int idMenuRecu, String nameMenuRecu, String descriptionRecu) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour = 0;
+		boolean etatRetour = true;
+
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_MODIFY_MENU_RESTAURANT, false, 
+					nameMenuRecu,
+					descriptionRecu,
+					idMenuRecu);
 
 			System.out.println(preparedStatement);
 

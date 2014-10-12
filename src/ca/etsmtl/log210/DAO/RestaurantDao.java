@@ -50,5 +50,6 @@ public interface RestaurantDao
 	boolean updateResataurant(RestaurantBean restaurantToUpdate);
 	
 	RestaurantBean getNomRestaurant(int idRestaurantReceved);
+	ArrayList<RestaurantBean> getActiveRestaurantsForRestaurateur(int idRestaurateur);
 
 }

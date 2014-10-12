@@ -65,6 +65,13 @@ public class RestaurantDaoImpl implements RestaurantDao
 			+ "WHERE  RES_idRestaurant=? "
 			+ "AND r.RES_idUserAccount=u.USR_idUser";
 	
+	private static final String SQL_GET_ACTIVE_RESTAURANTS_RESTAURATEUR = "" 
+			+ "SELECT * "
+			+ "FROM tbrestaurant res, tbuseraccount usr " 
+			+ "WHERE  RES_idUserAccount=?"
+			+ " AND RES_visible=1"
+			+ " AND res.RES_idUserAccount= usr.USR_idUser";
+			
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
 	{
@@ -347,6 +354,41 @@ System.out.println(preparedStatement);
 		}
 		return nameRestaurant;
 	}
+public ArrayList<RestaurantBean> getActiveRestaurantsForRestaurateur(int idRestaurateur) {
+	
+	Connection connexion = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet resultSet = null;
+	ArrayList<RestaurantBean> restaurantList = new ArrayList<RestaurantBean>();
+	
+	try {
+		/* Recuperation d'une connexion depuis la Factory */
+		connexion = daoFactory.getConnection();
+		
+		preparedStatement = initialisationRequetePreparee(connexion,
+				SQL_GET_ACTIVE_RESTAURANTS_RESTAURATEUR, 
+				false,
+				idRestaurateur);
+
+		resultSet = preparedStatement.executeQuery();
+
+		/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+		while (resultSet.next()) 
+		{
+			restaurantList.add(mapRestaurateur(resultSet));
+		}
+
+	} 
+	catch (SQLException e) 
+	{
+		throw new DAOException(e);
+	} 
+	finally 
+	{
+		fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	}
+	return restaurantList;
+}
 
 
 }

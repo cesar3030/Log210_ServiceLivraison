@@ -127,6 +127,15 @@
     	<url-pattern>/DeleteMenu</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    	<servlet-name>ModifyMenu</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.ModifyMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>ModifyMenu</servlet-name>
+    	<url-pattern>/ModifyMenu</url-pattern>
+  </servlet-mapping>
+  
         <servlet>
     	<servlet-name>DeleteMeal</servlet-name>
     	<servlet-class>ca.etsmtl.log210.Controller.DeleteMeal</servlet-class>

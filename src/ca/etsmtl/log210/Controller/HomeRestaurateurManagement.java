@@ -18,6 +18,7 @@ public class HomeRestaurateurManagement extends HttpServlet{
 
 	 public static final String CONF_DAO_FACTORY = "daofactory";
 	 public static final String RESTAURANT_MANAGEMENT_ACCESS     = "/Restrict/Restaurateur/HomeRestaurateurManagement.jsp";
+	 //public static final String RESTAURANT_MANAGEMENT_ACCESS     = "/HomeRestaurateurManagement";
 	 public static final String INACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "inactiveRestaurantList";
 	 public static final String ACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "activeRestaurantList";
 	 
@@ -42,12 +43,14 @@ public class HomeRestaurateurManagement extends HttpServlet{
 	 {
 		 HttpSession session= request.getSession();
 		 
-		 String idRestaurateur = request.getRequestedSessionId();
 		 UserAccountBean restaurateurConnected = (UserAccountBean) session.getAttribute("userSession");
+		 int idRestaurateur = restaurateurConnected.getUserId();
+		 
+		 System.out.println("Voici l'id du restaurateur "+idRestaurateur);
 		 
 		 ArrayList<RestaurantBean> activeRestaurantList = new ArrayList<RestaurantBean>();
 		 
-		 activeRestaurantList = restaurantDao.getActiveRestaurants();
+		 activeRestaurantList = restaurantDao.getActiveRestaurantsForRestaurateur(idRestaurateur);
  		 
 		 request.setAttribute(ACTIVE_RESTAURANT_LISTE_ATTRIBUTE, activeRestaurantList);
 		 

@@ -18,7 +18,7 @@ public class AddNewMenu extends HttpServlet {
 
 	 private static final String CONF_DAO_FACTORY = "daofactory";
 	 public static final String SESSION_USER = "userSession";
-	 //public String MENU_MANAGEMENT_ACCESS;
+	 
 	 public int ID_RESTAURANT_REFERENCE;
 	 public static final String MENU_MANAGEMENT_ACCESS     = "/ShowAllMenuResto";
 	 public static final String ID_RESTAURANT_SESSION = "idRestaurantSession";

@@ -18,7 +18,7 @@
 					   			<th>Adresse</th>
 					   			<th>Numéro de téléphone</th>
 					   			<th>Type de nourriture</th>
-					   			<th>Visualiser les menus resturant</th>
+					   			<th>Voir les menus</th>
 					   		</tr>
 					   	</thead>
 					   	<tbody>
