@@ -7,10 +7,15 @@
 
 <!-- Affiche tous les menus par restaurant-->
 
-<div class="modal-header">
-	<h3>Tous les plats du Menu :</h3>
-	<p class="text-center">${menuTitleName}</p>
+<div class="col-md-5 col-md-offset-5">
+	<h3>Tous les plats du Menu : ${menuTitleName}</h3>
+
+		<a href="<c:url value="#newMeal"/>" data-toggle="modal">
+				<button type="button" class="btn btn-warning">Ajouter un
+					plat au menu</button>
+					</a>
 </div>
+
 
 <form class="form" method=post action="<c:out value="ShowAllMealMenu"/>">
 	<div class="row">
@@ -33,16 +38,14 @@
 								<td><c:out value="${mealMenuList.price}" /></td>
 								<td><c:out value="${mealMenuList.description}" /></td>
 
-								<td><a href="<c:url value="/DeleteMeal"/>"><span
-									class="glyphicon glyphicon-trash text-center"></span></td>
+								<td><a href="<c:url value="/DeleteMeal?idMeal=${mealMenuList.idMeal}"/>"><span
+									class="glyphicon glyphicon-trash text-center"></span>	</a></td>
+								
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<a href="<c:url value="#newMeal"/>" data-toggle="modal">
-				<button type="button" class="btn btn-warning">Ajouter un
-					plat au menu : ${menuTitleName}</button>
-					</a>
+			
 			</div>
 		</div>
 	</div>

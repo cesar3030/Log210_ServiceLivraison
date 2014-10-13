@@ -23,7 +23,7 @@ public class NewMeal extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String MEAL_MENU = "/ShowAllMealMenu";
 	public static final String REQUEST_FINISHED_STATE = "returnMessage";
-	public static final String ID_MENU_REQUETE = "idMenu";
+	public static final String ID_MENU_REQUETE = "idMenuSession";
 
 	private MealDao mealDAO;
 
@@ -41,12 +41,16 @@ public class NewMeal extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		System.out.println("-----DÉBUT DANS NEW MEAL DÉBUT------");
+
 		/* Récupération de la session depuis la requête */
 		HttpSession session = request.getSession();
 
 		MealBean mealToAdd = new MealBean();
-System.out.println(session.getAttribute("idMenuSession"));
-		mealToAdd.setIdMenu(Integer.parseInt((String) session.getAttribute("idMenuSession")));
+		System.out.println("ID DU MENU : "
+				+ session.getAttribute("idMenuSession"));
+		mealToAdd.setIdMenu(Integer.parseInt((String) session
+				.getAttribute("idMenuSession")));
 		mealToAdd.setName(request.getParameter("name"));
 		mealToAdd.setPrice(Integer.parseInt(request.getParameter("price")));
 		mealToAdd.setDescription(request.getParameter("description"));
@@ -66,10 +70,21 @@ System.out.println(session.getAttribute("idMenuSession"));
 		}
 
 		request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
-		request.setAttribute(ID_MENU_REQUETE, session.getAttribute("idMenuSession"));
-
+		System.out.println("voici l'id du menu : "
+				+ session.getAttribute("idMenuSession"));
+		request.setAttribute(ID_MENU_REQUETE,
+				session.getAttribute("idMenuSession"));
+		
+		System.out.println("voici l'idRestaurant : "
+				+  session.getAttribute("idRestaurant"));
+		request.setAttribute("idRestaurant",
+				 session.getAttribute("idRestaurant"));
+		
+		System.out.println("-----FIN DANS NEW MEAL FIN------");
+		
 		this.getServletContext().getRequestDispatcher(MEAL_MENU)
 				.forward(request, response);
+
 	}
 
 }

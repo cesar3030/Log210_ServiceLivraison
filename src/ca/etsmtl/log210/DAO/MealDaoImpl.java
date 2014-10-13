@@ -8,9 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import ca.etsmtl.log210.Beans.MealBean;
-import ca.etsmtl.log210.Beans.MenuBean;
 
 /**
  * Classe qui va nous permettre d'executer une requete a partir d'un beanMeal.
@@ -89,7 +87,7 @@ public class MealDaoImpl implements MealDao {
 	}
 
 	@Override
-	public boolean deleteNewMeal(MealBean mealRecept) {
+	public boolean deleteNewMeal(int idMeal) {
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -101,7 +99,7 @@ public class MealDaoImpl implements MealDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_DELETE_MEAL, false, mealRecept.getIdMeal());
+					SQL_DELETE_MEAL, false, idMeal);
 
 			System.out.println(preparedStatement);
 
@@ -156,8 +154,7 @@ public class MealDaoImpl implements MealDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		
-		
+
 		return showAllMealFromMenu;
 	}
 

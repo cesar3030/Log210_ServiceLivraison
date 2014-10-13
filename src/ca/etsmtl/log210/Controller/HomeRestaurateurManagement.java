@@ -18,6 +18,7 @@ public class HomeRestaurateurManagement extends HttpServlet{
 
 	 public static final String CONF_DAO_FACTORY = "daofactory";
 	 public static final String RESTAURANT_MANAGEMENT_ACCESS     = "/Restrict/Restaurateur/HomeRestaurateurManagement.jsp";
+	 //public static final String RESTAURANT_MANAGEMENT_ACCESS     = "/HomeRestaurateurManagement";
 	 public static final String INACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "inactiveRestaurantList";
 	 public static final String ACTIVE_RESTAURANT_LISTE_ATTRIBUTE = "activeRestaurantList";
 	 
@@ -40,42 +41,25 @@ public class HomeRestaurateurManagement extends HttpServlet{
 	 
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
+		 HttpSession session= request.getSession();
 		 
-		 String idRestaurateur = request.getRequestedSessionId();
-		 System.out.println(idRestaurateur);
+		 UserAccountBean restaurateurConnected = (UserAccountBean) session.getAttribute("userSession");
+		 int idRestaurateur = restaurateurConnected.getUserId();
 		 
-		 ArrayList<RestaurantBean> activeRestaurantList;
-		 ArrayList<RestaurantBean> inactiveRestaurantList;
+		 System.out.println("Voici l'id du restaurateur "+idRestaurateur);
 		 
-		 activeRestaurantList = restaurantDao.getActiveRestaurants();
-		 inactiveRestaurantList = restaurantDao.getInnactiveRestaurants();
+		 ArrayList<RestaurantBean> activeRestaurantList = new ArrayList<RestaurantBean>();
 		 
-		
-		 
+		 activeRestaurantList = restaurantDao.getActiveRestaurantsForRestaurateur(idRestaurateur);
+ 		 
 		 request.setAttribute(ACTIVE_RESTAURANT_LISTE_ATTRIBUTE, activeRestaurantList);
-		 request.setAttribute(INACTIVE_RESTAURANT_LISTE_ATTRIBUTE, inactiveRestaurantList);
 		 
 		 this.getServletContext().getRequestDispatcher( RESTAURANT_MANAGEMENT_ACCESS  ).forward( request, response );
 	 }
 	 
 	 public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
-		 
-		 ArrayList<RestaurantBean> activeRestaurantList;
-		 ArrayList<RestaurantBean> inactiveRestaurantList;
-		 
-		 HttpSession session= request.getSession();
-		 UserAccountBean restaurateurConnected = (UserAccountBean) session.getAttribute("userSession");
-		 
-		 activeRestaurantList = restaurantDao.getActiveRestaurants();
-		 inactiveRestaurantList = restaurantDao.getInnactiveRestaurants();
-		 
-		
-		 
-		 request.setAttribute(ACTIVE_RESTAURANT_LISTE_ATTRIBUTE, activeRestaurantList);
-		 request.setAttribute(INACTIVE_RESTAURANT_LISTE_ATTRIBUTE, inactiveRestaurantList);
-		 
-		 this.getServletContext().getRequestDispatcher( RESTAURANT_MANAGEMENT_ACCESS  ).forward( request, response );
+		 doGet( request,response );
 	 }
 	 
 }

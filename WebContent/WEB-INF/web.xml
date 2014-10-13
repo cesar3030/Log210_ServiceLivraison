@@ -18,6 +18,9 @@
     <url-pattern>/UserConnection</url-pattern>
   </servlet-mapping>
   
+   <session-config>
+   		<session-timeout>30</session-timeout>
+   </session-config>
   
   <servlet>
     <servlet-name>Restriction</servlet-name>
@@ -95,11 +98,10 @@
     <url-pattern>/ShowAllMenuResto</url-pattern>
   </servlet-mapping>
   
-
   
   <servlet>
     <servlet-name>AddMenuFormulaire</servlet-name>
-    <servlet-class>ca.etsmtl.log210.Controller.ManageMenuController</servlet-class>
+    <servlet-class>ca.etsmtl.log210.Controller.AddNewMenu</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AddMenuFormulaire</servlet-name>
@@ -116,6 +118,58 @@
     <url-pattern>/HomeRestaurateurManagement</url-pattern>
   </servlet-mapping>
   
+<<<<<<< HEAD
+=======
+ <servlet>
+    	<servlet-name>DeleteMenu</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.DeleteMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>DeleteMenu</servlet-name>
+    	<url-pattern>/DeleteMenu</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    	<servlet-name>ModifyMenu</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.ModifyMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>ModifyMenu</servlet-name>
+    	<url-pattern>/ModifyMenu</url-pattern>
+  </servlet-mapping>
+  
+        <servlet>
+    	<servlet-name>DeleteMeal</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.DeleteMeal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>DeleteMeal</servlet-name>
+    	<url-pattern>/DeleteMeal</url-pattern>
+  </servlet-mapping> 
+  
+  
+      <servlet>
+    	<servlet-name>ShowAllMealMenu</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.ShowAllMealMenu</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>ShowAllMealMenu</servlet-name>
+    	<url-pattern>/ShowAllMealMenu</url-pattern>
+  </servlet-mapping>  
+  
+      <servlet>
+    	<servlet-name>NewMeal</servlet-name>
+    	<servlet-class>ca.etsmtl.log210.Controller.NewMeal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    	<servlet-name>NewMeal</servlet-name>
+    	<url-pattern>/NewMeal</url-pattern>
+  </servlet-mapping> 
+  
+  
+  
+  
+>>>>>>> e7638e29a5a4f3a47ac7214f97b3449fcc24e307
   <servlet>
     <servlet-name>RestaurateurManagement</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.RestaurateurManagement</servlet-class>
@@ -254,4 +308,8 @@
     <url-pattern>/Restrict/*</url-pattern>
   </filter-mapping>
   
+<<<<<<< HEAD
   </web-app>
+=======
+  </web-app>
+>>>>>>> e7638e29a5a4f3a47ac7214f97b3449fcc24e307

@@ -15,44 +15,144 @@ import ca.etsmtl.log210.Beans.RestaurantBean;
 public class MenuManageDaoImpl implements MenuManageDao {
 
 	static final String SQL_ADD_NEW_MENU = ""
-			+ "INSERT INTO `tbmenu`( `MEN_idRestaurant`, `MEN_name`, `MEN_description`, `MEN_visible`)  "
+			+ "INSERT INTO `tbmenu`( `MEN_idRestaurant`,`MEN_name`, `MEN_description`,`MEN_visible`)  "
 			+ "VALUES( ?,?,?,?) ";
 
-	static final String SQL_GET_ALL_ACTIVE_MENU_RESTAURANT = "SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=1";
+	static final String SQL_GET_ALL_ACTIVE_MENU_RESTAURANT =
+			"SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=1";
 
-	static final String SQL_GET_ALL_INACTIVE_MENU_RESTAURANT = "SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=0";
+	static final String SQL_GET_ALL_INACTIVE_MENU_RESTAURANT =
+			"SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=0";
 
-	static final String SQL_MODIFY_MENU_RESTAURANT = "" + "UPDATE tbmenu "
+	static final String SQL_MODIFY_MENU_RESTAURANT = 
+			"" + "UPDATE tbmenu "
 			+ "SET MEN_name=?, MEN_description=?"
-			+ "WHERE MEN_idMenu=?, MEN_idRestaurant=?";
+			+ "WHERE MEN_idMenu=?";
 
-	static final String SQL_DELETE_MENU_RESTAURANT = "" + "UPDATE tbMenu "
-			+ "SET MEN_visible=?" + "WHERE MEN_idMenu=?, MEN_idRestaurant=?";
+	static final String SQL_DELETE_MENU_RESTAURANT = 
+			 "" + "DELETE FROM `tbmenu` "
+			+ "WHERE MEN_idMenu=?";
 
 	private DAOFactory daoFactory;
+	public ArrayList<MenuBean> menusRestaurantList;
 
 	public MenuManageDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
 	@Override
-	public void addNewMenu(MenuBean menuRecu) {
-		// TODO Auto-generated method stub
+	public boolean addNewMenu(MenuBean menuRecu) {
+		
+		System.out.println(" Je suis DANS LA REQUETE D'AJOUT DU DAO MENU");
+
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int insertion=0;
+		boolean etatInsertion=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_ADD_NEW_MENU , false,
+					menuRecu.getIdRestaurant(),
+					menuRecu.getName(),
+					menuRecu.getDescription(),
+					1);
+
+			
+			insertion = preparedStatement.executeUpdate();
+			
+			if(insertion==0)
+			{
+				etatInsertion=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatInsertion;
 
 	}
 
-	@Override
-	public void deleteMenu(MenuBean menuRecu) {
-		// TODO Auto-generated method stub
+	
+	public boolean deleteMenu(int menuRecu) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour = 0;
+		boolean etatRetour = true;
 
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_DELETE_MENU_RESTAURANT , false, menuRecu);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+
+			if (codeRetour == 0) {
+				etatRetour = false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return etatRetour;
+		
+	}
+	public boolean modifyMenu(int idMenuRecu, String nameMenuRecu, String descriptionRecu) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour = 0;
+		boolean etatRetour = true;
+
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_MODIFY_MENU_RESTAURANT, false, 
+					nameMenuRecu,
+					descriptionRecu,
+					idMenuRecu);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+
+			if (codeRetour == 0) {
+				etatRetour = false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return etatRetour;
+		
 	}
 
 	@Override
 	public ArrayList<MenuBean> showAllActiveMenuForOneResto(int restaurantNumber) {
+		
+		System.out.println(" Je suis DANS LA REQUETE SHOwALLaCTIVEmenuForOneResto D'AJOUT DU DAO MENU");
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		ArrayList<MenuBean> activeMenuRestaurantList = new ArrayList<MenuBean>();
+		menusRestaurantList = new ArrayList<MenuBean> ();
 
 		try {
 			/* Faire une connexion depuis la Factory */
@@ -62,12 +162,14 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_ALL_ACTIVE_MENU_RESTAURANT, false, restaurantNumber);
 
+			System.out.println("SQL SHOWALLMENU "+preparedStatement);
+			
 			resultSet = preparedStatement.executeQuery();
-
+		
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultSet.next()) {
-
-				activeMenuRestaurantList.add(mapMenuBean(resultSet));
+				
+				menusRestaurantList.add(mapMenuBean(resultSet));
 
 			}
 
@@ -77,7 +179,9 @@ public class MenuManageDaoImpl implements MenuManageDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		return activeMenuRestaurantList;
+		resultSet = null;
+		System.out.println();
+		return menusRestaurantList;
 	}
 
 	public ArrayList<MenuBean> showAllInactiveMenuForOneResto(
@@ -99,7 +203,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultSet.next()) {
 				inactiveMenuRestaurantList.add(mapMenuBean(resultSet));
-				System.out.println(mapMenuBean(resultSet).getName());
+				
 			}
 
 		} catch (SQLException e) {
@@ -108,7 +212,6 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 
-		System.out.println(inactiveMenuRestaurantList);
 		return inactiveMenuRestaurantList;
 	}
 
@@ -122,6 +225,8 @@ public class MenuManageDaoImpl implements MenuManageDao {
 		menu.setname(resultSet.getString("MEN_name"));
 		menu.setDescription(resultSet.getString("MEN_description"));
 		menu.setVisible(resultSet.getInt("MEN_visible"));
+		
+		System.out.println("A Recup dans la bd "+menu.getName()+ " " +menu.getIdMenu()+ " " +menu.getIdRestaurant());
 
 		return menu;
 	}
