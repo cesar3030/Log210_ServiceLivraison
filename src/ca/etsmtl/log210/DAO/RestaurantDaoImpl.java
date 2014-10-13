@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> e7638e29a5a4f3a47ac7214f97b3449fcc24e307
 /**
  * 
  */
@@ -395,9 +392,6 @@ public ArrayList<RestaurantBean> getActiveRestaurantsForRestaurateur(int idResta
 
 
 }
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> e7638e29a5a4f3a47ac7214f97b3449fcc24e307

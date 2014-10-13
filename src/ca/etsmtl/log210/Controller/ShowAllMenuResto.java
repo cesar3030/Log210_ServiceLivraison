@@ -54,15 +54,6 @@ public class ShowAllMenuResto extends HttpServlet {
 	 
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
-<<<<<<< HEAD
-		 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
-
-		 System.out.println("voici l'Id du restaurant " + ID_RESTAURANT_RECEIVED);
-		 
-		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
-
-=======
->>>>>>> e7638e29a5a4f3a47ac7214f97b3449fcc24e307
 		 
 		 HttpSession session = request.getSession();
 
