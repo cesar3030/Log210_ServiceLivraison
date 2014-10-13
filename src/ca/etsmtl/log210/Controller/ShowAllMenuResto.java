@@ -53,14 +53,11 @@ public class ShowAllMenuResto extends HttpServlet {
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
-<<<<<<< HEAD
+
 		 System.out.println("voici l'Id du restaurant " + ID_RESTAURANT_RECEIVED);
 		 
-		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED).getName();
-=======
-				 
 		 RESTAURANT_NAME = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
->>>>>>> 3b6ceb43d53924ebcf678f1cd7c5267dc26681ad
+
 		 
 		 
 		 //Creation des liste de donnes de requete
