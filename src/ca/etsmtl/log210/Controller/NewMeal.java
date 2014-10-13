@@ -80,6 +80,16 @@ public class NewMeal extends HttpServlet {
 		request.setAttribute("idRestaurant",
 				 session.getAttribute("idRestaurant"));
 		
+		if(request.getParameter("description").equals("")){
+			session.setAttribute("retourInt",3);
+			session.setAttribute("retourString",request.getParameter("name"));
+		}
+		else{
+			session.setAttribute("retourInt",0);
+			session.setAttribute("retourString",request.getParameter("name"));
+		}
+
+		
 		System.out.println("-----FIN DANS NEW MEAL FIN------");
 		
 		this.getServletContext().getRequestDispatcher(MEAL_MENU)

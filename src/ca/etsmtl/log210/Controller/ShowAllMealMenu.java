@@ -94,6 +94,7 @@ public class ShowAllMealMenu extends HttpServlet {
 		request.setAttribute(MENU_NAME_TITRE, MENU_NAME);
 		request.setAttribute("idRestaurant", ID_RESTAURANT);
 		request.setAttribute(ID_MENU_SESSION, ID_MENU);
+		
 
 		// On renvoie la requete de reponse au bon endroit du restrict
 		this.getServletContext().getRequestDispatcher(MENU_MANAGEMENT_ACCESS)

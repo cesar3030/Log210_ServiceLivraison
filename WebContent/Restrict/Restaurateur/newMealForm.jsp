@@ -40,7 +40,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="description" class="col-lg-4 control-label">Description:*</label>
+						<label for="description" class="col-lg-4 control-label">Description:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" id="description"
 								name="description" placeholder="Plat typique de Lyon" />

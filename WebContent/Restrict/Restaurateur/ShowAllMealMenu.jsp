@@ -38,7 +38,7 @@
 								<td><c:out value="${mealMenuList.price}" /></td>
 								<td><c:out value="${mealMenuList.description}" /></td>
 
-								<td><a href="<c:url value="/DeleteMeal?idMeal=${mealMenuList.idMeal}"/>"><span
+								<td><a href="<c:url value="/DeleteMeal?idMeal=${mealMenuList.idMeal}&nameMeal=${mealMenuList.name}"/>"><span
 									class="glyphicon glyphicon-trash text-center"></span>	</a></td>
 								
 							</tr>
@@ -63,6 +63,79 @@
 			liste des menus</button>
 	</a>
 </div>
+
+	  <c:if test="${sessionScope.retourInt==1}">
+	  		  <script>
+		  		  	
+		  		toastr.options = {
+		  			  "closeButton": true,
+		  			  "debug": false,
+		  			  "positionClass": "toast-top-right",
+		  			  "onclick": null,
+		  			  "showDuration": "300",
+		  			  "hideDuration": "1000",
+		  			  "timeOut": "5000",
+		  			  "extendedTimeOut": "1000",
+		  			  "showEasing": "swing",
+		  			  "hideEasing": "linear",
+		  			  "showMethod": "fadeIn",
+		  			  "hideMethod": "fadeOut"
+		  			}
+		  		  
+		  		 toastr.success('Le plat ${sessionScope.retourString} a été supprimé avec succès !', 'Succès');
+		  		
+	  		 </script>
+		</c:if>
+		
+		<c:if test="${sessionScope.retourInt==0}">
+	  		  <script>
+		  		  	
+		  		toastr.options = {
+		  			  "closeButton": true,
+		  			  "debug": false,
+		  			  "positionClass": "toast-top-right",
+		  			  "onclick": null,
+		  			  "showDuration": "300",
+		  			  "hideDuration": "1000",
+		  			  "timeOut": "5000",
+		  			  "extendedTimeOut": "1000",
+		  			  "showEasing": "swing",
+		  			  "hideEasing": "linear",
+		  			  "showMethod": "fadeIn",
+		  			  "hideMethod": "fadeOut"
+		  			}
+		  		  
+		  	  toastr.success('Le plat ${sessionScope.retourString} a été ajouté avec succès !', 'Succès');
+		  		
+	  		 </script>
+		</c:if>
+		
+				
+		<c:if test="${sessionScope.retourInt==3}">
+	  		  <script>
+		  		  	
+		  		toastr.options = {
+		  			  "closeButton": true,
+		  			  "debug": false,
+		  			  "positionClass": "toast-top-right",
+		  			  "onclick": null,
+		  			  "showDuration": "300",
+		  			  "hideDuration": "1000",
+		  			  "timeOut": "5000",
+		  			  "extendedTimeOut": "1000",
+		  			  "showEasing": "swing",
+		  			  "hideEasing": "linear",
+		  			  "showMethod": "fadeIn",
+		  			  "hideMethod": "fadeOut"
+		  			}
+		  		  
+		  	  toastr.warning('Le plat ${sessionScope.retourString} a été ajouté avec succès mais sans description !', 'Attention');
+		  		
+	  		 </script>
+		</c:if>
+		
+		
+
 
 
 <jsp:include page="/Restrict/Restaurateur/newMealForm.jsp"></jsp:include>

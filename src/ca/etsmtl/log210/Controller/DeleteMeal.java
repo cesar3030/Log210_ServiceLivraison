@@ -3,10 +3,13 @@ package ca.etsmtl.log210.Controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 
@@ -38,10 +41,9 @@ public class DeleteMeal extends HttpServlet {
 		boolean insertReturn;
 		System.out.println("-----DÉBUT DELETE MEAL MENU DÉBUT------");
 
-		System.out.println("Voici l'ID du meal en question : "
-				+ request.getParameter("idMeal"));
-
-		insertReturn = mealDAO.deleteNewMeal(Integer.parseInt(request
+		HttpSession session = request.getSession();
+		
+	insertReturn = mealDAO.deleteNewMeal(Integer.parseInt(request
 				.getParameter("idMeal")));
 
 		Map<String, String> returnMessage = new HashMap<String, String>();
@@ -53,6 +55,9 @@ public class DeleteMeal extends HttpServlet {
 					.put("fail",
 							"Une erreur est survenue, le plat n'a pas pu etre ajoute. Veuillez reessayer.");
 		}
+		session.setAttribute("retourInt",1);
+		session.setAttribute("retourString",request
+				.getParameter("nameMeal"));
 
 		System.out.println("-----FIN DELETE MEAL MENU FIN------");
 		this.getServletContext().getRequestDispatcher(MEAL_MENU)
