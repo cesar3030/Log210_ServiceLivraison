@@ -66,5 +66,42 @@ public class ModifyMenu extends HttpServlet {
 		this.getServletContext().getRequestDispatcher(All_MENU)
 				.forward(request, response);
 	}
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		boolean insertReturn;
+		
+		System.out.println("-----Deb MODIDY MENU ------");
+
+		System.out.println("Voici l'ID du MENU en question : "
+				+ request.getParameter("idMenu"));
+		
+		System.out.println("Voici e nom du MENU en question : "
+				+ request.getParameter("nameMenu"));
+		
+		System.out.println("Voici la description du MENU en question : "
+				+ request.getParameter("descriptionMenu"));
+
+		insertReturn = menuDAO.modifyMenu(
+				Integer.parseInt(request.getParameter("idMenu")),
+				request.getParameter("nameMenu"),
+				request.getParameter("descriptionMenu"));
+
+		Map<String, String> returnMessage = new HashMap<String, String>();
+	
+		
+		if (insertReturn == true) {
+			returnMessage.put("succes", "SUPRESSION SUCCES!");
+		} else {
+			returnMessage
+					.put("fail",
+							"Impossible a supprimer. Veuillez reessayer.");
+		}
+
+		System.out.println("-----FIN DELETE MENU FIN------");
+		this.getServletContext().getRequestDispatcher(All_MENU)
+				.forward(request, response);
+	}
+
 
 }

@@ -17,7 +17,7 @@ public class NewRestaurant extends HttpServlet
 {
 
 	 public static final String CONF_DAO_FACTORY = "daofactory";
-	 public static final String RESTAURANT_MANAGEMENT_PAGE     = "/RestaurateurManagement";
+	 public static final String RESTAURANT_MANAGEMENT_PAGE     = "/RestaurantManagement";
 	 public static final String REQUEST_FINISHED_STATE = "returnMessage";
 	 
 	 

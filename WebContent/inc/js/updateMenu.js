@@ -1,7 +1,7 @@
 function updateMenu(id)
 {
 	var name= document.getElementById("name_"+id).innerHTML;
-	var description= document.getElementById("address_"+id).innerHTML;
+	var description= document.getElementById("descriptionMenu_"+id).innerHTML;
 
 	
 	$('#ModifyMenu').modal('show') ;

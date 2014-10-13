@@ -44,11 +44,11 @@
 								var="ListeMenuActive">
 								<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
 									<!--  Nom du menu -->
-										<td id="name_<c:out value="${ListeMenuActive.name}"/>" >
+										<td id="name_<c:out value="${ListeMenuActive.idMenu}"/>" >
 											<c:out value="${ListeMenuActive.name}"/>
 										</td>			
 									<!--  Description du menu -->
-										<td id="descriptionMenu_<c:out value="${ListeMenuActive.description}"/>" >
+										<td id="descriptionMenu_<c:out value="${ListeMenuActive.idMenu}"/>" >
 											<c:out value="${ListeMenuActive.description}"/>
 										</td>
 									<!--  Outils Voir les plats -->
@@ -88,7 +88,7 @@
 <!--  Affichage des menus -->
 
 
-<!--><script src="<c:url value="/inc/js/updateMenu.js"/>"></script>-->
+<script src="<c:url value="/inc/js/updateMenu.js"/>"></script>
 <jsp:include page="/Restrict/Restaurateur/AddMenuFormulaire.jsp"></jsp:include>
 <jsp:include page="/Restrict/Restaurateur/ModifyMenu.jsp"></jsp:include>
 <jsp:include page="/footer.jsp"></jsp:include>
