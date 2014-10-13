@@ -1,45 +1,45 @@
-<%@ page pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-
-
-
-<!-- Formulaire d'ajout de menu -->
-<div class="modal fade" id="modifyMenu" role="dialog" >
+<div class="modal fade" id="ModifyMenu" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 
-
-			<form name=cmpid class="form-vertical" role="form" method="post"
-				action="<c:url value="/ModifyMenu"/>">
+			<!-- <form  class="form-horizontal" role="form" method=post action="<c:url value="/Subscribe"/>">    -->
+			<form name="cmpid" class="form-horizontal" role="form" method="post" action="<c:url value="/ModifyMenu"/>" >
 				<div class="modal-header">
-					<h3>Modifier menu  </h3>
+					<h3>Modifier Menu</h3>
 				</div>
+				<div class="modal-body">
 
+					<div class="form-group">
+						<label for="name" class="col-lg-4 control-label">Nom*:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="updateNameMenu" id="updateNameMenu" placeholder="Nom" required />
+					</div>
+						
+					</div>
 						<div class="form-group">
-							<label for="nameMenu" class="col-lg-4 control-label">Nom du Menu:*</label>
-							<div class="col-lg-8">
-								<input type="text" class="form-control" name="nameMenuF" id="nameMenuF"
-									placeholder="Nom du Menu"  required />
-							</div>
+						<label for="description" class="col-lg-4 control-label">Description*:</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" name="updateDescriptionMenu" id="updateDescriptionMenu" placeholder="Description" required />
 						</div>
-
-						<div class="form-group">
-							<label for="descriptionMenu" class="col-lg-4 control-label">Description de Menu:*</label>
-							<div class="col-lg-8">
-								<input type="text" class="form-control" id="descriptionMenuF"
-									name="descriptionMenuF" placeholder="Unique en son genre" />
-							</div>
-						</div>
+					</div>
+		
 					
+
+					<!-- On stocke dans ce champ cache, l'idRestaurant afin de pouvoir le recuperer depuis le servlet 
+					pour faire executer la requete sql -->
+					<input type="hidden" class="form-control" id="updateIdMenu" name="updateIdMenu" />
+
+				</div>
+				<div class="modal-footer">
+
 					<a class="btn btn-default" data-dismiss="modal">Annuler</a>
 					<button class="btn btn-primary" type="submit">Modifier</button>
-			</form>
-			
-				</div>
-			
-			</div>
-	
-	</div>
 
-<script src="<c:url value="/inc/js/modifyMenu.js"/>"></script>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
