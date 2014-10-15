@@ -13,8 +13,14 @@
 	<h3>${restaurantTitreName} : Tous les menus</h3>
 		<a 	href="<c:url value="#addMenu"/>"  data-toggle="modal">
 			<!-- Affiche tous les menus par restaurant-->
-				<button type="button" class="btn btn-warning">Ajouter un
+				<button type="button" class="btn btn-success">Ajouter un
 					menu
+				</button>
+				
+		</a>
+		<a 	href="<c:url value="/HomeRestaurateurManagement"/>"  data-toggle="modal">
+			<!-- Affiche tous les menus par restaurant-->
+				<button type="button" class="btn btn-warning">Mes restaurants
 				</button>
 				
 		</a>
@@ -48,7 +54,7 @@
 											<c:out value="${ListeMenuActive.name}"/>
 										</td>			
 									<!--  Description du menu -->
-										<td id="descriptionMenu_<c:out value="${ListeMenuActive.idMenu}"/>" >
+										<td id="desc_<c:out value="${ListeMenuActive.idMenu}"/>" >
 											<c:out value="${ListeMenuActive.description}"/>
 										</td>
 									<!--  Outils Voir les plats -->

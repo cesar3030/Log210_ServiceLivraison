@@ -32,7 +32,10 @@ public class MenuManageDaoImpl implements MenuManageDao {
 	static final String SQL_DELETE_MENU_RESTAURANT = 
 			 "" + "DELETE FROM `tbmenu` "
 			+ "WHERE MEN_idMenu=?";
-
+	
+	static final String SQL_DELETE_PLATS_MENU = 
+			 "" + "DELETE FROM `tbplat` "
+			+ "WHERE PLA_idMenu=?";
 	private DAOFactory daoFactory;
 	public ArrayList<MenuBean> menusRestaurantList;
 
@@ -84,6 +87,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 	public boolean deleteMenu(int menuRecu) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
+		
 		ResultSet resultSet = null;
 		int codeRetour = 0;
 		boolean etatRetour = true;
@@ -97,10 +101,13 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			System.out.println(preparedStatement);
 
 			codeRetour = preparedStatement.executeUpdate();
-
 			if (codeRetour == 0) {
 				etatRetour = false;
 			}
+			
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_DELETE_PLATS_MENU , false, menuRecu);
+			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			throw new DAOException(e);

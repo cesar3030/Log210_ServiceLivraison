@@ -41,5 +41,3 @@
 			</div>
 	
 	</div>
-
-<script src="<c:url value="/inc/js/addMenu.js"/>"></script>

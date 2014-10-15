@@ -13,14 +13,14 @@
 					<div class="form-group">
 						<label for="name" class="col-lg-4 control-label">Nom*:</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="updateNameMenu" id="updateNameMenu" placeholder="Nom" required />
+							<input type="text" class="form-control" name="updNameM" id="updNameM" placeholder="Nom" required />
 					</div>
 						
 					</div>
 						<div class="form-group">
 						<label for="description" class="col-lg-4 control-label">Description*:</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="updateDescriptionMenu" id="updateDescriptionMenu" placeholder="Description" required />
+							<input type="text" class="form-control" name="updDescM" id="updDescM" placeholder="Description" required />
 						</div>
 					</div>
 		
@@ -28,7 +28,7 @@
 
 					<!-- On stocke dans ce champ cache, l'idRestaurant afin de pouvoir le recuperer depuis le servlet 
 					pour faire executer la requete sql -->
-					<input type="hidden" class="form-control" id="updateIdMenu" name="updateIdMenu" />
+					<input type="hidden" class="form-control" id="updIdM" name="updIdM" />
 
 				</div>
 				<div class="modal-footer">
