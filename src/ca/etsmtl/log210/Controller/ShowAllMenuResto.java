@@ -77,7 +77,7 @@ public class ShowAllMenuResto extends HttpServlet {
 		 activeMenuRestaurantList = menuDao.showAllActiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
 		// inactiveMenuRestaurantList = menuDao.showAllInactiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
 		 
-		 session.setAttribute("retourString",2);
+		 session.setAttribute("retourInt",2);
 		
 		 //AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		 request.setAttribute(ACTIVE_MENU_RESTAURANT_ATTRIBUTE,  activeMenuRestaurantList);
