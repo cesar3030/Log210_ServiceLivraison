@@ -38,18 +38,20 @@ public class ModifyMenu extends HttpServlet {
 		System.out.println("-----Deb MODIDY MENU ------");
 
 		System.out.println("Voici l'ID du MENU en question : "
-				+ request.getParameter("idMenu"));
+				+ request.getParameter("updNameM"));
+		
+		System.out.println(request.getParameterNames());
 		
 		System.out.println("Voici e nom du MENU en question : "
-				+ request.getParameter("nameMenu"));
+				+ request.getParameter("updDescM"));
 		
 		System.out.println("Voici la description du MENU en question : "
-				+ request.getParameter("descriptionMenu"));
+				+ request.getParameter("updIdM"));
 
 		insertReturn = menuDAO.modifyMenu(
-				Integer.parseInt(request.getParameter("idMenu")),
-				request.getParameter("nameMenu"),
-				request.getParameter("descriptionMenu"));
+				Integer.parseInt(request.getParameter("updIdM")),
+				request.getParameter("updNameM"),
+				request.getParameter("updDescM"));
 
 		Map<String, String> returnMessage = new HashMap<String, String>();
 	

@@ -47,8 +47,8 @@
 							var="ListeMenuActive">
 							<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
 								<!--  Nom du menu -->
-								<td id="name_<c:out value="${ListeMenuActive.idMenu}"/>">
-									<c:out value="${ListeMenuActive.name}" />
+									<td id="name_<c:out value="${ListeMenuActive.idMenu}"/>">
+									<c:out value="${ListeMenuActive.name}"/>
 								</td>
 								<!--  Description du menu -->
 								<td id="desc_<c:out value="${ListeMenuActive.idMenu}"/>">
@@ -59,18 +59,12 @@
 									href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}
 																&idRestaurant=${sessionScope.restaurantActuel}
 																&name=${ListeMenuActive.name}"/>"><span
-										class="glyphicon glyphicon-eye-open"></span> </a></td> !-- Outils
-								update les menus -->
-								<td><a onclick="updateMenu(this.parentNode.parentNode.id);"><span
-										class="glyphicon glyphicon-cog text-center"></span></a> <!--<td><a 	onClick=<c:set var="idMenuAupdate" value="${ListeMenuActive.idMenu}" scope="session" />
-											href="<c:url value="#modifyMenu"/>"  data-toggle="modal">
-											<span class="glyphicon glyphicon-cog text-center"></span>
-										</a>
-									</td>--> <!--<td><a href="<c:url value="/ModifyMenu?idMenu=${ListeMenuActive.idMenu}
-																&nameMenu=${ListeMenuActive.name}
-																&descriptionMenu=${ListeMenuActive.description}"/>">
-										<span class="glyphicon glyphicon-cog text-center"></span></a>
-									</td>--> <!--  Outils supprimer menu -->
+										class="glyphicon glyphicon-eye-open"></span> </a></td> 
+										
+								<td><a onclick="updateMenu(this.parentNode.parentNode.id);">
+									<span  class="glyphicon glyphicon-cog text-center"></span>
+									</a> 
+								</td>
 								<td><a
 									href="<c:url value="/DeleteMenu?idMenu=${ListeMenuActive.idMenu}"/>">
 										<span class="glyphicon glyphicon-trash text-center"></span>
@@ -85,7 +79,6 @@
 	</div>
 </form>
 <!--  Affichage des menus -->
-
 
 <script src="<c:url value="/inc/js/updateMenu.js"/>"></script>
 <jsp:include page="/Restrict/Restaurateur/AddMenuFormulaire.jsp"></jsp:include>
