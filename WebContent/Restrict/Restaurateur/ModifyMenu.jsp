@@ -13,14 +13,14 @@
 					<div class="form-group">
 						<label for="name" class="col-lg-4 control-label">Nom*:</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="updNameM" id="updNameM" placeholder="Nom" required />
+							<input type="text" class="form-control" name="updNameMenu" id="updNameMenu" placeholder="Nom" required />
 					</div>
 						
 					</div>
 						<div class="form-group">
 						<label for="description" class="col-lg-4 control-label">Description*:</label>
 						<div class="col-lg-8">
-							<input type="text" class="form-control" name="updDescM" id="updDescM" placeholder="Description" required />
+							<input type="text" class="form-control" name="updNameMenu" id="updNameMenu" placeholder="Description" required />
 						</div>
 					</div>
 		

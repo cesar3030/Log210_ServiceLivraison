@@ -10,21 +10,18 @@
 <!--<c:set var="insertion" value="false" scope="session" />-->
 <!--ID DU RESTAURANT ${sessionScope.restaurantActuel}-->
 <div class="col-md-5 col-md-offset-5">
-	<h3>${restaurantTitreName} : Tous les menus</h3>
-		<a 	href="<c:url value="#addMenu"/>"  data-toggle="modal">
-			<!-- Affiche tous les menus par restaurant-->
-				<button type="button" class="btn btn-success">Ajouter un
-					menu
-				</button>
-				
-		</a>
-		<a 	href="<c:url value="/HomeRestaurateurManagement"/>"  data-toggle="modal">
-			<!-- Affiche tous les menus par restaurant-->
-				<button type="button" class="btn btn-warning">Mes restaurants
-				</button>
-				
-		</a>
-		
+	<h3>${restaurantTitreName}: Tous les menus</h3>
+	<a href="<c:url value="#addMenu"/>" data-toggle="modal"> <!-- Affiche tous les menus par restaurant-->
+		<button type="button" class="btn btn-success">Ajouter un menu
+		</button>
+
+	</a> <a href="<c:url value="/HomeRestaurateurManagement"/>"
+		data-toggle="modal"> <!-- Affiche tous les menus par restaurant-->
+		<button type="button" class="btn btn-warning">Mes restaurants
+		</button>
+
+	</a>
+
 </div>
 
 <form class="form" method=post
@@ -44,47 +41,43 @@
 					</thead>
 					<!--  Le tableau des menus -->
 					<tbody>
-					
-							<!--  Boucle qui va chercher les valeurs des menus -->
-							<c:forEach items="${activeMenuRestaurantList}"
-								var="ListeMenuActive">
-								<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
-									<!--  Nom du menu -->
-										<td id="name_<c:out value="${ListeMenuActive.idMenu}"/>" >
-											<c:out value="${ListeMenuActive.name}"/>
-										</td>			
-									<!--  Description du menu -->
-										<td id="desc_<c:out value="${ListeMenuActive.idMenu}"/>" >
-											<c:out value="${ListeMenuActive.description}"/>
-										</td>
-									<!--  Outils Voir les plats -->
-									<td><a href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}
+
+						<!--  Boucle qui va chercher les valeurs des menus -->
+						<c:forEach items="${activeMenuRestaurantList}"
+							var="ListeMenuActive">
+							<tr id="<c:out value="${ListeMenuActive.idMenu}"/>">
+								<!--  Nom du menu -->
+								<td id="name_<c:out value="${ListeMenuActive.idMenu}"/>">
+									<c:out value="${ListeMenuActive.name}" />
+								</td>
+								<!--  Description du menu -->
+								<td id="desc_<c:out value="${ListeMenuActive.idMenu}"/>">
+									<c:out value="${ListeMenuActive.description}" />
+								</td>
+								<!--  Outils Voir les plats -->
+								<td><a
+									href="<c:url value="/ShowAllMealMenu?idMenu=${ListeMenuActive.idMenu}
 																&idRestaurant=${sessionScope.restaurantActuel}
 																&name=${ListeMenuActive.name}"/>"><span
-											class="glyphicon glyphicon-eye-open"></span>
-										</a>
-									</td>
-									<!--  Outils update les menus -->
-									<td><a  onclick="updateMenu(this.parentNode.parentNode.id);"><span class="glyphicon glyphicon-cog text-center"></span></a>
-									
-									<!--<td><a 	onClick=<c:set var="idMenuAupdate" value="${ListeMenuActive.idMenu}" scope="session" />
+										class="glyphicon glyphicon-eye-open"></span> </a></td> !-- Outils
+								update les menus -->
+								<td><a onclick="updateMenu(this.parentNode.parentNode.id);"><span
+										class="glyphicon glyphicon-cog text-center"></span></a> <!--<td><a 	onClick=<c:set var="idMenuAupdate" value="${ListeMenuActive.idMenu}" scope="session" />
 											href="<c:url value="#modifyMenu"/>"  data-toggle="modal">
 											<span class="glyphicon glyphicon-cog text-center"></span>
 										</a>
-									</td>-->
-									
-									<!--<td><a href="<c:url value="/ModifyMenu?idMenu=${ListeMenuActive.idMenu}
+									</td>--> <!--<td><a href="<c:url value="/ModifyMenu?idMenu=${ListeMenuActive.idMenu}
 																&nameMenu=${ListeMenuActive.name}
 																&descriptionMenu=${ListeMenuActive.description}"/>">
 										<span class="glyphicon glyphicon-cog text-center"></span></a>
-									</td>-->
-									<!--  Outils supprimer menu -->
-									<td><a href="<c:url value="/DeleteMenu?idMenu=${ListeMenuActive.idMenu}"/>">
-										<span class="glyphicon glyphicon-trash text-center"></span></a>
-									</td>
-									
-								</tr>
-							</c:forEach>
+									</td>--> <!--  Outils supprimer menu -->
+								<td><a
+									href="<c:url value="/DeleteMenu?idMenu=${ListeMenuActive.idMenu}"/>">
+										<span class="glyphicon glyphicon-trash text-center"></span>
+								</a></td>
+
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
