@@ -10,6 +10,9 @@
 <!--<c:set var="insertion" value="false" scope="session" />-->
 <!--ID DU RESTAURANT ${sessionScope.restaurantActuel}-->
 <div class="col-md-5 col-md-offset-5">
+
+			
+			
 	<h3>${restaurantTitreName}: Tous les menus</h3>
 	<a href="<c:url value="#addMenu"/>" data-toggle="modal"> <!-- Affiche tous les menus par restaurant-->
 		<button type="button" class="btn btn-success">Ajouter un menu

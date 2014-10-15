@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
-
 import ca.etsmtl.log210.DAO.MenuManageDao;
 
 public class ModifyMenu extends HttpServlet {
@@ -35,7 +34,9 @@ public class ModifyMenu extends HttpServlet {
 			throws ServletException, IOException {
 		boolean insertReturn;
 		
-		System.out.println("-----Deb MODIDY MENU ------");
+		Map<String, String> returnMessage = new HashMap<String, String>();
+		
+		/**System.out.println("-----Deb MODIDY MENU ------");
 
 		System.out.println("Voici l'ID du MENU en question : "
 				+ request.getParameter("updNameM"));
@@ -43,28 +44,24 @@ public class ModifyMenu extends HttpServlet {
 		System.out.println(request.getParameterNames());
 		
 		System.out.println("Voici e nom du MENU en question : "
-				+ request.getParameter("updDescM"));
+				+ request.getParameter("updDescM"));**/
 		
-		System.out.println("Voici la description du MENU en question : "
-				+ request.getParameter("updIdM"));
 
 		insertReturn = menuDAO.modifyMenu(
 				Integer.parseInt(request.getParameter("updIdM")),
 				request.getParameter("updNameM"),
 				request.getParameter("updDescM"));
 
-		Map<String, String> returnMessage = new HashMap<String, String>();
+		
 	
 		
 		if (insertReturn == true) {
 			returnMessage.put("succes", "SUPRESSION SUCCES!");
 		} else {
-			returnMessage
-					.put("fail",
-							"Impossible a supprimer. Veuillez reessayer.");
+			returnMessage.put("fail","Impossible a supprimer. Veuillez reessayer.");
 		}
 
-		System.out.println("-----FIN DELETE MENU FIN------");
+	
 		this.getServletContext().getRequestDispatcher(All_MENU)
 				.forward(request, response);
 	}

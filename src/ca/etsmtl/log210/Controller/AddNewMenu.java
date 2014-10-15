@@ -2,6 +2,8 @@ package ca.etsmtl.log210.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -54,7 +56,8 @@ public class AddNewMenu extends HttpServlet {
 			HttpSession session = request.getSession();
 			System.out.println(session.getAttribute("restaurantActuel"));
 			session.setAttribute("insertion", true);
-			//ID_RESTAURANT_REFERENCE = (int) session.getAttribute("restaurantActuel");
+			Map<String, String> returnMessage = new HashMap<String, String>();
+			
 			
 			MenuBean newMenu = new MenuBean();
 			newMenu.setname((String) request.getParameter("nameMenu"));
@@ -62,11 +65,14 @@ public class AddNewMenu extends HttpServlet {
 			newMenu.setIdRestaurant((int)session.getAttribute("restaurantActuel"));
 			
 			if (this.menuDao.addNewMenu(newMenu)){
-				System.out.println("Je vais renvoyer la requete vers "+ MENU_MANAGEMENT_ACCESS);
+				returnMessage.put("succes", "Le Menu a ete ajoute avec succes !");
 				this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );
 			}
-			
-			
+			 else {
+				returnMessage
+						.put("fail",
+								"Oups une erreur est survenue, le menu n'a pas pu etre ajoute. Veuillez reessayer.");
+			}
 			
 		 }
 	

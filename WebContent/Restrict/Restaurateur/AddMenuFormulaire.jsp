@@ -8,6 +8,22 @@
 <div class="modal fade" id="addMenu" role="dialog" >
 	<div class="modal-dialog">
 		<div class="modal-content">
+		
+			<c:if test="${!empty form.DescriptionOk}">
+				<div class="row">
+					<div class="alert alert-success" role="alert">
+						<h5>${form.UpdateCompleted}</h5>
+					</div>
+				</div>
+			</c:if>
+
+			<c:if test="${!empty form.DescriptionFail}">
+				<div class="row">
+					<div class="alert alert-danger" role="alert">
+						<h5>${form.UpdateFail}</h5>
+					</div>
+				</div>
+			</c:if>
 
 
 			<form name=cmpid class="form-vertical" role="form" method="post"
