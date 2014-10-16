@@ -32,17 +32,39 @@
 		  		
 	  		 </script>
 		</c:if>
-  		 
-  		 <c:if test="${!empty returnMessage.fail}">
+		<c:if test="${!empty returnMessage.warning}">
+	  		  <script>
+		  		  	
+		  		toastr.options = {
+		  			  "closeButton": true,
+		  			  "debug": false,
+		  			  "positionClass": "toast-top-right",
+		  			  "onclick": null,
+		  			  "showDuration": "300",
+		  			  "hideDuration": "1000",
+		  			  "timeOut": "5000",
+		  			  "extendedTimeOut": "1000",
+		  			  "showEasing": "swing",
+		  			  "hideEasing": "linear",
+		  			  "showMethod": "fadeIn",
+		  			  "hideMethod": "fadeOut"
+		  			}
+		  		  
+		  			 toastr.warning('${returnMessage.warning}', 'Attention !!');
+		  		
+	  		 </script>
+		</c:if>
+  		<c:if test="${!empty returnMessage.fail}">
 	  		 <script>
 	  			 toastr.error('${returnMessage.fail}', 'Erreur')
 	  		 </script>
 		</c:if>
-		
-		 <c:if test="${empty returnMessage}">
+		<c:if test="${empty returnMessage}">
 				<br>
 		 	    <br>
-		</c:if>  		  
+		</c:if>  
+		
+				  
   		  
   		 <div class="row">
   		 	<div class="col-md-5 col-md-offset-1">  

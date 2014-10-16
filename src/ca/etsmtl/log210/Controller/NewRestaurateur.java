@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
+import ca.etsmtl.log210.DAO.RestaurantDao;
 import ca.etsmtl.log210.DAO.UserAccountDao;
 
 public class NewRestaurateur extends HttpServlet {
@@ -22,16 +23,16 @@ public class NewRestaurateur extends HttpServlet {
 	// The instance of UserAccountDao who give us the possibility to execute
 	// requests to the DB about userAccount
 	private UserAccountDao userAccountDao;
+	private RestaurantDao restaurantDao;
 
 	/**
-	 * Method who is executed the fist time that the servlet is create. Here we
-	 * get the connection to the DB throw UserAccountDao class. We must get the
-	 * connection just once if we don't want to have a too many connection error
-	 * in MySql.
+	 *Methode qui va chercher les DAO restaurant et userAccount pour pouvoir interagir avec la BD
 	 */
 	public void init() throws ServletException {
 		this.userAccountDao = ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getUserAccountDao();
+		this. restaurantDao = ((DAOFactory) getServletContext().getAttribute(
+				CONF_DAO_FACTORY)).getRestaurantDao();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -65,14 +66,46 @@ public class NewRestaurateur extends HttpServlet {
 		newUser.setHomeAddress(request.getParameter("adress"));
 		newUser.setPhoneNumber(request.getParameter("phone"));
 		
+		int idSelectedRestaurant=Integer.parseInt(request.getParameter("restaurantList"));
+		
+		
 		//On set le droit 1 car c'est un utilisateur de type restaurateur
 		newUser.setUserRights(1);
 
 		// On ajoute le nouvel utilisateur dans la BDD
-		userAccountDao.newUserAccount(newUser);
+		int idRestaurateur=userAccountDao.newUserAccount(newUser);
 
-		errors.put("succes",
-				"Un compte a ete cree pour "+newUser.getFirstName()+" "+newUser.getName());
+		if(idRestaurateur>0)
+		{
+			if(idSelectedRestaurant>0)
+			{
+				boolean retour= restaurantDao.linkRestaurateurToARestaurant(idSelectedRestaurant, idRestaurateur);
+			
+				if(retour==true)
+				{
+					errors.put("succes",
+							"Un compte lie a un restaurant a ete cree pour "+newUser.getFirstName()+" "+newUser.getName());
+				}
+				else
+				{
+					errors.put("fail","Une erreur est survenue,  veuillez essayer de nouveau !");
+				}
+			
+			}
+			else
+			{
+				errors.put("warning",
+						"Un compte sans restaurant a ete cree pour "+newUser.getFirstName()+" "
+				+newUser.getName());
+			}
+			
+		}
+		else
+		{
+			errors.put("fail","Une erreur est survenue,  veuillez essayer de nouveau !");
+		}
+			
+		
 		
 		request.setAttribute(REQUEST_FINISHED_STATE, errors);
 

@@ -49,7 +49,32 @@ public interface RestaurantDao
 	 */
 	boolean updateResataurant(RestaurantBean restaurantToUpdate);
 	
+	/**
+	 * Methode qui retourne les informations completes du restaurant dont l'id est passe en parametre
+	 * @param idRestaurantReceved  		L'identifiant du restaurant dont on veut les informations
+	 * @return 										Un restaurantBean contenant toutes les informations du restaurant
+	 */
 	RestaurantBean getNomRestaurant(int idRestaurantReceved);
+	
+	/**
+	 * Methode qui retourne la liste des restaurants assignes a un restaurateur
+	 * @param idRestaurateur		Id du restaurateur
+	 * @return 							ArrayList contenant les restaurants du restaurateur
+	 */
 	ArrayList<RestaurantBean> getActiveRestaurantsForRestaurateur(int idRestaurateur);
+	
+	/**
+	 * Cette methode va chercher la liste des restaurants visibles. Cette methode est utilisee 
+	 * pour peupler la liste deroullante du formulaire d'inscription d'un nouveau restaurant. 
+	 * @return La liste des restaurants qui n'ont pas de restaurateur
+	 */
+	ArrayList<RestaurantBean> getListRestaurantsWithoutRestaurateur();
+	
+	/**
+	 * Methode qui va updater le restaurateur lie au restaurant
+	 * @param idRestaurant  	restaurant a modifier
+	 * @return 						true si le changement s'est bien termine, false sinon
+	 */
+	boolean linkRestaurateurToARestaurant(int idRestaurant,int idRestaurateur);
 
 }

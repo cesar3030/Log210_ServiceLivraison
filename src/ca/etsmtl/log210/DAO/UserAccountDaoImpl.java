@@ -79,6 +79,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			while (resultSet.next()) {
 				userAccount = mapUserAccount(resultSet);
 			}
+		
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -89,18 +90,18 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		return userAccount;
 	}
 
-	public void newUserAccount(UserAccountBean newUser) {
+	public int newUserAccount(UserAccountBean newUser) {
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int codeRetour;
+		int idUser=0;
 
 		try {
-			/* R���������cup���������ration d'une connexion depuis la Factory */
+			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_NEW_USER_ACCOUNT, false, newUser.getName(),
+					SQL_NEW_USER_ACCOUNT,true, newUser.getName(),
 					newUser.getFirstName(), newUser.getHomeAddress(),
 					newUser.getEmail(), newUser.getPhoneNumber(),
 					newUser.getPassword(), newUser.getUserRights(),
@@ -108,13 +109,25 @@ public class UserAccountDaoImpl implements UserAccountDao {
 
 			System.out.println(preparedStatement);
 
-			codeRetour = preparedStatement.executeUpdate();
+			preparedStatement.executeUpdate();
+			
+			resultSet = preparedStatement.getGeneratedKeys();
+			
+			if (resultSet != null && resultSet.first()) 
+			{
+			      // on récupère l'id généré
+			      idUser = resultSet.getInt(1);
+			}
+			
+			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
+		
+		return idUser;
 	}
 
 	public int modifyUserAccount(UserAccountBean modUser) {

@@ -265,6 +265,17 @@
     <url-pattern>/UpdateRestaurateur</url-pattern>
   </servlet-mapping>
   
+  
+    <servlet>
+    <servlet-name>GetListRestaurantsWithoutRestaurateur</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.GetListRestaurantsWithoutRestaurateur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetListRestaurantsWithoutRestaurateur</servlet-name>
+    <url-pattern>/GetListRestaurantsWithoutRestaurateur</url-pattern>
+  </servlet-mapping>
+
+  
   <filter>
     <filter-name>ApplicationFilter</filter-name>
     <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>

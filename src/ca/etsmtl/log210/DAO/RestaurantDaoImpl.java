@@ -71,7 +71,18 @@ public class RestaurantDaoImpl implements RestaurantDao
 			+ "WHERE  RES_idUserAccount=?"
 			+ " AND RES_visible=1"
 			+ " AND res.RES_idUserAccount= usr.USR_idUser";
-			
+	
+	private static final String SQL_GET_RESTAURANTS_WITHOUT_RESTAURATEUR = "" 
+			+ "SELECT * "
+			+ "FROM tbrestaurant res, tbuseraccount usr " 
+			+ "WHERE  res.RES_idUserAccount=0 "
+			+ "AND res.RES_visible=1 "
+			+ "AND res.RES_idUserAccount= usr.USR_idUser";
+	
+	private static final String SQL_SET_A_RESTAURATEUR_TO_A_RESTAURANT = "" 
+			+ "UPDATE tbrestaurant "
+			+ "SET RES_idUserAccount=? "
+			+ "WHERE  RES_idRestaurant=? ";
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
 	{
@@ -389,6 +400,78 @@ public ArrayList<RestaurantBean> getActiveRestaurantsForRestaurateur(int idResta
 	}
 	return restaurantList;
 }
+
+@Override
+public ArrayList<RestaurantBean> getListRestaurantsWithoutRestaurateur() {
+	Connection connexion = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet resultSet = null;
+	ArrayList<RestaurantBean> restaurantList = new ArrayList<RestaurantBean>();
+	
+	try {
+		/* Recuperation d'une connexion depuis la Factory */
+		connexion = daoFactory.getConnection();
+		
+		preparedStatement = initialisationRequetePreparee(connexion,
+				SQL_GET_RESTAURANTS_WITHOUT_RESTAURATEUR, 
+				false);
+
+		resultSet = preparedStatement.executeQuery();
+	
+		/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+		while (resultSet.next()) 
+		{
+			restaurantList.add(mapRestaurateur(resultSet));
+		}
+
+	} 
+	catch (SQLException e) 
+	{
+		throw new DAOException(e);
+	} 
+	finally 
+	{
+		fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	}
+	return restaurantList;
+}
+
+
+@Override
+public boolean linkRestaurateurToARestaurant(int idRestaurant, int idRestaurateur) {
+	
+	Connection connexion = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet resultSet = null;
+	int codeRetour=0;
+	boolean etatRetour=true;
+	
+	
+	try {
+		/* Recuperation d'une connexion depuis la Factory */
+		connexion = daoFactory.getConnection();
+		preparedStatement = initialisationRequetePreparee(connexion,
+				SQL_SET_A_RESTAURATEUR_TO_A_RESTAURANT, false, idRestaurateur, idRestaurant);
+
+		System.out.println(preparedStatement);
+
+		codeRetour = preparedStatement.executeUpdate();
+		
+		if(codeRetour==0)
+		{
+			etatRetour=false;
+		}
+
+	} catch (SQLException e) {
+		throw new DAOException(e);
+	} finally {
+		fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	}
+	
+	return etatRetour;
+}
+
+
 
 
 }

@@ -102,6 +102,45 @@ function Requete_AJAX_GetActiveRestaurateurList()
 			
 }
 
+/**
+* Methode qui envoie une requete AJAX au serveur afin de recevoir les restauraurants qui n'ont pas de restaurateurs.
+*/
+function Requete_AJAX_GetResaturantsWithoutRestaurateur()
+{
+	
+	
+		var xhr = getXhr();
+		// On dÈfini ce qu'on va faire quand on aura la rÈponse
+		xhr.onreadystatechange = function()
+		{
+			// On ne fait quelque chose que si on a tout reÁu et que le serveur est ok
+			if(xhr.readyState == 4 && xhr.status == 200)
+			{
+				reponse = xhr.responseText;
+				xmldom = (new DOMParser()).parseFromString(reponse, 'text/xml');
+				
+				//j"ffiche le xml sur la console
+				console.log(reponse);
+				
+				/*
+				 * Je supprime le contenu du select avant de les actualiser pour
+				 * pour ne pas avoir les nombre en double au cas ou je recharge la
+				 * liste en ouvrant une autre fois le modal.
+				 */
+				clearContantOfSelect("restaurantList");
+				
+				//J'ajoute les restaurants a la liste deroulante
+				addRestaurantsInSelect(xmldom);			
+			}    
+		}
+
+		var url="GetListRestaurantsWithoutRestaurateur";
+		console.log(url);
+		xhr.open("GET",url,true);
+		xhr.send(null);
+}
+
+
 /*
  * Fonction qui change la couleur du input email dans les formulaires d<inscription et modification
  * En fonction de si l'email est deja utilise ou non
@@ -159,7 +198,7 @@ function addRestaurateurInSelect( ajaxResponse )
 		firstName=xmlListRestaurateur[i].getElementsByTagName("FIRSTNAME")[0].childNodes[0].nodeValue;
 		
 		
-		//J'update les deux formulaires
+		//J'ajoute dans les liste deroulantes des deux formulaires
 		addNewOptionInSelect("updateRestaurateurId",id,name,firstName);	
 		addNewOptionInSelect("restaurateurId",id,name,firstName);	
 	}
@@ -167,7 +206,7 @@ function addRestaurateurInSelect( ajaxResponse )
 }
 
 /**
- * Fonction qui ajoute une balise OPTION dans le SELECT qui represente
+ * Fonction qui ajoute une balise OPTION dans le SELECT qui affiche
  * la liste des restaurateurs
  * 
  * @param idSelect		id du select a updater
@@ -184,6 +223,10 @@ function addNewOptionInSelect(idSelect,id,name,firstName)
     x.add(opt);
 }
 
+/**
+ * Fonction qui efface tous les choix d'une liste deroulante
+ * @param idSelect
+ */
 function clearContantOfSelect(idSelect)
 {
 	//$("#"+idSelect+"  .option:lt(-1)").remove();
@@ -194,3 +237,47 @@ function clearContantOfSelect(idSelect)
 	}
 }
 
+/**
+ * Fonction qui ajoute a la liste deroulante les restaurants recus du serveur par xml
+ */
+function addRestaurantsInSelect( xmlFromServer)
+{
+	var xmlListRestaurants= xmlFromServer.getElementsByTagName("RESTAURANT");
+	var id,name;
+	
+	/*
+	 * J'ajoute le choix, sans restaurant pour qu'un restaurateur 
+	 * ne sois assigne a aucun resataurant 
+	 * au moment de la creation de son compte
+	 */
+	addNewRestaurantInSelect("restaurantList",0,"Sans restaurant");
+	
+	for (var i=0;i<xmlListRestaurants.length;i++)
+	 { 
+		
+		id=xmlListRestaurants[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+		
+		name=xmlListRestaurants[i].getElementsByTagName("NAME")[0].childNodes[0].nodeValue;
+		
+		//J'ajoute le restaurant dans la liste deroulante
+		addNewRestaurantInSelect("restaurantList",id,name);
+	
+	}
+}
+
+/**
+ * Fonction qui ajoute une balise OPTION dans le SELECT qui affiche
+ * la liste des restaurants dans le formulaire d'ajout d'un restaurateur.
+ * 
+ * @param idSelect		id du select a updater
+ * @param id				l'identifiant du restaurant dans la table tbrestaurant
+ * @param name			nom du restaurant
+ */
+function addNewRestaurantInSelect(idSelect,id,name)
+{
+	var x = document.getElementById(idSelect);
+    var opt = document.createElement("option");
+    opt.value = id;
+    opt.innerHTML = name;
+    x.add(opt);
+}

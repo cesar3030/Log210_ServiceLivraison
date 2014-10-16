@@ -45,6 +45,17 @@
 								placeholder="5141245678"  onblur="verifierNumeroTel();" required />
 						</div>
 					</div>
+					
+					<div class="form-group">
+						<label for="restaurantId" class="col-lg-4 control-label">Restaurant*:</label>
+						
+						<div class="col-lg-8">
+								<select class="form-control"   id="restaurantList" name="restaurantList"  required>
+								
+								 
+								</select>
+						</div>
+					</div>
 
 					<div class="form-group">
 						<label for="password1" class="col-lg-4 control-label">Mot de passe*:</label>
@@ -92,11 +103,14 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-$('#newRestaurateur').on('shown.bs.modal', function () {
-	$('#email_subscribe').prop('disabled', false);
-	})
-</script>
+
 <script src="<c:url value="/inc/js/SignInFormValidator.js"/>"></script>
+
 <!-- Scripte qui implement les methodes pour verifier en ajax si l'email inscrit dans le formulaire d'inscription n'est pas deja utilise -->
 <script src="<c:url value="/inc/js/ajax.js"/>"></script>
+
+<script type="text/javascript">
+$('#newRestaurateur').on('shown.bs.modal', function () {
+	Requete_AJAX_GetResaturantsWithoutRestaurateur();
+	})
+</script>

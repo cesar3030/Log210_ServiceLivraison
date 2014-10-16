@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ca.etsmtl.log210.Beans.RestaurantBean;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.RestaurantDao;
@@ -19,8 +20,8 @@ public class GetActiveResataurateur extends HttpServlet
 	 public static final String CONF_DAO_FACTORY = "daofactory";
 	 public static final String RESTAURANT_MANAGEMENT_PAGE     = "/RestaurantManagement";
 	 public static final String ACTIVE_RESTAURATEUR_LIST = "activeRestaurateurList";
-	 
-	 
+
+	
     //The instance of UserAccountDao who give us the possibility to execute requests to the DB about userAccount
     private UserAccountDao userAccountDao;
     
@@ -29,11 +30,10 @@ public class GetActiveResataurateur extends HttpServlet
      * We must get the connection just once if we don't want to have a too many connection error in MySql.
      */
     public void init() throws ServletException 
-	{
+ 	{
     		this.userAccountDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getUserAccountDao();
     	}
-		
-	 
+    
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 ArrayList<UserAccountBean> restaurateurList= new ArrayList<UserAccountBean>();
@@ -59,5 +59,4 @@ public class GetActiveResataurateur extends HttpServlet
 		 
 		 response.getWriter().write("<SERVER>"+xml+"</SERVER>");
 	 }
-
 }

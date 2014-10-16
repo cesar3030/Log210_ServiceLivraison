@@ -10,7 +10,12 @@ public interface UserAccountDao
 {
 	UserAccountBean getUserAccount(String email, String password);
 	
-	void newUserAccount(UserAccountBean newUser);
+	/**
+	 * Ajoute un nouvel utilisateur dans la BD
+	 * @param newUser	le bean contenant les information de l'utilisateur a ajouter en BD
+	 * @return				l'identifant du nouvel utilisateur cree
+	 */
+	int newUserAccount(UserAccountBean newUser);
 	
 	int modifyUserAccount(UserAccountBean newUser);
 	
