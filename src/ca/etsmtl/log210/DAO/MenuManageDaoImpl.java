@@ -46,7 +46,6 @@ public class MenuManageDaoImpl implements MenuManageDao {
 	@Override
 	public boolean addNewMenu(MenuBean menuRecu) {
 		
-		System.out.println(" Je suis DANS LA REQUETE D'AJOUT DU DAO MENU");
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -98,7 +97,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_DELETE_MENU_RESTAURANT , false, menuRecu);
 
-			System.out.println(preparedStatement);
+			
 
 			codeRetour = preparedStatement.executeUpdate();
 			if (codeRetour == 0) {
@@ -134,7 +133,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 					descriptionRecu,
 					idMenuRecu);
 
-			System.out.println(preparedStatement);
+		
 
 			codeRetour = preparedStatement.executeUpdate();
 
@@ -155,7 +154,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 	@Override
 	public ArrayList<MenuBean> showAllActiveMenuForOneResto(int restaurantNumber) {
 		
-		System.out.println(" Je suis DANS LA REQUETE SHOwALLaCTIVEmenuForOneResto D'AJOUT DU DAO MENU");
+	
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -169,7 +168,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_GET_ALL_ACTIVE_MENU_RESTAURANT, false, restaurantNumber);
 
-			System.out.println("SQL SHOWALLMENU "+preparedStatement);
+		
 			
 			resultSet = preparedStatement.executeQuery();
 		
@@ -187,7 +186,7 @@ public class MenuManageDaoImpl implements MenuManageDao {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		resultSet = null;
-		System.out.println();
+	
 		return menusRestaurantList;
 	}
 
@@ -233,8 +232,6 @@ public class MenuManageDaoImpl implements MenuManageDao {
 		menu.setDescription(resultSet.getString("MEN_description"));
 		menu.setVisible(resultSet.getInt("MEN_visible"));
 		
-		System.out.println("A Recup dans la bd "+menu.getName()+ " " +menu.getIdMenu()+ " " +menu.getIdRestaurant());
-
 		return menu;
 	}
 

@@ -54,26 +54,22 @@ public class AddNewMenu extends HttpServlet {
 		public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 		 {
 			HttpSession session = request.getSession();
-			System.out.println(session.getAttribute("restaurantActuel"));
-			session.setAttribute("insertion", true);
-			Map<String, String> returnMessage = new HashMap<String, String>();
-			
-			
+			int etatRequeter = 0;
+	
 			MenuBean newMenu = new MenuBean();
 			newMenu.setname((String) request.getParameter("nameMenu"));
 			newMenu.setDescription((String) request.getParameter("descriptionMenu"));
 			newMenu.setIdRestaurant((int)session.getAttribute("restaurantActuel"));
 			
-			if (this.menuDao.addNewMenu(newMenu)){
-				returnMessage.put("succes", "Le Menu a ete ajoute avec succes !");
-				this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );
+			this.menuDao.addNewMenu(newMenu);
+						
+			System.out.println("AVANT------------------------") ;
+			if(newMenu.getDescription()==""){
+				etatRequeter=2;
 			}
-			 else {
-				returnMessage
-						.put("fail",
-								"Oups une erreur est survenue, le menu n'a pas pu etre ajoute. Veuillez reessayer.");
-			}
-			
+			System.out.println("Voici l'etat " +etatRequeter + newMenu.getDescription());
+			session.setAttribute("EtatRequete", etatRequeter);
+			this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );
 		 }
 	
 	

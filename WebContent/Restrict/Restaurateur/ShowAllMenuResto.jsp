@@ -10,7 +10,126 @@
 <!--<c:set var="insertion" value="false" scope="session" />-->
 <!--ID DU RESTAURANT ${sessionScope.restaurantActuel}-->
 <div class="col-md-5 col-md-offset-5">
-
+ 
+ 
+ 
+			  <c:if test="${sessionScope.EtatRequete==0}">
+				  		  <script>
+					  		  	
+					  		toastr.options = {
+					  			  "closeButton": true,
+					  			  "debug": false,
+					  			  "positionClass": "toast-top-right",
+					  			  "onclick": null,
+					  			  "showDuration": "300",
+					  			  "hideDuration": "1000",
+					  			  "timeOut": "5000",
+					  			  "extendedTimeOut": "1000",
+					  			  "showEasing": "swing",
+					  			  "hideEasing": "linear",
+					  			  "showMethod": "fadeIn",
+					  			  "hideMethod": "fadeOut"
+					  			}
+					  		  
+					  		 toastr.success('Le Menu a ete creer avec succes !', 'Succès');
+					  		
+				  		 </script>
+					</c:if>
+					
+					<c:if test="${sessionScope.EtatRequete==1}">
+				  		  <script>
+					  		  	
+					  		toastr.options = {
+					  			  "closeButton": true,
+					  			  "debug": false,
+					  			  "positionClass": "toast-top-right",
+					  			  "onclick": null,
+					  			  "showDuration": "300",
+					  			  "hideDuration": "1000",
+					  			  "timeOut": "5000",
+					  			  "extendedTimeOut": "1000",
+					  			  "showEasing": "swing",
+					  			  "hideEasing": "linear",
+					  			  "showMethod": "fadeIn",
+					  			  "hideMethod": "fadeOut"
+					  			}
+					  		  
+					  	  toastr.warning('Echec de l\'operation sur menu !', 'Attention');
+					  		
+				  		 </script>
+					</c:if>
+					
+							
+		  <c:if test="${sessionScope.EtatRequete==2}">
+				  		  <script>
+					  		  	
+					  		toastr.options = {
+					  			  "closeButton": true,
+					  			  "debug": false,
+					  			  "positionClass": "toast-top-right",
+					  			  "onclick": null,
+					  			  "showDuration": "300",
+					  			  "hideDuration": "1000",
+					  			  "timeOut": "5000",
+					  			  "extendedTimeOut": "1000",
+					  			  "showEasing": "swing",
+					  			  "hideEasing": "linear",
+					  			  "showMethod": "fadeIn",
+					  			  "hideMethod": "fadeOut"
+					  			}
+					  		  
+					  		 toastr.warning('Le Menu est creer mais sans description!!', 'Attention');
+					  		
+				  		 </script>
+					</c:if>
+					
+							
+					<c:if test="${sessionScope.EtatRequete==3}">
+				  		  <script>
+					  		  	
+					  		toastr.options = {
+					  			  "closeButton": true,
+					  			  "debug": false,
+					  			  "positionClass": "toast-top-right",
+					  			  "onclick": null,
+					  			  "showDuration": "300",
+					  			  "hideDuration": "1000",
+					  			  "timeOut": "5000",
+					  			  "extendedTimeOut": "1000",
+					  			  "showEasing": "swing",
+					  			  "hideEasing": "linear",
+					  			  "showMethod": "fadeIn",
+					  			  "hideMethod": "fadeOut"
+					  			}
+					  		  
+					  		toastr.success('Modification faite avec succes !', 'Succès');
+					  		
+				  		 </script>
+				  		 
+					</c:if>
+						<c:if test="${sessionScope.EtatRequete==4}">
+				  		  <script>
+					  		  	
+					  		toastr.options = {
+					  			  "closeButton": true,
+					  			  "debug": false,
+					  			  "positionClass": "toast-top-right",
+					  			  "onclick": null,
+					  			  "showDuration": "300",
+					  			  "hideDuration": "1000",
+					  			  "timeOut": "5000",
+					  			  "extendedTimeOut": "1000",
+					  			  "showEasing": "swing",
+					  			  "hideEasing": "linear",
+					  			  "showMethod": "fadeIn",
+					  			  "hideMethod": "fadeOut"
+					  			}
+					  		  
+					  		toastr.success('Suppression effectuee !', 'Succès');
+					  		
+				  		 </script>
+					</c:if>
+		
 			
 			
 	<h3>${restaurantTitreName}: Tous les menus</h3>

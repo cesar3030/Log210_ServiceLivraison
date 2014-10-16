@@ -61,8 +61,7 @@ public class ShowAllMenuResto extends HttpServlet {
 				 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
 				 session.setAttribute("restaurantActuel",ID_RESTAURANT_RECEIVED);
 			} else {
-				System.out.println(session
-						.getAttribute("restaurantActuel"));
+			
 				ID_RESTAURANT_RECEIVED = (int)session
 						.getAttribute("restaurantActuel");
 				}
@@ -75,20 +74,20 @@ public class ShowAllMenuResto extends HttpServlet {
 		 
 		 //On recupere les donnees qui seront recu avec la requete sql
 		 activeMenuRestaurantList = menuDao.showAllActiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
-		// inactiveMenuRestaurantList = menuDao.showAllInactiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
+		
 		 
 		 session.setAttribute("retourInt",2);
 		
 		 //AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		 request.setAttribute(ACTIVE_MENU_RESTAURANT_ATTRIBUTE,  activeMenuRestaurantList);
 		
-		 //request.setAttribute(ID_RESTAURANT_REFERENCE,  ID_RESTAURANT_RECEIVED);
+
 		 request.setAttribute(RESTAURANT_NAME_TITRE, PRESENT_RESTAURANT.getName());
 		 
 		 //On renvoie la requete de reponse au bon endroit du restrict
 		 this.getServletContext().getRequestDispatcher( "/Restrict/Restaurateur/ShowAllMenuResto.jsp" ).forward( request, response );
 	 }
-	 //MENU_MANAGEMENT_ACCESS 
+
 	
 	public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {

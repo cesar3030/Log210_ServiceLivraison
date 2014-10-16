@@ -33,27 +33,12 @@ public class DeleteMenu extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		boolean insertReturn;
-		System.out.println("-----Deb Supprime MENU ------");
+		int etatRequete=4;
 
-		System.out.println("Voici l'ID du MENU en question : "
-				+ request.getParameter("idMenu"));
-
-		insertReturn = menuDAO.deleteMenu(Integer.parseInt(request
+		menuDAO.deleteMenu(Integer.parseInt(request
 				.getParameter("idMenu")));
 
-		Map<String, String> returnMessage = new HashMap<String, String>();
-	
-		
-		if (insertReturn == true) {
-			returnMessage.put("succes", "SUPRESSION SUCCES!");
-		} else {
-			returnMessage
-					.put("fail",
-							"Impossible a supprimer. Veuillez reessayer.");
-		}
-
-		System.out.println("-----FIN DELETE MENU FIN------");
+		request.getSession().setAttribute("EtatRequete", etatRequete);	
 		this.getServletContext().getRequestDispatcher(All_MENU)
 				.forward(request, response);
 	}
