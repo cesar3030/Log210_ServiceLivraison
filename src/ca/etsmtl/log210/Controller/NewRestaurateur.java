@@ -28,11 +28,11 @@ public class NewRestaurateur extends HttpServlet {
 	/**
 	 *Methode qui va chercher les DAO restaurant et userAccount pour pouvoir interagir avec la BD
 	 */
-	public void init() throws ServletException {
-		this.userAccountDao = ((DAOFactory) getServletContext().getAttribute(
-				CONF_DAO_FACTORY)).getUserAccountDao();
-		this. restaurantDao = ((DAOFactory) getServletContext().getAttribute(
-				CONF_DAO_FACTORY)).getRestaurantDao();
+	public void init() throws ServletException 
+	{
+		this.userAccountDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUserAccountDao();
+		
+		this. restaurantDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getRestaurantDao();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -79,7 +79,7 @@ public class NewRestaurateur extends HttpServlet {
 		{
 			if(idSelectedRestaurant>0)
 			{
-				boolean retour= restaurantDao.linkRestaurateurToARestaurant(idSelectedRestaurant, idRestaurateur);
+				boolean retour= restaurantDao.linkARestaurateurToARestaurant(idSelectedRestaurant, idRestaurateur);
 			
 				if(retour==true)
 				{

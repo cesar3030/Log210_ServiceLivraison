@@ -189,6 +189,10 @@ function addRestaurateurInSelect( ajaxResponse )
 	var xmlListRestaurateur= ajaxResponse.getElementsByTagName("RESTAURATEUR");
 	var id,name,firstName;
 	
+	//J'ajoute dans les liste deroulantes des deux formulaires le choix de ne pas lier le restaurant a un restaurateur
+	addNewOptionInSelect("updateRestaurateurId",0,"restaurateur","Sans");	
+	addNewOptionInSelect("restaurateurId",0,"restaurateur","Sans");	
+	
 	for (var i=0;i<xmlListRestaurateur.length;i++)
 	 { 
 		

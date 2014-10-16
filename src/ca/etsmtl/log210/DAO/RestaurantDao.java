@@ -71,10 +71,19 @@ public interface RestaurantDao
 	ArrayList<RestaurantBean> getListRestaurantsWithoutRestaurateur();
 	
 	/**
-	 * Methode qui va updater le restaurateur lie au restaurant
-	 * @param idRestaurant  	restaurant a modifier
-	 * @return 						true si le changement s'est bien termine, false sinon
+	 * Methode qui va assigner un restaurateur a un restaurant
+	 * @param idRestaurant  		restaurant a modifier
+	 * @param idRestaurateur  	Le restaurateur à assigner
+	 * @return 							true si le changement s'est bien termine, false sinon
 	 */
-	boolean linkRestaurateurToARestaurant(int idRestaurant,int idRestaurateur);
+	boolean linkARestaurateurToARestaurant(int idRestaurant,int idRestaurateur);
+	
+	/**
+	 * Methode qui va mettre a 0 tous les restaurants qui avaient comme gestionnaire, 
+	 * le restaurateur dont l'id est passe en parametre.
+	 * @param idRestaurateur 	le restaurateur dont il faut supprimer les dependances
+	 * @return 							true si les changements ss sont bien termines, false sinon
+	 */
+	boolean unlinkARestaurateurHisRestaurants(int idRestaurateur);
 
 }

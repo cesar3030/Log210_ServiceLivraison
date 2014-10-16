@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
+import ca.etsmtl.log210.DAO.RestaurantDao;
 import ca.etsmtl.log210.DAO.UserAccountDao;
 
 public class SwitchRestaurateurToNotVisible extends HttpServlet
@@ -22,15 +23,16 @@ public static final String REQUEST_FINISHED_STATE = "returnMessage";
 
 //The instance of UserAccountDao who give us the possibility to execute requests to the DB about userAccount
 private UserAccountDao userAccountDao;
-
+private RestaurantDao restaurantDao;
 
 /**
-* Method who is executed the fist time that the servlet is create. Here we get the connection to the DB throw UserAccountDao class.
-* We must get the connection just once if we don't want to have a too many connection error in MySql.
-*/
+ *Methode qui va chercher les DAO restaurant et userAccount pour pouvoir interagir avec la BD
+ */
 public void init() throws ServletException 
 {
-   	this.userAccountDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getUserAccountDao();
+	this.userAccountDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUserAccountDao();
+	
+	this. restaurantDao = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getRestaurantDao();
 }
 
 
@@ -40,19 +42,37 @@ public void doGet( HttpServletRequest request, HttpServletResponse response ) th
 	 System.out.println(idRestaurateur);
 	 boolean retour = userAccountDao.swtichRestaurateurToNotVisible(idRestaurateur);
 	 
+	 
 	 Map<String, String>  returnMessage= new HashMap<String, String>();
 	 
+	 //Si le restaurateur est passé en non visible sans erreur, on le unlink de ses restaurants 
 	 if(retour==true)
 	 {
-		 returnMessage.put("succes", "Le restaurateur est desormais non visible");
+		 restaurantDao.unlinkARestaurateurHisRestaurants(idRestaurateur);
 		 
-		 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
-		 
-		 ServletContext context= getServletContext();
-		 RequestDispatcher rd= context.getRequestDispatcher(RESTAURANT_MANAGEMENT_ACCESS);
-		 rd.forward(request, response);
+		 if(retour==true)
+		 {
+			 returnMessage.put("succes", "Le restaurateur est desormais non visible et tous ses restaurants sont maintenant sans restaurateur");
+			 
+			 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+			 
+			 ServletContext context= getServletContext();
+			 RequestDispatcher rd= context.getRequestDispatcher(RESTAURANT_MANAGEMENT_ACCESS);
+			 rd.forward(request, response);
+		 }
+		 else if(retour==false)
+		 {
+			 returnMessage.put("warning", "Le restaurateur est desormais non visible mais ses restaurants l'ont toujours comme restaurateur. Une erreur est survenue lors de la modification de ses restaurant.");
+			 
+			 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+			 
+			 ServletContext context= getServletContext();
+			 RequestDispatcher rd= context.getRequestDispatcher(RESTAURANT_MANAGEMENT_ACCESS);
+			 rd.forward(request, response);
+			
+		 }
 	 }
-	 else if(retour==false)
+	 else
 	 {
 		 returnMessage.put("fail", "Une erreur est survenu, veuillez reessayer.");
 		 

@@ -83,6 +83,12 @@ public class RestaurantDaoImpl implements RestaurantDao
 			+ "UPDATE tbrestaurant "
 			+ "SET RES_idUserAccount=? "
 			+ "WHERE  RES_idRestaurant=? ";
+
+	private static final String SQL_GET_RESTAURANTS_OF_A_RESTAURATEUR = "" 
+			+ "SELECT * "
+			+ "FROM tbrestaurant " 
+			+ "WHERE  RES_idUserAccount=? ";
+	
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
 	{
@@ -438,7 +444,7 @@ public ArrayList<RestaurantBean> getListRestaurantsWithoutRestaurateur() {
 
 
 @Override
-public boolean linkRestaurateurToARestaurant(int idRestaurant, int idRestaurateur) {
+public boolean linkARestaurateurToARestaurant(int idRestaurant, int idRestaurateur) {
 	
 	Connection connexion = null;
 	PreparedStatement preparedStatement = null;
@@ -469,6 +475,56 @@ public boolean linkRestaurateurToARestaurant(int idRestaurant, int idRestaurateu
 	}
 	
 	return etatRetour;
+}
+
+
+@Override
+public boolean unlinkARestaurateurHisRestaurants(int idRestaurateur) 
+{
+	Connection connexion = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet resultSet = null;
+	boolean retour=true;
+	try {
+		/* Recuperation d'une connexion depuis la Factory */
+		connexion = daoFactory.getConnection();
+		
+		preparedStatement = initialisationRequetePreparee(connexion,
+				SQL_GET_RESTAURANTS_OF_A_RESTAURATEUR, 
+				false,idRestaurateur);
+
+		resultSet = preparedStatement.executeQuery();
+	
+		/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+		while (resultSet.next()) 
+		{
+			/*
+			 * J'attribue a chaque restaurant du restaurateur qui vient d'etre passé en non visible
+			 * l'utilisateur restaurateur qui a l'id 0 et qui est un utilisateur par defaut 
+			 * quand un restaurant n'a pas de restaurateur assiogné
+			 */
+			if(retour==true)
+			{
+				retour=linkARestaurateurToARestaurant(resultSet.getInt("RES_idRestaurant"), 0);
+			}
+			else
+			{
+				//Si une opération BD s'est mal terminée, on arrete le processus
+				break;
+			}
+			
+		}
+
+	} 
+	catch (SQLException e) 
+	{
+		throw new DAOException(e);
+	} 
+	finally 
+	{
+		fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	}
+	return retour;
 }
 
 

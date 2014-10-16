@@ -37,9 +37,11 @@ public class NewRestaurant extends HttpServlet
 	 
 	 public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
+		 int idLinkedRestaurateur = Integer.parseInt(request.getParameter("restaurateurId"));
+		 
 		 RestaurantBean restaurantToAdd = new RestaurantBean();
 		 
-		 restaurantToAdd.setIdUserAccountRestaurateur(Integer.parseInt(request.getParameter("restaurateurId")));
+		 restaurantToAdd.setIdUserAccountRestaurateur( idLinkedRestaurateur);
 		 restaurantToAdd.setName(request.getParameter("name"));
 		 restaurantToAdd.setAddress(request.getParameter("address"));
 		 restaurantToAdd.setPhoneNumber(request.getParameter("phone"));
@@ -53,7 +55,17 @@ public class NewRestaurant extends HttpServlet
 		 
 		 if(insertReturn==true)
 		 {
-			 returnMessage.put("succes","Le restaurant a ete ajoute avec succes !");
+			 /*Si l'idientifiant du restaurateur est 0, cela veut dire que 
+			  *c'est l'utilisateur par defaut qui est utilisé et non pas un restaurateur réel
+			  */
+			 if( idLinkedRestaurateur>0)
+			 {
+				 returnMessage.put("succes","Le restaurant a ete ajoute avec succes !");
+			 }
+			 else
+			 {
+				 returnMessage.put("warning","Le restaurant a ete ajoute mais sans restaurateur");
+			 }
 		 }
 		 else
 		 {
