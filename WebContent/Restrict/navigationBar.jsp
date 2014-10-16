@@ -28,7 +28,7 @@
 
  <!--  Barre de navigation des clients ( droit 0) -->
  <c:if test="${sessionScope.userSession.userRights==0}">
- 	<li><a href="<c:url value="/MyAccount"/>"> Trouver un restaurant</a></li>
+ 	<li><a href="<c:url value="/Restrict/Client/Search.jsp"/>">Faire une commande</a></li>
     <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li>    
     <li><a href="<c:url value="/Logout"/>">Deconnexion</a></li>
  </c:if> 

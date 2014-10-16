@@ -41,7 +41,7 @@
 						</div>
 
 						<div class="form-group">
-							<label for="descriptionMenu" class="col-lg-4 control-label">Description de Menu:*</label>
+							<label for="descriptionMenu" class="col-lg-4 control-label">Description de Menu:</label>
 							<div class="col-lg-8">
 								<input type="text" class="form-control" id="descriptionMenu"
 									name="descriptionMenu" placeholder="Unique en son genre" />

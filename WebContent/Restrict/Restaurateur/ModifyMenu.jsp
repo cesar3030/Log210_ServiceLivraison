@@ -33,7 +33,7 @@
 					
 			
 					<div class="form-group">
-						<label for="updDescM" class="col-lg-4">Description*:</label>
+						<label for="updDescM" class="col-lg-4">Description:</label>
 						<div class="col-lg-8">
 							<input type="text" class="form-control" name="updDescM" id="updDescM" >
 					</div>

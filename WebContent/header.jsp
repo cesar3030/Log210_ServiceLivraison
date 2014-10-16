@@ -20,6 +20,7 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/inc/js/toastr/toastr.css"/>"/>
 	<link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'/>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/inc/css/bootstrap-select.min.css"/>" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/inc/css/DragNDrop/dragNDrop.css"/>" />
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="<c:url value="/inc/css/bootstrap/js/bootstrap.js"/>"></script>
