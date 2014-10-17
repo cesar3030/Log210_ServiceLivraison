@@ -528,8 +528,6 @@ public boolean unlinkARestaurateurHisRestaurants(int idRestaurateur)
 }
 
 
-
-
 }
 
 

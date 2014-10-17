@@ -2,8 +2,9 @@
  * @author Adem İlter
  * {@link} http://www.webresourcesdepot.com/drag-n-drop-shopping-cart-with-jquery-ui-tutorial/ visité le 16/10/2014
  */
-
-$(function () {
+function updateDragNDropElements()
+{
+	$(function () {
 
 		// jQuery UI Draggable
 		$("#product li").draggable({
@@ -71,3 +72,5 @@ $(function () {
 		});
 
     });
+
+}

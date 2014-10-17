@@ -274,7 +274,33 @@
     <servlet-name>GetListRestaurantsWithoutRestaurateur</servlet-name>
     <url-pattern>/GetListRestaurantsWithoutRestaurateur</url-pattern>
   </servlet-mapping>
-
+  
+  <servlet>
+    <servlet-name>GetListVisibleRestaurants</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.GetListVisibleRestaurants</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetListVisibleRestaurants</servlet-name>
+    <url-pattern>/GetListVisibleRestaurants</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>GetAllMenuResto</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.GetAllMenuResto</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllMenuResto</servlet-name>
+    <url-pattern>/GetAllMenuResto</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>GetMealsResaturant</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.GetMealsResaturant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetMealsResaturant</servlet-name>
+    <url-pattern>/GetMealsResaturant</url-pattern>
+  </servlet-mapping>
   
   <filter>
     <filter-name>ApplicationFilter</filter-name>

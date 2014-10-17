@@ -85,5 +85,6 @@ public interface RestaurantDao
 	 * @return 							true si les changements ss sont bien termines, false sinon
 	 */
 	boolean unlinkARestaurateurHisRestaurants(int idRestaurateur);
+	
 
 }

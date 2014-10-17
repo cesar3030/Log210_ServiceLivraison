@@ -12,67 +12,21 @@
   		  </div> 
   		  <div class="row">
 	  		  	<div class="col-md-3"> 
+		  		  	<select class="form-control"   id="restaurantList" name="restaurantList">
+	 			
+					</select>
+					<br>
+					<div class="menuList">
+					
+					</div>
 	  		 	</div>
 	  		 	<div class="connntainer">
 	  		 		<div class="col-md-6"> 	
 					    <section id="product">
 					        <ul class="clear">
-					            <li data-id="1">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/1/" alt="">
-					                    <h3>iPad 32gb retina screen</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
-					            <li data-id="2">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/2/" alt="">
-					            		<h3>Turntable mixer</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
-					            <li data-id="3">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/3/" alt="">
-					            		<h3>IBM 15" super-fast computer</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
-					            <li data-id="4">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/4/" alt="">
-					            		<h3>Some crazy circuit</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
-					            <li data-id="5">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/5/" alt="">
-					                    <h3>White earpieces</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
-					            <li data-id="6">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/6/" alt="">
-					            		<h3>Headphones with free keyboard</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
-					            <li data-id="7">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/7/" alt="">
-					            		<h3>iPhone 4S</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
-					            <li data-id="8">
-					                <a href="#">
-					                    <img src="http://lorempixel.com/150/100/technics/8/" alt="">
-					            		<h3>Another crazy circuit or..</h3>
-					                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-					                </a>
-					            </li>
+					        <meal class="clear2">
+					          
+					         </meal>
 					        </ul>
 					  </section>
 					  </div>
@@ -97,9 +51,116 @@
 	  		 		</div>	   		 		 
 	  		 	</div>
 		 </div>
- 
+ <script src="<c:url value="/inc/js/DragNDrop/dragNDrop.js"/>"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="<c:url value="/inc/js/DragNDrop/jquery-ui-1.9.0.js"/>"></script>
-<script src="<c:url value="/inc/js/DragNDrop/dragNDrop.js"/>"></script>
+<script src="<c:url value="/inc/js/ajax_order.js"/>"></script>
 
+<script>
+
+	//Après le chargement de la page, je vais faire une requete ajax pour peupler la liste déroulante des restaurants
+	$( window ).load(function() 
+	{
+		Requete_AJAX_GetVisibleResaturants("<c:url value="/GetListVisibleRestaurants"/>");
+		updateDragNDropElements();
+		//Requete_AJAX_GetVisibleResaturants("/GetListVisibleRestaurants");
+	});
+	
+	//Quand un restaurant est sélectionné on va chercher en ajax ses menus
+	$( "#restaurantList" )
+	  .change(function () {
+	    $( "select option:selected" ).each(function() {
+	    Requete_AJAX_GetMenusResaturants("<c:url value="/GetAllMenuResto"/>");
+	//	Requete_AJAX_GetMenusResaturants("Log210_ServiceLivraison/GetAllMenuResto");
+	    });
+	  }) .change();
+	
+	function displayMealsOfAMenu(menuId)
+	{
+		Requete_AJAX_GetMealsResaturant(menuId);
+		setTimeout(function() {
+			updateDragNDropElements();
+		}, 1200);
+		
+	}
+	
+	/**
+	 * @author Adem İlter
+	 * {@link} http://www.webresourcesdepot.com/drag-n-drop-shopping-cart-with-jquery-ui-tutorial/ visité le 16/10/2014
+	 */
+	function updateDragNDropElements()
+	{
+		$(function () {
+
+			// jQuery UI Draggable
+			$("#product li").draggable({
+			
+				// brings the item back to its place when dragging is over
+				revert:true,
+			
+				// once the dragging starts, we decrease the opactiy of other items
+				// Appending a class as we do that with CSS
+				drag:function () {
+					$(this).addClass("active");
+					$(this).closest("#product").addClass("active");
+				},
+			
+				// removing the CSS classes once dragging is over.
+				stop:function () {
+					$(this).removeClass("active").closest("#product").removeClass("active");
+				}
+			});
+
+	        // jQuery Ui Droppable
+			$(".basket").droppable({
+			
+				// The class that will be appended to the to-be-dropped-element (basket)
+				activeClass:"active",
+			
+				// The class that will be appended once we are hovering the to-be-dropped-element (basket)
+				hoverClass:"hover",
+			
+				// The acceptance of the item once it touches the to-be-dropped-element basket
+				// For different values http://api.jqueryui.com/droppable/#option-tolerance
+				tolerance:"touch",
+				drop:function (event, ui) {
+			
+					var basket = $(this),
+							move = ui.draggable,
+							itemId = basket.find("ul li[data-id='" + move.attr("data-id") + "']");
+			
+					// To increase the value by +1 if the same item is already in the basket
+					if (itemId.html() != null) {
+						itemId.find("input").val(parseInt(itemId.find("input").val()) + 1);
+					}
+					else {
+						// Add the dragged item to the basket
+						addBasket(basket, move);
+			
+						// Updating the quantity by +1" rather than adding it to the basket
+						move.find("input").val(parseInt(move.find("input").val()) + 1);
+					}
+				}
+			});
+
+	        // This function runs onc ean item is added to the basket
+	        function addBasket(basket, move) {
+				basket.find("ul").append('<li data-id="' + move.attr("data-id") + '">'
+						+ '<span class="name">' + move.find("h3").html() + '</span>'
+						+ '<input class="count" value="1" type="text">'
+						+ '<button class="delete">&#10005;</button>');
+			}
+
+
+	        // The function that is triggered once delete button is pressed
+	        $(".basket ul li button.delete").live("click", function () {
+				$(this).closest("li").remove();
+			});
+
+	    });
+
+	}
+
+	
+</script>
 <jsp:include page="/footer.jsp"></jsp:include>

@@ -1,5 +1,5 @@
 /*
-	Fonction qui crÈÈ et renvoie un objet XMLHttpRequest utilisÈ pour dialoguer en AJAX avec le serveur
+	Fonction qui cree et renvoie un objet XMLHttpRequest utilisÈ pour dialoguer en AJAX avec le serveur
 */
 function getXhr()
 {
