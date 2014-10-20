@@ -30,14 +30,14 @@
 					        </ul>
 					  </section>
 					  </div>
-					  <div class="col-md-2 hidden-xs "> 
+					  <div class="col-md-3 hidden-xs "> 
 					    <aside id="sidebar">
 					        <div class="basket">
 					            <div class="basket_list">
 					                <div class="head">
-					                    <span class="name">Nom du plat</span>
-					                    <span class="price" id="price">Prix</span>
-					                    <span class="count">Quantité</span>
+					                    <span class="name col-md-6">Nom du plat</span>
+					                    <span class="price col-md-3" id="price">Prix</span>
+					                    <span class="count col-md-3">Quantité</span>
 					                </div>
 					                <ul>
 					                    <!--li>
@@ -53,23 +53,23 @@
 	  		 		<div class="row visible-xs">
 		  		 		<div class="col-xs-12"> 
 						    <aside id="sidebar">
-						        <div class="basket">
-						            <div class="basket_list">
-						                <div class="head">
-						                    <span class="name">Nom du plat</span>
-						                    <span class="price" id="price">Prix</span>
-						                    <span class="count">Quantité</span>
-						                </div>
-						                <ul>
-						                    <!--li>
-						                        <span class="name">Samsung S3 asd asdasdaf dfsdghgfg dgfg</span>
-						                        <input class="count" value="1" type="text">
-						                        <button class="delete">&#10005;</button>
-						                    </li-->
-						                </ul>
-						            </div>
-						        </div>
-						    </aside>		 
+					        <div class="basket">
+					            <div class="basket_list">
+					                <div class="head">
+					                    <span class="name col-xs-6">Nom du plat</span>
+					                    <span class="price col-xs-3" id="price">Prix</span>
+					                    <span class="count col-xs-3">Quantité</span>
+					                </div>
+					                <ul>
+					                    <!--li>
+					                        <span class="name">Samsung S3 asd asdasdaf dfsdghgfg dgfg</span>
+					                        <input class="count" value="1" type="text">
+					                        <button class="delete">&#10005;</button>
+					                    </li-->
+					                </ul>
+					            </div>
+					        </div>
+					    </aside>		 
 		  		 		</div>	 
 	  		 		</div>  		 		 
 	  		 	</div>
