@@ -109,11 +109,15 @@ a { text-decoration: none }
     color: #000
 }
 
-#product ul li a h3 {
+#product ul li a h5 {
     margin-top: 5px;
 }
 
-#product ul li a h3,
+#price {
+    margin-left: 95px;
+}
+
+#product ul li a h5,
 #product ul li a p {
     white-space: nowrap;
     overflow: hidden;
@@ -132,7 +136,7 @@ a { text-decoration: none }
 }
 
 .basket .basket_list {
-    width: 220px;
+    width: 272px;
     background-color: #fff;
     border: 2px dashed transparent;
     border-radius: 4px;

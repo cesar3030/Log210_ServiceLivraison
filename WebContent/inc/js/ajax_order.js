@@ -162,7 +162,7 @@ function addMeals(xmlFromServer,idDiv)
 		price=xmlListMenus[i].getElementsByTagName("PRICE")[0].childNodes[0].nodeValue;
 
 		//Je fait mon html correspondant a un repas
-		html="<li data-id="+id+"> <a href=\"#\"><img src=\"/Log210_ServiceLivraison/inc/pictures/chef.jpg\" alt=\"\"><h5>"+name+"&nbsp;&nbsp;&nbsp;"+price+"</h5><p>"+description+"</p></a></li>";
+		html="<li data-id="+id+"> <a href=\"#\"><img src=\"/Log210_ServiceLivraison/inc/pictures/chef.jpg\" alt=\"\"><h5>"+name+"&nbsp;&nbsp;&nbsp;</h5><h4>"+price+"</h4><p>"+description+"</p></a></li>";
 		//html="<li data-id=\"3\"><a href=\"#\"><img src=\"http://lorempixel.com/150/100/technics/3/\" alt=\"\"><h3>IBM 15\" super-fast computer</h3><p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p></a></li>";
 		//J'ajoute le menu dans le div
 		addInDiv(idDiv,html);

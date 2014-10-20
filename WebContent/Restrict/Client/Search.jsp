@@ -36,6 +36,7 @@
 					            <div class="basket_list">
 					                <div class="head">
 					                    <span class="name">Nom du plat</span>
+					                    <span class="price" id="price">Prix</span>
 					                    <span class="count">Quantité</span>
 					                </div>
 					                <ul>
@@ -85,7 +86,7 @@
 	}
 	
 	/**
-	 * @author Adem İlter
+	 * @author Adem İlter et modifie par César Jeanroy
 	 * {@link} http://www.webresourcesdepot.com/drag-n-drop-shopping-cart-with-jquery-ui-tutorial/ visité le 16/10/2014
 	 */
 	function updateDragNDropElements()
@@ -146,7 +147,8 @@
 	        // This function runs onc ean item is added to the basket
 	        function addBasket(basket, move) {
 				basket.find("ul").append('<li data-id="' + move.attr("data-id") + '">'
-						+ '<span class="name">' + move.find("h3").html() + '</span>'
+						+ '<span class="name">' + move.find("h5").html() + '</span>'
+						+ '<span class="price" >' + move.find("h4").html() + '</span>'
 						+ '<input class="count" value="1" type="text">'
 						+ '<button class="delete">&#10005;</button>');
 			}
