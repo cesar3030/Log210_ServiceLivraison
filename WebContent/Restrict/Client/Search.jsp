@@ -5,23 +5,23 @@
 <jsp:include page="/header.jsp"></jsp:include>	
   		 
   		  <div class="row">
-	  		  	<div class="col-md-12"> 		 
+	  		  	<div class="col-md-12 col-xs-12"> 		 
 	  		 			 <h1 class="text-center" >Faites votre choix !</h1>  	
 	  		 			 <br>
 	  		 	</div>
   		  </div> 
   		  <div class="row">
-	  		  	<div class="col-md-3"> 
+	  		  	<div class="col-md-3 col-xs-12"> 
 		  		  	<select class="form-control"   id="restaurantList" name="restaurantList">
 	 			
 					</select>
 					<br>
-					<div class="menuList">
+					<div class="menuList col-xs-12">
 					
 					</div>
 	  		 	</div>
 	  		 	<div class="connntainer">
-	  		 		<div class="col-md-6"> 	
+	  		 		<div class="col-md-6  col-xs-12 "> 	
 					    <section id="product">
 					        <ul class="clear">
 					        <meal class="clear2">
@@ -30,7 +30,7 @@
 					        </ul>
 					  </section>
 					  </div>
-					  <div class="col-md-2"> 
+					  <div class="col-md-2 hidden-xs "> 
 					    <aside id="sidebar">
 					        <div class="basket">
 					            <div class="basket_list">
@@ -49,13 +49,36 @@
 					            </div>
 					        </div>
 					    </aside>		 
-	  		 		</div>	   		 		 
+	  		 		</div>	 
+	  		 		<div class="row visible-xs">
+		  		 		<div class="col-xs-12"> 
+						    <aside id="sidebar">
+						        <div class="basket">
+						            <div class="basket_list">
+						                <div class="head">
+						                    <span class="name">Nom du plat</span>
+						                    <span class="price" id="price">Prix</span>
+						                    <span class="count">Quantité</span>
+						                </div>
+						                <ul>
+						                    <!--li>
+						                        <span class="name">Samsung S3 asd asdasdaf dfsdghgfg dgfg</span>
+						                        <input class="count" value="1" type="text">
+						                        <button class="delete">&#10005;</button>
+						                    </li-->
+						                </ul>
+						            </div>
+						        </div>
+						    </aside>		 
+		  		 		</div>	 
+	  		 		</div>  		 		 
 	  		 	</div>
 		 </div>
  <script src="<c:url value="/inc/js/DragNDrop/dragNDrop.js"/>"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="<c:url value="/inc/js/DragNDrop/jquery-ui-1.9.0.js"/>"></script>
 <script src="<c:url value="/inc/js/ajax_order.js"/>"></script>
+<script src="<c:url value="/inc/js/DragNDrop/jquery.ui.touch-punch.min.js"/>"></script>
 
 <script>
 
