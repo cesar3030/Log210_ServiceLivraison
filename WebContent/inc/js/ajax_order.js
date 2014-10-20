@@ -178,9 +178,7 @@ function addMeals(xmlFromServer,idDiv)
  */
 function addInDiv(idDiv,newContant)
 {
-	//$( "#"+idDiv).append(newContant);
 	$( $.parseHTML(newContant ) ).appendTo( "."+idDiv);
-	//$( "p" ).append( newContant);
 }
 
 /**

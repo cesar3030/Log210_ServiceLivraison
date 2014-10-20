@@ -72,7 +72,7 @@ public class GetMealsResaturant extends HttpServlet {
 				 }
 				 
 				 xml=xml + "<MEAL>"
-								+ "	<ID>"+meal.getIdMenu()+"</ID>"
+								+ "	<ID>"+meal.getIdMeal()+"</ID>"
 								+ "	<NAME>"+meal.getName()+"</NAME>"
 								+ "	<DESCRIPTION>"+description+"</DESCRIPTION>"
 								+ "	<PRICE>"+meal.getPrice()+"</PRICE>"
