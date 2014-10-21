@@ -162,7 +162,7 @@ function addMeals(xmlFromServer,idDiv)
 		price=xmlListMenus[i].getElementsByTagName("PRICE")[0].childNodes[0].nodeValue;
 
 		//Je fait mon html correspondant a un repas
-		html="<li data-id="+id+"> <a href=\"#\"><img src=\"/Log210_ServiceLivraison/inc/pictures/chef.jpg\" alt=\"\"><h5>"+name+"&nbsp;&nbsp;&nbsp;</h5><h4>"+price+"</h4><p>"+description+"</p></a></li>";
+		html="<li data-id="+id+"> <a href=\"#\"><img src=\"/Log210_ServiceLivraison/inc/pictures/chef.jpg\" alt=\"\"><h5>"+name+"&nbsp;&nbsp;&nbsp;</h5><h4>"+price+"$</h4><p>"+description+"</p></a></li>";
 		//html="<li data-id=\"3\"><a href=\"#\"><img src=\"http://lorempixel.com/150/100/technics/3/\" alt=\"\"><h3>IBM 15\" super-fast computer</h3><p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p></a></li>";
 		//J'ajoute le menu dans le div
 		addInDiv(idDiv,html);
@@ -241,10 +241,48 @@ function addNewOptionInSelect(idSelect,id,name)
 }
 
 
+/**
+ * Fonction qui cree un xml contenant tous les plats commandes 
+ * ainsi que leur quantite afin que le serveur puisse les enregistrer 
+ * dans la BD et effectuer les operations liees au traitement de la commande
+ */
+function cart_to_xml()
+{
+	//Je recupere le contenu du pannier
+	var html=$('#choosenMeals').html();
+	//Je cree le debut de mon xml
+	var xml="<CART>";
+	var id,quantity;
+	
+	//pour chaque item dans le panier je recupere l<il du plat et la quantite voulu
+	$( ".aMeal" ).each(function() {
+		
+		 id=$( this ).attr("data-id");	
+		 quantity=$( ".count",this ).val();	
+		 
+		 //J'ajoute le plat et sa quantite au xml
+		 xml=addToXml(xml,id,quantity);
+		}); 
+	//je ferme la balise cart du xml
+	xml=xml+"</CART>";
+	console.log(xml);
+}
 
-
-
-
+/**
+ * Fonction qui ajoute le plat et la quantite voulu 
+ * au xml qui va etre envoye au serveur pour enregistrer la commande
+ * @param xml				XML qui va etre envoyer au serveur contenant la commande
+ * @param idMeal			l'identifiant du plat commande
+ * @param quantity		Le nombre de fois que le plat a ete commande
+ */
+function addToXml(xml,idMeal,quantity)
+{
+	xml=xml	+"<MEAL>"
+					+"<ID>"+idMeal+"</ID>"
+					+"<QUANTITY>"+quantity+"</QUANTITY>"
+					+"</MEAL>";
+	return xml;
+}
 
 
 

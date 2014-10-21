@@ -33,19 +33,18 @@
 					  <div class="col-md-3 hidden-xs "> 
 					    <aside id="sidebar">
 					        <div class="basket">
-					            <div class="basket_list">
+					            <div class="basket_list col-md-12">
 					                <div class="head">
 					                    <span class="name col-md-6">Nom du plat</span>
 					                    <span class="price col-md-3" id="price">Prix</span>
 					                    <span class="count col-md-3">Quantité</span>
-					                </div>
-					                <ul>
-					                    <!--li>
-					                        <span class="name">Samsung S3 asd asdasdaf dfsdghgfg dgfg</span>
-					                        <input class="count" value="1" type="text">
-					                        <button class="delete">&#10005;</button>
-					                    </li-->
+					                 </div>
+					                <ul id="choosenMeals">
+					              
 					                </ul>
+					                <button type="button" onclick="cart_to_xml();" class="btn btn-default btn-xs col-md-5 col-md-offset-7">
+										  <span class="glyphicon glyphicon-hand-right"></span>&nbspConfirmer
+									</button>
 					            </div>
 					        </div>
 					    </aside>		 
@@ -61,12 +60,11 @@
 					                    <span class="count col-xs-3">Quantité</span>
 					                </div>
 					                <ul>
-					                    <!--li>
-					                        <span class="name">Samsung S3 asd asdasdaf dfsdghgfg dgfg</span>
-					                        <input class="count" value="1" type="text">
-					                        <button class="delete">&#10005;</button>
-					                    </li-->
+					                 
 					                </ul>
+					                <button type="button" onclick="cart_to_xml();" class="btn btn-default btn-xs col-xs-12">
+										  <span class="glyphicon glyphicon-hand-right"></span>&nbspConfirmer
+									</button>
 					            </div>
 					        </div>
 					    </aside>		 
@@ -169,9 +167,9 @@
 
 	        // This function runs onc ean item is added to the basket
 	        function addBasket(basket, move) {
-				basket.find("ul").append('<li data-id="' + move.attr("data-id") + '">'
-						+ '<span class="name">' + move.find("h5").html() + '</span>'
-						+ '<span class="price" >' + move.find("h4").html() + '</span>'
+				basket.find("ul").append('<li  id="liMeal" class="aMeal" data-id="' + move.attr("data-id") + '">'
+						+ '<span class="name col-md-6 col-xs-6">' + move.find("h5").html() + '</span>'
+						+ '<span class="price col-md-3 col-xs-3" >' + move.find("h4").html() + '</span>'
 						+ '<input class="count" value="1" type="text">'
 						+ '<button class="delete">&#10005;</button>');
 			}
