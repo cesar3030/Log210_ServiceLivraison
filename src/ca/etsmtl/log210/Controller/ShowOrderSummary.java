@@ -27,7 +27,8 @@ public class ShowOrderSummary  extends HttpServlet {
 	 {
 		Map<MealBean, Integer> order= new HashMap<MealBean, Integer>();
 		String xml = request.getParameter("cart");
-		order = parseXmlFile(xml);
+		order=ParseXMLString.parseMeal(xml);
+//		order = parseXmlFile(xml);
 		System.out.println(order);
 
 	 }

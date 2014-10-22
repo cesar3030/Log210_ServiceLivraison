@@ -251,7 +251,7 @@ function cart_to_xml()
 	//Je recupere le contenu du pannier
 	var html=$('#choosenMeals').html();
 	//Je cree le debut de mon xml
-	var xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?><CART>";
+	var xml="<DATA>";
 	var id,quantity;
 	
 	//pour chaque item dans le panier je recupere l<il du plat et la quantite voulu
@@ -264,7 +264,7 @@ function cart_to_xml()
 		 xml=addToXml(xml,id,quantity);
 		}); 
 	//je ferme la balise cart du xml
-	xml=xml+"</CART>";
+	xml=xml+"</DATA>";
 	$.get( "/Log210_ServiceLivraison/ShowOrderSummary", { cart: xml } )
 	  .done(function( data ) {
 	    alert( "Data Loaded: " + data );

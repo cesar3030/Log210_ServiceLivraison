@@ -30,7 +30,7 @@ public class ManageMenuController extends HttpServlet {
      
      
      private int idRestauranReceived=1;
-     //private int numéroRestauteur=1;
+     //private int numï¿½roRestauteur=1;
      
      
     /**

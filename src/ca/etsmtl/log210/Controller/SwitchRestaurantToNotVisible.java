@@ -1,5 +1,4 @@
 package ca.etsmtl.log210.Controller;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
