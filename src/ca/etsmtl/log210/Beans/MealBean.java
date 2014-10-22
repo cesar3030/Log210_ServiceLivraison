@@ -14,6 +14,15 @@ public class MealBean {
 	private String name;
 	private String description;
 
+	public MealBean(int id) 
+	{
+		idMeal=id;
+	}
+
+	public MealBean() {
+		
+	}
+
 	/**
 	 * @return the description
 	 */
