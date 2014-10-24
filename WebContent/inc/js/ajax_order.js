@@ -267,7 +267,7 @@ function cart_to_xml()
 	xml=xml+"</DATA>";
 	$.get( "/Log210_ServiceLivraison/ShowOrderSummary", { cart: xml } )
 	  .done(function( data ) {
-	    alert( "Data Loaded: " + data );
+		  window.location = '/Log210_ServiceLivraison/Restrict/Client/ShowOrderSummary.jsp';
 	  });
 	console.log(xml);
 }
