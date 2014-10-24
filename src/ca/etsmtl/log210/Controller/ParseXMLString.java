@@ -10,6 +10,7 @@ import org.xml.sax.InputSource;
 import org.w3c.dom.*;
 
 import ca.etsmtl.log210.Beans.MealBean;
+import ca.etsmtl.log210.DAO.MealDao;
 
 import java.io.*;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 	public class ParseXMLString {
 
-	  public static Map<MealBean, Integer> parseMeal(String xmlRecords) {
+	  public static Map<MealBean, Integer> parseMeal(String xmlRecords, MealDao mealDao) {
 
 		Map<MealBean, Integer> order= new HashMap<MealBean, Integer>();
 		System.out.println(xmlRecords);
@@ -46,7 +47,8 @@ import java.util.Map;
 //	           System.out.println("Quantité: " + getCharacterDataFromElement(line));
 	           int quantity=Integer.parseInt(getCharacterDataFromElement(line));
 	         
-	           MealBean meal = new MealBean(id);
+	           //Je recupere toutes les infos de la BD concernant le plat dont j'ai l'id
+	           MealBean meal = mealDao.getInfosOfAMeal(id);
 	   			
 	   		
 	   			order.put(meal, quantity);

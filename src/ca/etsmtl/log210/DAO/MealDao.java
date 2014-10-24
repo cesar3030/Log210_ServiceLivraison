@@ -28,5 +28,12 @@ public interface MealDao {
 	 */
 	ArrayList<MealBean> showAllMealFromMenu(int idMenu);
 
-
+	/**
+	 * Cette methode retourne un menuBean contenant toutes 
+	 * les infos du plat dont l'id a ete passe en parametre.
+	 * @param idMeal
+	 * @return
+	 */
+	MealBean getInfosOfAMeal(int idMeal);
+	
 }

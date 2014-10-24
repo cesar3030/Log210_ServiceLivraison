@@ -29,6 +29,8 @@ public class MealDaoImpl implements MealDao {
 	static final String SQL_GET_ALL_MEAL_FROM_MENU = "" + "SELECT * "
 			+ "FROM tbplat " + "WHERE PLA_idMenu=? ";
 
+	static final String SQL_GET_INFOS_MEAL = "" + "SELECT * "
+			+ "FROM tbplat " + "WHERE PLA_idPlat=? ";
 	private DAOFactory daoFactory;
 
 	public MealDaoImpl(DAOFactory daoFactory) {
@@ -157,5 +159,44 @@ public class MealDaoImpl implements MealDao {
 
 		return showAllMealFromMenu;
 	}
+
+	@Override
+	public MealBean getInfosOfAMeal(int idMeal) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		MealBean meal = null;
+
+		try {
+			/* Faire une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			System.out.println(daoFactory.getConnection().toString());
+
+			// Preparation de la requete
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_INFOS_MEAL, false, idMeal);
+
+			// Execution de la requete
+			resultSet = preparedStatement.executeQuery();
+
+			// On ajoute chaque retour de la requete SQL dans notre Map de
+			// MealBean
+			while (resultSet.next()) {
+
+				meal=mapMealBean(resultSet);
+
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return meal;
+	}
+	
 
 }
