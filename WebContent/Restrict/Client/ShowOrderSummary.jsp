@@ -23,6 +23,10 @@
 			 		</tr>
 			 	</thead>
 			 	<tbody>
+			 	<c:forEach var="entry" items="${myMap}">
+				  Key: <c:out value="${entry.key}"/>
+				  Value: <c:out value="${entry.value}"/>
+				</c:forEach>
 			 		<c:forEach items="${order.mealListAndQuantity}" var="meal">
 					<tr>
 			 		 	<td><c:out value="${activeResto.name}"/></td>

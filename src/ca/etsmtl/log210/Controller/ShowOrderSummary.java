@@ -21,6 +21,7 @@ import org.w3c.dom.Element;
 
 import ca.etsmtl.log210.Beans.MealBean;
 import ca.etsmtl.log210.Beans.MenuBean;
+import ca.etsmtl.log210.Beans.OrderBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 
@@ -40,9 +41,11 @@ public class ShowOrderSummary  extends HttpServlet {
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
-		Map<MealBean, Integer> order= new HashMap<MealBean, Integer>();
+		OrderBean order = new OrderBean();
+		
 		String xml = request.getParameter("cart");
-		order=ParseXMLString.parseMeal(xml,mealDao);
+		
+		order.setOrderItemsList(ParseXMLString.parseMeal(xml,mealDao));
 		
 		
 		//On recupre la variable de session

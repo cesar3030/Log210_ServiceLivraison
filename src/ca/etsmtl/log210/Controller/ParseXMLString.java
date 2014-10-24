@@ -10,17 +10,20 @@ import org.xml.sax.InputSource;
 import org.w3c.dom.*;
 
 import ca.etsmtl.log210.Beans.MealBean;
+import ca.etsmtl.log210.Beans.OrderItemBean;
 import ca.etsmtl.log210.DAO.MealDao;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 	public class ParseXMLString {
 
-	  public static Map<MealBean, Integer> parseMeal(String xmlRecords, MealDao mealDao) {
+	  public static List<OrderItemBean> parseMeal(String xmlRecords, MealDao mealDao) {
 
-		Map<MealBean, Integer> order= new HashMap<MealBean, Integer>();
+		List<OrderItemBean> order= new ArrayList<OrderItemBean>();
 		System.out.println(xmlRecords);
 
 	    try {
@@ -50,8 +53,10 @@ import java.util.Map;
 	           //Je recupere toutes les infos de la BD concernant le plat dont j'ai l'id
 	           MealBean meal = mealDao.getInfosOfAMeal(id);
 	   			
+	           OrderItemBean item=new OrderItemBean(meal,quantity);
+	           
 	   		
-	   			order.put(meal, quantity);
+	   			order.add(item);
 	        }
 	    }
 	    catch (Exception e) {
