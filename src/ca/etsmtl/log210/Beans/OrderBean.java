@@ -51,7 +51,7 @@ public class OrderBean {
 		{
 			//Je recupere le prix du plat et la quantite voulue
 			tmpMealPrice=item.getMeal().getPrice();
-			tmpQuantity=item.getQuantite();
+			tmpQuantity=item.getQuantity();
 			
 			//Je multiplie leprix du plat par la quantite et je l'ajoute au prix total.
 			totalPrice=totalPrice+(tmpMealPrice*tmpQuantity);

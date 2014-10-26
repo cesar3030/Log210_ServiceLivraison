@@ -8,7 +8,7 @@ package ca.etsmtl.log210.Beans;
 public class OrderItemBean 
 {
 	MealBean meal;
-	int quantite;
+	int quantity;
 	
 	
 	public OrderItemBean() 
@@ -19,7 +19,7 @@ public class OrderItemBean
 	public OrderItemBean(MealBean meal, int quantity) 
 	{
 		this.meal=meal;
-		this.quantite=quantity;
+		this.quantity=quantity;
 	}
 	public MealBean getMeal() {
 		return meal;
@@ -27,11 +27,11 @@ public class OrderItemBean
 	public void setMeal(MealBean plat) {
 		this.meal = plat;
 	}
-	public int getQuantite() {
-		return quantite;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setQuantite(int quantite) {
-		this.quantite = quantite;
+	public void setQuantity(int quantite) {
+		this.quantity = quantite;
 	}
 
 }

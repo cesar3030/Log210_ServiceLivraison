@@ -26,6 +26,8 @@
 	<script src="<c:url value="/inc/css/bootstrap/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/inc/js/bootstrap-select.js"/>"></script>
 	<script src="<c:url value="/inc/js/toastr/toastr.js"/>"></script>
+	<script src="<c:url value="/inc/css/bootstrap/js/bootstrap-datepicker.js"/>"></script>
+	<script src="<c:url value="/inc/css/bootstrap/js/moment.js"/>"></script>
 	
 	
 	
