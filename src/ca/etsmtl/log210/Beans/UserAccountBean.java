@@ -1,5 +1,6 @@
 package ca.etsmtl.log210.Beans;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class UserAccountBean
 	private String name;
 	private String firstName;
 	private String birthdayDate;
+	//Adresse utilisee lors de l'inscription
 	private String homeAddress;
 	private String email;
 	private String phoneNumber;
@@ -27,13 +29,15 @@ public class UserAccountBean
 	// PROBLEME AVEC LES DROITS UTILISATEURS
 	private int    userRights;
 	private int userId;
+	//Les autres adresses du client
+	private ArrayList<OtherAddress> otherAdress;
 	
 	
 	private static final String EMAIL  = "email";
     private static final String PASS   = "password"; 
 	//Errors fund during the tests of the form's validation
 	private Map<String, String> errors      = new HashMap<String, String>();
-	private String              results;
+	private String results;
 	
 
     public Map<String, String> getErrors() {
@@ -178,6 +182,14 @@ public class UserAccountBean
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public ArrayList<OtherAddress> getOtherAdress() {
+		return otherAdress;
+	}
+
+	public void setOtherAdress(ArrayList<OtherAddress> otherAdress) {
+		this.otherAdress = otherAdress;
 	}
 	
 

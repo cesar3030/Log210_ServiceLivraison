@@ -7,8 +7,15 @@ package ca.etsmtl.log210.Beans;
  */
 public class OrderItemBean 
 {
-	MealBean meal;
-	int quantity;
+	
+	//Plat voulu
+	private MealBean meal;
+	
+	//Quantite du plat
+	private int quantity;
+	
+	//id de la commande
+	private int idOrder;
 	
 	
 	public OrderItemBean() 
@@ -32,6 +39,14 @@ public class OrderItemBean
 	}
 	public void setQuantity(int quantite) {
 		this.quantity = quantite;
+	}
+
+	public int getIdOrder() {
+		return idOrder;
+	}
+
+	public void setIdOrder(int idOrder) {
+		this.idOrder = idOrder;
 	}
 
 }

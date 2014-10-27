@@ -7,6 +7,9 @@ import java.util.Map;
 
 public class OrderBean {
 
+	//id du client lie a la commande
+	private int idUserAccount;
+	
 	//Liste des items commandes. Un item est un OrderItemBean contenant le couple mealBean et quantite
 	List<OrderItemBean> orderItemsList=new ArrayList<OrderItemBean>();
 	
@@ -58,6 +61,14 @@ public class OrderBean {
 		}
 		
 		this.totalPrice=totalPrice;
+	}
+
+	public int getIdUserAccount() {
+		return idUserAccount;
+	}
+
+	public void setIdUserAccount(int idUserAccount) {
+		this.idUserAccount = idUserAccount;
 	}
 	
 }
