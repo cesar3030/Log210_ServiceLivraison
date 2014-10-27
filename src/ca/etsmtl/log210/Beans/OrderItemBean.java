@@ -28,6 +28,14 @@ public class OrderItemBean
 		this.meal=meal;
 		this.quantity=quantity;
 	}
+	
+	public OrderItemBean(int idOrder, MealBean meal, int quantity) 
+	{
+		this.meal=meal;
+		this.quantity=quantity;
+		this.idOrder=idOrder;
+	}
+	
 	public MealBean getMeal() {
 		return meal;
 	}

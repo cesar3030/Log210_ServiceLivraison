@@ -302,7 +302,7 @@
     <url-pattern>/GetMealsResaturant</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
     <servlet-name>ShowOrderSummary</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.ShowOrderSummary</servlet-class>
   </servlet>
@@ -311,6 +311,15 @@
     <url-pattern>/ShowOrderSummary</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+    <servlet-name>ProceedOrder</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.ProceedOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProceedOrder</servlet-name>
+    <url-pattern>/ProceedOrder</url-pattern>
+  </servlet-mapping>
+
   <filter>
     <filter-name>ApplicationFilter</filter-name>
     <filter-class>ca.etsmtl.log210.Controller.ApplicationFilter</filter-class>

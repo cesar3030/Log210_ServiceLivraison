@@ -90,42 +90,21 @@ public class DAOFactory {
     	 	return new MealDaoImpl(this);     
      }
 
-	public MealDao getMealDao() {
+	public MealDao getMealDao() 
+	{
 		return new MealDaoImpl(this);
-
+	}
+	
+	public OrderDao getOrderDao() 
+	{
+		return new OrderDaoImpl(this);
 	}
      
-    /* 
-     public TableauProcessusDao getTableauProcessusDao()
-     {
-    	 return new TableauProcessusDaoImpl(this);
-     }
-     
-     public DateProductionDao getDateProductionDao()
-     {
-    	 return new DateProductionDaoImpl(this);
-     }
-  
-     public TableauInfrastructureDao getTableauInfrastructureDao()
-     {
-    	 return new TableauInfrastructureDaoImpl(this);
-     }
-     
-     public TableauGraphiqueDao getTableauGraphiqueDao()
-     {
-    	 return new TableauGraphiqueDaoImpl(this);     
-     }
-     
-     public SuiviJalonsDao getSuiviJalonsDao()
-     {
-    	 return new SuiviJalonsDaoImpl(this);
-     }
-     
-     public TableauApplicationDao getTableauApplicationDao()
-     {
-    	 return new TableauApplicationDaoImpl(this);
-     } */
-     
+	public OrderItemDao getOrderItemDao() 
+	{
+		return new OrderItemDaoImpl(this);
+	}
+    
   
  
 }

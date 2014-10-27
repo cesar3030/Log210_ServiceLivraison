@@ -16,6 +16,16 @@ public class OrderBean {
 	//Prix total de le commande	
 	int totalPrice;
 	
+	//le statut de la commande 0:non pris en charge, 1:En preparation, 2:prete
+	int status;
+	
+	//Si 0 il s'Ajit de l'adresse contenu dans la table useraccount, celle de son inscription
+	private int idAddress;
+	
+	//Date et heure de livraison
+	private String hourAndDate;
+	
+	
 	
 	public List<OrderItemBean> getOrderItemsList() {
 		return orderItemsList;
@@ -69,6 +79,30 @@ public class OrderBean {
 
 	public void setIdUserAccount(int idUserAccount) {
 		this.idUserAccount = idUserAccount;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getIdAddress() {
+		return idAddress;
+	}
+
+	public void setIdAddress(int idAddress) {
+		this.idAddress = idAddress;
+	}
+
+	public String getHourAndDate() {
+		return hourAndDate;
+	}
+
+	public void setHourAndDate(String hourAndDate) {
+		this.hourAndDate = hourAndDate;
 	}
 	
 }
