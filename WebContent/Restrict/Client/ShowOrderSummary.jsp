@@ -43,16 +43,29 @@
 		</div>
  	 </div>
 </div>  
+<br>
+<br>
+<br>
 <div class="row">
-	<div class='col-md-5'>
+<form name=cmpid class="form-horizontal" role="form" method="post" action="<c:url value="/ProceedOrder"/>" >
+	<div class='col-md-2 col-md-offset-2'>
             <div class="form-group">
                 <div class='input-group date' id='datetimepicker9'>
-                    <input type='text' class="form-control" />
+                    <input type='text' class="form-control" required/>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
             </div>
-        </div> 
+      </div>
+      <div class="col-md-3 col-md-offset-1">
+		<select class="form-control"   id="addressList" name="addressList"  required>
+			<option>Adresse de livraison</option>
+		</select>
+	 </div>
+	 <div class='col-md-1 col-md-offset-1'>
+		 <button class="btn btn-primary" type="submit">Confirmer</button>
+	 </div>	
+	 </form>
 </div>
 <script type="text/javascript">
             $(function () {
