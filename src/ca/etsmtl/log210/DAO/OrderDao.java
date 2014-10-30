@@ -1,5 +1,7 @@
 package ca.etsmtl.log210.DAO;
 
+import java.util.ArrayList;
+
 import ca.etsmtl.log210.Beans.OrderBean;
 
 public interface OrderDao 
@@ -20,5 +22,9 @@ public interface OrderDao
 	boolean setConfirmationCode(OrderBean orderToUpdate);
 	
 	int updateOrderState(int idOrderRecu, int statutRecu);
+	
+	ArrayList<OrderBean> getListOrder0(int idRestaurant);
+	ArrayList<OrderBean> getListOrder1(int idRestaurant);
+	ArrayList<OrderBean> getListOrder2(int idRestaurant);
 
 }

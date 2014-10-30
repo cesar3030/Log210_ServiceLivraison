@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.OrderBean;
 
@@ -150,6 +151,24 @@ public class OrderDaoImpl implements OrderDao
 		
 		return etat;
 
+	}
+
+	@Override
+	public ArrayList<OrderBean> getListOrder0(int idRestaurant) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<OrderBean> getListOrder1(int idRestaurant) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<OrderBean> getListOrder2(int idRestaurant) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
