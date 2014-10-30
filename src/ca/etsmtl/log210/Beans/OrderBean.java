@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class OrderBean {
 
+	private int idOrder;
+	
 	//id du client lie a la commande
 	private int idUserAccount;
 	
@@ -24,6 +26,9 @@ public class OrderBean {
 	
 	//Date et heure de livraison
 	private String hourAndDate;
+	
+	//Le code de confirmation de la commande, genere une fois que la commande et les items ont ete cree en bd
+	private String confirmationCode;
 	
 	
 	
@@ -103,6 +108,22 @@ public class OrderBean {
 
 	public void setHourAndDate(String hourAndDate) {
 		this.hourAndDate = hourAndDate;
+	}
+
+	public int getIdOrder() {
+		return idOrder;
+	}
+
+	public void setIdOrder(int idOrder) {
+		this.idOrder = idOrder;
+	}
+
+	public String getConfirmationCode() {
+		return confirmationCode;
+	}
+
+	public void setConfirmationCode(String confirmationCode) {
+		this.confirmationCode = confirmationCode;
 	}
 	
 }

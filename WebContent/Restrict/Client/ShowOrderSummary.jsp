@@ -63,8 +63,8 @@
 		<form name=cmpid class="form-horizontal" role="form" method="post" action="<c:url value="/ProceedOrder"/>" >
 		       <div class="form-group">
 		       		<label for="dtp_input1" class="col-md-4 control-label">Date et heure de livraison: </label>
-		            <div id="id" class="input-group date form_datetime col-md-7" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd  HH:ii " data-link-field="dtp_input1">
-		                    <input class="form-control" size="16" type="text" value="" required >
+		            <div id="id" class="input-group date form_datetime col-md-7" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+		                    <input name="dateAndHour"class="form-control" size="16" type="text" value="" required >
 		                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 							<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 		            </div>
@@ -74,7 +74,7 @@
 		      <label for="dtp_input1" class="col-md-4 control-label">Choisir l'adresse de livraison: </label>
 			      <div class="col-md-7 ">
 					<select class="form-control"   id="addressList" name="addressList"  required>
-						<option>Adresse de livraison</option>
+						<option value="0" >Adresse de livraison</option>
 					</select>
 					<a><span >Nouvelle adresse ?</span></a>
 				 </div>

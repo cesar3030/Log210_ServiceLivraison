@@ -16,8 +16,12 @@ public class OrderDaoImpl implements OrderDao
 	private DAOFactory daoFactory;
 	private static final String SQL_NEW_ORDER=""
 			+ "INSERT "
-			+ "INTO tborder (ORD_idUserAccount, ORD_address, ORD_date) "
-			+ "VALUES (?,?,?)";
+			+ "INTO tborder (ORD_idUserAccount, ORD_address, ORD_date, ORD_confirmationCode) "
+			+ "VALUES (?,?,?,?)";
+	private static final String SQL_SET_CONFIRAMTION_CODE=""
+			+ "UPDATE tborder "
+			+ "SET ORD_confirmationCode=? "
+			+ "WHERE ORD_idOrder=?";
 	
 	public OrderDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
@@ -35,7 +39,7 @@ public class OrderDaoImpl implements OrderDao
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_NEW_ORDER,true,newOrder.getIdUserAccount(),newOrder.getIdAddress(),newOrder.getHourAndDate());
+					SQL_NEW_ORDER,true,newOrder.getIdUserAccount(),newOrder.getIdAddress(),newOrder.getHourAndDate(),0);
 
 			System.out.println(preparedStatement);
 
@@ -58,6 +62,40 @@ public class OrderDaoImpl implements OrderDao
 		}
 		
 		return idOrder;
+	}
+
+	@Override
+	public boolean setConfirmationCode(OrderBean orderToUpdate) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_NEW_ORDER,true,orderToUpdate.getConfirmationCode(), orderToUpdate.getIdOrder());
+
+			System.out.println(preparedStatement);
+
+			codeRetour=preparedStatement.executeUpdate();
+			
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+			
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
 	}
 
 }
