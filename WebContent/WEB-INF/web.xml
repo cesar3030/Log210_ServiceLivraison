@@ -142,7 +142,10 @@
     <servlet-name>OrderUpdateState</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.OrderUpdateState</servlet-class>
   </servlet>
-  
+    <servlet-mapping>
+    <servlet-name>OrderUpdateState</servlet-name>
+    <url-pattern>/OrderUpdateState</url-pattern>
+  </servlet-mapping>
   
   
   
