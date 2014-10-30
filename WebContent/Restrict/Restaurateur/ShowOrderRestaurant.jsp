@@ -77,7 +77,7 @@
 									<td><c:out value="${orderEnPrep.idOrder}"/></td>
 						  		 	<td><c:out value="${orderEnPrep.status}"/></td>
 						  		 	<td> <c:out value="${orderEnPrep.hourAndDate}"/></td>
-						  		 	<td><a href="<c:url value="/OrderEndRestaurant?idOrder=${orderEnPrep.idOrder}"/>"><span class="glyphicon glyphicon-cutlery"></span></a></td>								  		 	
+						  		 	<td><a href="<c:url value="/OrderUpdateState?idOrder=${orderEnPrep.idOrder}&status=${orderEnPrep.status}"/>"><span class="glyphicon glyphicon-cutlery"></span></a></td>								  		 	
 					  		
 					  		 	</tr>
 					  					  		 	

@@ -18,7 +18,7 @@ import ca.etsmtl.log210.DAO.RestaurantDao;
 public class OrderUpdateState extends HttpServlet{
 
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	 public static final String RESTAURANT_ORDER_MANAGEMENT_ACCESS     = "/Restrict/Restaurateur/ShowOrderRestaurant.jsp";
+	 public static final String RESTAURANT_ORDER_MANAGEMENT_ACCESS     = "/ShowOrderRestaurant";
 	 public static final String REQUEST_FINISHED_STATE = "returnMessage";
 	 public static final String ETAT_REQUETE = "etat";
 	 
@@ -43,8 +43,8 @@ public class OrderUpdateState extends HttpServlet{
 		 int status = Integer.parseInt( request.getParameter("status"));
 			 
 		 /**Choix de l'update selon le statut de la commande
-		  * 0 = A préparer --> doit devenir 1 = En preparation
-		  * 1 = En préparation --> doit devenir 2 =  Faite
+		  * 0 = A prï¿½parer --> doit devenir 1 = En preparation
+		  * 1 = En prï¿½paration --> doit devenir 2 =  Faite
 		  */
 		 
 		 request.setAttribute(ETAT_REQUETE, orderDao.updateOrderState(idOrderRecu, status));
@@ -58,8 +58,8 @@ public class OrderUpdateState extends HttpServlet{
 		 int status = Integer.parseInt( request.getParameter("status"));
 			 
 		 /**Choix de l'update selon le statut de la commande
-		  * 0 = A préparer --> doit devenir 1 = En preparation
-		  * 1 = En préparation --> doit devenir 2 =  Faite
+		  * 0 = A prï¿½parer --> doit devenir 1 = En preparation
+		  * 1 = En prï¿½paration --> doit devenir 2 =  Faite
 		  */
 		 
 		 request.setAttribute(ETAT_REQUETE, orderDao.updateOrderState(idOrderRecu, status));

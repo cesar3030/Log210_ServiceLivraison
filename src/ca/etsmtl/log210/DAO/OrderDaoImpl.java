@@ -26,7 +26,7 @@ public class OrderDaoImpl implements OrderDao
 	
 	private static final String SQL_UPDATE_ORDER_STATE = "" 
 			+ "UPDATE tborder "
-			+ "SET ORD_status=?"
+			+ "SET ORD_status=? "
 			+ "WHERE ORD_idOrder=?";
 	
 	private static final String SQL_GET_0_ORDER = ""
@@ -140,7 +140,7 @@ public class OrderDaoImpl implements OrderDao
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int etat= 1;
+		int codeRetour=0;
 		int statutUp=0;
 		// A PREPARER
 		if(statutRecu==0){
@@ -167,19 +167,17 @@ public class OrderDaoImpl implements OrderDao
 
 			System.out.println(preparedStatement);
 
-			preparedStatement.executeUpdate();
 			
-			resultSet = preparedStatement.executeQuery();
+			codeRetour = preparedStatement.executeUpdate();
 			
 
 		} catch (SQLException e) {
-			etat=0;
 			throw new DAOException(e);
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		
-		return etat;
+		return codeRetour;
 
 	}
 
