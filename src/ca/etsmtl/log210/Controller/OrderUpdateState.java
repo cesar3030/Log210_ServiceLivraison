@@ -51,6 +51,21 @@ public class OrderUpdateState extends HttpServlet{
 		 
 		 this.getServletContext().getRequestDispatcher( RESTAURANT_ORDER_MANAGEMENT_ACCESS ).forward( request, response );
 	 }
+	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
+	 {
+		 //Je recupere les valeurs du formulaire de modification d<un restaurant
+		 int idOrderRecu=Integer.parseInt( request.getParameter("idOrder"));
+		 int status = Integer.parseInt( request.getParameter("status"));
+			 
+		 /**Choix de l'update selon le statut de la commande
+		  * 0 = A préparer --> doit devenir 1 = En preparation
+		  * 1 = En préparation --> doit devenir 2 =  Faite
+		  */
+		 
+		 request.setAttribute(ETAT_REQUETE, orderDao.updateOrderState(idOrderRecu, status));
+		 
+		 this.getServletContext().getRequestDispatcher( RESTAURANT_ORDER_MANAGEMENT_ACCESS ).forward( request, response );
+	 }
 	
 	
 	
