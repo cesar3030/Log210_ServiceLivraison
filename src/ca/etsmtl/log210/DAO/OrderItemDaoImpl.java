@@ -17,17 +17,17 @@ import ca.etsmtl.log210.Beans.RestaurantBean;
 public class OrderItemDaoImpl implements OrderItemDao 
 {
 	private DAOFactory daoFactory;
-	private static String SQL_NEW_ORDERITEM=""
+	static final String SQL_NEW_ORDERITEM=""
 			+ "INSERT "
 			+ "INTO tborderitem( ITM_idMeal, ITM_quantity, ITM_idOrder ) "
 			+ "VALUES ( ?, ?, ? )";
 	
-	private static String SQL_ALL_ORDERITEM=""
-			+ "SELECT pl.PLA_name,pl.PLA_description,ord.ITM_quantite,pl.PLA_price "
+	static final String SQL_ALL_ORDERITEM=""
+			+ "SELECT pl.PLA_name,pl.PLA_description,oi.ITM_quantity,pl.PLA_price "
 			+ "FROM tborderitem oi, tborder ord, tbPlat pl "
 			+ "WHERE oi.ITM_idOrder=ord.ORD_idOrder "
-			+ "AND oi.idMeal=pl.PLA_idPlat "
-			+ "AND oi.ITM_idOrder=? ";
+			+ "AND oi.ITM_idMeal=pl.PLA_idPlat "
+			+ "AND oi.ITM_idOrderItem=? ";
 	
 	public OrderItemDaoImpl(DAOFactory daoFactory) 
 	{
@@ -109,6 +109,7 @@ public class OrderItemDaoImpl implements OrderItemDao
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_ALL_ORDERITEM, false, idOrder);
 
+			System.out.println(preparedStatement);
 
 			// Execution de la requete
 			resultSet = preparedStatement.executeQuery();
@@ -120,6 +121,8 @@ public class OrderItemDaoImpl implements OrderItemDao
 				showAllOrderItems.add(mapOrderItemBean(resultSet));
 
 			}
+			
+			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
