@@ -253,6 +253,7 @@ function cart_to_xml()
 	//Je cree le debut de mon xml
 	var xml="<DATA>";
 	var id,quantity;
+	var cartIsEmpty=false;
 	
 	//pour chaque item dans le panier je recupere l<il du plat et la quantite voulu
 	$( ".aMeal" ).each(function() {
@@ -262,14 +263,32 @@ function cart_to_xml()
 		 
 		 //J'ajoute le plat et sa quantite au xml
 		 xml=addToXml(xml,id,quantity);
+		
+		 
 		}); 
 	//je ferme la balise cart du xml
 	xml=xml+"</DATA>";
-	$.get( "/Log210_ServiceLivraison/ShowOrderSummary", { cart: xml } )
-	  .done(function( data ) {
-		  window.location = '/Log210_ServiceLivraison/Restrict/Client/ShowOrderSummary.jsp';
-	  });
-	console.log(xml);
+	
+
+	//je test si le panier est vite. si la chaine ne contient que <DATA></DATA>
+	if(xml.length==13)
+	{
+			 cartIsEmpty=true;
+	}
+
+	if(cartIsEmpty == false )
+	{
+		$.get( "/Log210_ServiceLivraison/ShowOrderSummary", { cart: xml } )
+		  .done(function( data ) {
+			  window.location = '/Log210_ServiceLivraison/Restrict/Client/ShowOrderSummary.jsp';
+		  });
+		console.log(xml);
+	}
+	else
+	{
+		alert("Vous devez ajouter au minimum un plat dans votre pannier");
+	}
+	
 }
 
 /**

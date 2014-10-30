@@ -93,6 +93,7 @@
 	  .change(function () {
 	    $( "select option:selected" ).each(function() {
 	    Requete_AJAX_GetMenusResaturants("<c:url value="/GetAllMenuResto"/>");
+	    $('#restaurantList').attr('disabled', 'disabled');
 	//	Requete_AJAX_GetMenusResaturants("Log210_ServiceLivraison/GetAllMenuResto");
 	    });
 	  }) .change();
