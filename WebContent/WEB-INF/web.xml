@@ -147,7 +147,14 @@
     <url-pattern>/OrderUpdateState</url-pattern>
   </servlet-mapping>
   
-  
+     <servlet>
+    <servlet-name>ShowOrderItems</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.ShowOrderItems</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowOrderItems</servlet-name>
+    <url-pattern>/ShowOrderItems</url-pattern>
+  </servlet-mapping>
   
   
   

@@ -35,7 +35,10 @@
 							<th>N° Commande</th>
 							<th>Statut</th>
 							<th>Date</th>
+							<th>Voir Items</th>
 							<th>Mettre en préparation</th>
+							
+							
 						</tr>
 					</thead>
 					<!--  Le tableau des menus -->
@@ -47,8 +50,8 @@
 						  		 	<td><c:out value="${Apreparer.idOrder}"/></td>
 						  		 	<td><c:out value="${Apreparer.status}"/></td>
 						  		 	<td> <c:out value="${Apreparer.hourAndDate}"/></td>
+						  		 	<td><a href="<c:url value="/ShowOrderItems?idOrder=${Apreparer.idOrder}"/>"><span class="glyphicon glyphicon-shopping-cart"></span></a></td>
 						  		 	<td><a href="<c:url value="/OrderUpdateState?idOrder=${Apreparer.idOrder}&status=${Apreparer.status}"/>"><span class="glyphicon glyphicon-thumbs-up"></span></a></td>						  		 	
-					  		
 					  		 	</tr>
 					  					  		 	
 					  	   </c:forEach>
@@ -63,7 +66,9 @@
 							<th>N° Commande</th>
 							<th>Statut</th>
 							<th>Date</th>
+							<th>Voir Items</th>
 							<th>Prête</th>
+							
 						</tr>
 					</thead>
 					<!--  Le tableau des menus -->
@@ -77,8 +82,9 @@
 									<td><c:out value="${orderEnPrep.idOrder}"/></td>
 						  		 	<td><c:out value="${orderEnPrep.status}"/></td>
 						  		 	<td> <c:out value="${orderEnPrep.hourAndDate}"/></td>
+						  		 	<td><a href="<c:url value="/ShowOrderItems?idOrder=${orderEnPrep.idOrder}"/>"><span class="glyphicon glyphicon-shopping-cart"></span></a></td>
 						  		 	<td><a href="<c:url value="/OrderUpdateState?idOrder=${orderEnPrep.idOrder}&status=${orderEnPrep.status}"/>"><span class="glyphicon glyphicon-cutlery"></span></a></td>								  		 	
-					  		
+					  				
 					  		 	</tr>
 					  					  		 	
 					  	   </c:forEach>
@@ -93,6 +99,7 @@
 							<th>N° Commande</th>
 							<th>Statut</th>
 							<th>Date</th>
+							<th>Voir Items</th>
 						</tr>
 					</thead>
 					<!--  Le tableau des menus -->
@@ -106,7 +113,7 @@
 									<td><c:out value="${end.idOrder}"/></td>
 						  		 	<td><c:out value="${end.status}"/></td>
 						  		 	<td> <c:out value="${end.hourAndDate}"/></td>
-				  		
+				  				    <td><a href="<c:url value="/ShowOrderItems?idOrder=${end.idOrder}"/>"><span class="glyphicon glyphicon-shopping-cart"></span></a></td>
 					  		 	</tr>
 					  					  		 	
 					  	   </c:forEach>
