@@ -3,9 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 
 <jsp:include page="/header.jsp"></jsp:include>	
-
-
-
+ 
 <div class="row">
 	  	<div class="col-md-12 col-xs-12"> 		 
 	 			 <h1 class="text-center" >Résumé de votre commande</h1>  	
@@ -75,6 +73,9 @@
 			      <div class="col-md-7 ">
 					<select class="form-control"   id="addressList" name="addressList"  required>
 						<option value="0" >${sessionScope.userSession.homeAddress}</option><!--  On affiche l'adresse par defaut du compte-->
+						<c:forEach items="${addressUser}" var="out">
+						<option value="<c:out value="${out.idAddress}"/>" ><c:out value="${out.address}"/></option>
+						</c:forEach>
 						<option value="-1" >Nouvelle adresse</option><!--  On affiche l'adresse par defaut du compte-->
 					</select>
 					<input id="newAddress"  name="newAddress" class="form-control" type="text" value="" required>
