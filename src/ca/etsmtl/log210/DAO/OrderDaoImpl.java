@@ -28,6 +28,36 @@ public class OrderDaoImpl implements OrderDao
 			+ "UPDATE tborder "
 			+ "SET ORD_status=?"
 			+ "WHERE ORD_idOrder=?";
+	
+	private static final String SQL_GET_0_ORDER = ""
+			+ "SELECT * "
+			+ "FROM tborder or, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re"
+			+ "WHERE  or.ORD_idOrder = it.ITM_idOrder"
+			+ "AND  it.ITM_idMeal = pl.PLA_idPlat"
+			+ "AND  pl.PLA_idMenu = me.MEN_idMenu"
+			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant"
+			+ "AND or.ORD_status = 0" 
+			+ "AND  re.RES_idRestaurant = ?";
+	
+	private static final String SQL_GET_1_ORDER = ""
+			+ "SELECT * "
+			+ "FROM tborder or, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re"
+			+ "WHERE  or.ORD_idOrder = it.ITM_idOrder"
+			+ "AND  it.ITM_idMeal = pl.PLA_idPlat"
+			+ "AND  pl.PLA_idMenu = me.MEN_idMenu"
+			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant"
+			+ "AND or.ORD_status = 1" 
+			+ "AND  re.RES_idRestaurant = ?";
+	
+	private static final String SQL_GET_2_ORDER = ""
+			+ "SELECT * "
+			+ "FROM tborder or, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re"
+			+ "WHERE  or.ORD_idOrder = it.ITM_idOrder"
+			+ "AND  it.ITM_idMeal = pl.PLA_idPlat"
+			+ "AND  pl.PLA_idMenu = me.MEN_idMenu"
+			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant"
+			+ "AND or.ORD_status = 2" 
+			+ "AND  re.RES_idRestaurant = ?";
 
 	
 	public OrderDaoImpl(DAOFactory daoFactory) {
@@ -155,20 +185,115 @@ public class OrderDaoImpl implements OrderDao
 
 	@Override
 	public ArrayList<OrderBean> getListOrder0(int idRestaurant) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<OrderBean> orderList = new ArrayList<OrderBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_0_ORDER, false,idRestaurant);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				orderList.add(mapOrder(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return orderList;
 	}
 
 	@Override
 	public ArrayList<OrderBean> getListOrder1(int idRestaurant) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<OrderBean> orderList = new ArrayList<OrderBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_1_ORDER, false,idRestaurant);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				orderList.add(mapOrder(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return orderList;
 	}
 
 	@Override
-	public ArrayList<OrderBean> getListOrder2(int idRestaurant) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<OrderBean> getListOrder2(int idRestaurant){
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<OrderBean> orderList = new ArrayList<OrderBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_2_ORDER, false,idRestaurant);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				orderList.add(mapOrder(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return orderList;
+	}
+	
+	private OrderBean mapOrder(ResultSet resultSet) throws SQLException 
+	{
+		OrderBean order = new OrderBean();
+		
+		order.setIdOrder(resultSet.getInt("ORD_idOrder"));
+		order.setIdUserAccount(resultSet.getInt("ORD_idUserAccount"));
+		order.setIdAddress(resultSet.getInt("ORD_address"));
+		order.setConfirmationCode(resultSet.getString("ORD_confirmationCode"));
+		order.setHourAndDate(resultSet.getString("ORD_date"));
+		order.setStatus(resultSet.getInt("ORD_status"));
+
+		return order;
 	}
 
 }
