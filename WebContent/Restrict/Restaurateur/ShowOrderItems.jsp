@@ -1,16 +1,38 @@
+<%@ page pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<div class="modal fade" id="ModifyMenu" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
+
+<jsp:include page="/header.jsp"></jsp:include>
+
+
+<!-- Affiche tous les menus par restaurant-->
+
+<div class="col-md-5 col-md-offset-5">
+	
 			
-			<form name="cmpid" class="form-horizontal" role="form" method="get"  >
-				<div class="modal-header">
-				<h3>Items Menu</h3>
-				</div>
-					<table class="table table-striped">
+	<h3>${restaurantTitreName}: Tous les menus</h3>
+
+	<a href="<c:url value="/HomeOrderRestaurant"/>"
+		data-toggle="modal"> <!-- Affiche tous les menus par restaurant-->
+		<button type="button" class="btn btn-warning">Mes restaurants
+		</button>
+
+	</a>
+
+</div>
+
+<form class="form" method=post
+	action="<c:out value="/ShowAllMenuResto"/>">
+
+		<div class="col-md-8 col-md-offset-2">
+			<div class="table-responsive">
+			
+				<p class="text-center">LISTE ITEMS.</p>
+				<!-- LISTE DES COMMANDES A PREPARER -->
+			<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>N° Commande</th>
+							<th>NÂ° Commande</th>
 							<th>Statut</th>
 							<th>Date</th>
 							<th>Voir Items</th>
@@ -41,9 +63,15 @@
 						</button>
 
 					</a>
-
-				</div>
-			</form>
+				
+				
+				
+			</div>
 		</div>
 	</div>
-</div>
+</form>
+
+
+<!--  Affichage des menus -->
+
+<jsp:include page="/footer.jsp"></jsp:include>
