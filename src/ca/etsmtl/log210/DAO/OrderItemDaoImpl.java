@@ -7,8 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.MealBean;
+import ca.etsmtl.log210.Beans.OrderBean;
 import ca.etsmtl.log210.Beans.OrderItemBean;
 import ca.etsmtl.log210.Beans.RestaurantBean;
 
@@ -19,6 +21,13 @@ public class OrderItemDaoImpl implements OrderItemDao
 			+ "INSERT "
 			+ "INTO tborderitem( ITM_idMeal, ITM_quantity, ITM_idOrder ) "
 			+ "VALUES ( ?, ?, ? )";
+	
+	private static String SQL_ALL_ORDERITEM=""
+			+ "SELECT pl.PLA_name,pl.PLA_description,ord.ITM_quantite,pl.PLA_price "
+			+ "FROM tborderitem oi, tborder ord, tbPlat pl "
+			+ "WHERE oi.ITM_idOrder=ord.ORD_idOrder "
+			+ "AND oi.idMeal=pl.PLA_idPlat "
+			+ "AND oi.ITM_idOrder=? ";
 	
 	public OrderItemDaoImpl(DAOFactory daoFactory) 
 	{
@@ -81,6 +90,57 @@ public class OrderItemDaoImpl implements OrderItemDao
 		meal.setDescription(resultSet.getString("PLA_description"));
 
 		return meal;
+	}
+
+	@Override
+	public ArrayList<OrderItemBean> showAllOrderItem(int idOrder) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ArrayList<OrderItemBean> showAllOrderItems = new ArrayList<OrderItemBean>();
+
+		try {
+			/* Faire une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			System.out.println(daoFactory.getConnection().toString());
+
+			// Preparation de la requete
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_ALL_ORDERITEM, false, idOrder);
+
+
+			// Execution de la requete
+			resultSet = preparedStatement.executeQuery();
+
+			// On ajoute chaque retour de la requete SQL dans notre Map de
+			// MealBean
+			while (resultSet.next()) {
+
+				showAllOrderItems.add(mapOrderItemBean(resultSet));
+
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return showAllOrderItems;
+	}
+	
+	private OrderItemBean mapOrderItemBean(ResultSet resultSet) throws SQLException 
+	{
+		OrderItemBean orderItem = new OrderItemBean();
+		
+		orderItem.setIdOrderItem(resultSet.getInt("ITM_idOrderItem"));
+		orderItem.setIdOrder(resultSet.getInt("ITM_idOrder"));
+		orderItem.setIdMeal(resultSet.getInt("ITM_idMeal"));
+		orderItem.setQuantity(resultSet.getInt("ITM_quantity"));
+
+		return orderItem;
 	}
 
 }

@@ -1,5 +1,7 @@
 package ca.etsmtl.log210.DAO;
 
+import java.util.ArrayList;
+
 import ca.etsmtl.log210.Beans.OrderItemBean;
 
 public interface OrderItemDao 
@@ -10,5 +12,12 @@ public interface OrderItemDao
 	 * @return 					True si tout s'est correctement passe False si il y a eu un probleme
 	 */
 	boolean newOrderItem(OrderItemBean orderItem);
+
+	/**
+	 * Méthode qui va nous retourner la liste des items d'une commande
+	 * @param idOrder
+	 * @return la liste des items de la commande en question
+	 */
+	ArrayList<OrderItemBean> showAllOrderItem(int idOrder);
 
 }
