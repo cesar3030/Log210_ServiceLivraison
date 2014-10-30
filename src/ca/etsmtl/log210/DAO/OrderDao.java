@@ -18,5 +18,7 @@ public interface OrderDao
 	 * @return	True si l'operation s'est bien faite False si il y a eu un probleme.
 	 */
 	boolean setConfirmationCode(OrderBean orderToUpdate);
+	
+	int updateOrderState(int idOrderRecu, int statutRecu);
 
 }

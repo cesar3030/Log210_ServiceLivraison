@@ -23,6 +23,12 @@ public class OrderDaoImpl implements OrderDao
 			+ "SET ORD_confirmationCode=? "
 			+ "WHERE ORD_idOrder=?";
 	
+	private static final String SQL_UPDATE_ORDER_STATE = "" 
+			+ "UPDATE tborder "
+			+ "SET ORD_status=?"
+			+ "WHERE ORD_idOrder=?";
+
+	
 	public OrderDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
@@ -96,6 +102,54 @@ public class OrderDaoImpl implements OrderDao
 		}
 		
 		return etatRetour;
+	}
+
+	@Override
+	public int updateOrderState(int idOrderRecu, int statutRecu) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int etat= 1;
+		int statutUp=0;
+		// A PREPARER
+		if(statutRecu==0){
+			statutUp=1;
+		}
+		// TERMIME
+		else if(statutRecu==1){
+			statutUp=2;
+		}
+		// LIVREE
+		else if(statutRecu==2){
+			statutUp=4;
+		}
+
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+																SQL_UPDATE_ORDER_STATE,
+																true,
+																statutUp,
+																idOrderRecu);
+																
+
+			System.out.println(preparedStatement);
+
+			preparedStatement.executeUpdate();
+			
+			resultSet = preparedStatement.executeQuery();
+			
+
+		} catch (SQLException e) {
+			etat=0;
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etat;
+
 	}
 
 }

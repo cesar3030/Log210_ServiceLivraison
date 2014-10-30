@@ -118,6 +118,36 @@
     <url-pattern>/HomeRestaurateurManagement</url-pattern>
   </servlet-mapping>
   
+  
+  
+  <servlet>
+    <servlet-name>HomeOrderRestaurant</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.HomeOrderRestaurant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HomeOrderRestaurant</servlet-name>
+    <url-pattern>/HomeOrderRestaurant</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>ShowOrderRestaurant</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.ShowOrderRestaurant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowOrderRestaurant</servlet-name>
+    <url-pattern>/ShowOrderRestaurant</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>OrderUpdateState</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.OrderUpdateState</servlet-class>
+  </servlet>
+  
+  
+  
+  
+  
+  
  <servlet>
     	<servlet-name>DeleteMenu</servlet-name>
     	<servlet-class>ca.etsmtl.log210.Controller.DeleteMenu</servlet-class>

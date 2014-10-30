@@ -38,7 +38,8 @@
  <!--  Barre de navigation des restaurateurs ( droit 1) -->
   <c:if test="${sessionScope.userSession.userRights==1}">
     <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li>
-    <li><a href="<c:url value="/HomeRestaurateurManagement"/>">Mes Restaurants</a></li>          
+    <li><a href="<c:url value="/HomeRestaurateurManagement"/>">Mes Restaurants</a></li>
+    <li><a href="<c:url value="/HomeOrderRestaurant"/>">Mes Commandes</a></li>          
     <li><a href="<c:url value="/Logout"/>">Deconnexion</a></li>
  </c:if> 
  
