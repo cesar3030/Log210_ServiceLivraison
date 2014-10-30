@@ -75,8 +75,9 @@
 			      <div class="col-md-7 ">
 					<select class="form-control"   id="addressList" name="addressList"  required>
 						<option value="0" >${sessionScope.userSession.homeAddress}</option><!--  On affiche l'adresse par defaut du compte-->
+						<option value="-1" >Nouvelle adresse</option><!--  On affiche l'adresse par defaut du compte-->
 					</select>
-					<a><span >Nouvelle adresse ?</span></a>
+					<input id="newAddress"  name="newAddress" class="form-control" type="text" value="" required>
 				 </div>
 			  </div>
 			 <div class='col-md-10'>
@@ -89,6 +90,26 @@
 </div>
 
 <script type="text/javascript">
+$( "select" )
+.change(function () {
+  var str;
+  $( "select option:selected" ).each(function() {
+    str= $( this ).val();
+    if(str==-1)
+	{
+    		$("#newAddress").show();
+    		$("#newAddress").prop('required',true);
+	}
+    else
+    	{
+    		$("#newAddress").hide();
+    		$("#newAddress").prop('required',false);
+    	}
+  });
+ 
+})
+.change();
+
 $('.form_datetime').datetimepicker({
     language:  'fr',
     weekStart: 1,

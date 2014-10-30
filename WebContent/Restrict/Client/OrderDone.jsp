@@ -11,10 +11,12 @@
 			 <br>
 			 <h4 class="col-md-offset-2 col-xs-offset-1">Voici votre numero de confirmation de commande: <c:out value="${order.confirmationCode}"/></h4>
 			 <br>
+			 <h4 class="col-md-offset-2 col-xs-offset-1">La livraison se fera a l'address: <c:out value="${address.address}"/></h4>
+			 <br>
 			 <br>
 			 <h3 class="col-md-offset-2 col-xs-offset-1">Bon appétit !</h3>
 	</div>
-
+</div>
   		 
   		 
   		 

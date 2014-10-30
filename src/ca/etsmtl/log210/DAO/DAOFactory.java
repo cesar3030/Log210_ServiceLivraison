@@ -27,8 +27,8 @@ public class DAOFactory {
     }
 
     /*
-     * M���thode charg���e de r���cup���rer les informations de connexion ��� la base de
-     * donn���es, charger le driver JDBC et retourner une instance de la Factory
+     * Methode chargee de recuperer les informations de connexion a la base de
+     * donnees, charger le driver JDBC et retourner une instance de la Factory
      */
     public static DAOFactory getInstance() throws DAOConfigurationException {
         Properties properties = new Properties();
@@ -105,6 +105,10 @@ public class DAOFactory {
 		return new OrderItemDaoImpl(this);
 	}
     
+	public AddressDao getAddressDao() 
+	{
+		return new AddressDaoImpl(this);
+	}
   
  
 }

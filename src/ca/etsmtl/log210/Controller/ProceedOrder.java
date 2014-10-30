@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ca.etsmtl.log210.Beans.AddressBean;
 import ca.etsmtl.log210.Beans.OrderBean;
 import ca.etsmtl.log210.Beans.OrderItemBean;
 import ca.etsmtl.log210.Beans.UserAccountBean;
+import ca.etsmtl.log210.DAO.AddressDao;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 import ca.etsmtl.log210.DAO.OrderDao;
@@ -24,31 +26,40 @@ public class ProceedOrder extends HttpServlet {
 	public static final String SHOW_PAGE_ORDER_DONE = "/Restrict/Client/OrderDone.jsp";
 	public static final String REQUEST_FINISHED_STATE = "returnMessage";
 	public static final String ATTRIBUTE_ORDER = "order";
+	public static final String ATTRIBUTE_ADDRESS = "address";
 	private static String ORDER="order";
 	public static final String SESSION_USER = "userSession";  
 	 
 	
 	private OrderDao orderDao;
 	private OrderItemDao orderItemDao ;
+	private AddressDao addressDao ;
 	
 	public void init() throws ServletException {
 		this.orderDao= ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getOrderDao();
 		this.orderItemDao= ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getOrderItemDao();
+		this.addressDao=((DAOFactory) getServletContext().getAttribute(
+				CONF_DAO_FACTORY)).getAddressDao();
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		//Le bean permettant de stocker l'adresse de livraison
+		
+		AddressBean deliveryAddress=null;
 		Map<String, String>  returnMessage= new HashMap<String, String>();
 		OrderBean order = null;
 		UserAccountBean client=null;
 		int idNewOrder;
+		//variable utilise pour verifier que les requetes sql s'est terminent sans erreurs
+		boolean continute=true;
 		
 		//Je recupere l'addresse de livraison
 		int idAddress = Integer.parseInt(request.getParameter("addressList"));
 		
-		//je recupere la date et l<heure de livraison
+		//je recupere la date et l'heure de livraison
 		String hourAndDate=request.getParameter("dateAndHour");
 		
 		//On recupre la variable de session
@@ -57,17 +68,37 @@ public class ProceedOrder extends HttpServlet {
 		//On va chercher la commande stockee dans la variable de session
 		order = (OrderBean) session.getAttribute(ORDER);
 		
-		//On set a la commande la date et l'heure de la livraison
-		order.setHourAndDate(hourAndDate);
-		
-		//On set a la commande l'id de l'adresse selectionné par le client
-		order.setIdAddress(idAddress);
-		
 		//On recupere le client qui est connecte
 		client = (UserAccountBean) session.getAttribute(SESSION_USER);
 		
 		//On set l'id du client
 		order.setIdUserAccount(client.getUserId());
+
+		//On set a la commande la date et l'heure de la livraison
+		order.setHourAndDate(hourAndDate);
+		
+		//Si -1 est retourne, cela veut dire que c'est une nouvelle adresse
+		if(idAddress==-1)
+		{
+			//je recupere la la nouvelle adresse
+			String newAddress=request.getParameter("newAddress");
+			idAddress=addressDao.newAddress(newAddress, order.getIdUserAccount());
+			
+			//On test si l'ajout s'est bien fait
+			if(idAddress<0 || idAddress==0)
+			{
+				//si il y a eu une erreur, on arrete le processus d'ajout de la commande
+				continute=false;
+				System.out.println("Une erreur est survenue lors de la création en BD de la nouvelle adresse. Veuillez reessayer.");
+				returnMessage.put("fail","Une erreur est survenue lors de la création en BD de la nouvelle adresse. Veuillez reessayer.");
+			}
+
+		}
+		
+		//On set a la commande l'id de l'adresse selectionné par le client
+		order.setIdAddress(idAddress);
+		
+		
 		
 		//On set l'id de l'adresse
 		order.setIdAddress(idAddress);
@@ -79,9 +110,6 @@ public class ProceedOrder extends HttpServlet {
 		//On test si une commande a ete cree avec succes
 		if(idNewOrder>0)
 		{
-			//variable utilise pour verifier que la requete sql s'est terminee sans erreurs
-			boolean continute=true;
-			
 			//On cree et ajoute les items a la commande 
 			for(OrderItemBean item : order.getOrderItemsList())
 			{
@@ -113,11 +141,24 @@ public class ProceedOrder extends HttpServlet {
 				
 				if(continute == true)
 				{
-					System.out.println("Commande validé !");
-					returnMessage.put("succes","Commande validé !");
+					deliveryAddress = addressDao.getAddress(idAddress);
 					
-					//On set en attribut la commande pour pouvoir recuperer le numero de commande
-					request.setAttribute(ATTRIBUTE_ORDER, order);
+					if(continute == true)
+					{
+						System.out.println("Commande validé !");
+						returnMessage.put("succes","Commande validé !");
+						
+						//On set en attribut la commande pour pouvoir recuperer le numero de commande
+						request.setAttribute(ATTRIBUTE_ORDER, order);
+						
+						//On set en attribut l'adresse de livraison pour l'afficher
+						request.setAttribute(ATTRIBUTE_ADDRESS, deliveryAddress);
+					}
+					else
+					{
+						System.out.println("Une erreur est survenue lors de la recuperation en BDde l'adresse de livraison.");
+						returnMessage.put("fail","Une erreur est survenue lors de la recuperation en BD de l'adresse de livraison.");
+					}
 				}
 				else
 				{
