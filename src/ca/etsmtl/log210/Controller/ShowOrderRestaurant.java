@@ -44,8 +44,8 @@ public class ShowOrderRestaurant extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		int idRestaurant;
-		
-		idRestaurant = Integer.parseInt((String) request.getAttribute("idRestaurant"));
+
+		idRestaurant = Integer.parseInt((String) request.getParameter("idRestaurant"));
 
 		ArrayList<OrderBean> orderList0 = new ArrayList<OrderBean>();
 		ArrayList<OrderBean> orderList1 = new ArrayList<OrderBean>();
@@ -57,8 +57,9 @@ public class ShowOrderRestaurant extends HttpServlet {
 		orderList1 = orderDao.getListOrder1(idRestaurant);
 		orderList2 = orderDao.getListOrder2(idRestaurant);
 
-		// request.setAttribute(ACTIVE_RESTAURANT_LISTE_ATTRIBUTE,
-		// activeRestaurantList);
+		request.setAttribute("orderList0",orderList0);
+		request.setAttribute("orderList1",orderList1);
+		request.setAttribute("orderList2",orderList2);
 
 		this.getServletContext()
 				.getRequestDispatcher(SHOW_ORDER_MANAGEMENT_ACCESS)

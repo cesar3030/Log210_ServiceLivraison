@@ -46,7 +46,7 @@
 		  		 					
 						  		 	<td><c:out value="${Apreparer.idOrder}"/></td>
 						  		 	<td><c:out value="${Apreparer.status}"/></td>
-						  		 	<td> <c:out value="${Apreparer.date}"/></td>
+						  		 	<td> <c:out value="${Apreparer.hourAndDate}"/></td>
 						  		 	<td><a href="<c:url value="/OrderUpdateState?idOrder=${Apreparer.idOrder}&status=${Apreparer.status}"/>"><span class="glyphicon glyphicon-thumbs-up"></span></a></td>						  		 	
 					  		
 					  		 	</tr>
@@ -76,7 +76,7 @@
 		  		 					
 									<td><c:out value="${orderEnPrep.idOrder}"/></td>
 						  		 	<td><c:out value="${orderEnPrep.status}"/></td>
-						  		 	<td> <c:out value="${orderEnPrep.date}"/></td>
+						  		 	<td> <c:out value="${orderEnPrep.hourAndDate}"/></td>
 						  		 	<td><a href="<c:url value="/OrderEndRestaurant?idOrder=${orderEnPrep.idOrder}"/>"><span class="glyphicon glyphicon-cutlery"></span></a></td>								  		 	
 					  		
 					  		 	</tr>
@@ -105,7 +105,7 @@
 		  		 					
 									<td><c:out value="${end.idOrder}"/></td>
 						  		 	<td><c:out value="${end.status}"/></td>
-						  		 	<td> <c:out value="${end.date}"/></td>
+						  		 	<td> <c:out value="${end.hourAndDate}"/></td>
 				  		
 					  		 	</tr>
 					  					  		 	
