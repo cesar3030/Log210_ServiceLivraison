@@ -10,7 +10,6 @@
 <div class="col-md-5 col-md-offset-5">
 	
 			
-	<h3>${restaurantTitreName}: Tous les menus</h3>
 
 	<a href="<c:url value="/HomeOrderRestaurant"/>"
 		data-toggle="modal"> <!-- Affiche tous les menus par restaurant-->
@@ -26,16 +25,16 @@
 
 		<div class="col-md-8 col-md-offset-2">
 			<div class="table-responsive">
+				<h3>LISTE ITEMS</h3>
 			
-				<p class="text-center">LISTE ITEMS.</p>
-				<!-- LISTE DES COMMANDES A PREPARER -->
+			<!-- LISTE DES ITEMS -->
 			<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>N° Commande</th>
-							<th>Statut</th>
-							<th>Date</th>
-							<th>Voir Items</th>
+							<th>Nom du plat</th>
+							<th>Description</th>
+							<th>Quantité</th>
+							<th>Prix</th>
 						</tr>
 					</thead>
 					<!--  Le tableau des menus -->
