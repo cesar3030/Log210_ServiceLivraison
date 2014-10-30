@@ -41,20 +41,19 @@ public class Subscribe extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// cette ma va nous servir a socker le r������������������sultat du test
-		// de la validit������������������ du format de l'email et du mot de
+		// cette ma va nous servir a socker le resultat du test
+		// de la validitedu format de l'email et du mot de
 		// passe
 		Map<String, String> errors=new HashMap<String, String>();
 
-		// On cr���� un userAccountBean pour stocker les valeurs rentr��es dans
-		// le
-		// formulaire.
+		// On cre un userAccountBean pour stocker les valeurs rentrees dans
+		// le formulaire.
 
 		UserAccountBean newUser = new UserAccountBean();
 
 		request.setCharacterEncoding("UTF-8");
 
-		// On set newUser les valeurs rentr��es dans le formulaire ok nickel.
+		// On set newUser les valeurs rentrees dans le formulaire
 
 		newUser.setName(request.getParameter("name"));
 		newUser.setFirstName(request.getParameter("firstname"));

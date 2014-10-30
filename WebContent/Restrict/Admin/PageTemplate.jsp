@@ -4,11 +4,6 @@
 
 <jsp:include page="/header.jsp"></jsp:include>	
 
-
-
-  		 
-  		 <p>Coeur de la page<p> 
-  		 
   		 
   		 
   		 

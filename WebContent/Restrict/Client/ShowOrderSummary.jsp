@@ -74,7 +74,7 @@
 		      <label for="dtp_input1" class="col-md-4 control-label">Choisir l'adresse de livraison: </label>
 			      <div class="col-md-7 ">
 					<select class="form-control"   id="addressList" name="addressList"  required>
-						<option value="0" >Adresse de livraison</option>
+						<option value="0" >${sessionScope.userSession.homeAddress}</option><!--  On affiche l'adresse par defaut du compte-->
 					</select>
 					<a><span >Nouvelle adresse ?</span></a>
 				 </div>

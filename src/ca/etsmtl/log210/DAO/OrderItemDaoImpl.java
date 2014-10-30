@@ -15,7 +15,10 @@ import ca.etsmtl.log210.Beans.RestaurantBean;
 public class OrderItemDaoImpl implements OrderItemDao 
 {
 	private DAOFactory daoFactory;
-	private static String SQL_NEW_ORDERITEM="insert into tborderitem (ITM_idMeal, ITM_quantity)values(?,?)";
+	private static String SQL_NEW_ORDERITEM=""
+			+ "INSERT "
+			+ "INTO tborderitem( ITM_idMeal, ITM_quantity, ITM_idOrder ) "
+			+ "VALUES ( ?, ?, ? )";
 	
 	public OrderItemDaoImpl(DAOFactory daoFactory) 
 	{
@@ -36,7 +39,7 @@ public class OrderItemDaoImpl implements OrderItemDao
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_NEW_ORDERITEM, false,  orderItem.getMeal().getIdMeal(), orderItem.getQuantity());
+					SQL_NEW_ORDERITEM, false,  orderItem.getMeal().getIdMeal(), orderItem.getQuantity(), orderItem.getIdOrder());
 
 			System.out.println(preparedStatement);
 

@@ -16,8 +16,8 @@ public class OrderDaoImpl implements OrderDao
 	private DAOFactory daoFactory;
 	private static final String SQL_NEW_ORDER=""
 			+ "INSERT "
-			+ "INTO tborder (ORD_idUserAccount, ORD_address, ORD_date, ORD_confirmationCode) "
-			+ "VALUES (?,?,?,?)";
+			+ "INTO tborder (ORD_idUserAccount, ORD_address, ORD_date) "
+			+ "VALUES (?,?,?)";
 	private static final String SQL_SET_CONFIRAMTION_CODE=""
 			+ "UPDATE tborder "
 			+ "SET ORD_confirmationCode=? "
@@ -39,7 +39,7 @@ public class OrderDaoImpl implements OrderDao
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_NEW_ORDER,true,newOrder.getIdUserAccount(),newOrder.getIdAddress(),newOrder.getHourAndDate(),0);
+					SQL_NEW_ORDER,true,newOrder.getIdUserAccount(),newOrder.getIdAddress(),newOrder.getHourAndDate());
 
 			System.out.println(preparedStatement);
 
@@ -76,7 +76,7 @@ public class OrderDaoImpl implements OrderDao
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_NEW_ORDER,true,orderToUpdate.getConfirmationCode(), orderToUpdate.getIdOrder());
+					SQL_SET_CONFIRAMTION_CODE,true,orderToUpdate.getConfirmationCode(), orderToUpdate.getIdOrder());
 
 			System.out.println(preparedStatement);
 

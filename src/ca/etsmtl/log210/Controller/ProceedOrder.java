@@ -21,8 +21,9 @@ import ca.etsmtl.log210.DAO.OrderItemDao;
 public class ProceedOrder extends HttpServlet {
 	
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String MEAL_MENU = "/ShowAllMealMenu";
+	public static final String SHOW_PAGE_ORDER_DONE = "/Restrict/Client/OrderDone.jsp";
 	public static final String REQUEST_FINISHED_STATE = "returnMessage";
+	public static final String ATTRIBUTE_ORDER = "order";
 	private static String ORDER="order";
 	public static final String SESSION_USER = "userSession";  
 	 
@@ -79,16 +80,19 @@ public class ProceedOrder extends HttpServlet {
 		if(idNewOrder>0)
 		{
 			//variable utilise pour verifier que la requete sql s'est terminee sans erreurs
-			boolean error=false;
+			boolean continute=true;
 			
 			//On cree et ajoute les items a la commande 
 			for(OrderItemBean item : order.getOrderItemsList())
 			{
 				//Si il n'y a pas eu d'erreur lors de l'ajout de precedant items on en ajoute un nouveau
-				if(error==false)
+				if(continute==true)
 				{
+					//On set a l'item, l'identifiant de la commande qui a ete genere lorsque la commande a ete cree en bd
+					item.setIdOrder(order.getIdOrder());
+					
 					//On ajoute l'item a la commande
-					error=orderItemDao.newOrderItem(item);
+					continute=orderItemDao.newOrderItem(item);
 				}
 				else
 				{
@@ -96,7 +100,7 @@ public class ProceedOrder extends HttpServlet {
 				}
 			}
 			
-			if(error == false)
+			if(continute == true)
 			{
 				//On genere le code de confirmation
 				String confirmCode=newConfirmationCode(order.getIdOrder());
@@ -105,20 +109,26 @@ public class ProceedOrder extends HttpServlet {
 				order.setConfirmationCode(confirmCode);
 				
 				//On update en BD le code de confirmation
-				error= orderDao.setConfirmationCode(order);
+				continute= orderDao.setConfirmationCode(order);
 				
-				if(error == false)
+				if(continute == true)
 				{
+					System.out.println("Commande validé !");
 					returnMessage.put("succes","Commande validé !");
+					
+					//On set en attribut la commande pour pouvoir recuperer le numero de commande
+					request.setAttribute(ATTRIBUTE_ORDER, order);
 				}
 				else
 				{
+					System.out.println("Une erreur est survenue lors de l'ajout en BD du code de confirmation de la commande.");
 					returnMessage.put("fail","Une erreur est survenue lors de l'ajout en BD du code de confirmation de la commande.");
 				}
 					
 			}
 			else
 			{
+				System.out.println("Une erreur est survenue lors de l'ajout en BD d'un item dans la commande. Veuillez reessayer.");
 				returnMessage.put("fail","Une erreur est survenue lors de l'ajout en BD d'un item dans la commande. Veuillez reessayer.");
 				
 			}
@@ -126,11 +136,13 @@ public class ProceedOrder extends HttpServlet {
 		}
 		else
 		{ 
+			System.out.println("Une erreur est survenue lors de la création en BD d'une commande. Veuillez reessayer.");
 			returnMessage.put("fail","Une erreur est survenue lors de la création en BD d'une commande. Veuillez reessayer.");
 			
 		}
 		
 		 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+		 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
 	}
 	
 	/**

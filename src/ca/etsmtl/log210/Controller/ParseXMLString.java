@@ -35,13 +35,13 @@ import java.util.Map;
 	        Document doc = db.parse(is);
 	        NodeList nodes = doc.getElementsByTagName("MEAL");
 
-	        // iterate the employees
+	        // iterate the orders
 	        for (int i = 0; i < nodes.getLength(); i++) {
 	           Element element = (Element) nodes.item(i);
 
 	           NodeList id_fromxml = element.getElementsByTagName("ID");
 	           Element line = (Element) id_fromxml.item(0);
-	           System.out.println("id: " + getCharacterDataFromElement(line));
+	          
 	           int id=Integer.parseInt(getCharacterDataFromElement(line));
    
 
