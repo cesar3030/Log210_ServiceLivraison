@@ -9,14 +9,12 @@
 
 <div class="col-md-5 col-md-offset-5">
 	
-			
-	<h3>${restaurantTitreName}: Tous les menus</h3>
-
 	<a href="<c:url value="/HomeOrderRestaurant"/>"
 		data-toggle="modal"> <!-- Affiche tous les menus par restaurant-->
 		<button type="button" class="btn btn-warning">Mes restaurants
 		</button>
-
+		<br>
+		<br>
 	</a>
 
 </div>

@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import ca.etsmtl.log210.Beans.OrderDetailsItemsBean;
 import ca.etsmtl.log210.Beans.OrderItemBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.OrderItemDao;
@@ -46,19 +46,21 @@ public class ShowOrderItems extends HttpServlet {
 
 		int idOrder;
 		
-		HttpSession session = request.getSession();
-
+		//HttpSession session = request.getSession();
+		System.out.println(request.getParameter("idOrder"));
 		idOrder= Integer.parseInt(request.getParameter("idOrder"));
 
 		// Creation des liste de donnes de requete
-		ArrayList<OrderItemBean> orderItemList;
+		ArrayList<OrderDetailsItemsBean> orderItemList;
 
 		// On recupere les donnees qui seront recu avec la requete sql
 		orderItemList = OrderItemDao.showAllOrderItem(idOrder);
 
+		System.out.println(orderItemList);
 		// AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		request.setAttribute("orderItemList", orderItemList);
 
+		System.out.println("Je retourne dans ShoOrderItems apres la requete le pb n'est pas la requete");
 		// On renvoie la requete de reponse au bon endroit du restrict
 		this.getServletContext().getRequestDispatcher(MENU_MANAGEMENT_ACCESS)
 				.forward(request, response);
