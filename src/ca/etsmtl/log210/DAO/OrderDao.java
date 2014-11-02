@@ -26,5 +26,13 @@ public interface OrderDao
 	ArrayList<OrderBean> getListOrder0(int idRestaurant);
 	ArrayList<OrderBean> getListOrder1(int idRestaurant);
 	ArrayList<OrderBean> getListOrder2(int idRestaurant);
+	
+	/**
+	 * Methode qui retourne la liste des commandes pretes a etre prises en charge par un livreur.
+	 * @return	La liste des commandes
+	 */
+	ArrayList<OrderBean> getListOrdersReadyForDelivery();
+	
+	
 
 }
