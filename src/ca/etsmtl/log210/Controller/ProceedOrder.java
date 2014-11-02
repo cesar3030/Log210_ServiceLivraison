@@ -21,6 +21,7 @@ import ca.etsmtl.log210.DAO.MealDao;
 import ca.etsmtl.log210.DAO.OrderDao;
 import ca.etsmtl.log210.DAO.OrderItemDao;
 import ca.etsmtl.log210.Utils.EmailUtility;
+import ca.etsmtl.log210.Utils.SmsUtility;
 
 public class ProceedOrder extends HttpServlet {
 	
@@ -180,6 +181,15 @@ public class ProceedOrder extends HttpServlet {
 						        //Envoie de du courriel
 					            EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
 				            
+					            SmsUtility.init();
+					            SmsUtility.server = "http://127.0.0.1:8080";
+					            SmsUtility.user = "test";
+					            SmsUtility.password = "test";
+					            SmsUtility.phonenumber = "+4388315858";
+					            SmsUtility.text = "This is a test message";
+					            SmsUtility.destport = "9999";
+					            SmsUtility.send();
+					            
 					            returnMessage.put("email","Un message vous a été envoyé à l'adresse: " + client.getEmail());
 					            
 					        } 
