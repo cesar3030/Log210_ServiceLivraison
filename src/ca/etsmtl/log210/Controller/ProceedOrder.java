@@ -272,7 +272,7 @@ public class ProceedOrder extends HttpServlet {
 	 */
 	private String generateMailContent(OrderBean order, UserAccountBean client)
 	{
-		String beginning="Chère "+client.getFirstName()+" "+client.getName()+",<br> Voici le résumé de la commande n°"+order.getConfirmationCode();
+		String beginning="Chère "+client.getFirstName()+" "+client.getName()+",<br><br> Voici le résumé de la commande n°"+order.getConfirmationCode();
 		String content="<br>";
 		String end="<br><br>Merci de votre fidélité, au plaisir de vous revoir !";
 		

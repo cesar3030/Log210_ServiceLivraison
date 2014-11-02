@@ -52,6 +52,9 @@ public class EmailUtility {
         msg.setSentDate(new Date());
         msg.setText(message);
  
+        // set plain text message
+        msg.setContent(message, "text/html");
+        
         // sends the e-mail
         Transport.send(msg);
  
