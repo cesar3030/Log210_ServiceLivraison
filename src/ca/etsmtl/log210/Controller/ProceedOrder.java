@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 import ca.etsmtl.log210.DAO.OrderDao;
 import ca.etsmtl.log210.DAO.OrderItemDao;
+import ca.etsmtl.log210.Utils.EmailUtility;
 
 public class ProceedOrder extends HttpServlet {
 	
@@ -30,6 +32,11 @@ public class ProceedOrder extends HttpServlet {
 	private static String ORDER="order";
 	public static final String SESSION_USER = "userSession";  
 	 
+	//Attributs pour
+	private String host;
+	private String port;
+    private String user;
+    private String pass;
 	
 	private OrderDao orderDao;
 	private OrderItemDao orderItemDao ;
@@ -42,6 +49,13 @@ public class ProceedOrder extends HttpServlet {
 				CONF_DAO_FACTORY)).getOrderItemDao();
 		this.addressDao=((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getAddressDao();
+		
+		// On va chercher les informations du serveur SMTP stockees dans web.xml
+        ServletContext context = getServletContext();
+        host = context.getInitParameter("host");
+        port = context.getInitParameter("port");
+        user = context.getInitParameter("user");
+        pass = context.getInitParameter("pass");
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -121,6 +135,7 @@ public class ProceedOrder extends HttpServlet {
 					
 					//On ajoute l'item a la commande
 					continute=orderItemDao.newOrderItem(item);
+					
 				}
 				else
 				{
@@ -145,25 +160,60 @@ public class ProceedOrder extends HttpServlet {
 					
 					if(continute == true)
 					{
-						System.out.println("Commande validÃ© !");
-						returnMessage.put("succes","Commande validÃ© !");
+						try {
+								returnMessage.put("succes","Commande validÃ© !");
+	
+								//On set en attribut la commande pour pouvoir recuperer le numero de commande
+								request.setAttribute(ATTRIBUTE_ORDER, order);
+								
+								//On set en attribut l'adresse de livraison pour l'afficher
+								request.setAttribute(ATTRIBUTE_ADDRESS, deliveryAddress);
+								
+								//Variables utilisees pour l'envoi du courriel
+								String recipient = client.getEmail();
+						        
+								String subject = "Confirmation de votre commande chez ExpressLivraison";
+						        
+								//On genere et stocke le contenu du message a envoyer
+						        String content = this.generateMailContent(order, client);
+								
+						        //Envoie de du courriel
+					            EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
+				            
+					            returnMessage.put("email","Un message vous a été envoyé à l'adresse: " + client.getEmail());
+					            
+					        } 
+							catch (Exception ex) 
+					        {
+					            ex.printStackTrace();
+					            returnMessage.put("email","Une erreur est survenue lors de l'envoie du mail de confirmation: " + ex.getMessage());
+					        } 
+							finally 
+							{
+					        	
+					        	 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+					    		 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
+					        }
 						
-						//On set en attribut la commande pour pouvoir recuperer le numero de commande
-						request.setAttribute(ATTRIBUTE_ORDER, order);
 						
-						//On set en attribut l'adresse de livraison pour l'afficher
-						request.setAttribute(ATTRIBUTE_ADDRESS, deliveryAddress);
+						
 					}
 					else
 					{
 						System.out.println("Une erreur est survenue lors de la recuperation en BDde l'adresse de livraison.");
 						returnMessage.put("fail","Une erreur est survenue lors de la recuperation en BD de l'adresse de livraison.");
+					
+						request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+						 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
 					}
 				}
 				else
 				{
 					System.out.println("Une erreur est survenue lors de l'ajout en BD du code de confirmation de la commande.");
 					returnMessage.put("fail","Une erreur est survenue lors de l'ajout en BD du code de confirmation de la commande.");
+					
+					request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+					 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
 				}
 					
 			}
@@ -172,6 +222,8 @@ public class ProceedOrder extends HttpServlet {
 				System.out.println("Une erreur est survenue lors de l'ajout en BD d'un item dans la commande. Veuillez reessayer.");
 				returnMessage.put("fail","Une erreur est survenue lors de l'ajout en BD d'un item dans la commande. Veuillez reessayer.");
 				
+				request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+				 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
 			}
 			
 		}
@@ -180,10 +232,11 @@ public class ProceedOrder extends HttpServlet {
 			System.out.println("Une erreur est survenue lors de la crÃ©ation en BD d'une commande. Veuillez reessayer.");
 			returnMessage.put("fail","Une erreur est survenue lors de la crÃ©ation en BD d'une commande. Veuillez reessayer.");
 			
+			request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
+			this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
 		}
 		
-		 request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
-		 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
+		 
 	}
 	
 	/**
@@ -208,6 +261,32 @@ public class ProceedOrder extends HttpServlet {
 		}
 			
 		return confirmCode;
+	
 	}
-
+	
+	/**
+	 * Méthode qui cree le contenu du mail de confirmation de commande.
+	 * @param order		la commande	
+	 * @param client	le client qui a effectue la commande
+	 * @return			le contenu du courriel contenant le resumer de la commande
+	 */
+	private String generateMailContent(OrderBean order, UserAccountBean client)
+	{
+		String beginning="Chère "+client.getFirstName()+" "+client.getName()+",<br> Voici le résumé de la commande n°"+order.getConfirmationCode();
+		String content="<br>";
+		String end="<br><br>Merci de votre fidélité, au plaisir de vous revoir !";
+		
+		for(OrderItemBean item : order.getOrderItemsList())
+		{
+			int totalItemPrice = item.getQuantity() * item.getMeal().getPrice();
+			
+			content = content + "<br>"+item.getMeal().getName()+" * "+item.getQuantity()+" = "+totalItemPrice;
+		}
+		
+		content = content + "<br><br>Le montant total de votre commande est de "+order.getTotalPrice()+"$";
+		
+		content=beginning+content+end;
+		
+		return content;
+	}
 }
