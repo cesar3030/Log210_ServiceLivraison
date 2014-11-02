@@ -3,6 +3,7 @@ package ca.etsmtl.log210.DAO;
 import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.OrderBean;
+import ca.etsmtl.log210.Beans.OrderToDeliver;
 
 public interface OrderDao 
 {
@@ -29,9 +30,9 @@ public interface OrderDao
 	
 	/**
 	 * Methode qui retourne la liste des commandes pretes a etre prises en charge par un livreur.
-	 * @return	La liste des commandes
+	 * @return	La liste des commandes à livrer avec toutes les informations requises par le livreur
 	 */
-	ArrayList<OrderBean> getListOrdersReadyForDelivery();
+	ArrayList<OrderToDeliver> getListOrdersReadyForDelivery();
 	
 	
 

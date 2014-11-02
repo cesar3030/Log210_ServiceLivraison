@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.OrderBean;
+import ca.etsmtl.log210.Beans.OrderToDeliver;
 
 public class OrderDaoImpl implements OrderDao
 {
@@ -292,6 +293,12 @@ public class OrderDaoImpl implements OrderDao
 		order.setStatus(resultSet.getInt("ORD_status"));
 
 		return order;
+	}
+
+	@Override
+	public ArrayList<OrderToDeliver> getListOrdersReadyForDelivery() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
