@@ -14,7 +14,18 @@
 	
 }
 
+/*format d'affichage des google maps*/
+html, body, .map-canvas 
+{ 
+	height: 250px;
+	margin-right: -29px;
+	padding: 0;
+}
 
+.orderForDelivery
+{
+	margin-top: 2%;
+}
 
 /*
 .row > div {
