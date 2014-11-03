@@ -30,6 +30,9 @@ public class OrderBean {
 	//Le code de confirmation de la commande, genere une fois que la commande et les items ont ete cree en bd
 	private String confirmationCode;
 	
+	//identifiant du livreur qui prend en charge la commande
+	private int idDeliveryMan;
+	
 	
 	
 	public List<OrderItemBean> getOrderItemsList() {
@@ -124,6 +127,14 @@ public class OrderBean {
 
 	public void setConfirmationCode(String confirmationCode) {
 		this.confirmationCode = confirmationCode;
+	}
+
+	public int getIdDeliveryMan() {
+		return idDeliveryMan;
+	}
+
+	public void setIdDeliveryMan(int idLivreur) {
+		this.idDeliveryMan = idLivreur;
 	}
 
 	

@@ -74,7 +74,17 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant " 
 			+ "AND  usr.USR_idUser = ord.ORD_idUserAccount	"
 			+ "AND	ord.ORD_status = 2 ";
-
+	
+	private static final String SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER = ""
+			+ "UPDATE tborder "
+			+ "SET ORD_idDeliveryMan=?, ORD_status=? "
+			+ "WHERE ORD_idOrder=?";
+	
+	private static final String SQL_GET_ORDER_WITH_ID = ""
+			+ "SELECT * "
+			+ "FROM tborder "
+			+ "WHERE ORD_idOrder = ?;";
+			
 	
 	public OrderDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
@@ -162,12 +172,16 @@ public class OrderDaoImpl implements OrderDao
 		if(statutRecu==0){
 			statutUp=1;
 		}
-		// TERMIME
+		// Prete a etre livrer
 		else if(statutRecu==1){
 			statutUp=2;
 		}
-		// LIVREE
+		//livraison en cours
 		else if(statutRecu==2){
+			statutUp=3;
+		}
+		// LIVREE
+		else if(statutRecu==3){
 			statutUp=4;
 		}
 
@@ -185,6 +199,7 @@ public class OrderDaoImpl implements OrderDao
 
 			
 			codeRetour = preparedStatement.executeUpdate();
+			
 			
 
 		} catch (SQLException e) {
@@ -306,6 +321,7 @@ public class OrderDaoImpl implements OrderDao
 		order.setConfirmationCode(resultSet.getString("ORD_confirmationCode"));
 		order.setHourAndDate(resultSet.getString("ORD_date"));
 		order.setStatus(resultSet.getInt("ORD_status"));
+		order.setIdDeliveryMan(resultSet.getInt("ORD_idDeliveryMan"));
 
 		return order;
 	}
@@ -371,6 +387,86 @@ public class OrderDaoImpl implements OrderDao
 		}
 		
 		return orderToDeliver;
+	}
+
+	@Override
+	public boolean checkOrderNotAcceptedYet(int idOrder) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean canBeAccepted = true;
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ORDER_WITH_ID, false,idOrder);
+
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) 
+			{
+				//Si le statut de la livraison est livraison en cours ou terminé, on renvoie false
+				if(resultSet.getInt("ORD_status")>=3)
+				{
+					canBeAccepted = false;
+				}
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return canBeAccepted;
+	}
+
+	@Override
+	public int assignOrderToDelileveryMan(int idOrder, int idDeliveryMan) {
+		
+		int errorCode=2;
+		boolean continueTraiment;
+		
+		continueTraiment = checkOrderNotAcceptedYet(idOrder);
+		
+		if(continueTraiment==true)
+		{
+			Connection connexion = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			int codeRetour=0;
+			
+			try {
+				/* Recuperation d'une connexion depuis la Factory */
+				connexion = daoFactory.getConnection();
+				preparedStatement = initialisationRequetePreparee(connexion,SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER,true,idDeliveryMan,3,idOrder);
+				
+				System.out.println(preparedStatement);
+				codeRetour = preparedStatement.executeUpdate();
+				
+				//Si la requete SQL s'est bien terminée, je set le code erreur 0 signifiant que tout a fonctionner
+				if( codeRetour >= 0)
+				{
+					errorCode=0;
+				}
+
+			} catch (SQLException e) {
+				throw new DAOException(e);
+			} finally {
+				fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+			}
+			
+		}
+		else
+		{
+			errorCode = 1;
+		}
+			
+		return errorCode;
 	}
 
 }

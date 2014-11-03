@@ -181,7 +181,7 @@ public class ProceedOrder extends HttpServlet {
 						        //Envoie de du courriel
 					            EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
 				            
-					            SmsUtility.sendTextMessage("Voic commande est en cours de préparation","+"+client.getPhoneNumber());
+					            //SmsUtility.sendTextMessage("Voic commande est en cours de préparation","+"+client.getPhoneNumber());
 					            
 					            returnMessage.put("email","Un message vous a été envoyé à l'adresse: " + client.getEmail());
 					            

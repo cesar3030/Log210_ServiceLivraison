@@ -34,6 +34,20 @@ public interface OrderDao
 	 */
 	ArrayList<OrderToDeliverBean> getListOrdersReadyForDelivery();
 	
+	/**
+	 * Methode qui verifie si une commande a deja ete acceptee par un livreur
+	 * @param idOrder	l'identifiant de la commande
+	 * @return			true si la commande n'a toujours pas ete accepte, sinon false
+	 */
+	boolean checkOrderNotAcceptedYet(int idOrder);
+	
+	/**
+	 * Methode qui va assigner une commande au livreur qui veut la prendre en charge
+	 * @param idOrder		l'identifiant de la commande
+	 * @param idDeliveryMan	l'identifiant du livreur 
+	 * @return	0 si tout s'est bien passe, 1 si la commande est deja prise en chage par un autre livreur, 2 si il y a eu une erreur
+	 */
+	int assignOrderToDelileveryMan(int idOrder, int idDeliveryMan);
 	
 
 }

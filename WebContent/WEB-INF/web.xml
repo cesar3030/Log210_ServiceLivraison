@@ -389,6 +389,15 @@
     <servlet-name>OrdersNeededToBeDelivered</servlet-name>
     <url-pattern>/OrdersNeededToBeDelivered</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AcceptOrder</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.AcceptOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcceptOrder</servlet-name>
+    <url-pattern>/AcceptOrder</url-pattern>
+  </servlet-mapping>
 
   <filter>
     <filter-name>ApplicationFilter</filter-name>
