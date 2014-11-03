@@ -46,6 +46,7 @@ public class OrdersNeededToBeDelivered extends HttpServlet implements Servlet
 	{
 		ArrayList<OrderBean> readyOrderList= new ArrayList<OrderBean>();
 		
+		readyOrderList =  
 		
 	}
 
