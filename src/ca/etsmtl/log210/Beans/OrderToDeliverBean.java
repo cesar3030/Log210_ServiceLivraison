@@ -9,7 +9,7 @@ package ca.etsmtl.log210.Beans;
  * @author Cesar Jeanroy
  *
  */
-public class OrderToDeliver 
+public class OrderToDeliverBean 
 {
 	//Le restaurant ou aller chercher la commande
 	RestaurantBean restaurant;
@@ -18,7 +18,7 @@ public class OrderToDeliver
 	OrderBean order;
 
 	//Une adresse qui n'est pas l'adresse par defaut liée au compte du client
-	OtherAddress otherAddress;
+	AddressBean address;
 	
 	//Les informations concernant le client
 	UserAccountBean client;
@@ -36,11 +36,11 @@ public class OrderToDeliver
 	public void setOrder(OrderBean order) {
 		this.order = order;
 	}
-	public OtherAddress getOtherAddress() {
-		return otherAddress;
+	public AddressBean getAddress() {
+		return address;
 	}
-	public void setOtherAddress(OtherAddress otherAddress) {
-		this.otherAddress = otherAddress;
+	public void setAddress(AddressBean otherAddress) {
+		this.address = otherAddress;
 	}
 	public UserAccountBean getClient() {
 		return client;

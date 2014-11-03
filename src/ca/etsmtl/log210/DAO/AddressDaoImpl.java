@@ -103,7 +103,7 @@ public class AddressDaoImpl implements AddressDao{
 		return address;
 	}
 	
-	private AddressBean mapAddress(ResultSet resultSet) throws SQLException 
+	public static AddressBean mapAddress(ResultSet resultSet) throws SQLException 
 	{
 		AddressBean address = new AddressBean();
 		

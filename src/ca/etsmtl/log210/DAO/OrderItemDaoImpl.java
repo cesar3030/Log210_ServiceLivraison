@@ -70,28 +70,17 @@ public class OrderItemDaoImpl implements OrderItemDao
 		
 	}
 	
-	private OrderItemBean mapOrderItem(ResultSet resultSet) throws SQLException 
+	public static OrderItemBean mapOrderItem(ResultSet resultSet) throws SQLException 
 	{
 		OrderItemBean orderItem = new OrderItemBean();
 		
 		orderItem.setIdOrder(resultSet.getInt("ITM_idOrder"));
-		orderItem.setMeal(mapMealBean(resultSet));
+		orderItem.setMeal(MealDaoImpl.mapMealBean(resultSet));
 		orderItem.setQuantity(resultSet.getInt("ITM_quantity"));
 		
 		return  orderItem;
 	}
 	
-	private MealBean mapMealBean(ResultSet resultSet) throws SQLException {
-		MealBean meal = new MealBean();
-
-		meal.setIdMeal(resultSet.getInt("PLA_idPlat"));
-		meal.setIdMenu(resultSet.getInt("PLA_idMenu"));
-		meal.setPrice(resultSet.getInt("PLA_price"));
-		meal.setName(resultSet.getString("PLA_name"));
-		meal.setDescription(resultSet.getString("PLA_description"));
-
-		return meal;
-	}
 
 	@Override
 	public ArrayList<OrderDetailsItemsBean> showAllOrderItem(int idOrder) {

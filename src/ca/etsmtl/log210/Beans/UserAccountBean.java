@@ -30,7 +30,7 @@ public class UserAccountBean
 	private int    userRights;
 	private int userId;
 	//Les autres adresses du client
-	private ArrayList<OtherAddress> otherAdress;
+	private ArrayList<AddressBean> otherAdress;
 	
 	
 	private static final String EMAIL  = "email";
@@ -184,11 +184,11 @@ public class UserAccountBean
 		this.userId = userId;
 	}
 
-	public ArrayList<OtherAddress> getOtherAdress() {
+	public ArrayList<AddressBean> getOtherAdress() {
 		return otherAdress;
 	}
 
-	public void setOtherAdress(ArrayList<OtherAddress> otherAdress) {
+	public void setOtherAdress(ArrayList<AddressBean> otherAdress) {
 		this.otherAdress = otherAdress;
 	}
 	

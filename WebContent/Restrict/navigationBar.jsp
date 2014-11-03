@@ -54,7 +54,7 @@
  </c:if> 
  
  <!--  Barre de navigation des livreurs (3) -->
- <c:if test="${sessionScope.userSession.userRights==2}">
+ <c:if test="${sessionScope.userSession.userRights==3}">
    <li><a href="<c:url value="/MyAccount"/>">Mon Compte</a></li> 
    <li><a href="<c:url value="/OrdersNeededToBeDelivered"/>">Commandes a livrer</a></li> 
    <li><a href="<c:url value="/MyAllocatedDeliveryOrders"/>">Mes livraisons</a></li>       

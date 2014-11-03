@@ -9,8 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import ca.etsmtl.log210.Beans.AddressBean;
 import ca.etsmtl.log210.Beans.OrderBean;
-import ca.etsmtl.log210.Beans.OrderToDeliver;
+import ca.etsmtl.log210.Beans.OrderItemBean;
+import ca.etsmtl.log210.Beans.OrderToDeliverBean;
+import ca.etsmtl.log210.Beans.RestaurantBean;
+import ca.etsmtl.log210.Beans.UserAccountBean;
 
 public class OrderDaoImpl implements OrderDao
 {
@@ -59,6 +63,17 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
 			+ "AND ord.ORD_status = 2 " 
 			+ "AND  re.RES_idRestaurant = ?";
+	
+	private static final String SQL_GET_ORDER_READY_FOR_DELIVERY = ""
+			+ "SELECT * "
+			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re, tbuseraccount usr, tbotheraddress adr "
+			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
+			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
+			+ "AND  pl.PLA_idMenu = me.MEN_idMenu "
+			+ "AND  adr.ADR_idAddress = ord.ORD_address "
+			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant " 
+			+ "AND  usr.USR_idUser = ord.ORD_idUserAccount	"
+			+ "AND	ord.ORD_status = 2 ";
 
 	
 	public OrderDaoImpl(DAOFactory daoFactory) {
@@ -281,7 +296,7 @@ public class OrderDaoImpl implements OrderDao
 		return orderList;
 	}
 	
-	private OrderBean mapOrder(ResultSet resultSet) throws SQLException 
+	public static OrderBean mapOrder(ResultSet resultSet) throws SQLException 
 	{
 		OrderBean order = new OrderBean();
 		
@@ -296,9 +311,66 @@ public class OrderDaoImpl implements OrderDao
 	}
 
 	@Override
-	public ArrayList<OrderToDeliver> getListOrdersReadyForDelivery() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<OrderToDeliverBean> getListOrdersReadyForDelivery() {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<OrderToDeliverBean> orderToDeliver = new ArrayList<OrderToDeliverBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ORDER_READY_FOR_DELIVERY, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				orderToDeliver.add(mapOrderToDeliver(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return orderToDeliver;
+	}
+
+	public static OrderToDeliverBean mapOrderToDeliver(ResultSet resultSet) throws SQLException  
+	{
+		OrderToDeliverBean orderToDeliver = new OrderToDeliverBean();
+		
+		OrderBean order = mapOrder(resultSet);
+		RestaurantBean restaurant = RestaurantDaoImpl.mapRestaurateur(resultSet);
+		UserAccountBean client = UserAccountDaoImpl.mapUserAccount(resultSet);
+
+		orderToDeliver.setClient(client);
+		orderToDeliver.setOrder(order);
+		orderToDeliver.setRestaurant(restaurant);
+		
+		/**
+		 * Si l'id de l'adresse de livraison est 0, celaveut dire 
+		 * qu'il s'agit de l'adresse contenue dans le compte de l'utilisateur
+		 */
+		if(order.getIdAddress()==0)
+		{
+			AddressBean accountAddress = new AddressBean(client.getHomeAddress(), client.getUserId());
+			orderToDeliver.setAddress(accountAddress);
+		}
+		else
+		{
+			AddressBean otherAddress = AddressDaoImpl.mapAddress(resultSet);
+			orderToDeliver.setAddress(otherAddress);
+		}
+		
+		return orderToDeliver;
 	}
 
 }
