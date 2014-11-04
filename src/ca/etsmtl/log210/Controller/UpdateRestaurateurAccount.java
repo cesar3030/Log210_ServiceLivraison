@@ -14,7 +14,11 @@ import javax.servlet.http.HttpSession;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.UserAccountDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class UpdateRestaurateurAccount extends HttpServlet {
 	
 	public static final String CONF_DAO_FACTORY = "daofactory";

@@ -22,7 +22,11 @@ import ca.etsmtl.log210.DAO.OrderDao;
 import ca.etsmtl.log210.DAO.OrderItemDao;
 import ca.etsmtl.log210.Utils.EmailUtility;
 import ca.etsmtl.log210.Utils.SmsUtility;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class ProceedOrder extends HttpServlet {
 	
 	public static final String CONF_DAO_FACTORY = "daofactory";

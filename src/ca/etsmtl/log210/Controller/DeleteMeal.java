@@ -12,7 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class DeleteMeal extends HttpServlet {
 
 	/**

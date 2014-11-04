@@ -13,7 +13,11 @@ import javax.servlet.http.HttpSession;
 import ca.etsmtl.log210.Beans.MealBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class NewMeal extends HttpServlet {
 
 	/**

@@ -86,11 +86,21 @@ public class OrderDaoImpl implements OrderDao
 			+ "WHERE ORD_idOrder = ?;";
 			
 	
+	/**
+	 * Methodde qui permet de recuperer la DAO
+	 * @param daoFactory
+	 */
 	public OrderDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
-	@Override
+	/**
+	 * Methode qui permet d'inserer une nouvelle commande dans la BD
+	 * param newOrder ( OrderBean )
+	 * 
+	 * L orderBEan permet de garder en memoire le choix fais par le client lors de la commande
+	 * puis va etre inserer en bd
+	 */
 	public int newOrder(OrderBean newOrder) {
 		
 		Connection connexion = null;
@@ -161,13 +171,19 @@ public class OrderDaoImpl implements OrderDao
 		return etatRetour;
 	}
 
-	@Override
+	/**
+	 * Methode qui va mettre ajout le statut d un commande
+	 * @param (int) idOrderRecu (ceci est l'id de la commande)
+	 * @param (int) statutRecu (ceci est le statut de base a modifier)
+	 * 
+	 * Consequence : le statut de la commande selon l id va etre mis a jour
+	 */
 	public int updateOrderState(int idOrderRecu, int statutRecu) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		int codeRetour=0;
-		int statutUp=0;
+		int statutUp=-1;
 		// A PREPARER
 		if(statutRecu==0){
 			statutUp=1;
@@ -208,11 +224,18 @@ public class OrderDaoImpl implements OrderDao
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		
-		return codeRetour;
+		return statutUp;
 
 	}
 
-	@Override
+	/**
+	 * Methode qui permet de recuprer depuis la BDD
+	 * la liste de commande a preparer selon le numero de restaurant
+	 * 
+	 * @param (int) idRestaurant
+	 * 
+	 * @return (ArrayList<OrderBean>) ListeOrder liste de commande 
+	 */
 	public ArrayList<OrderBean> getListOrder0(int idRestaurant) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -245,7 +268,14 @@ public class OrderDaoImpl implements OrderDao
 		return orderList;
 	}
 
-	@Override
+	/**
+	 * Methode qui permet de recuprer depuis la BDD
+	 * la liste de commande en preparation selon le numero de restaurant
+	 * 
+	 * @param (int) idRestaurant
+	 * 
+	 * @return (ArrayList<OrderBean>) ListeOrder liste de commande 
+	 */
 	public ArrayList<OrderBean> getListOrder1(int idRestaurant) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -278,7 +308,14 @@ public class OrderDaoImpl implements OrderDao
 		return orderList;
 	}
 
-	@Override
+	/**
+	 * Methode qui permet de recuprer depuis la BDD
+	 * la liste de commande a terminees selon le numero de restaurant
+	 * 
+	 * @param (int) idRestaurant
+	 * 
+	 * @return (ArrayList<OrderBean>) ListeOrder liste de commande 
+	 */
 	public ArrayList<OrderBean> getListOrder2(int idRestaurant){
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;

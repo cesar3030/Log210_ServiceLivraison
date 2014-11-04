@@ -28,7 +28,11 @@ import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.AddressDao;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class ShowOrderSummary  extends HttpServlet {
 	
 	private static String ORDER="order";

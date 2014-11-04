@@ -16,7 +16,11 @@ import javax.servlet.http.HttpSession;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.OrderDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class AcceptOrder extends HttpServlet implements Servlet {
 	
 	public static final String SHOW_PAGE_ORDERS_FOR_DELIVERY = "/OrdersNeededToBeDelivered";

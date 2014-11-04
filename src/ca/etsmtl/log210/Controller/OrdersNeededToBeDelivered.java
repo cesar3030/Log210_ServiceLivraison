@@ -17,7 +17,11 @@ import ca.etsmtl.log210.DAO.AddressDao;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.OrderDao;
 import ca.etsmtl.log210.DAO.OrderItemDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class OrdersNeededToBeDelivered extends HttpServlet implements Servlet
 {
 	public static final String CONF_DAO_FACTORY = "daofactory";

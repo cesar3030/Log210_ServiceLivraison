@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.UserAccountDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class CheckEmailNotUsed extends HttpServlet implements Servlet
 {
 	public static final String CONF_DAO_FACTORY = "daofactory";

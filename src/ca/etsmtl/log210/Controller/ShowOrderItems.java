@@ -12,19 +12,28 @@ import ca.etsmtl.log210.Beans.OrderDetailsItemsBean;
 import ca.etsmtl.log210.Beans.OrderItemBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.OrderItemDao;
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 
+
+/**
+ * Servlets qui attaché à la page ShowOrderITems.jsp
+ *
+ */
 public class ShowOrderItems extends HttpServlet {
 
-	/**
-	 * 
-	 */
-
+	//LES VARIABLES STATIQUES
 	private static final long serialVersionUID = 6561975988150619973L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
+	public static final String NUM_COMMANDE = "numCommande";
+	public static final String MONTANT_TOT= "total";
 	public static final String MENU_MANAGEMENT_ACCESS = "/Restrict/Restaurateur/ShowOrderItems.jsp";
 
 
-	// Instance de menu qui va nous permettre de faire des requetes sur la BD
+	// Instance de la DAO OrderItemDao qui va nous permettre de faire des requetes sur la BD des items des commandes
 	private OrderItemDao OrderItemDao;
 
 	/**
@@ -39,33 +48,45 @@ public class ShowOrderItems extends HttpServlet {
 				CONF_DAO_FACTORY)).getOrderItemDao();
 	}
 
+	/**
+	 *doGet(HttpServletRequest request, HttpServletResponse response)
+	 *Methode qui va permettre selon la requete recu (URL)
+	 *de renvoyer une liste d'items selon un numéro de commande
+	 *
+	 *Retour :
+	 *			int idOrder = numéro de la commande
+	 *			ArrayList<OrderDetailsItemsBean> orderItemList = La liste des items d'une commande selon son id
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		/* RÃ©cupÃ©ration de la session depuis la requÃªte */
-
+		//Les variables permettant de recevoir l id de a commande et la liste d'item
 		int idOrder;
-		
-		//HttpSession session = request.getSession();
-		System.out.println(request.getParameter("idOrder"));
-		idOrder= Integer.parseInt(request.getParameter("idOrder"));
-
-		// Creation des liste de donnes de requete
+		int etat=0;
 		ArrayList<OrderDetailsItemsBean> orderItemList;
-
+		
+		
+		//On récupére l'id de la commande depuis l url
+		idOrder= Integer.parseInt(request.getParameter("idOrder"));
+		
 		// On recupere les donnees qui seront recu avec la requete sql
 		orderItemList = OrderItemDao.showAllOrderItem(idOrder);
-
-		System.out.println(orderItemList);
+		
+		
 		// AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
+		request.setAttribute(NUM_COMMANDE, idOrder);
+		request.setAttribute(MONTANT_TOT, OrderItemDao.calculMontantTotal(orderItemList));
 		request.setAttribute("orderItemList", orderItemList);
 
-		System.out.println("Je retourne dans ShoOrderItems apres la requete le pb n'est pas la requete");
-		// On renvoie la requete de reponse au bon endroit du restrict
+		
+		// On retourne la requete de reponse au bon endroit du restrict
 		this.getServletContext().getRequestDispatcher(MENU_MANAGEMENT_ACCESS)
 				.forward(request, response);
 	}
 
+	
+	/**
+	 * Cette fonction n'est pas utiliser dans ce Servlet ShowOrderItems
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

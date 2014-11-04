@@ -84,15 +84,11 @@ public class OrderItemDaoImpl implements OrderItemDao
 
 	@Override
 	public ArrayList<OrderDetailsItemsBean> showAllOrderItem(int idOrder) {
-		System.out.println("je vais aller chercher les items pour les afficher");
 		Connection connexion = null;
-		System.out.println("je vais aller chercher les items pour les afficher");
 		PreparedStatement preparedStatement = null;
-		System.out.println("je vais aller chercher les items pour les afficher");
 		ResultSet resultSet = null;
 
 		ArrayList<OrderDetailsItemsBean> showAllOrderItems = new ArrayList<OrderDetailsItemsBean>();
-		System.out.println("je vais aller chercher les items pour les afficher");
 		try {
 			/* Faire une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
@@ -137,12 +133,6 @@ public class OrderItemDaoImpl implements OrderItemDao
 																	resultSet.getInt("PLA_price"),
 																	resultSet.getInt("ITM_idOrder"),
 																	resultSet.getInt("PLA_idPlat"));
-		System.out.println(resultSet.getString("PLA_name")+" "+
-			 resultSet.getString("PLA_description")+" "+
-				resultSet.getInt("ITM_quantity")+" "+
-				resultSet.getInt("PLA_price")+" "+
-				resultSet.getInt("ITM_idOrder")+" "+
-				resultSet.getInt("PLA_idPlat"));
 		return detailItems;
 	}
 	
@@ -156,6 +146,19 @@ public class OrderItemDaoImpl implements OrderItemDao
 		orderItem.setQuantity(resultSet.getInt("PLA_price"));
 
 		return orderItem;
+	}
+	
+	/**
+	 * Methode qui permet de retourner le montant total d'une commande
+	 * @param liste
+	 * @return (int) total
+	 */
+	public int calculMontantTotal(ArrayList<OrderDetailsItemsBean> liste){
+		int total = 0;
+		for(int i = 0;i < liste.size();i++){
+			total= total + liste.get(i).getPrice();
+		}
+		return total;
 	}
 
 }

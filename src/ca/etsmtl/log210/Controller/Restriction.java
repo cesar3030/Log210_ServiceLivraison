@@ -7,7 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class Restriction extends HttpServlet {
     public static final String ACCES_PUBLIC     = "/accesPublic.jsp";
     public static final String ACCES_RESTREINT  = "/accesRestreint.jsp";
