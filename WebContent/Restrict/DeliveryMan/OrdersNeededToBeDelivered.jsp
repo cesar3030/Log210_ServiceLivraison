@@ -2,10 +2,48 @@
 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <jsp:include page="/header.jsp"></jsp:include>
-<script src="<c:url value="/inc/js/googleMap.js"/>"></script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script>
 
+function newMap(idContener,restaurantAddress,clientAddress)
+{
+	    initialize(idContener);
+	    calcRoute(restaurantAddress,clientAddress);
+	
+}
+
+var directionsDisplay;
+var directionsService;
+
+function initialize(idContener) {
+	directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  var mapOptions = {
+    zoom: 7,
+    center: new google.maps.LatLng(41.850033, -87.6500523)
+  };
+  var map = new google.maps.Map(document.getElementById(idContener),
+      mapOptions);
+  directionsDisplay.setMap(map);
+  //directionsDisplay.setPanel(document.getElementById('directions-panel'));
+
+}
+
+function calcRoute(restaurantAddress,clientAddress) {
+  
+  var request = {
+    origin: restaurantAddress,
+    destination: clientAddress,
+    travelMode: google.maps.TravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+    	alert("in");
+      directionsDisplay.setDirections(response);
+    }
+  });
+}
+</script>	 
 <div class="row">
 	<div class="col-md-12"> 		 
 		 <h2 class="text-center" >Liste des commandes a prendre en charge</h2>  		 		 
@@ -93,10 +131,10 @@
 		</div>
 	</div>	
 </div>
-</c:forEach> 	
-<c:forEach items="${orderReady}" var="orderForDelivery">
 <script>
-newMap("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.address.address}");
+alert("map-canvas-${orderForDelivery.order.idOrder}"+"${orderForDelivery.restaurant.address}"+"${orderForDelivery.address.address}");
+newMap("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}");
 </script>
-</c:forEach>  		 
+</c:forEach> 	
+
 <jsp:include page="/footer.jsp"></jsp:include>
