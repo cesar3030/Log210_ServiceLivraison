@@ -72,10 +72,8 @@ public class ShowOrderSummary  extends HttpServlet {
 		System.out.println(listAddressOfClient.size());
 		
 		session.setAttribute(ATTRIBUTE_ADDRESS,listAddressOfClient);
-		
-	
 		session.setAttribute(ORDER, order);
-		session.setAttribute("test", "ehediebciebc");
+		
 		//this.getServletContext().getRequestDispatcher( SUMMARY_PAGE  ).forward( request, response );
 		 response.sendRedirect( request.getContextPath() + "/Restrict/Client/NewFile.jsp" );
 	 }
