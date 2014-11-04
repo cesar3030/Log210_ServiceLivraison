@@ -13,7 +13,11 @@ import ca.etsmtl.log210.Beans.OrderBean;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.OrderDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 
 public class ShowOrderRestaurant extends HttpServlet {
 

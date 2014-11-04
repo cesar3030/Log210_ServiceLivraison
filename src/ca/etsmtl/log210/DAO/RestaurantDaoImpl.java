@@ -203,7 +203,7 @@ public class RestaurantDaoImpl implements RestaurantDao
 	}
 
 	
-	private RestaurantBean mapRestaurateur(ResultSet resultSet) throws SQLException 
+	public static RestaurantBean mapRestaurateur(ResultSet resultSet) throws SQLException 
 	{
 		RestaurantBean restaurant = new RestaurantBean();
 		

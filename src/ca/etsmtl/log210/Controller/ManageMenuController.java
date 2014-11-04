@@ -12,7 +12,11 @@ import ca.etsmtl.log210.Beans.MenuBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MenuManageDao;
 
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 
 public class ManageMenuController extends HttpServlet {
 	

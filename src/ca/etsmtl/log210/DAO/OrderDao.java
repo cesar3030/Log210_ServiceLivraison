@@ -3,6 +3,7 @@ package ca.etsmtl.log210.DAO;
 import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.OrderBean;
+import ca.etsmtl.log210.Beans.OrderToDeliverBean;
 
 public interface OrderDao 
 {
@@ -26,5 +27,27 @@ public interface OrderDao
 	ArrayList<OrderBean> getListOrder0(int idRestaurant);
 	ArrayList<OrderBean> getListOrder1(int idRestaurant);
 	ArrayList<OrderBean> getListOrder2(int idRestaurant);
+	
+	/**
+	 * Methode qui retourne la liste des commandes pretes a etre prises en charge par un livreur.
+	 * @return	La liste des commandes à livrer avec toutes les informations requises par le livreur
+	 */
+	ArrayList<OrderToDeliverBean> getListOrdersReadyForDelivery();
+	
+	/**
+	 * Methode qui verifie si une commande a deja ete acceptee par un livreur
+	 * @param idOrder	l'identifiant de la commande
+	 * @return			true si la commande n'a toujours pas ete accepte, sinon false
+	 */
+	boolean checkOrderNotAcceptedYet(int idOrder);
+	
+	/**
+	 * Methode qui va assigner une commande au livreur qui veut la prendre en charge
+	 * @param idOrder		l'identifiant de la commande
+	 * @param idDeliveryMan	l'identifiant du livreur 
+	 * @return	0 si tout s'est bien passe, 1 si la commande est deja prise en chage par un autre livreur, 2 si il y a eu une erreur
+	 */
+	int assignOrderToDelileveryMan(int idOrder, int idDeliveryMan);
+	
 
 }

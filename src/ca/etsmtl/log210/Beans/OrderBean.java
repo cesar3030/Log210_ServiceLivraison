@@ -24,17 +24,14 @@ public class OrderBean {
 	//Si 0 il s'Ajit de l'adresse contenu dans la table useraccount, celle de son inscription
 	private int idAddress;
 	
-	/*
-	 * l'address au format string, on utilise cet attribut pour afficher dans le front-end mais on ne manipule
-	 * pas les donnees en BD avec cet attribut dans la clause where
-	 */
-	private String stringAddress;
-	
 	//Date et heure de livraison
 	private String hourAndDate;
 	
 	//Le code de confirmation de la commande, genere une fois que la commande et les items ont ete cree en bd
 	private String confirmationCode;
+	
+	//identifiant du livreur qui prend en charge la commande
+	private int idDeliveryMan;
 	
 	
 	
@@ -132,12 +129,14 @@ public class OrderBean {
 		this.confirmationCode = confirmationCode;
 	}
 
-	public String getStringAddress() {
-		return stringAddress;
+	public int getIdDeliveryMan() {
+		return idDeliveryMan;
 	}
 
-	public void setStringAddress(String stringAddress) {
-		this.stringAddress = stringAddress;
+	public void setIdDeliveryMan(int idLivreur) {
+		this.idDeliveryMan = idLivreur;
 	}
+
+	
 	
 }

@@ -13,7 +13,11 @@ import javax.servlet.http.HttpSession;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.UserAccountDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 
 /**
  * This Servlet is use for the connection of a user to the web site. 

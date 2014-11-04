@@ -214,7 +214,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	 *         DB)
 	 * @throws SQLException
 	 */
-	private static UserAccountBean mapUserAccount(ResultSet resultSet)
+	public static UserAccountBean mapUserAccount(ResultSet resultSet)
 			throws SQLException {
 		UserAccountBean userAccountFromBD = new UserAccountBean();
 		userAccountFromBD.setUserId(resultSet.getInt("USR_idUser"));

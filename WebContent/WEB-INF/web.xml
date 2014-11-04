@@ -8,6 +8,27 @@
     <welcome-file>connection.jsp</welcome-file>
   </welcome-file-list>
   
+   <!-- SMTP settings -->
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>expresslivraison.montreal@gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>log210log210</param-value>
+    </context-param>
+  
   
   <servlet>
     <servlet-name>UserConnection</servlet-name>
@@ -351,13 +372,31 @@
     <url-pattern>/ShowOrderSummary</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
     <servlet-name>ProceedOrder</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.ProceedOrder</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ProceedOrder</servlet-name>
     <url-pattern>/ProceedOrder</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>OrdersNeededToBeDelivered</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.OrdersNeededToBeDelivered</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OrdersNeededToBeDelivered</servlet-name>
+    <url-pattern>/OrdersNeededToBeDelivered</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AcceptOrder</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.AcceptOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcceptOrder</servlet-name>
+    <url-pattern>/AcceptOrder</url-pattern>
   </servlet-mapping>
 
   <filter>

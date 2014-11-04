@@ -2,6 +2,7 @@ package ca.etsmtl.log210.DAO;
 
 import java.util.ArrayList;
 
+import ca.etsmtl.log210.Beans.OrderDetailsItemsBean;
 import ca.etsmtl.log210.Beans.OrderItemBean;
 
 public interface OrderItemDao 
@@ -18,6 +19,6 @@ public interface OrderItemDao
 	 * @param idOrder
 	 * @return la liste des items de la commande en question
 	 */
-	ArrayList<OrderItemBean> showAllOrderItem(int idOrder);
-
+	ArrayList<OrderDetailsItemsBean> showAllOrderItem(int idOrder);
+	int calculMontantTotal(ArrayList<OrderDetailsItemsBean> liste);
 }

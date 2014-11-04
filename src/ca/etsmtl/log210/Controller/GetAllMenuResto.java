@@ -14,7 +14,11 @@ import ca.etsmtl.log210.Beans.RestaurantBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MenuManageDao;
 import ca.etsmtl.log210.DAO.RestaurantDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class GetAllMenuResto  extends HttpServlet {
 
 	 public static final String CONF_DAO_FACTORY = "daofactory";

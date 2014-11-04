@@ -9,7 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import ca.etsmtl.log210.Beans.AddressBean;
 import ca.etsmtl.log210.Beans.OrderBean;
+import ca.etsmtl.log210.Beans.OrderItemBean;
+import ca.etsmtl.log210.Beans.OrderToDeliverBean;
+import ca.etsmtl.log210.Beans.RestaurantBean;
+import ca.etsmtl.log210.Beans.UserAccountBean;
 
 public class OrderDaoImpl implements OrderDao
 {
@@ -58,13 +63,44 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
 			+ "AND ord.ORD_status = 2 " 
 			+ "AND  re.RES_idRestaurant = ?";
-
 	
+	private static final String SQL_GET_ORDER_READY_FOR_DELIVERY = ""
+			+ "SELECT * "
+			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re, tbuseraccount usr, tbotheraddress adr "
+			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
+			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
+			+ "AND  pl.PLA_idMenu = me.MEN_idMenu "
+			+ "AND  adr.ADR_idAddress = ord.ORD_address "
+			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant " 
+			+ "AND  usr.USR_idUser = ord.ORD_idUserAccount	"
+			+ "AND	ord.ORD_status = 2 ";
+	
+	private static final String SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER = ""
+			+ "UPDATE tborder "
+			+ "SET ORD_idDeliveryMan=?, ORD_status=? "
+			+ "WHERE ORD_idOrder=?";
+	
+	private static final String SQL_GET_ORDER_WITH_ID = ""
+			+ "SELECT * "
+			+ "FROM tborder "
+			+ "WHERE ORD_idOrder = ?;";
+			
+	
+	/**
+	 * Methodde qui permet de recuperer la DAO
+	 * @param daoFactory
+	 */
 	public OrderDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
-	@Override
+	/**
+	 * Methode qui permet d'inserer une nouvelle commande dans la BD
+	 * param newOrder ( OrderBean )
+	 * 
+	 * L orderBEan permet de garder en memoire le choix fais par le client lors de la commande
+	 * puis va etre inserer en bd
+	 */
 	public int newOrder(OrderBean newOrder) {
 		
 		Connection connexion = null;
@@ -135,23 +171,33 @@ public class OrderDaoImpl implements OrderDao
 		return etatRetour;
 	}
 
-	@Override
+	/**
+	 * Methode qui va mettre ajout le statut d un commande
+	 * @param (int) idOrderRecu (ceci est l'id de la commande)
+	 * @param (int) statutRecu (ceci est le statut de base a modifier)
+	 * 
+	 * Consequence : le statut de la commande selon l id va etre mis a jour
+	 */
 	public int updateOrderState(int idOrderRecu, int statutRecu) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		int codeRetour=0;
-		int statutUp=0;
+		int statutUp=-1;
 		// A PREPARER
 		if(statutRecu==0){
 			statutUp=1;
 		}
-		// TERMIME
+		// Prete a etre livrer
 		else if(statutRecu==1){
 			statutUp=2;
 		}
-		// LIVREE
+		//livraison en cours
 		else if(statutRecu==2){
+			statutUp=3;
+		}
+		// LIVREE
+		else if(statutRecu==3){
 			statutUp=4;
 		}
 
@@ -170,6 +216,7 @@ public class OrderDaoImpl implements OrderDao
 			
 			codeRetour = preparedStatement.executeUpdate();
 			
+			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -177,11 +224,18 @@ public class OrderDaoImpl implements OrderDao
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		
-		return codeRetour;
+		return statutUp;
 
 	}
 
-	@Override
+	/**
+	 * Methode qui permet de recuprer depuis la BDD
+	 * la liste de commande a preparer selon le numero de restaurant
+	 * 
+	 * @param (int) idRestaurant
+	 * 
+	 * @return (ArrayList<OrderBean>) ListeOrder liste de commande 
+	 */
 	public ArrayList<OrderBean> getListOrder0(int idRestaurant) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -214,7 +268,14 @@ public class OrderDaoImpl implements OrderDao
 		return orderList;
 	}
 
-	@Override
+	/**
+	 * Methode qui permet de recuprer depuis la BDD
+	 * la liste de commande en preparation selon le numero de restaurant
+	 * 
+	 * @param (int) idRestaurant
+	 * 
+	 * @return (ArrayList<OrderBean>) ListeOrder liste de commande 
+	 */
 	public ArrayList<OrderBean> getListOrder1(int idRestaurant) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -247,7 +308,14 @@ public class OrderDaoImpl implements OrderDao
 		return orderList;
 	}
 
-	@Override
+	/**
+	 * Methode qui permet de recuprer depuis la BDD
+	 * la liste de commande a terminees selon le numero de restaurant
+	 * 
+	 * @param (int) idRestaurant
+	 * 
+	 * @return (ArrayList<OrderBean>) ListeOrder liste de commande 
+	 */
 	public ArrayList<OrderBean> getListOrder2(int idRestaurant){
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
@@ -280,7 +348,7 @@ public class OrderDaoImpl implements OrderDao
 		return orderList;
 	}
 	
-	private OrderBean mapOrder(ResultSet resultSet) throws SQLException 
+	public static OrderBean mapOrder(ResultSet resultSet) throws SQLException 
 	{
 		OrderBean order = new OrderBean();
 		
@@ -290,8 +358,152 @@ public class OrderDaoImpl implements OrderDao
 		order.setConfirmationCode(resultSet.getString("ORD_confirmationCode"));
 		order.setHourAndDate(resultSet.getString("ORD_date"));
 		order.setStatus(resultSet.getInt("ORD_status"));
+		order.setIdDeliveryMan(resultSet.getInt("ORD_idDeliveryMan"));
 
 		return order;
+	}
+
+	@Override
+	public ArrayList<OrderToDeliverBean> getListOrdersReadyForDelivery() {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<OrderToDeliverBean> orderToDeliver = new ArrayList<OrderToDeliverBean>();
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ORDER_READY_FOR_DELIVERY, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) 
+			{
+				orderToDeliver.add(mapOrderToDeliver(resultSet));
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return orderToDeliver;
+	}
+
+	public static OrderToDeliverBean mapOrderToDeliver(ResultSet resultSet) throws SQLException  
+	{
+		OrderToDeliverBean orderToDeliver = new OrderToDeliverBean();
+		
+		OrderBean order = mapOrder(resultSet);
+		RestaurantBean restaurant = RestaurantDaoImpl.mapRestaurateur(resultSet);
+		UserAccountBean client = UserAccountDaoImpl.mapUserAccount(resultSet);
+
+		orderToDeliver.setClient(client);
+		orderToDeliver.setOrder(order);
+		orderToDeliver.setRestaurant(restaurant);
+		
+		/**
+		 * Si l'id de l'adresse de livraison est 0, celaveut dire 
+		 * qu'il s'agit de l'adresse contenue dans le compte de l'utilisateur
+		 */
+		if(order.getIdAddress()==0)
+		{
+			AddressBean accountAddress = new AddressBean(client.getHomeAddress(), client.getUserId());
+			orderToDeliver.setAddress(accountAddress);
+		}
+		else
+		{
+			AddressBean otherAddress = AddressDaoImpl.mapAddress(resultSet);
+			orderToDeliver.setAddress(otherAddress);
+		}
+		
+		return orderToDeliver;
+	}
+
+	@Override
+	public boolean checkOrderNotAcceptedYet(int idOrder) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		boolean canBeAccepted = true;
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ORDER_WITH_ID, false,idOrder);
+
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) 
+			{
+				//Si le statut de la livraison est livraison en cours ou terminé, on renvoie false
+				if(resultSet.getInt("ORD_status")>=3)
+				{
+					canBeAccepted = false;
+				}
+			}
+
+		} 
+		catch (SQLException e) 
+		{
+			throw new DAOException(e);
+		} 
+		finally 
+		{
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return canBeAccepted;
+	}
+
+	@Override
+	public int assignOrderToDelileveryMan(int idOrder, int idDeliveryMan) {
+		
+		int errorCode=2;
+		boolean continueTraiment;
+		
+		continueTraiment = checkOrderNotAcceptedYet(idOrder);
+		
+		if(continueTraiment==true)
+		{
+			Connection connexion = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			int codeRetour=0;
+			
+			try {
+				/* Recuperation d'une connexion depuis la Factory */
+				connexion = daoFactory.getConnection();
+				preparedStatement = initialisationRequetePreparee(connexion,SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER,true,idDeliveryMan,3,idOrder);
+				
+				System.out.println(preparedStatement);
+				codeRetour = preparedStatement.executeUpdate();
+				
+				//Si la requete SQL s'est bien terminée, je set le code erreur 0 signifiant que tout a fonctionner
+				if( codeRetour >= 0)
+				{
+					errorCode=0;
+				}
+
+			} catch (SQLException e) {
+				throw new DAOException(e);
+			} finally {
+				fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+			}
+			
+		}
+		else
+		{
+			errorCode = 1;
+		}
+			
+		return errorCode;
 	}
 
 }

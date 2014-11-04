@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.UserAccountDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class SwitchRestaurateurToVisible extends HttpServlet 
 {
 

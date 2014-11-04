@@ -15,7 +15,11 @@ import ca.etsmtl.log210.Beans.MenuBean;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MenuManageDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class AddNewMenu extends HttpServlet {
 
 	 private static final String CONF_DAO_FACTORY = "daofactory";

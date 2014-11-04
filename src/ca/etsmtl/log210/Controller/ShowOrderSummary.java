@@ -28,7 +28,11 @@ import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.AddressDao;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
-
+/**
+ * Aissou Idriss
+ * Jeanroy Cesar
+ * Murat David
+ */
 public class ShowOrderSummary  extends HttpServlet {
 	
 	private static String ORDER="order";
@@ -72,8 +76,10 @@ public class ShowOrderSummary  extends HttpServlet {
 		System.out.println(listAddressOfClient.size());
 		
 		session.setAttribute(ATTRIBUTE_ADDRESS,listAddressOfClient);
-		session.setAttribute(ORDER, order);
 		
+	
+		session.setAttribute(ORDER, order);
+		session.setAttribute("test", "ehediebciebc");
 		//this.getServletContext().getRequestDispatcher( SUMMARY_PAGE  ).forward( request, response );
 		 response.sendRedirect( request.getContextPath() + "/Restrict/Client/NewFile.jsp" );
 	 }

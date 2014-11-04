@@ -12,7 +12,17 @@ public class AddressBean
 	private int idUserAccount;
 	
 	
+	public AddressBean() 
+	{
+		
+	}
 	
+	public AddressBean(String homeAddress, int idUserAccont) 
+	{
+		idAddress = 0;
+		address = homeAddress ;
+		idUserAccount = idUserAccont;
+	}
 	public int getIdAddress() {
 		return idAddress;
 	}

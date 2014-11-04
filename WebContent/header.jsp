@@ -30,8 +30,12 @@
 	<script src="<c:url value="/inc/js/toastr/toastr.js"/>"></script>
 	<script src="<c:url value="/inc/css/bootstrap/js/bootstrap-datetimepicker.min.js"/>"></script>
 	<script src="<c:url value="/inc/css/bootstrap/js/moment.js"/>"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+    <![endif]-->	
+
 	<title>Express Livraison</title>
 </head>
 

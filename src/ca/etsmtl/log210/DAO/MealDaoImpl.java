@@ -48,7 +48,7 @@ public class MealDaoImpl implements MealDao {
 		ResultSet resultSet = null;
 		int codeRetour = 0;
 		boolean etatRetour = true;
-
+		
 		try {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
@@ -76,7 +76,7 @@ public class MealDaoImpl implements MealDao {
 
 	// Permet de reformer un Bean Meal de la BD pour pourvoir travailler avec
 	// les donn�es provenant de la requete SQL
-	private MealBean mapMealBean(ResultSet resultSet) throws SQLException {
+	public static MealBean mapMealBean(ResultSet resultSet) throws SQLException {
 		MealBean meal = new MealBean();
 
 		meal.setIdMeal(resultSet.getInt("PLA_idPlat"));
