@@ -35,7 +35,7 @@ public class OrderDaoImpl implements OrderDao
 			+ "WHERE ORD_idOrder=?";
 	
 	private static final String SQL_GET_0_ORDER = ""
-			+ "SELECT * "
+			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
 			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re "
 			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
 			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
@@ -45,7 +45,7 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  re.RES_idRestaurant = ?";
 	
 	private static final String SQL_GET_1_ORDER = ""
-			+ "SELECT * "
+			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
 			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re "
 			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
 			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
@@ -55,7 +55,7 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  re.RES_idRestaurant = ?";
 	
 	private static final String SQL_GET_2_ORDER = ""
-			+ "SELECT * "
+			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
 			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re "
 			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
 			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
@@ -359,7 +359,7 @@ public class OrderDaoImpl implements OrderDao
 		order.setHourAndDate(resultSet.getString("ORD_date"));
 		order.setStatus(resultSet.getInt("ORD_status"));
 		order.setIdDeliveryMan(resultSet.getInt("ORD_idDeliveryMan"));
-
+		System.out.println(order.getIdOrder());
 		return order;
 	}
 
