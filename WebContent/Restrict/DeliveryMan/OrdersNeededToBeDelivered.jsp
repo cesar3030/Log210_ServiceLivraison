@@ -16,6 +16,7 @@ var directionsDisplay;
 var directionsService;
 
 function initialize(idContener) {
+	alert("initialize");
 	directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
   var mapOptions = {
@@ -38,7 +39,7 @@ function calcRoute(restaurantAddress,clientAddress) {
   };
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
-    	alert("in");
+    	alert("calcRoute");
       directionsDisplay.setDirections(response);
     }
   });
@@ -132,8 +133,9 @@ function calcRoute(restaurantAddress,clientAddress) {
 	</div>	
 </div>
 <script>
-alert("map-canvas-${orderForDelivery.order.idOrder}"+"${orderForDelivery.restaurant.address}"+"${orderForDelivery.address.address}");
-newMap("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}");
+//newMap("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}");
+initialize("map-canvas-${orderForDelivery.order.idOrder}");
+calcRoute("${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}");
 </script>
 </c:forEach> 	
 

@@ -15,7 +15,7 @@
 }
 
 /*format d'affichage des google maps*/
-html, body, .map-canvas 
+.map-canvas 
 { 
 	height: 250px;
 	margin-right: -29px;
