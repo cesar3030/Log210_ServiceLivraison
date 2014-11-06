@@ -89,6 +89,13 @@ public class RestaurantDaoImpl implements RestaurantDao
 			+ "FROM tbrestaurant " 
 			+ "WHERE  RES_idUserAccount=? ";
 	
+	private static final String SQL_GET_RESTAURANTS_WHO_HAVE_MEALS = "" 
+			+ "SELECT DISTINCT RES_idRestaurant, RES_idUserAccount, RES_name, RES_address, RES_phoneNumber, RES_kindOfFood, RES_visible, USR_firstName, USR_name "
+			+ "FROM tbplat, tbmenu, tbrestaurant, tbuseraccount "
+			+ "WHERE PLA_idMenu=MEN_idMenu "
+			+ "AND MEN_idRestaurant=RES_idRestaurant "  
+			+ "AND RES_idUserAccount = USR_idUser";
+	
 	
 	public RestaurantDaoImpl(DAOFactory daoFactory) 
 	{
@@ -525,6 +532,42 @@ public boolean unlinkARestaurateurHisRestaurants(int idRestaurateur)
 		fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 	}
 	return retour;
+}
+
+
+@Override
+public ArrayList<RestaurantBean> getListRestaurantWhoHaveMeals() 
+{	Connection connexion = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet resultSet = null;
+	ArrayList<RestaurantBean> restaurantList = new ArrayList<RestaurantBean>();
+	
+	try {
+		/* Recuperation d'une connexion depuis la Factory */
+		connexion = daoFactory.getConnection();
+		
+		preparedStatement = initialisationRequetePreparee(connexion,
+				SQL_GET_RESTAURANTS_WHO_HAVE_MEALS, 
+				false);
+	
+		resultSet = preparedStatement.executeQuery();
+	
+		/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+		while (resultSet.next()) 
+		{
+			restaurantList.add(mapRestaurateur(resultSet));
+		}
+	
+	} 
+	catch (SQLException e) 
+	{
+		throw new DAOException(e);
+	} 
+	finally 
+	{
+		fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+	}
+	return restaurantList;
 }
 
 

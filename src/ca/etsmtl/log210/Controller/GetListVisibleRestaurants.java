@@ -35,7 +35,7 @@ public class GetListVisibleRestaurants extends HttpServlet
 	 {
 		 ArrayList<RestaurantBean> restaurantList= new ArrayList<RestaurantBean>();
 		 
-		 restaurantList=restaurantDao.getActiveRestaurants();
+		 restaurantList=restaurantDao.getListRestaurantWhoHaveMeals();
 		 
 		 // request.setAttribute(ACTIVE_RESTAURATEUR_LIST, restaurantList);
 		 

@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 
 <jsp:include page="/header.jsp"></jsp:include>	
- 
 <div class="row">
 	  	<div class="col-md-12 col-xs-12"> 		 
 	 			 <h1 class="text-center" >Résumé de votre commande</h1>  	
@@ -58,7 +57,7 @@
         <h3 class="panel-title">Finaliser votre commande</h3>
       </div>
       <div class="panel-body">
-		<form name=cmpid class="form-horizontal" role="form" method="post" action="<c:url value="/ProceedOrder"/>" >
+	  <form name=cmpid class="form-horizontal" role="form" id="ProceedOrder" method="post" action="<c:url value="/ProceedOrder"/>"> 
 		       <div class="form-group">
 		       		<label for="dtp_input1" class="col-md-4 control-label">Date et heure de livraison: </label>
 		            <div id="id" class="input-group date form_datetime col-md-7" data-date="1979-09-16T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
@@ -82,14 +81,14 @@
 				 </div>
 			  </div>
 			 <div class='col-md-10'>
-				 <button class="btn btn-primary" type="submit">Confirmer la commande</button>
+				 <button class="btn btn-primary"  id="confirm" type="submit">Confirmer la commande</button> 
 			 </div>
 		</form>
 		</div>
     </div>
 	</fieldset>
 </div>
-
+<jsp:include page="/Restrict/Client/ModalOrderDone.jsp"></jsp:include>	
 <script type="text/javascript">
 $( "select" )
 .change(function () {
@@ -123,6 +122,13 @@ $('.form_datetime').datetimepicker({
 });
 
 $('#id').datetimepicker('setStartDate', new Date());
+
+$('#ProceedOrder').submit(function() 
+{
+	$('#confirm').hide();
+});
+
+
 
 </script>	 
 <script src="<c:url value="/inc/js/jquery-1.8.3.min.js"/>"></script>

@@ -64,6 +64,13 @@ public interface RestaurantDao
 	ArrayList<RestaurantBean> getActiveRestaurantsForRestaurateur(int idRestaurateur);
 	
 	/**
+	 * Methode qui retourne la liste des restaurants qui sont plats 
+	 * @param idRestaurateur		Id du restaurateur
+	 * @return 							ArrayList contenant les restaurants du restaurateur
+	 */
+	ArrayList<RestaurantBean> getListRestaurantWhoHaveMeals();
+	
+	/**
 	 * Cette methode va chercher la liste des restaurants visibles. Cette methode est utilisee 
 	 * pour peupler la liste deroullante du formulaire d'inscription d'un nouveau restaurant. 
 	 * @return La liste des restaurants qui n'ont pas de restaurateur
@@ -86,5 +93,5 @@ public interface RestaurantDao
 	 */
 	boolean unlinkARestaurateurHisRestaurants(int idRestaurateur);
 	
-
+	
 }
