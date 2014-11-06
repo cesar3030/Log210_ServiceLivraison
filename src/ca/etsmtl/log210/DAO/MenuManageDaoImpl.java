@@ -23,6 +23,9 @@ public class MenuManageDaoImpl implements MenuManageDao {
 
 	static final String SQL_GET_ALL_INACTIVE_MENU_RESTAURANT =
 			"SELECT * FROM tbmenu  WHERE MEN_idRestaurant=? and MEN_visible=0";
+	
+	static final String SQL_GET_ALL_RESTAURANT_NOT_EMPTY =
+			"SELECT DISTINCT MEN_idMenu, MEN_idRestaurant, MEN_name,MEN_description,MEN_visible FROM tbplat ,tbmenu, tbrestaurant WHERE PLA_idMenu = MEN_idMenu AND RES_idRestaurant = MEN_idRestaurant AND RES_idRestaurant = ?";
 
 	static final String SQL_MODIFY_MENU_RESTAURANT = 
 			"" + "UPDATE tbmenu "
@@ -233,6 +236,37 @@ public class MenuManageDaoImpl implements MenuManageDao {
 		menu.setVisible(resultSet.getInt("MEN_visible"));
 		
 		return menu;
+	}
+
+	@Override
+	public ArrayList<MenuBean> showMenuNotEmpty(int restaurantNumber) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<MenuBean> RestaurantNotEmptyList = new ArrayList<MenuBean>();
+		try {
+			/* Faire une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+
+			// ON PREPARE LA REQUETE
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ALL_RESTAURANT_NOT_EMPTY, false, restaurantNumber);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) {
+				RestaurantNotEmptyList.add(mapMenuBean(resultSet));
+				
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return RestaurantNotEmptyList;
 	}
 
 }

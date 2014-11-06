@@ -69,11 +69,10 @@ public class GetAllMenuResto  extends HttpServlet {
 					 
 				 
 				 //On recupere les donnees qui seront recu avec la requete sql
-				 activeMenuRestaurantList = menuDao.showAllActiveMenuForOneResto(ID_RESTAURANT_RECEIVED);
+				 activeMenuRestaurantList = menuDao.showMenuNotEmpty(ID_RESTAURANT_RECEIVED);
 				 
 				 for(MenuBean menu : activeMenuRestaurantList)
 				 {
-					//Je cree un xml pour chaque menu et je le parserai dans mon javascript pour en suite créé des balise html avec les informations
 					 String description=menu.getDescription();
 					 
 					 if(description=="" || description==null || description.equals(""))

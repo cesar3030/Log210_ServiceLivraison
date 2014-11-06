@@ -18,4 +18,6 @@ public interface MenuManageDao {
 
 	ArrayList<MenuBean> showAllInactiveMenuForOneResto(int restaurantNumber);
 	
+	ArrayList<MenuBean> showMenuNotEmpty(int restaurantNumber);
+	
 }

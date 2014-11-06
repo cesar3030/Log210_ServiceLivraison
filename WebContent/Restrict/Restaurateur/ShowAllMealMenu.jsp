@@ -5,7 +5,7 @@
 <jsp:include page="/header.jsp"></jsp:include>
 
 
-<!-- Affiche tous les menus par restaurant-->
+<!-- Affiche tous les plats par menus-->
 
 <div class="col-md-5 col-md-offset-5">
 	<h3>Tous les plats du Menu : ${menuTitleName}</h3>
