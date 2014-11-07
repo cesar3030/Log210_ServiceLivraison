@@ -42,8 +42,9 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  pl.PLA_idMenu = me.MEN_idMenu "
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
 			+ "AND  ord.ORD_status = 0 " 
-			+ "AND  re.RES_idRestaurant = ?";
-	
+			+ "AND  re.RES_idRestaurant = ? "
+			+ "ORDER BY ord.ORD_idOrder ";
+			
 	private static final String SQL_GET_1_ORDER = ""
 			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
 			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re "
@@ -52,7 +53,8 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  pl.PLA_idMenu = me.MEN_idMenu "
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
 			+ "AND ord.ORD_status = 1 " 
-			+ "AND  re.RES_idRestaurant = ?";
+			+ "AND  re.RES_idRestaurant = ? "
+			+ "ORDER BY ord.ORD_idOrder";
 	
 	private static final String SQL_GET_2_ORDER = ""
 			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
@@ -62,7 +64,8 @@ public class OrderDaoImpl implements OrderDao
 			+ "AND  pl.PLA_idMenu = me.MEN_idMenu "
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
 			+ "AND ord.ORD_status = 2 " 
-			+ "AND  re.RES_idRestaurant = ?";
+			+ "AND  re.RES_idRestaurant = ? "
+	        + "ORDER BY ord.ORD_idOrder ";
 	
 	private static final String SQL_GET_ORDER_READY_FOR_DELIVERY = ""
 			+ "SELECT * "
