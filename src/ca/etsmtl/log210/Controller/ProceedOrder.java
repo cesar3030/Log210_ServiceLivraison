@@ -114,10 +114,6 @@ public class ProceedOrder extends HttpServlet {
 
 		}
 		
-		//On set a la commande l'id de l'adresse selectionnÃ© par le client
-		order.setIdAddress(idAddress);
-		
-		
 		
 		//On set l'id de l'adresse
 		order.setIdAddress(idAddress);
@@ -185,9 +181,9 @@ public class ProceedOrder extends HttpServlet {
 						        //Envoie de du courriel
 					            EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
 				            
-					            //SmsUtility.sendTextMessage("Voic commande est en cours de préparation","+"+client.getPhoneNumber());
+					            //SmsUtility.sendTextMessage("Voic commande est en cours de prï¿½paration","+"+client.getPhoneNumber());
 					            
-					            returnMessage.put("email","Un message vous a été envoyé à l'adresse: " + client.getEmail());
+					            returnMessage.put("email","Un message vous a ï¿½tï¿½ envoyï¿½ ï¿½ l'adresse: " + client.getEmail());
 					            
 					        } 
 							catch (Exception ex) 
@@ -272,16 +268,16 @@ public class ProceedOrder extends HttpServlet {
 	}
 	
 	/**
-	 * Méthode qui cree le contenu du mail de confirmation de commande.
+	 * Mï¿½thode qui cree le contenu du mail de confirmation de commande.
 	 * @param order		la commande	
 	 * @param client	le client qui a effectue la commande
 	 * @return			le contenu du courriel contenant le resumer de la commande
 	 */
 	private String generateMailContent(OrderBean order, UserAccountBean client)
 	{
-		String beginning="Chère "+client.getFirstName()+" "+client.getName()+",<br><br> Voici le résumé de la commande n°"+order.getConfirmationCode();
+		String beginning="Chï¿½re "+client.getFirstName()+" "+client.getName()+",<br><br> Voici le rï¿½sumï¿½ de la commande nï¿½"+order.getConfirmationCode();
 		String content="<br>";
-		String end="<br><br>Merci de votre fidélité, au plaisir de vous revoir !";
+		String end="<br><br>Merci de votre fidï¿½litï¿½, au plaisir de vous revoir !";
 		
 		for(OrderItemBean item : order.getOrderItemsList())
 		{
