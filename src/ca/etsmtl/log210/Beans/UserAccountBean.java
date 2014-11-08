@@ -16,6 +16,7 @@ import ca.etsmtl.log210.DAO.UserAccountDao;
  */
 public class UserAccountBean 
 {
+	private int userId;
 	private String name;
 	private String firstName;
 	private String birthdayDate;
@@ -25,13 +26,15 @@ public class UserAccountBean
 	private String phoneNumber;
 	private String password;
 	//Regles des droits (0:client, 1:restaurateur, 2:entrepreneur )
+	private int userRights;
 	
-	// PROBLEME AVEC LES DROITS UTILISATEURS
-	private int    userRights;
-	private int userId;
 	//Les autres adresses du client
 	private ArrayList<AddressBean> otherAdress;
 	
+	//Attribut ou est socke l'identifiant de l'adresse que l'utilisateur a utilisé la derniere fois.
+	//Si =0 cela veut dire que c'est celle du compte UserAccount (homeAddress)
+	//Si c'est différent de 0, cela veut dire que c'est l'identifiant d'une adresse de la table tbotheraddress.
+	private int idMainAddress;
 	
 	private static final String EMAIL  = "email";
     private static final String PASS   = "password"; 
@@ -190,6 +193,14 @@ public class UserAccountBean
 
 	public void setOtherAdress(ArrayList<AddressBean> otherAdress) {
 		this.otherAdress = otherAdress;
+	}
+
+	public int getIdMainAddress() {
+		return idMainAddress;
+	}
+
+	public void setIdMainAddress(int idMainAddress) {
+		this.idMainAddress = idMainAddress;
 	}
 	
 
