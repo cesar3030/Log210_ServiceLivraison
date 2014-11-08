@@ -55,6 +55,11 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			+ "UPDATE tbUserAccount "
 			+ "SET USR_visible=1 "
 			+ "WHERE USR_idUser=?";
+	private static final String SQL_UPDATE_ID_MAIN_ADDRESS = ""
+			+ "UPDATE tbUserAccount "
+			+ "SET USR_idMainAddress=? "
+			+ "WHERE USR_idUser=?";
+			
 
 	public UserAccountDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
@@ -90,6 +95,11 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		return userAccount;
 	}
 
+	/**
+	 * Ajoute un nouvel utilisateur dans la BD
+	 * @param newUser	le bean contenant les information de l'utilisateur a ajouter en BD
+	 * @return				l'identifant du nouvel utilisateur cree
+	 */
 	public int newUserAccount(UserAccountBean newUser) {
 
 		Connection connexion = null;
@@ -138,7 +148,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		int codeRetour;
 
 		try {
-			/* R���������cup���������ration d'une connexion depuis la Factory */
+			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_MODIFY_USER_ACCOUNT, false,
@@ -171,14 +181,14 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		UserAccountBean userAccount = null;
 
 		try {
-			/* R���������cup���������ration d'une connexion depuis la Factory */
+			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_TEST_EMAIL, false, testingEmail);
 			System.out.println(preparedStatement);
 			resultSet = preparedStatement.executeQuery();
 
-			/* Parcours de la ligne de donn���������es de l'���������ventuel ResulSet retourn��������� */
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
 			while (resultSet.next()) {
 				userAccount = mapUserAccount(resultSet);
 			}
@@ -228,6 +238,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		userAccountFromBD.setUserRights(resultSet.getInt("USR_rights"));
 		userAccountFromBD.setEmail(resultSet.getString("USR_email"));
 		userAccountFromBD.setPassword(resultSet.getString("USR_password"));
+		userAccountFromBD.setIdMainAddress(resultSet.getInt("USR_idMainAddress"));
 
 		return userAccountFromBD;
 	}
@@ -370,6 +381,46 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_CHANGE_VISIBILITY_TO_1_RESTAURATEUR, false, idRestaurateur);
+
+			System.out.println(preparedStatement);
+
+			codeRetour = preparedStatement.executeUpdate();
+			
+			if(codeRetour==0)
+			{
+				etatRetour=false;
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		
+		return etatRetour;
+	}
+
+	@Override
+	/**
+	 * Methode qui va updater en bd le champ contenant l'identifiant de la dernière adresse
+	 * utilisée.
+	 * @param 	user le compte utilisateur a aller updater en BD
+	 * @return	true si l'opération s'est bien faite, false sinon
+	 */
+	public boolean updateIdMainAddressUsed(UserAccountBean user) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int codeRetour=0;
+		boolean etatRetour=true;
+		
+		
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_UPDATE_ID_MAIN_ADDRESS, false,user.getIdMainAddress());
 
 			System.out.println(preparedStatement);
 

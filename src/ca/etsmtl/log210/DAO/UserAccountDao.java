@@ -48,5 +48,13 @@ public interface UserAccountDao
 	 */
 	boolean swtichRestaurateurToVisible(int idRestaurateur);
 	 
+
+	/**
+	 * Methode qui va updater en bd le champ contenant l'identifiant de la dernière adresse
+	 * utilisée.
+	 * @param 	user le compte utilisateur a aller updater en BD
+	 * @return	true si l'opération s'est bien faite, false sinon
+	 */
+	boolean updateIdMainAddressUsed(UserAccountBean user);
 	
 }
