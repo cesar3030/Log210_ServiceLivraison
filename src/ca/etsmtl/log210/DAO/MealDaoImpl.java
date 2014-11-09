@@ -19,6 +19,8 @@ import ca.etsmtl.log210.Beans.MealBean;
  */
 public class MealDaoImpl implements MealDao {
 
+	//Requetes SQL
+	
 	static final String SQL_ADD_NEW_MEAL = ""
 			+ "INSERT INTO `tbplat`( `PLA_idPlat`, `PLA_idMenu`, `PLA_price`, `PLA_name`, `PLA_description`)  "
 			+ "VALUES( ?,?,?,?,?) ";
@@ -88,6 +90,9 @@ public class MealDaoImpl implements MealDao {
 		return meal;
 	}
 
+	/**
+	 * Permet de suprimmer un plat d'un menu
+	 */
 	@Override
 	public boolean deleteNewMeal(int idMeal) {
 
@@ -120,6 +125,9 @@ public class MealDaoImpl implements MealDao {
 		return etatRetour;
 	}
 
+	/**
+	 * Retrourne un arrayList contenant tous les plats d'un menu
+	 */
 	@Override
 	public ArrayList<MealBean> showAllMealFromMenu(int idMenu) {
 		Connection connexion = null;
@@ -160,6 +168,9 @@ public class MealDaoImpl implements MealDao {
 		return showAllMealFromMenu;
 	}
 
+	/**
+	 * Retroune toute les informations d'un plat
+	 */
 	@Override
 	public MealBean getInfosOfAMeal(int idMeal) {
 		Connection connexion = null;

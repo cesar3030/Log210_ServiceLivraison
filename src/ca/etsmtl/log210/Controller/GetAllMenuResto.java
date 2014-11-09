@@ -35,7 +35,6 @@ public class GetAllMenuResto  extends HttpServlet {
 	 
 	//Instance de menu qui va nous permettre de faire des requetes sur la BD
    private MenuManageDao menuDao;
-   private RestaurantDao restaurantDao;
    
     
    
@@ -46,7 +45,6 @@ public class GetAllMenuResto  extends HttpServlet {
 	 public void init() throws ServletException 
 	 {
 		   	this.menuDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getMenuRestaurantDao();
-		   	this.restaurantDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getRestaurantDao();
 	 }
 	 
 	 public String getServletInfo(){

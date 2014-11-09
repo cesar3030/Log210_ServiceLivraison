@@ -13,10 +13,9 @@ import javax.servlet.http.HttpSession;
 import ca.etsmtl.log210.Beans.MealBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
+
 /**
- * Aissou Idriss
- * Jeanroy Cesar
- * Murat David
+ * Aissou Idriss Jeanroy Cesar Murat David Permet d'ajouter un plat dans un menu
  */
 public class NewMeal extends HttpServlet {
 
@@ -50,9 +49,12 @@ public class NewMeal extends HttpServlet {
 		/* Récupération de la session depuis la requête */
 		HttpSession session = request.getSession();
 
+		// Création d'un Bean de plat
 		MealBean mealToAdd = new MealBean();
 		System.out.println("ID DU MENU : "
 				+ session.getAttribute("idMenuSession"));
+
+		// On remplis le Bean
 		mealToAdd.setIdMenu(Integer.parseInt((String) session
 				.getAttribute("idMenuSession")));
 		mealToAdd.setName(request.getParameter("name"));
@@ -61,6 +63,8 @@ public class NewMeal extends HttpServlet {
 
 		boolean insertReturn;
 
+		// On envoie le bean à insérer au controlleur qui fait le lien avec la
+		// BDD
 		insertReturn = mealDAO.addNewMeal(mealToAdd);
 
 		Map<String, String> returnMessage = new HashMap<String, String>();
@@ -78,24 +82,23 @@ public class NewMeal extends HttpServlet {
 				+ session.getAttribute("idMenuSession"));
 		request.setAttribute(ID_MENU_REQUETE,
 				session.getAttribute("idMenuSession"));
-		
+
 		System.out.println("voici l'idRestaurant : "
-				+  session.getAttribute("idRestaurant"));
+				+ session.getAttribute("idRestaurant"));
 		request.setAttribute("idRestaurant",
-				 session.getAttribute("idRestaurant"));
-		
-		if(request.getParameter("description").equals("")){
-			session.setAttribute("retourInt",3);
-			session.setAttribute("retourString",request.getParameter("name"));
-		}
-		else{
-			session.setAttribute("retourInt",0);
-			session.setAttribute("retourString",request.getParameter("name"));
+				session.getAttribute("idRestaurant"));
+
+		//Récupération d'informations pour les afficher à l'utilisateur
+		if (request.getParameter("description").equals("")) {
+			session.setAttribute("retourInt", 3);
+			session.setAttribute("retourString", request.getParameter("name"));
+		} else {
+			session.setAttribute("retourInt", 0);
+			session.setAttribute("retourString", request.getParameter("name"));
 		}
 
-		
 		System.out.println("-----FIN DANS NEW MEAL FIN------");
-		
+
 		this.getServletContext().getRequestDispatcher(MEAL_MENU)
 				.forward(request, response);
 

@@ -13,14 +13,16 @@ import ca.etsmtl.log210.Beans.MealBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 
+/**
+ * 
+ * @author David 
+ * Page affichant tous les plats d'un menu à l'utilisateur
+ */
 public class ShowAllMealMenu extends HttpServlet {
-
-	/**
-	 * 
-	 */
 
 	private static final long serialVersionUID = 6561975988106199732L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
+	// Permet de savoir vers quelle page aller, une fois le traitement effectué
 	public static final String MENU_MANAGEMENT_ACCESS = "/Restrict/Restaurateur/ShowAllMealMenu.jsp";
 	public static final String MEAL_MENU_ATTRIBUTE = "mealMenuList";
 	public static final String MEAL_MENU_TITLE_ATTRIBUTE = "mealMenu";
@@ -71,8 +73,6 @@ public class ShowAllMealMenu extends HttpServlet {
 					session.getAttribute("idMenuSession"));
 		}
 
-		
-
 		if (request.getParameter("idRestaurant") != null) {
 			ID_RESTAURANT = Integer.parseInt(request
 					.getParameter("idRestaurant"));
@@ -94,7 +94,6 @@ public class ShowAllMealMenu extends HttpServlet {
 		request.setAttribute(MENU_NAME_TITRE, MENU_NAME);
 		request.setAttribute("idRestaurant", ID_RESTAURANT);
 		request.setAttribute(ID_MENU_SESSION, ID_MENU);
-		
 
 		// On renvoie la requete de reponse au bon endroit du restrict
 		this.getServletContext().getRequestDispatcher(MENU_MANAGEMENT_ACCESS)

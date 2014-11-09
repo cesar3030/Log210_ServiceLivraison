@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
+
 /**
- * Aissou Idriss
- * Jeanroy Cesar
- * Murat David
+ * Aissou Idriss Jeanroy Cesar Murat David Classe permetant de supprimer un plat
+ * d'un menu
  */
 public class DeleteMeal extends HttpServlet {
 
@@ -45,9 +45,12 @@ public class DeleteMeal extends HttpServlet {
 		boolean insertReturn;
 		System.out.println("-----DÉBUT DELETE MEAL MENU DÉBUT------");
 
+		// On récupère la session actuelle
 		HttpSession session = request.getSession();
-		
-	insertReturn = mealDAO.deleteNewMeal(Integer.parseInt(request
+
+		// On envoie l'id du plat à supprimer au controller qui exécutera une
+		// requete pour supprimer le plat
+		insertReturn = mealDAO.deleteNewMeal(Integer.parseInt(request
 				.getParameter("idMeal")));
 
 		Map<String, String> returnMessage = new HashMap<String, String>();
@@ -59,9 +62,9 @@ public class DeleteMeal extends HttpServlet {
 					.put("fail",
 							"Une erreur est survenue, le plat n'a pas pu etre ajoute. Veuillez reessayer.");
 		}
-		session.setAttribute("retourInt",1);
-		session.setAttribute("retourString",request
-				.getParameter("nameMeal"));
+		// Paramètres de retour pour afficher les informations à l'utilisateur
+		session.setAttribute("retourInt", 1);
+		session.setAttribute("retourString", request.getParameter("nameMeal"));
 
 		System.out.println("-----FIN DELETE MEAL MENU FIN------");
 		this.getServletContext().getRequestDispatcher(MEAL_MENU)
