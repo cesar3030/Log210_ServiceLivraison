@@ -20,6 +20,7 @@ import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 import ca.etsmtl.log210.DAO.OrderDao;
 import ca.etsmtl.log210.DAO.OrderItemDao;
+import ca.etsmtl.log210.DAO.UserAccountDao;
 import ca.etsmtl.log210.Utils.EmailUtility;
 import ca.etsmtl.log210.Utils.SmsUtility;
 /**
@@ -46,6 +47,7 @@ public class ProceedOrder extends HttpServlet {
 	private OrderDao orderDao;
 	private OrderItemDao orderItemDao ;
 	private AddressDao addressDao ;
+	private UserAccountDao userAccountDao;
 	
 	public void init() throws ServletException {
 		this.orderDao= ((DAOFactory) getServletContext().getAttribute(
@@ -54,6 +56,8 @@ public class ProceedOrder extends HttpServlet {
 				CONF_DAO_FACTORY)).getOrderItemDao();
 		this.addressDao=((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getAddressDao();
+		this.userAccountDao=((DAOFactory) getServletContext().getAttribute(
+				CONF_DAO_FACTORY)).getUserAccountDao();
 		
 		// On va chercher les informations du serveur SMTP stockees dans web.xml
         ServletContext context = getServletContext();
@@ -114,6 +118,25 @@ public class ProceedOrder extends HttpServlet {
 
 		}
 		
+		/*
+		 * On teste si l'identifiant de la dernière adresse utilisée (stocké dans le compte du client) 
+		 * est la même que celle qui a ete selectionee par l'utilisateur lors de la commande courante.
+		 * Si c'est la même on fait pas de changement en BD
+		 * Si ce n'est pas la même, on va modifier le champ USR_idMainAddress de la table tbuseraccount.
+		 * Ce champ sert a definir l'adresse par defaut du compte afin que ce soit la derniere adresse utilisee 
+		 * qui soit affiche en premiere a l'utilisateur lors de ses futurs commandes.
+		 */
+		if(continute && client.getIdMainAddress() != idAddress)
+		{
+			client.setIdMainAddress(idAddress);
+			continute = userAccountDao.updateIdMainAddressUsed(client);
+			
+			if(continute==false)
+			{
+				System.out.println("Une erreur est survenue lors de la modification de l'adresse principale en BD. Veuillez reessayer.");
+				returnMessage.put("fail","Une erreur est survenue lors de la modification de l'adresse principale en BD. Veuillez reessayer.");
+			}
+		}
 		
 		//On set l'id de l'adresse
 		order.setIdAddress(idAddress);

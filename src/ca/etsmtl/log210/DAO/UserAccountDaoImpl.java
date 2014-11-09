@@ -420,7 +420,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_UPDATE_ID_MAIN_ADDRESS, false,user.getIdMainAddress());
+					SQL_UPDATE_ID_MAIN_ADDRESS, false,user.getIdMainAddress(),user.getUserId());
 
 			System.out.println(preparedStatement);
 

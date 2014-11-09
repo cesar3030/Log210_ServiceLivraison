@@ -71,9 +71,19 @@
 		      <label for="dtp_input1" class="col-md-4 control-label">Choisir l'adresse de livraison: </label>
 			      <div class="col-md-7 ">
 					<select class="form-control"   id="addressList" name="addressList"  required>
-						<option value="0" >${sessionScope.userSession.homeAddress}</option><!--  On affiche l'adresse par defaut du compte-->
+						<c:if test="${sessionScope.userSession.idMainAddress==0}">
+							<option value="0" selected>${sessionScope.userSession.homeAddress}</option><!--  On affiche l'adresse par defaut du compte-->
+						</c:if>
+						<c:if test="${sessionScope.userSession.idMainAddress!=0}">
+							<option value="0" >${sessionScope.userSession.homeAddress}</option><!--  On affiche l'adresse par defaut du compte-->
+						</c:if>
 						<c:forEach items="${addressUser}" var="out">
-						<option value="<c:out value="${out.idAddress}"/>" ><c:out value="${out.address}"/></option>
+							<c:if test="${sessionScope.userSession.idMainAddress==out.idAddress}">
+								<option value="<c:out value="${out.idAddress}"/>" selected><c:out value="${out.address}"/></option>
+							</c:if>
+							<c:if test="${sessionScope.userSession.idMainAddress!=out.idAddress}">
+								<option value="<c:out value="${out.idAddress}"/>" ><c:out value="${out.address}"/></option>
+							</c:if>
 						</c:forEach>
 						<option value="-1" >Nouvelle adresse</option><!--  On affiche l'adresse par defaut du compte-->
 					</select>

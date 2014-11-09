@@ -36,6 +36,7 @@ public class UserAccountBean
 	//Si c'est différent de 0, cela veut dire que c'est l'identifiant d'une adresse de la table tbotheraddress.
 	private int idMainAddress;
 	
+	
 	private static final String EMAIL  = "email";
     private static final String PASS   = "password"; 
 	//Errors fund during the tests of the form's validation
