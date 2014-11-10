@@ -6,7 +6,7 @@
 <script>
 var mapDirectionsDisplay = {};
 var mapDirectionsService = {};
-var idcontenerTable= new
+var idcontenerTable= new Array();
 
 function newMap(idContener,restaurantAddress,clientAddress)
 {
@@ -49,10 +49,12 @@ function calcRoute(restaurantAddress,clientAddress) {
   
   function addInMaps(idContener)
   {
+	  idcontenerTable.push(idContener);
 	  mapDirectionsDisplay[idContener] = directionsDisplay;
 	  mapDirectionsService[idContener] = directionsService;
 	  
   }
+ 
   
 }
 </script>	 
