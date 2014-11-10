@@ -4,6 +4,9 @@
 <jsp:include page="/header.jsp"></jsp:include>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script>
+var mapDirectionsDisplay = {};
+var mapDirectionsService = {};
+var idcontenerTable= new
 
 function newMap(idContener,restaurantAddress,clientAddress)
 {
@@ -43,6 +46,14 @@ function calcRoute(restaurantAddress,clientAddress) {
       directionsDisplay.setDirections(response);
     }
   });
+  
+  function addInMaps(idContener)
+  {
+	  mapDirectionsDisplay[idContener] = directionsDisplay;
+	  mapDirectionsService[idContener] = directionsService;
+	  
+  }
+  
 }
 </script>	 
 <div class="row">
