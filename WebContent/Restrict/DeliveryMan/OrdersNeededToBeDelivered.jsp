@@ -64,11 +64,17 @@ function initialize(idContener) {
 
 function calcRoute(restaurantAddress,clientAddress, map2,directionsDisplay2, directionsService2) {
   
+	var waypoints = [];
+	waypoints.push({
+        location: "211 Rue Notre-Dame Ouest Montréal, Québec H2Y 1T3",
+        stopover: true
+    });
 	//var mapNode map2.getDiv();
 	
   var request = {
     origin: restaurantAddress,
     destination: clientAddress,
+    waypoints: waypoints,
     travelMode: google.maps.TravelMode.DRIVING
   };
   directionsService2.route(request, function(response, status) {
