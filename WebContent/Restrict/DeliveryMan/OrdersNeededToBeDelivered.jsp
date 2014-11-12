@@ -3,7 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <jsp:include page="/header.jsp"></jsp:include>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script src="<c:url value="/inc/js/jquery.mixitup.js"/>"></script>
+<!-- <script src="<c:url value="/inc/js/jquery.mixitup.js"/>"></script> -->
+<script src="http://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js"></script>
 <script>
 var mapDirectionsDisplay = {};
 var mapDirectionsService = {};
@@ -22,12 +23,12 @@ function calcRouteAllMaps(deleveryManPosition)
 			  var clientAddress = mapClientAddress[idcontenerTable[i]];
 			  var restaurantAddress = mapRestaurantAddress[idcontenerTable[i]];
 			  var idDivItineraryDirrections2 = mapIdDivItineraryDirrections[idcontenerTable[i]];
-			  calcRoute(restaurantAddress,clientAddress,directionsDisplay2,directionsService2,idDivItineraryDirrections2,idcontenerTable[i],deleveryManPosition);
+			  var orderNum="order-"+idcontenerTable[i].split(/-/)[2];
+			  calcRoute(restaurantAddress,clientAddress,directionsDisplay2,directionsService2,idDivItineraryDirrections2,orderNum,deleveryManPosition);
 			  
 		  }
 	if(deleveryManPosition!=null)
 	{
-		alert();
 		$('#orderContainer').mixItUp('sort', 'distance:desc');
 	}
 }
@@ -68,10 +69,10 @@ function initialize(idContener,idDivItineraryDirrections) {
 
 }
 
-function calcRoute(restaurantAddress,clientAddress,directionsDisplay2, directionsService2,idDivItineraryDirrections2,idcontenerMap,deleveryManPosition) 
+function calcRoute(restaurantAddress,clientAddress,directionsDisplay2, directionsService2,idDivItineraryDirrections2,orderNum,deleveryManPosition) 
 {
 	var waypoints = [];
-	if(deleveryManPosition!=null)
+	if(deleveryManPosition!=null && deleveryManPosition!="")
 	{
 		waypoints.push({
 	        location: restaurantAddress,
@@ -98,8 +99,8 @@ function calcRoute(restaurantAddress,clientAddress,directionsDisplay2, direction
 	
   directionsService2.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
-    //	alert("calcRoute");
-      $("#"+idcontenerMap).attr("data-distance",response.routes[0].legs[0].distance.value);
+  
+      $("#"+orderNum).attr("data-distance",response.routes[0].legs[0].distance.value);
       directionsDisplay2.setDirections(response);
     }
   });
@@ -190,7 +191,7 @@ function updateDeleveryManPosition()
 </div>
 <div class="row" id="orderContainer">
 <c:forEach items="${orderReady}" var="orderForDelivery">
-<div class="row">
+<div class="row mix" style="width: 100%" id="order-${orderForDelivery.order.idOrder}">
 	<div class="panel panel-primary col-md-10 col-md-offset-1 orderForDelivery">
 		<div class="col-md-4">
 			<h4>Date et heure livraison: <c:out value="${orderForDelivery.order.hourAndDate}"/></h4>
@@ -237,8 +238,8 @@ newMap("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.restau
 </div>
 <script>
 calcRouteAllMaps(null);
-$(function(){
+
 $('#orderContainer').mixItUp();
-});
+
 </script>
 <jsp:include page="/footer.jsp"></jsp:include>
