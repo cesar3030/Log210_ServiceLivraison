@@ -202,7 +202,7 @@ function updateDeleveryManPosition()
 			<form method=get action="<c:url value="/AcceptOrder"/>">
 				<input type="hidden" name="idOrder" value="<c:out value="${orderForDelivery.order.idOrder}"/>">
 				<button type="submit" class="col-md-5 btn btn-default btn-md">
-				  <span class="glyphicon glyphicon-road"></span> Prende en charge
+				  <span class="glyphicon glyphicon-road"></span> Prendre en charge
 				</button>
 				<a href="#infos-${orderForDelivery.order.idOrder}" data-toggle="modal">
 					<button type="submit" class="col-md-5 col-md-offset-1 btn btn-default btn-md">

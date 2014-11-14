@@ -2,7 +2,6 @@ package ca.etsmtl.log210.Utils;
 
 import java.util.Date;
 import java.util.Properties;
- 
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;

@@ -1,6 +1,13 @@
 package ca.etsmtl.log210.Controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,10 +76,11 @@ public class ProceedOrder extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//Le bean permettant de stocker l'adresse de livraison
-		
-		AddressBean deliveryAddress=null;
 		Map<String, String>  returnMessage= new HashMap<String, String>();
+		
+		//Le bean permettant de stocker l'adresse de livraison
+		AddressBean deliveryAddress=null;
+		
 		OrderBean order = null;
 		UserAccountBean client=null;
 		int idNewOrder;
@@ -261,9 +269,8 @@ public class ProceedOrder extends HttpServlet {
 			request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
 			this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
 		}
-		
-		 
 	}
+	
 	
 	/**
 	 * Methode qui genere le code de confirmation de la commande.
@@ -315,4 +322,5 @@ public class ProceedOrder extends HttpServlet {
 		
 		return content;
 	}
+	
 }
