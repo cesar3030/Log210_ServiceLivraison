@@ -119,7 +119,7 @@ public class OrderUpdateState extends HttpServlet {
 		// Variables utilisees pour l'envoi du courriel
 		String recipient = client.getEmail();
 
-		String subject = "Changement de statu de votre commande chez ExpressLivraison";
+		String subject = "Changement de statut de votre commande chez ExpressLivraison";
 
 		if (status == 0) {
 			System.out.println("changement pour en preparation");
@@ -164,24 +164,12 @@ public class OrderUpdateState extends HttpServlet {
 	}
 
 	private String generateMailContent(OrderBean order, UserAccountBean client,
-			String statu) {
+			String statut) {
 		String beginning = "Chere " + client.getFirstName() + " "
 				+ client.getName() + ",<br><br> Votre commande numero : "
-				+ order.getConfirmationCode() + " est maintenant " + statu;
+				+ order.getConfirmationCode() + " est maintenant " + statut+".";
 		String content = "<br>";
 		String end = "<br><br>Merci de votre fidelite, au plaisir de vous revoir !";
-
-		for (OrderItemBean item : order.getOrderItemsList()) {
-			int totalItemPrice = item.getQuantity() * item.getMeal().getPrice();
-
-			content = content + "<br>" + item.getMeal().getName() + " * "
-					+ item.getQuantity() + " = " + totalItemPrice;
-		}
-
-		content = content
-				+ "<br><br>Le montant total de votre commande est de "
-				+ order.getTotalPrice() + "$";
-
 		content = beginning + content + end;
 
 		return content;
