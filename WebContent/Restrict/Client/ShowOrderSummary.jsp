@@ -91,13 +91,13 @@
 				 </div>
 			  </div>
 			 <div class='col-md-10'>
-			 <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=expresslivraison.montreal-facilitator_api1.gmail.com" 
+			 <script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=expresslivraison.montreal-facilitator@gmail.com" 
 				    data-button="buynow" 
 				    data-name="Payer Commande" 
 				    data-quantity="1" 
-				    data-amount="6" 
+				    data-amount="<c:out value="${order.totalPrice}"/>" 
 				    data-currency="CAD" 
-				    data-callback="<c:url value="/Logout"/>" 
+				    data-callback="<c:url value="/ProceedOrder"/>" 
 				    data-env="sandbox"
 				></script>
 			<!-- <button class="btn btn-primary"  id="confirm" type="submit">Confirmer la commande</button>  -->
