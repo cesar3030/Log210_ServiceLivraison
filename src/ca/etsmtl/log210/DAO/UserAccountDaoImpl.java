@@ -6,60 +6,52 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import static ca.etsmtl.log210.DAO.DAOUtilitaire.fermeturesSilencieuses;
 import static ca.etsmtl.log210.DAO.DAOUtilitaire.initialisationRequetePreparee;
-import ca.etsmtl.log210.Beans.RestaurantBean;
+
 import ca.etsmtl.log210.Beans.UserAccountBean;
 
 public class UserAccountDaoImpl implements UserAccountDao {
 
 	private DAOFactory daoFactory;
-	private static final String SQL_GET_USER_ACCOUNT = "" 
-			+ "SELECT * "
-			+ "FROM tbUserAccount " 
-			+ "WHERE USR_email=? "
+	private static final String SQL_GET_USER_ACCOUNT = "" + "SELECT * "
+			+ "FROM tbUserAccount " + "WHERE USR_email=? "
 			+ "AND USR_password=?";
+
+	private static final String SQL_GET_USER_ACCOUNT_ID = "" + "SELECT * "
+			+ "FROM tbUserAccount " + "WHERE USR_idUser=?";
 
 	private static final String SQL_MODIFY_USER_ACCOUNT = ""
 			+ "UPDATE tbUserAccount "
 			+ "SET USR_homeAddress=?, USR_phoneNumber=?,  USR_password =? "
 			+ "WHERE USR_idUser=?";
-	
-	private static final String SQL_GET_ACTIVE_RESTAURATEUR = ""
-			+ "SELECT * "
-			+ "FROM tbUserAccount " 
-			+ "WHERE USR_rights=1 "
+
+	private static final String SQL_GET_ACTIVE_RESTAURATEUR = "" + "SELECT * "
+			+ "FROM tbUserAccount " + "WHERE USR_rights=1 "
 			+ "AND USR_visible=1";
-	
+
 	private static final String SQL_GET_INACTIVE_RESTAURATEUR = ""
-			+ "SELECT * "
-			+ "FROM tbUserAccount " 
-			+ "WHERE USR_rights=1 "
+			+ "SELECT * " + "FROM tbUserAccount " + "WHERE USR_rights=1 "
 			+ "AND USR_visible=0";
 
 	private static final String SQL_NEW_USER_ACCOUNT = ""
 			+ "INSERT INTO `tbUserAccount`( `USR_name`, `USR_firstName`, `USR_homeAddress`, `USR_email`, `USR_phoneNumber`, `USR_password`, `USR_rights`, `USR_birthday`)  "
 			+ "VALUES( ?,?,?,?,?,?,?,?) ";
-	
-	private static final String SQL_TEST_EMAIL = "" 
-			+ "SELECT * "
-			+ "FROM tbUserAccount " 
-			+ "WHERE USR_email=? ";
-	
-	private static final String SQL_CHANGE_VISIBILITY_TO_0_RESTAURATEUR = "" 
-			+ "UPDATE tbUserAccount "
-			+ "SET USR_visible=0 "
+
+	private static final String SQL_TEST_EMAIL = "" + "SELECT * "
+			+ "FROM tbUserAccount " + "WHERE USR_email=? ";
+
+	private static final String SQL_CHANGE_VISIBILITY_TO_0_RESTAURATEUR = ""
+			+ "UPDATE tbUserAccount " + "SET USR_visible=0 "
 			+ "WHERE USR_idUser=?";
-	
-	private static final String SQL_CHANGE_VISIBILITY_TO_1_RESTAURATEUR = "" 
-			+ "UPDATE tbUserAccount "
-			+ "SET USR_visible=1 "
+
+	private static final String SQL_CHANGE_VISIBILITY_TO_1_RESTAURATEUR = ""
+			+ "UPDATE tbUserAccount " + "SET USR_visible=1 "
 			+ "WHERE USR_idUser=?";
 	private static final String SQL_UPDATE_ID_MAIN_ADDRESS = ""
-			+ "UPDATE tbUserAccount "
-			+ "SET USR_idMainAddress=? "
+			+ "UPDATE tbUserAccount " + "SET USR_idMainAddress=? "
 			+ "WHERE USR_idUser=?";
-			
 
 	public UserAccountDaoImpl(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
@@ -84,7 +76,6 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			while (resultSet.next()) {
 				userAccount = mapUserAccount(resultSet);
 			}
-		
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -97,21 +88,24 @@ public class UserAccountDaoImpl implements UserAccountDao {
 
 	/**
 	 * Ajoute un nouvel utilisateur dans la BD
-	 * @param newUser	le bean contenant les information de l'utilisateur a ajouter en BD
-	 * @return				l'identifant du nouvel utilisateur cree
+	 * 
+	 * @param newUser
+	 *            le bean contenant les information de l'utilisateur a ajouter
+	 *            en BD
+	 * @return l'identifant du nouvel utilisateur cree
 	 */
 	public int newUserAccount(UserAccountBean newUser) {
 
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int idUser=0;
+		int idUser = 0;
 
 		try {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_NEW_USER_ACCOUNT,true, newUser.getName(),
+					SQL_NEW_USER_ACCOUNT, true, newUser.getName(),
 					newUser.getFirstName(), newUser.getHomeAddress(),
 					newUser.getEmail(), newUser.getPhoneNumber(),
 					newUser.getPassword(), newUser.getUserRights(),
@@ -120,23 +114,20 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			System.out.println(preparedStatement);
 
 			preparedStatement.executeUpdate();
-			
+
 			resultSet = preparedStatement.getGeneratedKeys();
-			
-			if (resultSet != null && resultSet.first()) 
-			{
-			      // on récupère l'id généré
-			      idUser = resultSet.getInt(1);
+
+			if (resultSet != null && resultSet.first()) {
+				// on récupère l'id généré
+				idUser = resultSet.getInt(1);
 			}
-			
-			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		
+
 		return idUser;
 	}
 
@@ -151,9 +142,9 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_MODIFY_USER_ACCOUNT, false,
-					modUser.getHomeAddress(), modUser.getPhoneNumber(),
-					modUser.getPassword(),modUser.getUserId());
+					SQL_MODIFY_USER_ACCOUNT, false, modUser.getHomeAddress(),
+					modUser.getPhoneNumber(), modUser.getPassword(),
+					modUser.getUserId());
 
 			System.out.println(preparedStatement);
 
@@ -166,15 +157,14 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		}
 		return codeRetour;
 	}
-	
+
 	@Override
 	/**
 	 * Methode qui demande a la BD de lui renvoyer le compte lie a l'email passe en parametre.
 	 * Si null est renvoyer, cela veut dire qu'il n'y a pas d'utilisateur lie a ce compte donc l'adresse email peut etre utilisee.
 	 * Si une instance UserAccountBean est renvoyé, cela veut dit qu'il y a deja un utilisateur qui a cet email. Dans ce cas on retourne true.
 	 */
-	public boolean emailAlreadyUsed(String testingEmail) 
-	{				
+	public boolean emailAlreadyUsed(String testingEmail) {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -200,19 +190,13 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		}
 
 		System.out.println(userAccount);
-		if(userAccount==null)
-		{
+		if (userAccount == null) {
 			return false;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
-		
-		
-		
-	}
 
+	}
 
 	/**
 	 * Methode who create a new {@link UserAccountBean} and who set the values
@@ -238,7 +222,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		userAccountFromBD.setUserRights(resultSet.getInt("USR_rights"));
 		userAccountFromBD.setEmail(resultSet.getString("USR_email"));
 		userAccountFromBD.setPassword(resultSet.getString("USR_password"));
-		userAccountFromBD.setIdMainAddress(resultSet.getInt("USR_idMainAddress"));
+		userAccountFromBD.setIdMainAddress(resultSet
+				.getInt("USR_idMainAddress"));
 
 		return userAccountFromBD;
 	}
@@ -248,12 +233,12 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	 * Methode qui retourne un arrayList de UserAccountBean contenant les restaurateurs actifs
 	 */
 	public ArrayList<UserAccountBean> getListActiveRestaurateur() {
-		
+
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		ArrayList<UserAccountBean> restaurateurList = new ArrayList<UserAccountBean>();
-		
+
 		try {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
@@ -263,37 +248,30 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			resultSet = preparedStatement.executeQuery();
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
-			while (resultSet.next()) 
-			{
+			while (resultSet.next()) {
 				restaurateurList.add(mapUserAccount(resultSet));
 			}
 
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			throw new DAOException(e);
-		} 
-		finally 
-		{
+		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return restaurateurList;
-		
+
 	}
 
-	
-	
 	@Override
 	/**
 	 * Methode qui retourne un arrayList de UserAccountBean contenant les restaurateurs actifs
 	 */
 	public ArrayList<UserAccountBean> getListInactiveRestaurateur() {
-		
+
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		ArrayList<UserAccountBean> restaurateurList = new ArrayList<UserAccountBean>();
-		
+
 		try {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
@@ -303,28 +281,25 @@ public class UserAccountDaoImpl implements UserAccountDao {
 			resultSet = preparedStatement.executeQuery();
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
-			while (resultSet.next()) 
-			{
+			while (resultSet.next()) {
 				restaurateurList.add(mapUserAccount(resultSet));
 			}
 
-		} 
-		catch (SQLException e) 
-		{
+		} catch (SQLException e) {
 			throw new DAOException(e);
-		} 
-		finally 
-		{
+		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
 		return restaurateurList;
-		
+
 	}
 
 	/**
-	 * La methode change la visibilite du restaurateur dont l'identifiant est passe en parametre.
-	 * Cela permet de garder un historique des restaurateur au lieu de tout supprimer.
-	 * Cette methode passe la visibilite du restaurateur de 0 a 1
+	 * La methode change la visibilite du restaurateur dont l'identifiant est
+	 * passe en parametre. Cela permet de garder un historique des restaurateur
+	 * au lieu de tout supprimer. Cette methode passe la visibilite du
+	 * restaurateur de 0 a 1
+	 * 
 	 * @param idRestaurant
 	 * @return
 	 */
@@ -333,23 +308,22 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int codeRetour=0;
-		boolean etatRetour=true;
-		
-		
+		int codeRetour = 0;
+		boolean etatRetour = true;
+
 		try {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_CHANGE_VISIBILITY_TO_0_RESTAURATEUR, false,idRestaurateur);
+					SQL_CHANGE_VISIBILITY_TO_0_RESTAURATEUR, false,
+					idRestaurateur);
 
 			System.out.println(preparedStatement);
 
 			codeRetour = preparedStatement.executeUpdate();
-			
-			if(codeRetour==0)
-			{
-				etatRetour=false;
+
+			if (codeRetour == 0) {
+				etatRetour = false;
 			}
 
 		} catch (SQLException e) {
@@ -357,14 +331,16 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		
+
 		return etatRetour;
 	}
 
 	/**
-	 * La methode change la visibilite du restaurateur dont l'identifiant est passe en parametre.
-	 * Cela permet de garder un historique des restaurateur au lieu de tout supprimer.
-	 * Cette methode passe la visibilite du restaurateur de 0 a 1
+	 * La methode change la visibilite du restaurateur dont l'identifiant est
+	 * passe en parametre. Cela permet de garder un historique des restaurateur
+	 * au lieu de tout supprimer. Cette methode passe la visibilite du
+	 * restaurateur de 0 a 1
+	 * 
 	 * @param idRestaurant
 	 * @return
 	 */
@@ -372,23 +348,22 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int codeRetour=0;
-		boolean etatRetour=true;
-		
-		
+		int codeRetour = 0;
+		boolean etatRetour = true;
+
 		try {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_CHANGE_VISIBILITY_TO_1_RESTAURATEUR, false, idRestaurateur);
+					SQL_CHANGE_VISIBILITY_TO_1_RESTAURATEUR, false,
+					idRestaurateur);
 
 			System.out.println(preparedStatement);
 
 			codeRetour = preparedStatement.executeUpdate();
-			
-			if(codeRetour==0)
-			{
-				etatRetour=false;
+
+			if (codeRetour == 0) {
+				etatRetour = false;
 			}
 
 		} catch (SQLException e) {
@@ -396,7 +371,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		
+
 		return etatRetour;
 	}
 
@@ -408,27 +383,26 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	 * @return	true si l'opération s'est bien faite, false sinon
 	 */
 	public boolean updateIdMainAddressUsed(UserAccountBean user) {
-		
+
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int codeRetour=0;
-		boolean etatRetour=true;
-		
-		
+		int codeRetour = 0;
+		boolean etatRetour = true;
+
 		try {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_UPDATE_ID_MAIN_ADDRESS, false,user.getIdMainAddress(),user.getUserId());
+					SQL_UPDATE_ID_MAIN_ADDRESS, false, user.getIdMainAddress(),
+					user.getUserId());
 
 			System.out.println(preparedStatement);
 
 			codeRetour = preparedStatement.executeUpdate();
-			
-			if(codeRetour==0)
-			{
-				etatRetour=false;
+
+			if (codeRetour == 0) {
+				etatRetour = false;
 			}
 
 		} catch (SQLException e) {
@@ -436,8 +410,38 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		} finally {
 			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
 		}
-		
+
 		return etatRetour;
+	}
+
+	@Override
+	public UserAccountBean getUserAccountByID(int idUser) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		UserAccountBean userAccount = new UserAccountBean();
+
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_USER_ACCOUNT_ID, false, idUser);
+			System.out.println(preparedStatement);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) {
+				userAccount = mapUserAccount(resultSet);
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+
+		return userAccount;
 	}
 
 }

@@ -36,10 +36,9 @@ public class OrderUpdateState extends HttpServlet {
 	// The instance of UserAccountDao who give us the possibility to execute
 	// requests to the DB about userAccount
 	private OrderDao orderDao;
-	
+
 	UserAccountDao userAccountDao = null;
-	
-	
+
 	// Attributs pour
 	private String host;
 	private String port;
@@ -55,12 +54,10 @@ public class OrderUpdateState extends HttpServlet {
 	public void init() throws ServletException {
 		this.orderDao = ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getOrderDao();
-		
+
 		this.userAccountDao = ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getUserAccountDao();
-		
-		
-		
+
 		// On va chercher les informations du serveur SMTP stockees dans web.xml
 		ServletContext context = getServletContext();
 		host = context.getInitParameter("host");
@@ -80,8 +77,6 @@ public class OrderUpdateState extends HttpServlet {
 		 * doit devenir 1 = En preparation 1 = En pr�paration --> doit devenir 2
 		 * = Faite
 		 */
-		
-		
 
 		request.setAttribute(ETAT_REQUETE,
 				orderDao.updateOrderState(idOrderRecu, status));
@@ -93,9 +88,7 @@ public class OrderUpdateState extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 
-		
 		// Je recupere les valeurs du formulaire de modification d<un restaurant
 		int idOrderRecu = Integer.parseInt(request.getParameter("idOrder"));
 		int status = Integer.parseInt(request.getParameter("status"));
@@ -109,80 +102,72 @@ public class OrderUpdateState extends HttpServlet {
 		request.setAttribute(ETAT_REQUETE,
 				orderDao.updateOrderState(idOrderRecu, status));
 
-		
 		// On recupre la variable de session
-				HttpSession session = request.getSession();
-				
-				System.out.println("session recupéré");
-				
-				OrderBean order = null;
-				UserAccountBean client = null;
-				
-				
-				
-				
-		
-						
-						order = orderDao.getOrder(idOrderRecu);
-						
-						// On recupere le client qui est connecte
-						client = userAccountDao.getUserAccountByID(order.getIdUserAccount());
+		HttpSession session = request.getSession();
 
-						// Variables utilisees pour l'envoi du courriel
-						String recipient = client.getEmail();
+		System.out.println("session recupéré");
 
-						String subject = "Changement de statu de votre commande chez ExpressLivraison";
+		OrderBean order = null;
+		UserAccountBean client = null;
 
+		//On récupère la commande
+		order = orderDao.getOrder(idOrderRecu);
 
-						if (status == 0) {
-							System.out.println("changement pour en preparation");
-							// On genere et stocke le contenu du message a
-							// envoyer
-							String content = this.generateMailContent(order,
-									client,"en preparation");
-							
-							// Envoie de du courriel
-							try {
-								EmailUtility.sendEmail(host, port, user, pass,
-										recipient, subject, content);
-								System.out.println(host+port+user+pass+recipient+subject+content);
-							} catch (MessagingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+		// On recupere le client qui a passé la commande
+		client = userAccountDao.getUserAccountByID(order.getIdUserAccount());
 
-						} else if (status == 1) {
-							System.out.println("prete a etre livré");
-							// On genere et stocke le contenu du message a
-							// envoyer
-							String content = this.generateMailContent(order,
-									client,"prete a etre livre");
-							// Envoie de du courriel
-							try {
-								EmailUtility.sendEmail(host, port, user, pass,
-										recipient, subject, content);
-								System.out.println(host+port+user+pass+recipient+subject+content);
-							} catch (MessagingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+		// Variables utilisees pour l'envoi du courriel
+		String recipient = client.getEmail();
 
-						}
-						
-						
+		String subject = "Changement de statu de votre commande chez ExpressLivraison";
+
+		if (status == 0) {
+			System.out.println("changement pour en preparation");
+			// On genere et stocke le contenu du message a
+			// envoyer
+			String content = this.generateMailContent(order, client,
+					"en preparation");
+
+			// Envoie de du courriel
+			try {
+				EmailUtility.sendEmail(host, port, user, pass, recipient,
+						subject, content);
+				System.out.println(host + port + user + pass + recipient
+						+ subject + content);
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (status == 1) {
+			System.out.println("prete a etre livré");
+			// On genere et stocke le contenu du message a
+			// envoyer
+			String content = this.generateMailContent(order, client,
+					"prete a etre livre");
+			// Envoie de du courriel
+			try {
+				EmailUtility.sendEmail(host, port, user, pass, recipient,
+						subject, content);
+				System.out.println(host + port + user + pass + recipient
+						+ subject + content);
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 
 		this.getServletContext()
 				.getRequestDispatcher(RESTAURANT_ORDER_MANAGEMENT_ACCESS)
 				.forward(request, response);
 	}
-	
-	private String generateMailContent(OrderBean order, UserAccountBean client,String statu) {
+
+	private String generateMailContent(OrderBean order, UserAccountBean client,
+			String statu) {
 		String beginning = "Chere " + client.getFirstName() + " "
-				+ client.getName()
-				+ ",<br><br> Votre commande numero : "
-				+ order.getConfirmationCode()
-		+ " est maintenant "
-		+statu;
+				+ client.getName() + ",<br><br> Votre commande numero : "
+				+ order.getConfirmationCode() + " est maintenant " + statu;
 		String content = "<br>";
 		String end = "<br><br>Merci de votre fidelite, au plaisir de vous revoir !";
 
@@ -198,8 +183,6 @@ public class OrderUpdateState extends HttpServlet {
 				+ order.getTotalPrice() + "$";
 
 		content = beginning + content + end;
-		
-		
 
 		return content;
 	}
