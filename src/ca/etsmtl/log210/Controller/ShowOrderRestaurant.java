@@ -13,10 +13,9 @@ import ca.etsmtl.log210.Beans.OrderBean;
 
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.OrderDao;
+
 /**
- * Aissou Idriss
- * Jeanroy Cesar
- * Murat David
+ * Aissou Idriss Jeanroy Cesar Murat David
  */
 
 public class ShowOrderRestaurant extends HttpServlet {
@@ -46,36 +45,30 @@ public class ShowOrderRestaurant extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
+
 		int idRestaurant;
-		
-		if(request.getParameter("idRestaurant")==null){
-			idRestaurant = (int) request.getSession().getAttribute("idRestaurant");
+
+		if (request.getParameter("idRestaurant") == null) {
+			idRestaurant = (int) request.getSession().getAttribute(
+					"idRestaurant");
+		} else {
+			idRestaurant = Integer.parseInt(request
+					.getParameter("idRestaurant"));
 		}
-		else{
-			idRestaurant = Integer.parseInt(request.getParameter("idRestaurant"));
-		}
-		
-		
-		
 
 		request.getSession().setAttribute("idRestaurant", idRestaurant);
 		ArrayList<OrderBean> orderList0 = new ArrayList<OrderBean>();
 		ArrayList<OrderBean> orderList1 = new ArrayList<OrderBean>();
 		ArrayList<OrderBean> orderList2 = new ArrayList<OrderBean>();
 
-		
-		
 		orderList0 = orderDao.getListOrder0(idRestaurant);
 		orderList1 = orderDao.getListOrder1(idRestaurant);
 		orderList2 = orderDao.getListOrder2(idRestaurant);
 
-		request.setAttribute("orderList0",orderList0);
-		request.setAttribute("orderList1",orderList1);
-		request.setAttribute("orderList2",orderList2);
+		request.setAttribute("orderList0", orderList0);
+		request.setAttribute("orderList1", orderList1);
+		request.setAttribute("orderList2", orderList2);
 
-
-		
 		this.getServletContext()
 				.getRequestDispatcher(SHOW_ORDER_MANAGEMENT_ACCESS)
 				.forward(request, response);

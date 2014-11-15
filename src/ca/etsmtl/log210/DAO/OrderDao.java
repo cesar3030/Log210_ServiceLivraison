@@ -30,7 +30,7 @@ public interface OrderDao
 	
 	/**
 	 * Methode qui retourne la liste des commandes pretes a etre prises en charge par un livreur.
-	 * @return	La liste des commandes à livrer avec toutes les informations requises par le livreur
+	 * @return	La liste des commandes ï¿½ livrer avec toutes les informations requises par le livreur
 	 */
 	ArrayList<OrderToDeliverBean> getListOrdersReadyForDelivery();
 	
@@ -40,6 +40,8 @@ public interface OrderDao
 	 * @return			true si la commande n'a toujours pas ete accepte, sinon false
 	 */
 	boolean checkOrderNotAcceptedYet(int idOrder);
+	
+	OrderBean getOrder(int idOrder);
 	
 	/**
 	 * Methode qui va assigner une commande au livreur qui veut la prendre en charge
