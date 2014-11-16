@@ -46,14 +46,15 @@ public class ProceedOrder extends HttpServlet {
 	public static final String SESSION_USER = "userSession";
 
 	// Attributs pour
+
 	private String host;
 	private String port;
     private String user;
     private String pass;
 	
 	private OrderDao orderDao;
-	private OrderItemDao orderItemDao;
-	private AddressDao addressDao;
+	private OrderItemDao orderItemDao ;
+	private AddressDao addressDao ;
 	private UserAccountDao userAccountDao;
 	
 	public void init() throws ServletException {
@@ -75,6 +76,7 @@ public class ProceedOrder extends HttpServlet {
 	}
 
 
+
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Map<String, String> returnMessage = new HashMap<String, String>();
@@ -83,6 +85,7 @@ public class ProceedOrder extends HttpServlet {
 		
 		// Le bean permettant de stocker l'adresse de livraison
 		AddressBean deliveryAddress = null;
+
 		OrderBean order = null;
 		UserAccountBean client=null;
 		int idNewOrder;
@@ -129,14 +132,12 @@ public class ProceedOrder extends HttpServlet {
 		}
 		
 		/*
-		 * On teste si l'identifiant de la dernière adresse utilisée (stocké
-		 * dans le compte du client) est la même que celle qui a ete selectionee
-		 * par l'utilisateur lors de la commande courante. Si c'est la même on
-		 * fait pas de changement en BD Si ce n'est pas la même, on va modifier
-		 * le champ USR_idMainAddress de la table tbuseraccount. Ce champ sert a
-		 * definir l'adresse par defaut du compte afin que ce soit la derniere
-		 * adresse utilisee qui soit affiche en premiere a l'utilisateur lors de
-		 * ses futurs commandes.
+		 * On teste si l'identifiant de la dernière adresse utilisée (stocké dans le compte du client) 
+		 * est la même que celle qui a ete selectionee par l'utilisateur lors de la commande courante.
+		 * Si c'est la même on fait pas de changement en BD
+		 * Si ce n'est pas la même, on va modifier le champ USR_idMainAddress de la table tbuseraccount.
+		 * Ce champ sert a definir l'adresse par defaut du compte afin que ce soit la derniere adresse utilisee 
+		 * qui soit affiche en premiere a l'utilisateur lors de ses futurs commandes.
 		 */
 		if(continute && client.getIdMainAddress() != idAddress)
 		{
@@ -324,6 +325,7 @@ public class ProceedOrder extends HttpServlet {
 	 * @return			le contenu du courriel contenant le resumer de la commande
 	 */
 
+
 	private String generateMailContent(OrderBean order, UserAccountBean client) {
 		String beginning = "Chere " + client.getFirstName() + " "
 				+ client.getName()
@@ -332,8 +334,8 @@ public class ProceedOrder extends HttpServlet {
 		String content = "<br>";
 		String end = "<br><br>Merci de votre fidelite, au plaisir de vous revoir !";
 
-		for (OrderItemBean item : order.getOrderItemsList()) {
-
+		for (OrderItemBean item : order.getOrderItemsList()) 
+		{
 			int totalItemPrice = item.getQuantity() * item.getMeal().getPrice();
 			
 			content = content + "<br>"+item.getMeal().getName()+" * "+item.getQuantity()+" = "+totalItemPrice;
