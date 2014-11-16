@@ -10,14 +10,12 @@ import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import ca.etsmtl.log210.Beans.AddressBean;
 import ca.etsmtl.log210.Beans.OrderBean;
 import ca.etsmtl.log210.Beans.OrderItemBean;
@@ -29,7 +27,7 @@ import ca.etsmtl.log210.DAO.OrderDao;
 import ca.etsmtl.log210.DAO.OrderItemDao;
 import ca.etsmtl.log210.DAO.UserAccountDao;
 import ca.etsmtl.log210.Utils.EmailUtility;
-import ca.etsmtl.log210.Utils.SmsUtility;
+import ca.etsmtl.log210.Utils.ExpressLivraisonSms;
 /**
  * Aissou Idriss
  * Jeanroy Cesar
@@ -193,8 +191,8 @@ public class ProceedOrder extends HttpServlet {
 					if(continute == true)
 					{
 						try {
-								returnMessage.put("succes","Commande validé !");
-	
+								returnMessage.put("succes","Commande validee !");
+								
 								//On set en attribut la commande pour pouvoir recuperer le numero de commande
 								request.setAttribute(ATTRIBUTE_ORDER, order);
 								
@@ -212,9 +210,12 @@ public class ProceedOrder extends HttpServlet {
 						        //Envoie de du courriel
 					            EmailUtility.sendEmail(host, port, user, pass, recipient, subject, content);
 				            
-					            //SmsUtility.sendTextMessage("Voic commande est en cours de pr�paration","+"+client.getPhoneNumber());
 					            
-					            returnMessage.put("email","Un message vous a �t� envoy� � l'adresse: " + client.getEmail());
+					            //ENVOIE DU SMS DE CONFIRMATION DE LA COMMANDE POUR LE CLIENT
+					            ExpressLivraisonSms sms = new ExpressLivraisonSms();
+					            sms.envoyerSmsConfirmationCommande(client.getPhoneNumber(), order.getConfirmationCode());
+					            
+					            returnMessage.put("email","Un message vous a ete envoye a l'adresse: " + client.getEmail());
 					            
 					        } 
 							catch (Exception ex) 
@@ -305,9 +306,9 @@ public class ProceedOrder extends HttpServlet {
 	 */
 	private String generateMailContent(OrderBean order, UserAccountBean client)
 	{
-		String beginning="Ch�re "+client.getFirstName()+" "+client.getName()+",<br><br> Voici le r�sum� de la commande n�"+order.getConfirmationCode();
+		String beginning="Chere "+client.getFirstName()+" "+client.getName()+",<br><br> Voici le resume de la commande nO"+order.getConfirmationCode();
 		String content="<br>";
-		String end="<br><br>Merci de votre fid�lit�, au plaisir de vous revoir !";
+		String end="<br><br>Merci de votre fidelite, au plaisir de vous revoir !";
 		
 		for(OrderItemBean item : order.getOrderItemsList())
 		{
