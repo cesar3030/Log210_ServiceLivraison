@@ -119,7 +119,7 @@ public class OrderUpdateState extends HttpServlet {
 		// Variables utilisees pour l'envoi du courriel
 		String recipient = client.getEmail();
 
-		String subject = "Changement de statu de votre commande chez ExpressLivraison";
+		String subject = "Changement de statut de votre commande chez ExpressLivraison";
 
 		if (status == 0) {
 			System.out.println("changement pour en preparation");

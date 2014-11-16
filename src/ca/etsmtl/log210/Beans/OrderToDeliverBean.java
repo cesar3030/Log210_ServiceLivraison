@@ -4,7 +4,7 @@ package ca.etsmtl.log210.Beans;
  * 	Le restaurant ou aller chercher la commande
  * 	Les informations concernant le client
  * 	La commande passee par le client
- * 	Une adresse qui n'est pas l'adresse par defaut liée au compte du client (adresse avec laquelle il s'est inscrit)
+ * 	Une adresse qui n'est pas l'adresse par defaut liee au compte du client (c-a-d, l'adresse avec laquelle il s'est inscrit)
  * 
  * @author Cesar Jeanroy
  *
@@ -17,7 +17,7 @@ public class OrderToDeliverBean
 	//La commande du client
 	OrderBean order;
 
-	//Une adresse qui n'est pas l'adresse par defaut liée au compte du client
+	//Une adresse qui n'est pas l'adresse par defaut liï¿½e au compte du client
 	AddressBean address;
 	
 	//Les informations concernant le client

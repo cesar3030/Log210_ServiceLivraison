@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.UserAccountDao;
+import ca.etsmtl.log210.Utils.ExpressLivraisonSms;
 /**
  * Aissou Idriss
  * Jeanroy Cesar
@@ -67,7 +68,13 @@ public class Subscribe extends HttpServlet {
 		newUser.setHomeAddress(request.getParameter("adress"));
 		newUser.setPhoneNumber(request.getParameter("phone"));
 		newUser.setUserRights(0);
-
+		
+		
+		//ENVOIE DU SMS DE CONFIRMATION D'INSCRITPION
+		ExpressLivraisonSms sms = new ExpressLivraisonSms();
+		sms.envoyerSmsConfirmationInsciptionAuSite(request.getParameter("phone"), request.getParameter("adress"));
+		
+		
 		System.out.println(request.getParameter("name"));
 		// On ajoute le nouvel utilisateur dans la BDD
 		userAccountDao.newUserAccount(newUser);
