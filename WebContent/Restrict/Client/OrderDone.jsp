@@ -27,7 +27,10 @@
 	</div>
 </div>
   		 
-  		 
+<%
+	//Je supprime la commande qui etait stocke dans la variable session 
+   	session.setAttribute( "orderDone", null);
+%>		 
   		 
   		 
 
