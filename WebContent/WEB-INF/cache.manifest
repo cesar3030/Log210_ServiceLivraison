@@ -1,0 +1,26 @@
+
+CACHE MANIFEST
+ 
+# Version 0.1
+
+CACHE:
+/inc/css/style_website.css
+/inc/css/bootstrap/css/bootstrap.css
+/inc/css/bootstrap/css/bootstrap-datetimepicker.min.css
+/inc/js/toastr/toastr.css
+/inc/css/bootstrap-select.min.css
+/inc/css/DragNDrop/dragNDrop.css
+http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
+/inc/css/bootstrap/js/bootstrap.js
+/inc/js/bootstrap-select.js
+/inc/js/toastr/toastr.js
+/inc/css/bootstrap/js/bootstrap-datetimepicker.min.js
+/inc/css/bootstrap/js/moment.js
+http://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js
+https://maps.googleapis.com/maps/api/js?v=3.exp
+
+FALLBACK:
+test-cache/index.html offline.html
+ 
+NETWORK:
+*
