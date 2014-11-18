@@ -17,6 +17,7 @@ http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
 ../css/bootstrap/js/moment.js
 http://cdn.jsdelivr.net/jquery.mixitup/latest/jquery.mixitup.min.js
 https://maps.googleapis.com/maps/api/js?v=3.exp
+../pictures/chef.jpg
 
 FALLBACK:
  
