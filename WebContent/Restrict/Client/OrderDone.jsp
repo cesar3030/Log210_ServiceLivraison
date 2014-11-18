@@ -11,7 +11,7 @@
 			 <br>
 			 <h4 class="col-md-offset-2 col-xs-offset-1">Voici votre numero de confirmation de commande: <c:out value="${sessionScope.orderDone.order.confirmationCode}"/></h4>
 			 <br>
-			 <h4 class="col-md-offset-2 col-xs-offset-1">La livraison se fera a l'address: 
+			 <h4 class="col-md-offset-2 col-xs-offset-1">La livraison se fera a l'adresse: 
 			 <c:if test="${sessionScope.orderDone.order.idAddress==0}">
 			 	<c:out value="${sessionScope.userSession.homeAddress}"/>
 			 </c:if>
