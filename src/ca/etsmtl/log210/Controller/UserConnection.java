@@ -166,8 +166,18 @@ public class UserConnection extends HttpServlet
 	 */
 	public void redirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		//On retourne sur la page de connection pour afficher le formulaire et les erreurs
-		this.getServletContext().getRequestDispatcher(FORM).forward( request, response );
+		if(errors.containsKey("unknowUser"))
+		{
+			//On retourne sur la page de connection pour afficher le formulaire et les erreurs
+			this.getServletContext().getRequestDispatcher(FORM).forward( request, response );
+			
+		}
+		else
+		{
+			//On affiche la page d'accueil de l'application
+			this.getServletContext().getRequestDispatcher(WELCOME_PAGE).forward( request, response );
+		}
+		
 	}
 	
 	/**
