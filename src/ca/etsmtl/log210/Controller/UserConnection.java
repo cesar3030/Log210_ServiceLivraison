@@ -37,7 +37,9 @@ public class UserConnection extends HttpServlet
     //This attribute is use for the redirection of the web page after the tasks with the DB are done.
     public static final String WELCOME_PAGE              = "/Restrict/welcome.jsp";
     public static final String FORM              = "/connection.jsp";
-  
+    
+    //cette ma va nous servir a socker le rsultat du test de la validit du format de l'email et du mot de passe Map<String,String> errors;
+    private Map<String,String> errors;
 
     //The instance of UserAccountDao who give us the possibility to execute requests to the DB about userAccount
     private UserAccountDao userAccountDao;
@@ -79,9 +81,6 @@ public class UserConnection extends HttpServlet
 	    	//On rcupre le mot de passe saisi par l'utilisateur
         String password = UserAccountBean.getValeurChamp( request, PASS );
         
-        //cette ma va nous servir a socker le rsultat du test de la validit du format de l'email et du mot de passe 
-        Map<String,String> errors;
-        
         //Je vrifie le format de l'email et du mot de passe. Si il y a des erreurs, elles seront enregistres dans une map 
         // qu'on renverra au formulaire et qui affichera le contenu de la map
 		errors=user.verifyValidityOfDatas(email, password);
@@ -94,7 +93,7 @@ public class UserConnection extends HttpServlet
 			//Ici, on va chercher dans la BD si il y a un utilisateur avec le couple email/password saisi.
 			//On passe en parrametre le bean qu'on a cr et qui contient le user et le mot de passe.
 			//Cette methode va nous retourner un autre bean contenant toutes les donnes recues de la BD 
-			user=userAccountDao.getUserAccount(email, password);
+			user= getUserAccount(email, password);
 			
 			//On rcupre la variable de session
 			HttpSession session = request.getSession(); 
@@ -103,13 +102,14 @@ public class UserConnection extends HttpServlet
 			if(user.getEmail()==null)
 			{
 				//Si le user est inconnu, on cr une erreur
-				errors.put("unknowUser","L'utilisateur n'est pas connu. Veuillez verifier votre courriel et votre mot de passe.");
+				addInErrorMap("unknowUser","L'utilisateur n'est pas connu. Veuillez verifier votre courriel et votre mot de passe.");
 				
 				//On set la map d'erreurs pour pouvoir les afficher sur le formulaire
 	            session.setAttribute( ERRORS_FORM, errors );
 				
 	            //On retourne sur la page de connection pour afficher le formulaire et l'erreur
-	    			this.getServletContext().getRequestDispatcher(FORM).forward( request, response );
+	            redirect(request, response);
+	    			//this.getServletContext().getRequestDispatcher(FORM).forward( request, response );
 			}
 			else
 			{
@@ -117,8 +117,12 @@ public class UserConnection extends HttpServlet
 				//On lui set le bean user recu et on l'associe au nom contenu dans SESSION_USER.
 	            session.setAttribute( SESSION_USER, user );
 				
+	            //Si le user estconnu, on cr une erreur
+				addInErrorMap("succes","L'utilisateur est connecte");
+				
 	            //On redirige vers la page de bienvenu des utilisateures connects
-	    			this.getServletContext().getRequestDispatcher(WELCOME_PAGE).forward( request, response );
+	            redirect(request, response);
+	    			//this.getServletContext().getRequestDispatcher(WELCOME_PAGE).forward( request, response );
 			}
 
 			
@@ -132,13 +136,47 @@ public class UserConnection extends HttpServlet
             session.setAttribute( ERRORS_FORM, errors );
 			
             //On retourne sur la page de connection pour afficher le formulaire et les erreurs
-    			this.getServletContext().getRequestDispatcher(FORM).forward( request, response );
+            redirect(request, response);
+            //this.getServletContext().getRequestDispatcher(FORM).forward( request, response );
         }
 		
 		
 		
 		
 		
+	}
+
+	/**
+	 * Methode qui retourne les information de l'utilisateur dont l'email et le mot de passe sont passe en parametre. 
+	 * @param email			l'email de l'utilisateur
+	 * @param password		le mot de passe de l'utilisateur
+	 * @return					le bean contenant les information du user si il existe dans la bd, sinon null.
+	 */	
+	public UserAccountBean getUserAccount(String email, String password)
+	{
+		return userAccountDao.getUserAccount(email, password);
+	}
+	
+	/**
+	 * Methode qui fait la redirection
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void redirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		//On retourne sur la page de connection pour afficher le formulaire et les erreurs
+		this.getServletContext().getRequestDispatcher(FORM).forward( request, response );
+	}
+	
+	/**
+	 * Methode qui ajoute dans la map d'erreur
+	 * 
+	 */
+	public void addInErrorMap(String key, String message)
+	{
+		errors.put(key,message);
 	}
     
 }
