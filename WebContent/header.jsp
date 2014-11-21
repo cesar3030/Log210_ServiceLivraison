@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+    
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html manifest="<c:url value="/inc/cache/cache.manifest"/>">
