@@ -134,7 +134,7 @@
 	<br> <br>
 	<div class="col-md-6 col-md-offset-3">
 		<input type="text" class="form-control"
-			placeholder="Entrer votre adresse actuel" id="deleveryManPosition"
+			placeholder="<%=resourceBundle.getString("INPUT")%>" id="deleveryManPosition"
 			onblur="updateDeleveryManPosition();" />
 	</div>
 	<c:if test="${!empty returnMessage.succes}">
