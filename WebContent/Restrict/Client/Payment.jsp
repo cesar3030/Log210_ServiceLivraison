@@ -18,8 +18,8 @@
 				    data-quantity="1" 
 				    data-amount="<c:out value="${order.totalPrice}"/>" 
 				    data-currency="CAD" 
-				    data-callback="http://130.211.117.111/Log210_ServiceLivraison/Restrict/Client/OrderDone.jsp" 
-				    data-return="http://130.211.117.111/Log210_ServiceLivraison/Restrict/Client/OrderDone.jsp" 
+				    data-callback="http://130.211.117.111/Log210_ServiceLivraison/Restrict/Client/OrderDone"  
+				    data-return="http://130.211.117.111/Log210_ServiceLivraison/Restrict/Client/OrderDone" 
 				    data-env="sandbox"
 				></script>
 	    		</div>
