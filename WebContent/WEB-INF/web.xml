@@ -398,15 +398,6 @@
     <servlet-name>AcceptOrder</servlet-name>
     <url-pattern>/AcceptOrder</url-pattern>
   </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>OrderDone</servlet-name>
-    <servlet-class>ca.etsmtl.log210.Controller.OrderDone</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OrderDone</servlet-name>
-    <url-pattern>/OrderDone</url-pattern>
-  </servlet-mapping>
 
   <filter>
     <filter-name>ApplicationFilter</filter-name>
