@@ -38,19 +38,14 @@ public class ProceedOrder extends HttpServlet {
 	
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	//public static final String SHOW_PAGE_ORDER_DONE = "/Restrict/Client/OrderDone.jsp";
-	public static final String SHOW_PAGE_ORDER_DONE = "/Restrict/Client/Payment.jsp";
+	public static final String SHOW_PAGE_PAYMENT = "/Restrict/Client/Payment.jsp";
 	public static final String REQUEST_FINISHED_STATE = "returnMessage";
     public static final String ATTRIBUTE_ORDER_DONE = "orderDone";
 	//public static final String ATTRIBUTE_ADDRESS = "address";
 	private static String ORDER = "order";
 	public static final String SESSION_USER = "userSession";
 
-	// Attributs pour
 
-	private String host;
-	private String port;
-    private String user;
-    private String pass;
 	
 	private OrderDao orderDao;
 	private OrderItemDao orderItemDao ;
@@ -66,13 +61,6 @@ public class ProceedOrder extends HttpServlet {
 				CONF_DAO_FACTORY)).getAddressDao();
 		this.userAccountDao=((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getUserAccountDao();
-		
-		// On va chercher les informations du serveur SMTP stockees dans web.xml
-        ServletContext context = getServletContext();
-        host = context.getInitParameter("host");
-        port = context.getInitParameter("port");
-        user = context.getInitParameter("user");
-        pass = context.getInitParameter("pass");
 	}
 
 
@@ -201,21 +189,7 @@ public class ProceedOrder extends HttpServlet {
 
 							returnMessage.put("succes", "Commande validé !");
 							
-							// Variables utilisees pour l'envoi du courriel
-							String recipient = client.getEmail();
-
-							String subject = "Confirmation de votre commande chez ExpressLivraison";
-
-							// On genere et stocke le contenu du message a
-							// envoyer
-							String content = this.generateMailContent(order,
-									client);
-
-							// Envoie de du courriel
-							EmailUtility.sendEmail(host, port, user, pass,
-									recipient, subject, content);
-
-							// SmsUtility.sendTextMessage("Voic commande est en cours de pr�paration","+"+client.getPhoneNumber());
+							
 
 							returnMessage.put("email",
 									"Un message vous a ete envoye l'adresse: "
@@ -229,10 +203,7 @@ public class ProceedOrder extends HttpServlet {
 							session.setAttribute(ATTRIBUTE_ORDER_DONE, orderWithAllTheInformations);
 							
 							 
-				            //ENVOIE DU SMS DE CONFIRMATION DE LA COMMANDE POUR LE CLIENT
-				            ExpressLivraisonSms sms = new ExpressLivraisonSms();
-				            //sms.envoyerSmsConfirmationCommande(client.getPhoneNumber(), order.getConfirmationCode());
-							
+				           
 
 							} 
 							catch (Exception ex) 
@@ -246,7 +217,7 @@ public class ProceedOrder extends HttpServlet {
 								request.setAttribute(REQUEST_FINISHED_STATE,
 										returnMessage);
 								this.getServletContext()
-										.getRequestDispatcher(SHOW_PAGE_ORDER_DONE)
+										.getRequestDispatcher(SHOW_PAGE_PAYMENT)
 										.forward(request, response);
 							}
 
@@ -257,7 +228,7 @@ public class ProceedOrder extends HttpServlet {
 						returnMessage.put("fail","Une erreur est survenue lors de la recuperation en BD de l'adresse de livraison.");
 
 						request.setAttribute(REQUEST_FINISHED_STATE,returnMessage);
-						this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE).forward(request, response);
+						this.getServletContext().getRequestDispatcher(SHOW_PAGE_PAYMENT).forward(request, response);
 
 					}
 					
@@ -268,7 +239,7 @@ public class ProceedOrder extends HttpServlet {
 					returnMessage.put("fail","Une erreur est survenue lors de l'ajout en BD du code de confirmation de la commande.");
 					
 					request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
-					 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
+					 this.getServletContext().getRequestDispatcher(SHOW_PAGE_PAYMENT ).forward( request, response );
 				}
 					
 			}
@@ -278,7 +249,7 @@ public class ProceedOrder extends HttpServlet {
 				returnMessage.put("fail","Une erreur est survenue lors de l'ajout en BD d'un item dans la commande. Veuillez reessayer.");
 				
 				request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
-				 this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
+				 this.getServletContext().getRequestDispatcher(SHOW_PAGE_PAYMENT ).forward( request, response );
 			}
 			
 		}
@@ -288,7 +259,7 @@ public class ProceedOrder extends HttpServlet {
 			returnMessage.put("fail","Une erreur est survenue lors de la création en BD d'une commande. Veuillez reessayer.");
 			
 			request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
-			this.getServletContext().getRequestDispatcher(SHOW_PAGE_ORDER_DONE ).forward( request, response );
+			this.getServletContext().getRequestDispatcher(SHOW_PAGE_PAYMENT ).forward( request, response );
 		}
 	}
 	
@@ -318,34 +289,6 @@ public class ProceedOrder extends HttpServlet {
 	
 	}
 	
-	/**
-	 * M�thode qui cree le contenu du mail de confirmation de commande.
-	 * @param order		la commande	
-	 * @param client	le client qui a effectue la commande
-	 * @return			le contenu du courriel contenant le resumer de la commande
-	 */
-
-
-	private String generateMailContent(OrderBean order, UserAccountBean client) {
-		String beginning = "Chere " + client.getFirstName() + " "
-				+ client.getName()
-				+ ",<br><br> Voici le resume de la commande :"
-				+ order.getConfirmationCode();
-		String content = "<br>";
-		String end = "<br><br>Merci de votre fidelite, au plaisir de vous revoir !";
-
-		for (OrderItemBean item : order.getOrderItemsList()) 
-		{
-			int totalItemPrice = item.getQuantity() * item.getMeal().getPrice();
-			
-			content = content + "<br>"+item.getMeal().getName()+" * "+item.getQuantity()+" = "+totalItemPrice;
-		}
-		
-		content = content + "<br><br>Le montant total de votre commande est de "+order.getTotalPrice()+"$";
-		
-		content=beginning+content+end;
-		
-		return content;
-	}
+	
 	
 }
