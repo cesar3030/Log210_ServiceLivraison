@@ -5,10 +5,7 @@ import org.mockito.Mockito;
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.Controller.UserConnection;
 import ca.etsmtl.log210.DAO.DAOFactory;
-import ca.etsmtl.log210.DAO.UserAccountDao;
-import ca.etsmtl.log210.DAO.UserAccountDaoImpl;
 import junit.framework.*;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import javax.servlet.http.*;
@@ -25,7 +22,6 @@ public class TestConnection extends TestCase
     		
 		 HttpServletRequest request = mock(HttpServletRequest.class);       
 	     HttpServletResponse response = mock(HttpServletResponse.class);    
-	     DAOFactory daoF = mock(DAOFactory.class);
 	     HttpSession session = mock(HttpSession.class); 
 	 	 UserAccountBean userConnected = new UserAccountBean();
 	 	 

@@ -23,6 +23,7 @@ public class Subscribe extends HttpServlet {
 	public static final String FORM = "/connection.jsp";
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ERRORS_FORM = "form";
+	private Map<String, String> errors;
 	// The instance of UserAccountDao who give us the possibility to execute
 	// requests to the DB about userAccount
 	private UserAccountDao userAccountDao;
@@ -49,12 +50,12 @@ public class Subscribe extends HttpServlet {
 		// cette ma va nous servir a socker le resultat du test
 		// de la validitedu format de l'email et du mot de
 		// passe
-		Map<String, String> errors=new HashMap<String, String>();
+		errors=new HashMap<String, String>();
 
 		// On cre un userAccountBean pour stocker les valeurs rentrees dans
 		// le formulaire.
 
-		UserAccountBean newUser = new UserAccountBean();
+		UserAccountBean newUser = userAccountBeanFabrique();
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -71,23 +72,82 @@ public class Subscribe extends HttpServlet {
 		
 		
 		//ENVOIE DU SMS DE CONFIRMATION D'INSCRITPION
-		ExpressLivraisonSms sms = new ExpressLivraisonSms();
-		sms.envoyerSmsConfirmationInsciptionAuSite(request.getParameter("phone"), request.getParameter("adress"));
+		sendConfirmationTextMessage(request, response);
 		
-		
-		System.out.println(request.getParameter("name"));
-		// On ajoute le nouvel utilisateur dans la BDD
-		userAccountDao.newUserAccount(newUser);
+		addNewUserInDB(newUser);
 
-		errors.put("NewUserCompleted",
+		addInErrorMap("NewUserCompleted",
 				"Votre compte a bien ete cree correctement");
-		System.out.println(errors);
+		
 		request.setAttribute(ERRORS_FORM, errors);
 
-		// On retourne sur la page de connection pour que l'utilisateur puisse
-		// se connecter
-		this.getServletContext().getRequestDispatcher(FORM)
-				.forward(request, response);
+		//On redirige vers la page voulu
+		redirect(request, response);
+		
 
 	}
+	
+	/**
+	 * Methode qui fait la redirection de page
+	 * @param request
+	 * @param response
+	 */
+	public void redirect(HttpServletRequest request, HttpServletResponse response)
+	{
+		// On retourne sur la page de connection pour que l'utilisateur puisse
+				// se connecter
+				try {
+					this.getServletContext().getRequestDispatcher(FORM)
+							.forward(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	}
+	
+	/**
+	 * Methode qui fait l'ajout en BD du nouvel utilisateur
+	 * @param newUser	utilisateur a ajouter
+	 */
+	public void addNewUserInDB(UserAccountBean newUser)
+	{
+		// On ajoute le nouvel utilisateur dans la BDD
+		userAccountDao.newUserAccount(newUser);
+	}
+	
+	/**
+	 * Methode qui envoie un SMS pour notifier l'utilisateur de la creation de son compte
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	public void sendConfirmationTextMessage(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		ExpressLivraisonSms sms = new ExpressLivraisonSms();
+		sms.envoyerSmsConfirmationInsciptionAuSite(request.getParameter("phone"), request.getParameter("adress"));
+	}
+	
+	/**
+	 * Fabrique de userAccountBean
+	 * @return
+	 */
+	public UserAccountBean userAccountBeanFabrique()
+	{
+		return new UserAccountBean();
+	}
+	
+	/**
+	 * Methode qui ajoute dans la map error, une nouvelle entree
+	 * @param key
+	 * @param message
+	 */
+	public void addInErrorMap(String key, String message)
+	{
+		errors.put(key,message);
+	}
+	
+	
 }
