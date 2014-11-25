@@ -19,6 +19,7 @@ import ca.etsmtl.log210.DAO.UserAccountDao;
  * Murat David
  */
 
+
 /**
  * This Servlet is use for the connection of a user to the web site. 
  * This Servlet checks in the DB if the couple of email/passwork given by the user of the web site is right.
@@ -71,7 +72,9 @@ public class UserConnection extends HttpServlet
      */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-    	
+
+		 
+		
 	    	//On cr un UserAccountBean qui va nous servir a stocker le email et le mot de passe saisi dans le formulaire de connexion
 	    	UserAccountBean user= new UserAccountBean();
 	    	
@@ -97,6 +100,8 @@ public class UserConnection extends HttpServlet
 			
 			//On rcupre la variable de session
 			HttpSession session = request.getSession(); 
+			
+			session.setAttribute( "langue", "fr" );
 
 			//Si l'utilisateur est inconnu, null est renvoye par la methode getUserAccount
 			if(user.getEmail()==null)
@@ -107,6 +112,7 @@ public class UserConnection extends HttpServlet
 				//On set la map d'erreurs pour pouvoir les afficher sur le formulaire
 	            session.setAttribute( ERRORS_FORM, errors );
 				
+            
 	            //On retourne sur la page de connection pour afficher le formulaire et l'erreur
 	            redirect(request, response);
 	    			//this.getServletContext().getRequestDispatcher(FORM).forward( request, response );

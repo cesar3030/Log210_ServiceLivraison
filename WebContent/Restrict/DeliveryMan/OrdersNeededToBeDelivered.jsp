@@ -3,8 +3,31 @@
 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <jsp:include page="/header.jsp"></jsp:include>
-<%ResourceBundle resourceBundle = ResourceBundle.getBundle(
-			"traduction.Bundle", request.getLocale());%>
+<%@ page import="java.util.Locale"%>
+
+<%
+	System.out.println("LANGUE : " + session.getAttribute("langue"));
+
+	Locale localeUS = new Locale("en", "US");
+
+	Locale localeFR = new Locale("fr", "FR");
+
+	ResourceBundle resourceBundle = ResourceBundle.getBundle(
+			"ca.etsmtl.log210.Traduction.Bundle", localeFR);
+
+	if (session.getAttribute("langue").equals("en")) {
+		System.out.println("EN ANGLAIS");
+		resourceBundle = ResourceBundle.getBundle(
+				"ca.etsmtl.log210.Traduction.Bundle", localeUS);
+	}
+	if (session.getAttribute("langue").equals("fr")) {
+		System.out.println("EN FRANCAIS");
+		resourceBundle = ResourceBundle.getBundle(
+				"ca.etsmtl.log210.Traduction.Bundle", localeFR);
+	}
+%>
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <!-- <script src="<c:url value="/inc/js/jquery.mixitup.js"/>"></script> -->
@@ -18,6 +41,8 @@
 	var mapIdDivItineraryDirrections = {};
 
 	var idcontenerTable = new Array();
+
+	var LocalePerso = new LocalePerso();
 
 	function calcRouteAllMaps(deleveryManPosition) {
 		for (var i = 0; i < idcontenerTable.length; i++) {
@@ -115,15 +140,37 @@
 	}
 
 	function updateDeleveryManPosition() {
+
 		var deleveryManPosition = $("#deleveryManPosition").val();
 		calcRouteAllMaps(deleveryManPosition);
 
 	}
+
+	function changementLangueFR() {
+<%session.setAttribute("langue", "fr");%>
+	}
+
+	function changementLangueUS() {
+<%session.setAttribute("langue", "en");%>
+	window.location.reload();
+	}
+	
 </script>
+
+<button type="button" name="buttonUS" onclick="changementLangueUS()">
+	<img src="inc/pictures/US_Flag.gif" width=30 height=20>
+</button>
+
+<button type="button" name="buttonFR" onclick="changementLangueFR()">
+	<img src="inc/pictures/French_Flag.jpg" width=30 height=20>
+</button>
+
+
+
 <div class="row">
 	<div class="col-md-12">
-<%=resourceBundle.getString("TRADUCTION")%>
-		<img src=" <%=resourceBundle.getString("FLAG")%>" width=30 height=20 >
+
+		<%=resourceBundle.getString("TRADUCTION")%>
 
 		<h2 class="text-center">
 			<%=resourceBundle.getString("TITRE")%>
@@ -134,8 +181,8 @@
 	<br> <br>
 	<div class="col-md-6 col-md-offset-3">
 		<input type="text" class="form-control"
-			placeholder="<%=resourceBundle.getString("INPUT")%>" id="deleveryManPosition"
-			onblur="updateDeleveryManPosition();" />
+			placeholder="<%=resourceBundle.getString("INPUT")%>"
+			id="deleveryManPosition" onblur="updateDeleveryManPosition();" />
 	</div>
 	<c:if test="${!empty returnMessage.succes}">
 		<script>
@@ -234,17 +281,17 @@
 						<input type="hidden" name="idOrder"
 							value="<c:out value="${orderForDelivery.order.idOrder}"/>">
 						<button type="submit" class="col-md-5 btn btn-default btn-md">
-							<span class="glyphicon glyphicon-road"></span> 
-							
+							<span class="glyphicon glyphicon-road"></span>
+
 							<%=resourceBundle.getString("CHARGE")%>
 						</button>
 						<a href="#infos-${orderForDelivery.order.idOrder}"
 							data-toggle="modal">
 							<button type="submit"
 								class="col-md-5 col-md-offset-1 btn btn-default btn-md">
-								<span class="glyphicon glyphicon-search"></span> 
-								
-<%=resourceBundle.getString("DETAILS")%>
+								<span class="glyphicon glyphicon-search"></span>
+
+								<%=resourceBundle.getString("DETAILS")%>
 							</button>
 						</a>
 					</form>

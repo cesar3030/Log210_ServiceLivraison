@@ -3,11 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 
 <%@ page import="java.util.ResourceBundle"%>
+<%@ page import="java.util.Locale"%>
 
-<%
-	ResourceBundle resourceBundle = ResourceBundle.getBundle(
-			"traduction.Bundle", request.getLocale());
-%>
+<% Locale localeUS = new Locale("en", "US"); %>
+<% Locale localeFR = new Locale("fr", "FR"); %>
+<% Locale locale = new Locale("fr", "FR"); %>
+
+<%ResourceBundle resourceBundle = ResourceBundle.getBundle(
+			"ca.etsmtl.log210.Traduction.Bundle", locale);%>
 <!--  
 <nav class="navbar navbar-inverse" id="navigationBar" role="navigation">
   <ul class="nav navbar-nav">
