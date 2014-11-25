@@ -16,6 +16,13 @@ import ca.etsmtl.log210.DAO.MenuManageDao;
  * Jeanroy Cesar
  * Murat David
  */
+
+/**
+ * Classe  ModifyMenu affiliee a ModifyMenu.jsp
+ * Permettant de modifier les attributs nom de menu et description d'un menu
+ * en remplacant les valeurs d'un menu par celles saisient dans le formulaire
+ *
+ */
 public class ModifyMenu extends HttpServlet {
 
 	/**

@@ -21,7 +21,8 @@ import ca.etsmtl.log210.DAO.OrderItemDao;
 
 /**
  * Servlets qui attaché à la page ShowOrderITems.jsp
- *
+ * Permet d'afficher l'ensemble des items d'un commandes 
+ * selon son numéro unique de commande
  */
 public class ShowOrderItems extends HttpServlet {
 

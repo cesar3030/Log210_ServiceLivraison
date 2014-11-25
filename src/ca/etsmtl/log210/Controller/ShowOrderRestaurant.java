@@ -18,6 +18,13 @@ import ca.etsmtl.log210.DAO.OrderDao;
  * Aissou Idriss Jeanroy Cesar Murat David
  */
 
+/**
+ * Classe ShowOrderRestaurant affiliee a ShowOrderRestaurant.jsp
+ * qui permet de recuperer les differentes commandes (selon les etats)
+ * d'un restaurant
+ * 
+ *
+ */
 public class ShowOrderRestaurant extends HttpServlet {
 
 	/**
@@ -42,6 +49,13 @@ public class ShowOrderRestaurant extends HttpServlet {
 				CONF_DAO_FACTORY)).getOrderDao();
 	}
 
+	/**
+	 * Methode doGet qui grace a l'id dun restaurant va pouvoir aller recuperer
+	 * toutes les commandes d un restaurant par utilisation des methodes :
+	 *  orderDao.getListOrder0(idRestaurant); (non traitees)
+	 *  orderDao.getListOrder1(idRestaurant); ( en preparation)
+	 *  orderDao.getListOrder2(idRestaurant); ( terminees
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -56,19 +70,23 @@ public class ShowOrderRestaurant extends HttpServlet {
 					.getParameter("idRestaurant"));
 		}
 
+		// Creation des differentes listes permettant de recceuil les differentes commandes
 		request.getSession().setAttribute("idRestaurant", idRestaurant);
 		ArrayList<OrderBean> orderList0 = new ArrayList<OrderBean>();
 		ArrayList<OrderBean> orderList1 = new ArrayList<OrderBean>();
 		ArrayList<OrderBean> orderList2 = new ArrayList<OrderBean>();
 
+		//execution des methodes getListOrder permettant de recuperer les differentes categories de commande
 		orderList0 = orderDao.getListOrder0(idRestaurant);
 		orderList1 = orderDao.getListOrder1(idRestaurant);
 		orderList2 = orderDao.getListOrder2(idRestaurant);
-
+		
+		//Ajout des differentes liste a la requete de retour
 		request.setAttribute("orderList0", orderList0);
 		request.setAttribute("orderList1", orderList1);
 		request.setAttribute("orderList2", orderList2);
 
+		//Redirection vers la servlet
 		this.getServletContext()
 				.getRequestDispatcher(SHOW_ORDER_MANAGEMENT_ACCESS)
 				.forward(request, response);

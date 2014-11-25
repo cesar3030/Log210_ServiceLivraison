@@ -34,6 +34,11 @@ import ca.etsmtl.log210.Utils.ExpressLivraisonSms;
  * Jeanroy Cesar
  * Murat David
  */
+
+/**
+ * Classe ProceedOrder permettant d'effectuer une commande aupres d'un restaurant
+ *
+ */
 public class ProceedOrder extends HttpServlet {
 	
 	public static final String CONF_DAO_FACTORY = "daofactory";

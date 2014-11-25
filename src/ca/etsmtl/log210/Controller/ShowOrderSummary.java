@@ -32,6 +32,12 @@ import ca.etsmtl.log210.DAO.MealDao;
 /**
  * Aissou Idriss Jeanroy Cesar Murat David
  */
+
+/**
+ * Classe ShowOrderSummary qui permet d afficher un resume detaille d'un commande
+ * faite par un client avant le paiement
+ *
+ */
 public class ShowOrderSummary extends HttpServlet {
 
 	private static String ORDER = "order";

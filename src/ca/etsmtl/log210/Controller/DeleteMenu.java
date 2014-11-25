@@ -17,6 +17,11 @@ import ca.etsmtl.log210.DAO.MenuManageDao;
  * Jeanroy Cesar
  * Murat David
  */
+
+/**
+ * Classe DeleteMenu permettant de supprimer un menu tout en ayant son idMenu
+ *
+ */
 public class DeleteMenu extends HttpServlet {
 
 	/**

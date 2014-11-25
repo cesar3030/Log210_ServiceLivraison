@@ -14,7 +14,8 @@ import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.MealDao;
 
 /**
- * Aissou Idriss Jeanroy Cesar Murat David Classe permetant de supprimer un plat
+ * Aissou Idriss Jeanroy Cesar Murat David C
+ * Classe permetant de supprimer un plat
  * d'un menu
  */
 public class DeleteMeal extends HttpServlet {

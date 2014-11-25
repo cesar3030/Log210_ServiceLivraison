@@ -18,6 +18,15 @@ import ca.etsmtl.log210.DAO.RestaurantDao;
  * Jeanroy Cesar
  * Murat David
  */
+
+/**
+ * Classe qui est affiliée HomeRestaurateurManagement.jsp
+ * Celle-ci affiche l'ensemble des restaurants lies a un restaurateur.
+ * De ce fait, il disposera d'une vue d'ensemble sur ces restaurants.
+ * Cette servlet est accessibe depuis l'onglet Mes restaurants de l'interface
+ * utilisateur restaurateur.
+ */
+
 public class HomeRestaurateurManagement extends HttpServlet{
 
 	 public static final String CONF_DAO_FACTORY = "daofactory";
@@ -42,22 +51,33 @@ public class HomeRestaurateurManagement extends HttpServlet{
 	    	this.restaurantDao= ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getRestaurantDao();
 	 }
 	
-	 
+	 /**
+	  * Methode doGet qui se déclanchera lorsqu'un restaurateur sélectionnera 
+	  * l'onglet Mes restaurant sur son interface user.
+	  * Des lors, ceci va permettre d'afficher l'ensemble des restaurants 
+	  * lies a son identifiant utilisateur par utilisation
+	  * de la methode :
+	  * 				restaurantDao.getActiveRestaurantsForRestaurateur(idRestaurateur)
+	  * 
+	  */
+
 	 public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
+		//On recupere la session de l utilisateur actuel
 		 HttpSession session= request.getSession();
-		 
 		 UserAccountBean restaurateurConnected = (UserAccountBean) session.getAttribute("userSession");
 		 int idRestaurateur = restaurateurConnected.getUserId();
 		 
 		 System.out.println("Voici l'id du restaurateur "+idRestaurateur);
 		 
+		//Creation de la liste qui recceuillera le resultat de l execution 
 		 ArrayList<RestaurantBean> activeRestaurantList = new ArrayList<RestaurantBean>();
-		 
 		 activeRestaurantList = restaurantDao.getActiveRestaurantsForRestaurateur(idRestaurateur);
  		 
+		//On ajoute la liste des restaurants a la requete
 		 request.setAttribute(ACTIVE_RESTAURANT_LISTE_ATTRIBUTE, activeRestaurantList);
 		 
+		//On retourne la reponse a la servlet de redirection
 		 this.getServletContext().getRequestDispatcher( RESTAURANT_MANAGEMENT_ACCESS  ).forward( request, response );
 	 }
 	 

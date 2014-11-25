@@ -20,6 +20,16 @@ import ca.etsmtl.log210.DAO.MenuManageDao;
  * Jeanroy Cesar
  * Murat David
  */
+
+/**
+ * Classe qui est affiliee au formulaire d'ajout de menu AddNewMenu.jsp
+ * Cette classe permet d'ajouter un menu a la BDD
+ * Pour ajouter un menu il faut :
+ * 					un nom de menu (obligatoire)
+ * 					une description de menu : (secondaire)
+ *
+ */
+
 public class AddNewMenu extends HttpServlet {
 
 	 private static final String CONF_DAO_FACTORY = "daofactory";
@@ -54,25 +64,35 @@ public class AddNewMenu extends HttpServlet {
 			 
 		 }
 		 
-		
+		/**
+		 * Methode doPost
+		 * Cette methode permet de recuperer les valeurs inserees dans le formulaire AddNewMenu
+		 * afin de les inserer en BDD par utilisation de la methode this.menuDao.addNewMenu(newMenu);
+		 */
 		public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 		 {
+			//On recupere la session utilisateur
 			HttpSession session = request.getSession();
 			int etatRequeter = 0;
-	
+			
+			//Creation d un bean menu afin de l envoyer en parametre a la methode this.menuDao.addNewMenu(newMenu);
 			MenuBean newMenu = new MenuBean();
 			newMenu.setname((String) request.getParameter("nameMenu"));
 			newMenu.setDescription((String) request.getParameter("descriptionMenu"));
 			newMenu.setIdRestaurant((int)session.getAttribute("restaurantActuel"));
 			
+			//On ajoute le menuBean a la BDD
 			this.menuDao.addNewMenu(newMenu);
-						
+				
+			//GERE L'avertissement si la description d un menu n est pas indiquee
 			System.out.println("AVANT------------------------") ;
 			if(newMenu.getDescription()==""){
 				etatRequeter=2;
 			}
+			//On affecte l'information de non indication de la description menu a  la requete de reponse
 			System.out.println("Voici l'etat " +etatRequeter + newMenu.getDescription());
 			session.setAttribute("EtatRequete", etatRequeter);
+			//On retourne redirige vers la servlet en question /ShowAllMenuResto
 			this.getServletContext().getRequestDispatcher( MENU_MANAGEMENT_ACCESS  ).forward( request, response );
 		 }
 	

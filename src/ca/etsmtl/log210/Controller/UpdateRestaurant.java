@@ -19,6 +19,13 @@ import ca.etsmtl.log210.DAO.RestaurantDao;
  * Jeanroy Cesar
  * Murat David
  */
+
+/**
+ * Classe UpdateRestaurant affiliee a UpdateRestaurant.jsp
+ * Modifie les attributs d un restaurant depuis
+ * l'interface utilisateur
+ *
+ */
 public class UpdateRestaurant extends HttpServlet 
 {
 
@@ -40,6 +47,9 @@ public class UpdateRestaurant extends HttpServlet
 	 }
 	
 	 
+	 /**
+	  * methode doPost qui execute la modification
+	  */
 	 public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
 	 {
 		 //Je recupere les valeurs du formulaire de modification d<un restaurant
