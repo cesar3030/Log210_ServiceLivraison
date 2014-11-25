@@ -4,7 +4,6 @@ import org.mockito.Mockito;
 
 import ca.etsmtl.log210.Beans.UserAccountBean;
 import ca.etsmtl.log210.Controller.UserConnection;
-import ca.etsmtl.log210.DAO.DAOFactory;
 import junit.framework.*;
 import static org.mockito.Mockito.*;
 

@@ -168,7 +168,7 @@
     <url-pattern>/OrderUpdateState</url-pattern>
   </servlet-mapping>
   
-     <servlet>
+  <servlet>
     <servlet-name>ShowOrderItems</servlet-name>
     <servlet-class>ca.etsmtl.log210.Controller.ShowOrderItems</servlet-class>
   </servlet>
@@ -177,6 +177,14 @@
     <url-pattern>/ShowOrderItems</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>SwitchLanguage</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.SwitchLanguage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SwitchLanguage</servlet-name>
+    <url-pattern>/SwitchLanguage</url-pattern>
+  </servlet-mapping>
   
   
  <servlet>

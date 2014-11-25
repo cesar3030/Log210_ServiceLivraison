@@ -9,8 +9,26 @@
 <% Locale localeFR = new Locale("fr", "FR"); %>
 <% Locale locale = new Locale("fr", "FR"); %>
 
-<%ResourceBundle resourceBundle = ResourceBundle.getBundle(
-			"ca.etsmtl.log210.Traduction.Bundle", locale);%>
+<%
+ClassLoader cl = ClassLoader.getSystemClassLoader();
+
+ResourceBundle.clearCache(cl);
+ResourceBundle resourceBundle = ResourceBundle.getBundle("ca.etsmtl.log210.Traduction.Bundle", locale);
+
+//ResourceBundle resourceBundle ;//= ResourceBundle.getBundle("ca.etsmtl.log210.Traduction.Bundle", localeUS);
+
+	if (session.getAttribute("langue").equals("en")) {
+		System.out.println("EN ANGLAIS");
+		resourceBundle = ResourceBundle.getBundle(
+				"ca.etsmtl.log210.Traduction.Bundle", localeUS);
+	}
+	if (session.getAttribute("langue").equals("fr")) {
+		System.out.println("EN FRANCAIS");
+		resourceBundle = ResourceBundle.getBundle(
+				"ca.etsmtl.log210.Traduction.Bundle", localeFR);
+	}
+
+%>
 <!--  
 <nav class="navbar navbar-inverse" id="navigationBar" role="navigation">
   <ul class="nav navbar-nav">

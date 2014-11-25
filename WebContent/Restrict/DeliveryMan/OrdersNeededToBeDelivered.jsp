@@ -2,18 +2,21 @@
 <%@ page import="java.util.ResourceBundle"%>
 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<jsp:include page="/header.jsp"></jsp:include>
-<%@ page import="java.util.Locale"%>
 
+<%@ page import="java.util.Locale"%>
+<jsp:include page="/header.jsp"></jsp:include>
 <%
+	ClassLoader cl = ClassLoader.getSystemClassLoader();
+	
+	ResourceBundle.clearCache(cl);
+	
 	System.out.println("LANGUE : " + session.getAttribute("langue"));
 
 	Locale localeUS = new Locale("en", "US");
 
 	Locale localeFR = new Locale("fr", "FR");
 
-	ResourceBundle resourceBundle = ResourceBundle.getBundle(
-			"ca.etsmtl.log210.Traduction.Bundle", localeFR);
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("ca.etsmtl.log210.Traduction.Bundle", localeFR);
 
 	if (session.getAttribute("langue").equals("en")) {
 		System.out.println("EN ANGLAIS");
@@ -26,7 +29,6 @@
 				"ca.etsmtl.log210.Traduction.Bundle", localeFR);
 	}
 %>
-
 
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
@@ -157,16 +159,16 @@
 	
 </script>
 
-<button type="button" name="buttonUS" onclick="changementLangueUS()">
-	<img src="inc/pictures/US_Flag.gif" width=30 height=20>
-</button>
+<form role="form" method="get" action="<c:url value="/SwitchLanguage"/>">
+	<button type="submit" name="buttonUS">
+		<img src="inc/pictures/US_Flag.gif" width=30 height=20>
+	</button>
+	<button type="submit" name="buttonFR">
+		<img src="inc/pictures/French_Flag.jpg" width=30 height=20>
+	</button>
+</form>
 
-<button type="button" name="buttonFR" onclick="changementLangueFR()">
-	<img src="inc/pictures/French_Flag.jpg" width=30 height=20>
-</button>
-
-
-
+<c:out value="${session.langue}"/>
 <div class="row">
 	<div class="col-md-12">
 

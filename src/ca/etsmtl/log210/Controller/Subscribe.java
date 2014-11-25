@@ -94,16 +94,14 @@ public class Subscribe extends HttpServlet {
 	 */
 	public void redirect(HttpServletRequest request, HttpServletResponse response)
 	{
-		// On retourne sur la page de connection pour que l'utilisateur puisse
-				// se connecter
-				try {
+			// On retourne sur la page de connection pour que l'utilisateur puisse se connecter
+				
+			try {
 					this.getServletContext().getRequestDispatcher(FORM)
 							.forward(request, response);
 				} catch (ServletException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+				} catch (IOException e) {		
 					e.printStackTrace();
 				}
 	}
