@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ca.etsmtl.log210.Beans.OrderBean;
 import ca.etsmtl.log210.Beans.OrderToDeliverBean;
@@ -46,6 +47,9 @@ public class OrdersNeededToBeDelivered extends HttpServlet implements Servlet
 		readyOrderList =  orderDao.getListOrdersReadyForDelivery();
 		
 		request.setAttribute(ATTRIBUTE_ORDER_READY, readyOrderList);
+		
+		HttpSession session = request.getSession();
+		System.out.println(session.getAttribute("langue"));
 		
 		ServletContext context= getServletContext();
 		 RequestDispatcher rd= context.getRequestDispatcher(SHOW_PAGE_ORDER_NEEDED_TO_BE_DELIVERED);

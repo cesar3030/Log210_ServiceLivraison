@@ -3,7 +3,8 @@
     
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
-<html manifest="<c:url value="/inc/cache/cache.manifest"/>">
+<!-- <html manifest="<c:url value="/inc/cache/cache.manifest"/>"> -->
+<html>
 <head>
 
 

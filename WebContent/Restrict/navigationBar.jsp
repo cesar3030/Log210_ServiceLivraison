@@ -94,9 +94,6 @@ ResourceBundle resourceBundle = ResourceBundle.getBundle("ca.etsmtl.log210.Tradu
 					<li><a href="<c:url value="/OrdersNeededToBeDelivered"/>">
 							<%=resourceBundle.getString("COMMANDE_LIVRAISON")%>
 					</a></li>
-					<li><a href="<c:url value="/MyAllocatedDeliveryOrders"/>">
-							<%=resourceBundle.getString("LIVRAISONS")%>
-					</a></li>
 					<li><a href="<c:url value="/Logout"/>"> <%=resourceBundle.getString("DECONNEXION")%>
 					</a></li>
 				</c:if>

@@ -56,6 +56,7 @@ public class Subscribe extends HttpServlet {
 		// le formulaire.
 
 		UserAccountBean newUser = userAccountBeanFabrique();
+		
 
 		request.setCharacterEncoding("UTF-8");
 

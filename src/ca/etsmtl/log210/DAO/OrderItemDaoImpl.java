@@ -92,7 +92,6 @@ public class OrderItemDaoImpl implements OrderItemDao
 		try {
 			/* Faire une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
-			System.out.println(daoFactory.getConnection().toString());
 
 			// Preparation de la requete
 			preparedStatement = initialisationRequetePreparee(connexion,
@@ -110,8 +109,6 @@ public class OrderItemDaoImpl implements OrderItemDao
 				showAllOrderItems.add(mapOrderEnDetailItems(resultSet));
 
 			}
-			
-			
 
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -139,7 +136,7 @@ public class OrderItemDaoImpl implements OrderItemDao
 	private OrderItemBean mapOrderItemBean(ResultSet resultSet) throws SQLException 
 	{
 		OrderItemBean orderItem = new OrderItemBean();
-		System.out.println(resultSet);
+		
 		orderItem.setIdOrderItem(resultSet.getInt("PLA_name"));
 		orderItem.setIdOrder(resultSet.getInt("PLA_description"));
 		orderItem.setIdMeal(resultSet.getInt("ITM_quantity"));

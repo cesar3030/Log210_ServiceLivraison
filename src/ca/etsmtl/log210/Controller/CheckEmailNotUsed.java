@@ -36,7 +36,6 @@ public class CheckEmailNotUsed extends HttpServlet implements Servlet
 		
     		//Je recupere dans l'url la valeur du champ email
     		String testingEmail = (String) request.getParameter("mail");
-    		System.out.println(testingEmail);
     		String resultat;
     		
     		//Je test si cette email existe deja ou non
@@ -61,7 +60,6 @@ public class CheckEmailNotUsed extends HttpServlet implements Servlet
 		
     		//Je recupere dans l'url la valeur du champ email
     		String testingEmail = (String) request.getParameter("mail");
-    		System.out.println(testingEmail);
     		String resultat;
     		
     		//Je test si cette email existe deja ou non

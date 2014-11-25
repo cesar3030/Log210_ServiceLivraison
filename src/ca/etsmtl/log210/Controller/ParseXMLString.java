@@ -47,7 +47,7 @@ import java.util.Map;
 
 	           NodeList title = element.getElementsByTagName("QUANTITY");
 	           line = (Element) title.item(0);
-//	           System.out.println("Quantité: " + getCharacterDataFromElement(line));
+
 	           int quantity=Integer.parseInt(getCharacterDataFromElement(line));
 	         
 	           //Je recupere toutes les infos de la BD concernant le plat dont j'ai l'id

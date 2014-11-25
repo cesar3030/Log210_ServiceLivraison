@@ -1,6 +1,7 @@
 package ca.etsmtl.log210.Controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -30,14 +31,13 @@ public class SwitchLanguage extends HttpServlet
 		 {
 			 session.setAttribute("langue","fr");
 		 }
-		 System.out.println("ici");
+		 System.out.println("Sortie controleur "+session.getAttribute("langue")+"   "+Calendar.getInstance().getTime());
 		
-		 ServletContext context= getServletContext();
-		 RequestDispatcher rd= context.getRequestDispatcher(CALL_BACK);
-		 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-		 response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-		 response.setDateHeader("Expires", 0); // Proxies.
-		 rd.forward(request, response);
+//		 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+//		 response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+//		 response.setDateHeader("Expires", 0); // Proxies.
+		
+		 this.getServletContext().getRequestDispatcher( CALL_BACK ).forward( request, response );
 	 
 	 }
 

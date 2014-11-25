@@ -10,7 +10,7 @@
 	
 	ResourceBundle.clearCache(cl);
 	
-	System.out.println("LANGUE : " + session.getAttribute("langue"));
+	//System.out.println("LANGUE : " + session.getAttribute("langue"));
 
 	Locale localeUS = new Locale("en", "US");
 
@@ -28,6 +28,7 @@
 		resourceBundle = ResourceBundle.getBundle(
 				"ca.etsmtl.log210.Traduction.Bundle", localeFR);
 	}
+	System.out.println("ici");
 %>
 
 
@@ -44,7 +45,7 @@
 
 	var idcontenerTable = new Array();
 
-	var LocalePerso = new LocalePerso();
+
 
 	function calcRouteAllMaps(deleveryManPosition) {
 		for (var i = 0; i < idcontenerTable.length; i++) {
@@ -148,27 +149,20 @@
 
 	}
 
-	function changementLangueFR() {
-<%session.setAttribute("langue", "fr");%>
-	}
-
-	function changementLangueUS() {
-<%session.setAttribute("langue", "en");%>
-	window.location.reload();
-	}
 	
 </script>
 
-<form role="form" method="get" action="<c:url value="/SwitchLanguage"/>">
-	<button type="submit" name="buttonUS">
-		<img src="inc/pictures/US_Flag.gif" width=30 height=20>
-	</button>
-	<button type="submit" name="buttonFR">
+<c:if test="${sessionScope.langue=='en'}">
+	<a href="<c:url value="/SwitchLanguage"/>">
 		<img src="inc/pictures/French_Flag.jpg" width=30 height=20>
-	</button>
-</form>
+	</a>
+</c:if> 
+<c:if test="${sessionScope.langue=='fr'}">
+	<a href="<c:url value="/SwitchLanguage"/>">
+		<img src="inc/pictures/US_Flag.gif" width=30 height=20>
+	</a>
+</c:if> 
 
-<c:out value="${session.langue}"/>
 <div class="row">
 	<div class="col-md-12">
 
@@ -320,13 +314,7 @@
 		</div>
 		<!-- /.modal -->
 		<script>
-			//newMap("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}");
-			//initialize("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}");
-			newMap("map-canvas-${orderForDelivery.order.idOrder}",
-					"${orderForDelivery.restaurant.address}",
-					"${orderForDelivery.address.address}",
-					"directions-panel-${orderForDelivery.order.idOrder}");
-			//calcRoute("${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}");
+			newMap("map-canvas-${orderForDelivery.order.idOrder}","${orderForDelivery.restaurant.address}","${orderForDelivery.address.address}","directions-panel-${orderForDelivery.order.idOrder}");
 		</script>
 	</c:forEach>
 </div>

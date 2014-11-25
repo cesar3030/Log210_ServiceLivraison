@@ -329,7 +329,6 @@ public class OrderDaoImpl implements OrderDao {
 		order.setHourAndDate(resultSet.getString("ORD_date"));
 		order.setStatus(resultSet.getInt("ORD_status"));
 		order.setIdDeliveryMan(resultSet.getInt("ORD_idDeliveryMan"));
-		System.out.println(order.getIdOrder());
 		return order;
 	}
 

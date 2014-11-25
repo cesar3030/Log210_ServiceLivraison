@@ -44,7 +44,6 @@ public class DeleteMeal extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		boolean insertReturn;
-		System.out.println("-----DÉBUT DELETE MEAL MENU DÉBUT------");
 
 		// On récupère la session actuelle
 		HttpSession session = request.getSession();
@@ -66,8 +65,6 @@ public class DeleteMeal extends HttpServlet {
 		// Paramètres de retour pour afficher les informations à l'utilisateur
 		session.setAttribute("retourInt", 1);
 		session.setAttribute("retourString", request.getParameter("nameMeal"));
-
-		System.out.println("-----FIN DELETE MEAL MENU FIN------");
 		this.getServletContext().getRequestDispatcher(MEAL_MENU)
 				.forward(request, response);
 	}

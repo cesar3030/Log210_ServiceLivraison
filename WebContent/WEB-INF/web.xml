@@ -186,7 +186,6 @@
     <url-pattern>/SwitchLanguage</url-pattern>
   </servlet-mapping>
   
-  
  <servlet>
     	<servlet-name>DeleteMenu</servlet-name>
     	<servlet-class>ca.etsmtl.log210.Controller.DeleteMenu</servlet-class>
@@ -205,7 +204,7 @@
     	<url-pattern>/ModifyMenu</url-pattern>
   </servlet-mapping>
   
-        <servlet>
+  <servlet>
     	<servlet-name>DeleteMeal</servlet-name>
     	<servlet-class>ca.etsmtl.log210.Controller.DeleteMeal</servlet-class>
   </servlet>
@@ -214,8 +213,7 @@
     	<url-pattern>/DeleteMeal</url-pattern>
   </servlet-mapping> 
   
-  
-      <servlet>
+  <servlet>
     	<servlet-name>ShowAllMealMenu</servlet-name>
     	<servlet-class>ca.etsmtl.log210.Controller.ShowAllMealMenu</servlet-class>
   </servlet>
@@ -232,9 +230,6 @@
     	<servlet-name>NewMeal</servlet-name>
     	<url-pattern>/NewMeal</url-pattern>
   </servlet-mapping> 
-  
-  
-  
   
   <servlet>
     <servlet-name>RestaurateurManagement</servlet-name>

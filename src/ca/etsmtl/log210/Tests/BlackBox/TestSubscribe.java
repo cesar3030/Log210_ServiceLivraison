@@ -24,6 +24,7 @@ public class TestSubscribe extends TestCase {
 		 HttpServletRequest request = mock(HttpServletRequest.class);       
 	     HttpServletResponse response = mock(HttpServletResponse.class);    
 	     UserAccountBean user = mock(UserAccountBean.class);
+	     
 	     Subscribe target = spy(new Subscribe());
 	     
 	     when(request.getParameter("name")).thenReturn(anyString());

@@ -19,7 +19,6 @@ public class GetListRestaurantsWithoutRestaurateur extends HttpServlet
 {
 
 	 public static final String CONF_DAO_FACTORY = "daofactory";
-	 public static final String RESTAURANT_MANAGEMENT_PAGE     = "/RestaurantManagement";
 	 public static final String ACTIVE_RESTAURATEUR_LIST = "activeRestaurateurList";
      private RestaurantDao restaurantDao;
     
