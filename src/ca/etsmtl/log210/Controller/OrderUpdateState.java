@@ -22,6 +22,7 @@ import ca.etsmtl.log210.DAO.OrderDao;
 import ca.etsmtl.log210.DAO.RestaurantDao;
 import ca.etsmtl.log210.DAO.UserAccountDao;
 import ca.etsmtl.log210.Utils.EmailUtility;
+import ca.etsmtl.log210.Utils.ExpressLivraisonSms;
 
 /**
  * Aissou Idriss Jeanroy Cesar Murat David
@@ -134,6 +135,11 @@ public class OrderUpdateState extends HttpServlet {
 						subject, content);
 				System.out.println(host + port + user + pass + recipient
 						+ subject + content);
+				
+				//Envoie du SMS
+				ExpressLivraisonSms sms = new ExpressLivraisonSms();
+				sms.envoyerSmsCommandeEnPreparation(client.getPhoneNumber());
+				
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -151,6 +157,11 @@ public class OrderUpdateState extends HttpServlet {
 						subject, content);
 				System.out.println(host + port + user + pass + recipient
 						+ subject + content);
+				
+				//Envoie du SMS
+				ExpressLivraisonSms sms = new ExpressLivraisonSms();
+				sms.envoyerSmsCommandeTerminee(client.getPhoneNumber());
+				
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -130,7 +130,7 @@ public class Subscribe extends HttpServlet {
 	}
 	
 	/**
-	 * Fabrique de userAccountBean
+	 * Fabrique de userAccountBean    
 	 * @return
 	 */
 	public UserAccountBean userAccountBeanFabrique()

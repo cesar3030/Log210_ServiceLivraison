@@ -60,7 +60,7 @@
 			
 			 //ENVOIE DU SMS DE CONFIRMATION DE LA COMMANDE POUR LE CLIENT
 	        ExpressLivraisonSms sms = new ExpressLivraisonSms();
-	       // sms.envoyerSmsConfirmationCommande(client.getPhoneNumber(), orderWithAllTheInformations.getOrder().getConfirmationCode());
+	        sms.envoyerSmsConfirmationCommande(client.getPhoneNumber(), orderWithAllTheInformations.getOrder().getConfirmationCode());
 		} 
 		catch (AddressException e) {
 			e.printStackTrace();
