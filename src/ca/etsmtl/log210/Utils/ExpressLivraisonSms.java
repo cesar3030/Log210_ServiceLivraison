@@ -32,16 +32,18 @@ public class ExpressLivraisonSms {
 	
 	/**
 	 * Methode qui permet d'envoyer un sms au client des la creation dun nouveau comtpe
-	 * @param numeroTel (le num�ro de telephone du client)
+	 * @param numeroTel (le numero de telephone du client)
+	 * @param nom Le nom du nouvel utilisateur
+	 * @param prenom le prenom du clien
 	 * @param addressMailClient (l'adresse courriel du client)
 	 * @throws IOException
 	 */
-	public void envoyerSmsConfirmationInsciptionAuSite(String numeroTel,String addressMailClient) throws IOException{
+	public void envoyerSmsConfirmationInsciptionAuSite(String numeroTel,String nom, String prenom, String addressMailClient ) throws IOException{
 		ArrayList<String> values = new ArrayList<String>();
 		values.add(numeroTel);
 
-		values.add("Bonjour : "+addressMailClient+", merci d'avoir procede a votre inscription. Desormais,"
-					+ " vous pouvez profitez de notre service en toute liberte. L'equipe de Express livraison");
+		values.add("Bonjour : "+prenom+" "+nom+", merci d'avoir procede a votre inscription. Desormais,"
+					+ " vous pouvez profitez de notre service en toute liberte en vous connectant avec votre adresse mail: "+addressMailClient+" . L'equipe de Express livraison");
 		this.post(CENTRE_DE_SMS, this.keys, values);
 	}
 	

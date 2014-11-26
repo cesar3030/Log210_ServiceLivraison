@@ -126,7 +126,7 @@ public class Subscribe extends HttpServlet {
 	public void sendConfirmationTextMessage(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		ExpressLivraisonSms sms = new ExpressLivraisonSms();
-		sms.envoyerSmsConfirmationInsciptionAuSite(request.getParameter("phone"), request.getParameter("adress"));
+		sms.envoyerSmsConfirmationInsciptionAuSite(request.getParameter("phone"), request.getParameter("name"),request.getParameter("firstname"),request.getParameter("adress"));
 	}
 	
 	/**
