@@ -15,8 +15,7 @@ import ca.etsmtl.log210.DAO.MealDao;
 
 /**
  * 
- * @author David 
- * Page affichant tous les plats d'un menu à l'utilisateur
+ * @author David Page affichant tous les plats d'un menu à l'utilisateur
  */
 public class ShowAllMealMenu extends HttpServlet {
 
@@ -28,6 +27,7 @@ public class ShowAllMealMenu extends HttpServlet {
 	public static final String MEAL_MENU_TITLE_ATTRIBUTE = "mealMenu";
 	public static final String ID_MENU_SESSION = "idMenuSession";
 	public static final String MENU_NAME_TITRE = "menuTitleName";
+	public static final String ID_RETAURANT = "idRestaurant";
 
 	public String MENU_NAME = "menuName";
 	public int ID_MENU;
@@ -44,8 +44,6 @@ public class ShowAllMealMenu extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 
-		System.out.println("je suis dans init de  ShowAllMEALRESTO");
-
 		this.mealDao = ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getMealMenuDao();
 	}
@@ -58,7 +56,7 @@ public class ShowAllMealMenu extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		/* Récupération de la session depuis la requête */
-		System.out.println("-----DÉBUT SHOW ALL MEAL MENU DÉBUT------");
+
 		HttpSession session = request.getSession();
 
 		if (request.getParameter("idMenu") != null) {
@@ -79,10 +77,6 @@ public class ShowAllMealMenu extends HttpServlet {
 			session.setAttribute("idRestaurant", ID_RESTAURANT);
 		}
 
-		System.out.println("voici l'id du menu : " + ID_MENU);
-		System.out.println("voici le nom du menu : " + MENU_NAME);
-		System.out.println("voici l'id du restaurant : "
-				+ request.getParameter("idRestaurant"));
 		// Creation des liste de donnes de requete
 		ArrayList<MealBean> mealList;
 
@@ -92,13 +86,13 @@ public class ShowAllMealMenu extends HttpServlet {
 		// AJOUT DES ELEMENTS A LA REQUETE DE REPONSE
 		request.setAttribute(MEAL_MENU_ATTRIBUTE, mealList);
 		request.setAttribute(MENU_NAME_TITRE, MENU_NAME);
-		request.setAttribute("idRestaurant", ID_RESTAURANT);
+		request.setAttribute(ID_RETAURANT, ID_RESTAURANT);
 		request.setAttribute(ID_MENU_SESSION, ID_MENU);
 
 		// On renvoie la requete de reponse au bon endroit du restrict
 		this.getServletContext().getRequestDispatcher(MENU_MANAGEMENT_ACCESS)
 				.forward(request, response);
-		System.out.println("-----FIN SHOW ALL MEAL MENU FIN------");
+
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

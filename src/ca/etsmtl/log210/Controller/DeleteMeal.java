@@ -62,6 +62,9 @@ public class DeleteMeal extends HttpServlet {
 					.put("fail",
 							"Une erreur est survenue, le plat n'a pas pu etre ajoute. Veuillez reessayer.");
 		}
+		
+		
+		
 		// Paramètres de retour pour afficher les informations à l'utilisateur
 		session.setAttribute("retourInt", 1);
 		session.setAttribute("retourString", request.getParameter("nameMeal"));

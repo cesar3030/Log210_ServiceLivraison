@@ -26,7 +26,8 @@ public class MealDaoImpl implements MealDao {
 			+ "VALUES( ?,?,?,?,?) ";
 
 	static final String SQL_DELETE_MEAL = "" + "DELETE FROM `tbplat` "
-			+ "WHERE PLA_idPlat=?";
+			+ "WHERE PLA_idPlat=? "
+	+"AND NOT EXISTS (SELECT ITM_idMeal FROM tborderitem WHERE ITM_idMeal =?)";
 
 	static final String SQL_GET_ALL_MEAL_FROM_MENU = "" + "SELECT * "
 			+ "FROM tbplat " + "WHERE PLA_idMenu=? ";
@@ -106,7 +107,7 @@ public class MealDaoImpl implements MealDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_DELETE_MEAL, false, idMeal);
+					SQL_DELETE_MEAL, false, idMeal,idMeal); 
 
 			System.out.println(preparedStatement);
 
