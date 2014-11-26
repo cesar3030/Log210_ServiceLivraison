@@ -51,7 +51,7 @@ public class ExpressLivraisonSms {
 	 * Methode qui permet d'envoyer un sms au client apres avoir passe une commande
 	 * ceci est un genre de recapitulatif
 	 * @param numeroTel (le num�ro de telephone du client)
-	 * @param numeroCommande (le num�ro de la commande)
+	 * @param numeroCommande (le numero de la commande)
 	 * @param i (l'adresse du client)
 	 * @throws IOException
 	 */

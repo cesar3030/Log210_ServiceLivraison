@@ -55,7 +55,7 @@ public class ShowAllMenuResto extends HttpServlet {
 	 {
 		 
 		 HttpSession session = request.getSession();
-
+		 	
 			if (request.getParameter("idRestaurant") != null) {
 				 ID_RESTAURANT_RECEIVED = Integer.parseInt(request.getParameter("idRestaurant"));
 				 session.setAttribute("restaurantActuel",ID_RESTAURANT_RECEIVED);
@@ -64,8 +64,9 @@ public class ShowAllMenuResto extends HttpServlet {
 				ID_RESTAURANT_RECEIVED = (int)session
 						.getAttribute("restaurantActuel");
 				}
-	
-		 PRESENT_RESTAURANT = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
+			session.setAttribute("restaurantActuel",ID_RESTAURANT_RECEIVED);
+			
+			PRESENT_RESTAURANT = restaurantDao.getNomRestaurant(ID_RESTAURANT_RECEIVED);
 		 
 		 //Creation des liste de donnes de requete
 		 ArrayList<MenuBean> activeMenuRestaurantList;
