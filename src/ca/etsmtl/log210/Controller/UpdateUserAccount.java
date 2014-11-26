@@ -22,7 +22,7 @@ public class UpdateUserAccount extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	private static final String EMAIL  = "email";
     private static final String PASS   = "password2"; 
-    public static final String MYACCOUNT_PAGE = "/Restrict/Client/MyAccount.jsp";
+    public static final String MYACCOUNT_PAGE = "/Restrict/MyAccount.jsp";
     public static final String SESSION_USER = "userSession";    
     public static final String ERRORS_FORM         = "form";
     
@@ -110,8 +110,9 @@ public class UpdateUserAccount extends HttpServlet {
 				userConnected.setEmail(user.getEmail());
 				userConnected.setPassword(user.getPassword());
 				userConnected.setPhoneNumber(user.getPhoneNumber());
-				
-				
+				userConnected.setHomeAddress(user.getHomeAddress());
+
+	            
 
 				//On set le bean user avec les valeurs modifies dans la variable globale
 	            session.setAttribute( SESSION_USER, userConnected );
