@@ -244,9 +244,8 @@
 	<c:forEach items="${orderReady}" var="orderForDelivery">
 		<div class="row mix" style="width: 100%"
 			id="order-${orderForDelivery.order.idOrder}">
-			<div
-				class="panel panel-primary col-md-10 col-md-offset-1 orderForDelivery">
-				<div class="col-md-4">
+			<div class="panel panel-primary col-md-10 col-md-offset-1 col-xs-11 col-xs-offset-1 orderForDelivery">
+				<div class="col-md-4 col-xs-11">
 					<h4>
 						<%=resourceBundle.getString("DATE_HEURE")%>
 
@@ -276,7 +275,7 @@
 					<form method=get action="<c:url value="/AcceptOrder"/>">
 						<input type="hidden" name="idOrder"
 							value="<c:out value="${orderForDelivery.order.idOrder}"/>">
-						<button type="submit" class="col-md-5 btn btn-default btn-md">
+						<button type="submit" class="col-md-5 col-xs-offset-2 col-xs-10 btn btn-default btn-md">
 							<span class="glyphicon glyphicon-road"></span>
 
 							<%=resourceBundle.getString("CHARGE")%>
@@ -284,7 +283,7 @@
 						<a href="#infos-${orderForDelivery.order.idOrder}"
 							data-toggle="modal">
 							<button type="submit"
-								class="col-md-5 col-md-offset-1 btn btn-default btn-md">
+								class="col-md-5 col-xs-offset-2 col-xs-10 btn btn-default btn-md">
 								<span class="glyphicon glyphicon-search"></span>
 
 								<%=resourceBundle.getString("DETAILS")%>
@@ -292,7 +291,7 @@
 						</a>
 					</form>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-8  col-xs-11">
 					<div class="map-canvas"
 						id="map-canvas-${orderForDelivery.order.idOrder}"></div>
 				</div>
