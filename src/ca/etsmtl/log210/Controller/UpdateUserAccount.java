@@ -137,7 +137,7 @@ public class UpdateUserAccount extends HttpServlet {
 		
 	}
 
-	private int modifyUserAccount(UserAccountBean user) 
+	public int modifyUserAccount(UserAccountBean user) 
 	{
 		return userAccountDao.modifyUserAccount(user);
 	}
@@ -156,7 +156,16 @@ public class UpdateUserAccount extends HttpServlet {
 	{
 		this.getServletContext().getRequestDispatcher(MYACCOUNT_PAGE).forward( request, response );
 	}
-		
+
+	public Map<String, String> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(Map<String, String> errors) {
+		this.errors = errors;
+	}
+	
+	
     
     
 }
