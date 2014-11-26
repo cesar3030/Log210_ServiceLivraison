@@ -12,6 +12,7 @@
 	    	<div class="panel-body">
 	    		<h4>Veuillez choisir votre mode de payement:</h4>
 	    		<div class="row">
+	    		<div class="col-md-2">
 	    		<script async="async" src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=expresslivraison.montreal-facilitator@gmail.com" 
 				    data-button="buynow" 
 				    data-name="Commande expresLivraison" 
@@ -23,6 +24,12 @@
 				    data-env="sandbox"
 				></script>
 	    		</div>
+	    <div class="col-md-2">
+	    	<a href="<c:url value="/Restrict/Client/OrderDone.jsp"/>">
+		<button class="btn btn-primary"  id="confirm" type="submit">Ma va pas payer pour ca CRISSS !</button> 
+	    </a>
+	    </div>
+	    </div>
 	    </div>
 	</div>
 </div>  
