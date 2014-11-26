@@ -39,6 +39,7 @@ public class AddNewMenu extends HttpServlet {
 	public static final String ID_RESTAURANT_SESSION = "idRestaurantSession";
 	private MenuManageDao menuDao;
 	public MenuBean menuAajouter;
+	public int etatRequeter;
 
 	/**
 	 * Method who is executed the fist time that the servlet is create. Here we
@@ -72,13 +73,18 @@ public class AddNewMenu extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// On recupere la session utilisateur
-		HttpSession session = request.getSession();
-		int etatRequeter = 0;
+		HttpSession session = getSession(request);
+		etatRequeter = 0;
 		//System.out.println("Id restaurant session"+(int) session.getAttribute("restaurantActuel"));
 		// Creation d un bean menu qui sera ajouter en bdd
-		this.setMenuAajouter((String) request.getParameter("nameMenu"),
-				(String) request.getParameter("descriptionMenu"),
-				(int) session.getAttribute("restaurantActuel"));
+		String name= request.getParameter("nameMenu");
+		String description = request.getParameter("descriptionMenu");
+		int idResto = Integer.parseInt((String)session.getAttribute("restaurantActuel"));
+		
+		menuAajouter= menuBeanFactory();
+		menuAajouter.setname(name);
+		menuAajouter.setDescription(description);
+		menuAajouter.setIdRestaurant(idResto);
 
 		// On ajoute le menuBean a la BDD
 		this.getMenuDao().addNewMenu(this.getMenuAajouter());
@@ -94,10 +100,19 @@ public class AddNewMenu extends HttpServlet {
 		redirection(request, response);
 	}
 
+	public MenuBean menuBeanFactory() 
+	{
+		return new MenuBean();
+	}
+
 	public MenuBean getMenuAajouter() {
 		return menuAajouter;
 	}
 
+	public HttpSession getSession(HttpServletRequest request)
+	{
+		return request.getSession();
+	}
 
 	public void redirection(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -118,10 +133,13 @@ public class AddNewMenu extends HttpServlet {
 		this.menuDao = menuDao;
 	}
 
-	public void setMenuAajouter(String name, String description, int idResto){
-		menuAajouter= new MenuBean();
-		menuAajouter.setname(name);
-		menuAajouter.setDescription(description);
-		menuAajouter.setIdRestaurant(idResto);
+	public int getEtatRequeter() {
+		return etatRequeter;
 	}
+
+	public void setEtatRequeter(int etatRequeter) {
+		this.etatRequeter = etatRequeter;
+	}
+
+
 }

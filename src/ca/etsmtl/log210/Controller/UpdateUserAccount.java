@@ -25,6 +25,8 @@ public class UpdateUserAccount extends HttpServlet {
     public static final String MYACCOUNT_PAGE = "/Restrict/MyAccount.jsp";
     public static final String SESSION_USER = "userSession";    
     public static final String ERRORS_FORM         = "form";
+     //cette ma va nous servir a socker le rsultat du test de la validit du format de l'email et du mot de passe 
+    public Map<String,String> errors;
     
     
     //The instance of UserAccountDao who give us the possibility to execute requests to the DB about userAccount
@@ -48,7 +50,7 @@ public class UpdateUserAccount extends HttpServlet {
 			throws ServletException, IOException {
     	
 	    	//On cr un UserAccountBean qui va nous servir a stocker le email et le mot de passe saisi dans le formulaire de connexion
-	    	UserAccountBean user= new UserAccountBean();
+	    	UserAccountBean user= userAccountBeanFactory();
 	 
 	    			
 	    	request.setCharacterEncoding("UTF-8");
@@ -60,14 +62,10 @@ public class UpdateUserAccount extends HttpServlet {
 			// On set newUser les valeurs rentres dans le formulaire ok nickel.
 
 			user.setEmail(userAlreadyConnected.getEmail());
-			user.setPassword(UserAccountBean.getValeurChamp( request, PASS ));
+			user.setPassword(getPassword(request));
 			user.setPhoneNumber(request.getParameter("phone"));
 			user.setHomeAddress(request.getParameter("adress"));
 			user.setUserId( userAlreadyConnected.getUserId());
-	    	
-        
-        //cette ma va nous servir a socker le rsultat du test de la validit du format de l'email et du mot de passe 
-        Map<String,String> errors;
         
         //Je vrifie le format de l'email et du mot de passe. Si il y a des erreurs, elles seront enregistres dans une map 
         // qu'on renverra au formulaire et qui affichera le contenu de la map
@@ -81,7 +79,8 @@ public class UpdateUserAccount extends HttpServlet {
 			//Ici on va stocker le retour de l'update(si 0 tout s'est bien pass, si 1 il y a eu un problme)
 			int returnedValue=0;		
 			
-			returnedValue=userAccountDao.modifyUserAccount(user);			
+			//On effectue la modification en BD
+			returnedValue=modifyUserAccount(user);			
 		
 			//Si la requete retourne une erreur
 			if(returnedValue==0)
@@ -94,7 +93,7 @@ public class UpdateUserAccount extends HttpServlet {
 				request.setAttribute(ERRORS_FORM,errors);
 				
 	            //On retourne sur la page de connection pour afficher le formulaire et l'erreur
-	    			this.getServletContext().getRequestDispatcher(MYACCOUNT_PAGE).forward( request, response );
+				redirect(request, response);
 			}
 			else
 			{
@@ -118,25 +117,44 @@ public class UpdateUserAccount extends HttpServlet {
 	            session.setAttribute( SESSION_USER, userConnected );
 	            
 	            errors.put("UpdateCompleted","Votre compte a ete mis a jours correctement");
-	            System.out.println(errors);
+	      
 	            request.setAttribute(ERRORS_FORM,errors);
+	            
 	            //On redirige vers la page MyAccount.jsp
-	    			this.getServletContext().getRequestDispatcher(MYACCOUNT_PAGE).forward( request, response );
+	    			redirect(request, response);
 			}
 
 			
         } 
 		else 
 		{
-			
-			
 			//On set la map d'erreurs pour pouvoir les afficher sur le formulaire
             session.setAttribute( ERRORS_FORM, errors );
 			
             //On retourne au formulaire et on affiche les erreurs
-    			this.getServletContext().getRequestDispatcher(MYACCOUNT_PAGE  ).forward( request, response );
+    			redirect(request, response);
         }
 		
+	}
+
+	private int modifyUserAccount(UserAccountBean user) 
+	{
+		return userAccountDao.modifyUserAccount(user);
+	}
+		
+
+	public UserAccountBean userAccountBeanFactory() {
+		return new UserAccountBean();
+	}
+
+	public String getPassword(HttpServletRequest request) {
+		
+		return UserAccountBean.getValeurChamp( request, PASS );
+	}
+	
+	public void redirect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		this.getServletContext().getRequestDispatcher(MYACCOUNT_PAGE).forward( request, response );
 	}
 		
     
