@@ -57,9 +57,6 @@
 					deleveryManPosition);
 
 		}
-		if (deleveryManPosition != null) {
-			$('#orderContainer').mixItUp('sort', 'distance:desc');
-		}
 	}
 
 	function addInMaps(idContener, restaurantAddress, clientAddress,
