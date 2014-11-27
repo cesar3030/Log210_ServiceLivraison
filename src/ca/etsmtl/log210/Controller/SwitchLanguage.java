@@ -1,18 +1,11 @@
 package ca.etsmtl.log210.Controller;
 
 import java.io.IOException;
-import java.util.Calendar;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import ca.etsmtl.log210.DAO.DAOFactory;
-import ca.etsmtl.log210.DAO.RestaurantDao;
 
 public class SwitchLanguage extends HttpServlet 
 {

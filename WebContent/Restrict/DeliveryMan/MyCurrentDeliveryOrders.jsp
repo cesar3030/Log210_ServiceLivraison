@@ -1,4 +1,4 @@
-%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="java.util.ResourceBundle"%>
 
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
