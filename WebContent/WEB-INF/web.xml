@@ -21,12 +21,12 @@
  
     <context-param>
         <param-name>user</param-name>
-        <param-value>expresslivraison.montreal@gmail.com</param-value>
+        <param-value>servicelivraisonlog210@gmail.com</param-value>
     </context-param>
  
     <context-param>
         <param-name>pass</param-name>
-        <param-value>ubiulbkjjwavdnom</param-value>
+        <param-value>qwertylog210</param-value>
     </context-param>
   
   
