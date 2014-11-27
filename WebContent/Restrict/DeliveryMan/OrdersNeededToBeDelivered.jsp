@@ -61,7 +61,7 @@
 
 		}
 		if (deleveryManPosition != null) {
-			$('#orderContainer').mixItUp('sort', 'distance:desc');
+			$('#orderContainer').mixItUp('sort', 'distance:asc');
 		}
 	}
 
