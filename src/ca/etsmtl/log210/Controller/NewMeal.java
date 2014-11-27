@@ -27,8 +27,11 @@ public class NewMeal extends HttpServlet {
 	public static final String MEAL_MENU = "/ShowAllMealMenu";
 	public static final String REQUEST_FINISHED_STATE = "returnMessage";
 	public static final String ID_MENU_REQUETE = "idMenuSession";
-
+	public int idMenu;
+	Map<String, String> returnMessage;
+	private MealBean mealToAdd;
 	private MealDao mealDAO;
+	private int etatDescription;
 
 	/**
 	 * Method who is executed the fist time that the servlet is create. Here we
@@ -44,31 +47,27 @@ public class NewMeal extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("-----DÉBUT DANS NEW MEAL DÉBUT------");
 
-		/* Récupération de la session depuis la requête */
-		HttpSession session = request.getSession();
+		/* Recuperation de la session depuis la requete */
+		HttpSession session = this.getSession(request);
 
-		// Création d'un Bean de plat
-		MealBean mealToAdd = new MealBean();
-		System.out.println("ID DU MENU : "
-				+ session.getAttribute("idMenuSession"));
-
-		// On remplis le Bean
-		mealToAdd.setIdMenu(Integer.parseInt((String) session
-				.getAttribute("idMenuSession")));
-		mealToAdd.setName(request.getParameter("name"));
-		mealToAdd.setPrice(Integer.parseInt(request.getParameter("price")));
-		mealToAdd.setDescription(request.getParameter("description"));
+		// Creation d'un Bean de plat 
+		// On remplit le Bean;
+		this.setMealBean(Integer.parseInt((String) session
+				.getAttribute("idMenuSession")),
+				request.getParameter("name"),
+				Integer.parseInt(request.getParameter("price")),
+				request.getParameter("description"));
+		
 
 		boolean insertReturn;
 
-		// On envoie le bean à insérer au controlleur qui fait le lien avec la
+		// On envoie le bean a� inserer au controlleur qui fait le lien avec la
 		// BDD
-		insertReturn = mealDAO.addNewMeal(mealToAdd);
+		insertReturn = this.getMealDao().addNewMeal(this.getMealBean());
 
-		Map<String, String> returnMessage = new HashMap<String, String>();
-
+		this.setMapError();
+		
 		if (insertReturn == true) {
 			returnMessage.put("succes", "Le plat a ete ajoute avec succes !");
 		} else {
@@ -78,30 +77,137 @@ public class NewMeal extends HttpServlet {
 		}
 
 		request.setAttribute(REQUEST_FINISHED_STATE, returnMessage);
-		System.out.println("voici l'id du menu : "
-				+ session.getAttribute("idMenuSession"));
-		request.setAttribute(ID_MENU_REQUETE,
-				session.getAttribute("idMenuSession"));
 
-		System.out.println("voici l'idRestaurant : "
-				+ session.getAttribute("idRestaurant"));
-		request.setAttribute("idRestaurant",
-				session.getAttribute("idRestaurant"));
 
-		//Récupération d'informations pour les afficher à l'utilisateur
-		if (request.getParameter("description").equals("")) {
-			session.setAttribute("retourInt", 3);
-			session.setAttribute("retourString", request.getParameter("name"));
-		} else {
-			session.setAttribute("retourInt", 0);
-			session.setAttribute("retourString", request.getParameter("name"));
-		}
+		testDescriptionMissing(request,session);
 
-		System.out.println("-----FIN DANS NEW MEAL FIN------");
-
-		this.getServletContext().getRequestDispatcher(MEAL_MENU)
-				.forward(request, response);
+		this.redirection(request, response);
 
 	}
-
+	
+	/**
+	 * Methode qui permet de creer un meal bean puis en affectants aux attribut du bean 
+	 * les parametres recus lors de l appel de la methode 
+	 * @param idMenu
+	 * @param name
+	 * @param prix
+	 * @param description
+	 */
+	public void setMealBean(int idMenu, String name, int prix, String description){
+		mealToAdd = new MealBean();
+		mealToAdd.setIdMenu(idMenu);
+		mealToAdd.setName(name);
+		mealToAdd.setPrice(prix);
+		mealToAdd.setDescription(description);
+	}
+	
+	/**
+	 * Methode qui permet de retourner le bean qui sera inserer en BDD
+	 * @return MealBean
+	 */
+	public MealBean getMealBean(){
+		return this.mealToAdd;
+	}
+	
+	
+	/**
+	 * Methode qui permet de rediriger vers la page servlet de notre choix
+	 * En l'occurence ici nous renvoyons vers /ShowAllMealMenu
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void redirection(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// On retourne redirige vers la servlet en question /ShowAllMenuResto
+		this.getServletContext().getRequestDispatcher(MEAL_MENU)
+				.forward(request, response);
+	}
+	
+	
+	/**
+	 * Methode qui permet de retourner le gestionnaire mealDao
+	 * Liaison avec la BDD niveau des plats
+	 * @return MealDao
+	 */
+	public MealDao getMealDao(){
+		return this.mealDAO;
+		
+	}
+	
+	/**
+	 * Methode qui permet d'initialiser une map error qui servira
+	 * pour la gestion des erreurs saisies voir d'erreur d'insertion BDD
+	 */
+	public void setMapError(){
+		this.returnMessage = new HashMap<String, String>();
+	}
+	
+	/**
+	 * Methode QUI PERMET DE retourner la map d'erreur liee aux plats
+	 * @return Map<String, String>
+	 */
+	public Map<String, String> getMapError(){
+		return this.returnMessage;
+	}
+	
+	/**
+	 *MEthode qui permet de retourner la session d'un utilisateur 
+	 * @param request (HttpServletRequest)
+	 * @return HttpSession
+	 */
+	public HttpSession getSession(HttpServletRequest request)
+	{
+		return request.getSession();
+	}
+	
+	/**
+	 * Methode qui permet de setter la valeur du menu dans lequel
+	 * nous devons ajouter le plat ( r�cup�rer depuis HttpServletRequest resquest)
+	 * @param i
+	 */
+	public void setIdMenuSession(int i){
+		this.idMenu=i;
+	}
+	
+	/**
+	 * Methode qui permet de retourner idMenu dans lequel nous devons ajouter le plat
+	 * @return idMenu (int)
+	 */
+	public int getIdMenuSession(){
+		return this.idMenu;
+	}
+	
+	
+	/**
+	 * Methode qui permet d'ajouter des variables session afin de gerer les erreurs de BDD
+	 * , Manque de description plats ....
+	 * @param requestR
+	 * @param session
+	 */
+	public void testDescriptionMissing(HttpServletRequest requestR,HttpSession session){
+		this.etatDescription=0;
+		//Recuperation d'informations pour les afficher a� l'utilisateur
+		if (requestR.getParameter("description").equals("")) {
+			session.setAttribute("retourInt", 3);
+			session.setAttribute("retourString", requestR.getParameter("name"));
+			this.etatDescription=1;
+		} else {
+			session.setAttribute("retourInt", 0);
+			session.setAttribute("retourString", requestR.getParameter("name"));
+		}
+		
+	}
+	
+	/**
+	 * Methode qui permet de savoir si un plat dispose d'une description ou non
+	 * 0 = oui
+	 * 1 = non
+	 * @return int
+	 */
+	public int getEtatDescription(){
+		return this.etatDescription;
+	}
+	
 }
