@@ -265,12 +265,12 @@
 
 						<c:out value="${orderForDelivery.order.dateAcceptedByDeliveryMan}" />
 					</h5>
-					<form method=get action="<c:url value="/AcceptOrder"/>">
+					<form method=get action="<c:url value="/OrderFinishToBeDelivered"/>">
 						<input type="hidden" name="idOrder"
 							value="<c:out value="${orderForDelivery.order.idOrder}"/>">
 						<button type="submit" class="col-md-5 col-xs-offset-2 col-xs-10 btn btn-default btn-md">
 							<span class="glyphicon glyphicon-road"></span>
-							<%=resourceBundle.getString("CHARGE")%>
+							<%=resourceBundle.getString("TERMINE")%>
 						</button>
 						<a href="#infos-${orderForDelivery.order.idOrder}"
 							data-toggle="modal">

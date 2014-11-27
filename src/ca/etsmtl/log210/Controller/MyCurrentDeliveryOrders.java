@@ -47,10 +47,9 @@ public class MyCurrentDeliveryOrders extends HttpServlet implements Servlet
 		
 		request.setAttribute(ATTRIBUTE_ORDER_READY, readyOrderList);
 
-		
 		ServletContext context= getServletContext();
-		 RequestDispatcher rd= context.getRequestDispatcher(SHOW_PAGE_ORDER_NEEDED_TO_BE_DELIVERED);
-		 rd.forward(request, response);
+		RequestDispatcher rd= context.getRequestDispatcher(SHOW_PAGE_ORDER_NEEDED_TO_BE_DELIVERED);
+		rd.forward(request, response);
 		
 	}
 
