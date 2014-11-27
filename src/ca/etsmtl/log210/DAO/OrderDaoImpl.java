@@ -33,7 +33,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "SET ORD_status=? " + "WHERE ORD_idOrder=?";
 
 	private static final String SQL_GET_0_ORDER = ""
-			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
+			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode, ord.ORD_dateAcceptedByDeliveryMan "
 			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re "
 			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
 			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
@@ -43,7 +43,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "ORDER BY ord.ORD_idOrder ";
 
 	private static final String SQL_GET_1_ORDER = ""
-			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
+			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode, ord.ORD_dateAcceptedByDeliveryMan  "
 			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re "
 			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
 			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
@@ -53,7 +53,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "ORDER BY ord.ORD_idOrder";
 
 	private static final String SQL_GET_2_ORDER = ""
-			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode "
+			+ "SELECT DISTINCT ord.ORD_idOrder, ord.ORD_idUserAccount, ord.ORD_address, ord.ORD_date, ord.ORD_idDeliveryMan, ord.ORD_status, ord.ORD_confirmationCode, ord.ORD_dateAcceptedByDeliveryMan  "
 			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re "
 			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
 			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
