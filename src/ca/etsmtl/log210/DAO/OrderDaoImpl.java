@@ -93,7 +93,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "AND	ord.ORD_status = 3 "
 			+ "AND ord.ORD_idDeliveryMan =? "
 			+ "GROUP BY ord.ORD_idOrder "
-			+ "ORDER BY ord.ORD_dateAcceptedByDeliveryMan ASC ";
+			+ "ORDER BY ord.ORD_date ASC ";
 	
 	/**
 	 * Methodde qui permet de recuperer la DAO
