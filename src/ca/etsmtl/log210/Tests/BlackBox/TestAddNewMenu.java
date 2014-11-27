@@ -13,7 +13,7 @@ public class TestAddNewMenu extends TestCase {
 	
 	
 public void testAddNewMenuAvecDescription()throws Exception{
-		
+//		
 //		 HttpServletRequest request = mock(HttpServletRequest.class);
 //		 HttpServletResponse response = mock(HttpServletResponse.class); 
 //		 HttpSession session = mock(HttpSession.class); 
@@ -22,7 +22,8 @@ public void testAddNewMenuAvecDescription()throws Exception{
 //		 
 //		 Mockito.when(request.getParameter("nameMenu")).thenReturn("testMenu");
 //		 Mockito.when(request.getParameter("descriptionMenu")).thenReturn("descriptionTest");
-//		 Mockito.when(session.getAttribute("restaurantActuel")).thenReturn("1");
+//		 //Mockito.when(session.getAttribute("restaurantActuel")).thenReturn("1");
+//		 doReturn("1").when(session).getAttribute("restaurantActuel");
 //	 	
 //	 	 System.out.println(request.getParameter("nomMenu"));
 //	 	 System.out.println(request.getParameter("descriptionMenu"));
