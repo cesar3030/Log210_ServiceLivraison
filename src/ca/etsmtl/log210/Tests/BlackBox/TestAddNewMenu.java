@@ -2,14 +2,13 @@ package ca.etsmtl.log210.Tests.BlackBox;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.mockito.Mockito;
-
 import ca.etsmtl.log210.Beans.MenuBean;
 import ca.etsmtl.log210.Controller.AddNewMenu;
 import ca.etsmtl.log210.DAO.MenuManageDao;
 import junit.framework.TestCase;
 import static org.mockito.Mockito.*;
+
 public class TestAddNewMenu extends TestCase {
 	
 	
