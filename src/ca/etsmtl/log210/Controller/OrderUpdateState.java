@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -100,8 +101,7 @@ public class OrderUpdateState extends HttpServlet {
 		 * = Faite
 		 */
 
-		request.setAttribute(ETAT_REQUETE,
-				orderDao.updateOrderState(idOrderRecu, status));
+		request.setAttribute(ETAT_REQUETE,updateOrderState(idOrderRecu, status));
 
 		// On recupre la variable de session
 		HttpSession session = request.getSession();
@@ -112,10 +112,10 @@ public class OrderUpdateState extends HttpServlet {
 		UserAccountBean client = null;
 
 		//On récupère la commande
-		order = orderDao.getOrder(idOrderRecu);
+		order = getOrder(idOrderRecu);
 
 		// On recupere le client qui a passé la commande
-		client = userAccountDao.getUserAccountByID(order.getIdUserAccount());
+		client = getUserAccount(order.getIdUserAccount());
 
 		// Variables utilisees pour l'envoi du courriel
 		String recipient = client.getEmail();
@@ -131,13 +131,15 @@ public class OrderUpdateState extends HttpServlet {
 
 			// Envoie de du courriel
 			try {
-				EmailUtility.sendEmail(host, port, user, pass, recipient,
+				
+				sendEmail(host, port, user, pass, recipient,
 						subject, content);
+				
 				System.out.println(host + port + user + pass + recipient
 						+ subject + content);
 				
 				//Envoie du SMS
-				ExpressLivraisonSms sms = new ExpressLivraisonSms();
+				ExpressLivraisonSms sms = expressLivraisonSmsFabrique();
 				sms.envoyerSmsCommandeEnPreparation(client.getPhoneNumber());
 				
 			} catch (MessagingException e) {
@@ -153,7 +155,7 @@ public class OrderUpdateState extends HttpServlet {
 					"prete a etre livre");
 			// Envoie de du courriel
 			try {
-				EmailUtility.sendEmail(host, port, user, pass, recipient,
+				sendEmail(host, port, user, pass, recipient,
 						subject, content);
 				System.out.println(host + port + user + pass + recipient
 						+ subject + content);
@@ -174,7 +176,30 @@ public class OrderUpdateState extends HttpServlet {
 				.forward(request, response);
 	}
 
-	private String generateMailContent(OrderBean order, UserAccountBean client,
+	public int updateOrderState(int idOrderRecu, int status) {
+		
+		return orderDao.updateOrderState(idOrderRecu, status);
+	}
+
+	public void sendEmail(String host2, String port2, String user2,
+			String pass2, String recipient, String subject, String content) throws AddressException, MessagingException {
+		EmailUtility.sendEmail(host, port, user, pass, recipient,
+				subject, content);
+	}
+
+	public ExpressLivraisonSms expressLivraisonSmsFabrique() {
+		return new ExpressLivraisonSms();
+	}
+
+	public UserAccountBean getUserAccount(int idUserAccount) {
+		return userAccountDao.getUserAccountByID(idUserAccount);
+	}
+
+	public OrderBean getOrder(int idOrderRecu) {
+		return orderDao.getOrder(idOrderRecu);
+	}
+
+	public String generateMailContent(OrderBean order, UserAccountBean client,
 			String statut) {
 		String beginning = "Chere " + client.getFirstName() + " "
 				+ client.getName() + ",<br><br> Votre commande numero : "
@@ -184,6 +209,38 @@ public class OrderUpdateState extends HttpServlet {
 		content = beginning + content + end;
 
 		return content;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 }
