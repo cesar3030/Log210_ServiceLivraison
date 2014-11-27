@@ -28,7 +28,7 @@ public void testAddNewMenuAvecDescription()throws Exception{
 	 	 System.out.println(request.getParameter("descriptionMenu"));
 	 	 System.out.println(session.getAttribute("restaurantActuel"));
 	 	 
-	 	 AddNewMenu testTargetAddMenu = (new AddNewMenu());
+	 	 AddNewMenu testTargetAddMenu = spy(new AddNewMenu());
 	 	 
 	 	 doNothing().when(testTargetAddMenu).redirection(request, response);
 	 	 doReturn(1).when(testTargetAddMenu).getID_RESTAURANT_REFERENCE();
