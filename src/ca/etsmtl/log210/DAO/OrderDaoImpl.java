@@ -92,6 +92,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "AND  usr.USR_idUser = ord.ORD_idUserAccount	"
 			+ "AND	ord.ORD_status = 3 "
 			+ "AND ord.ORD_idDeliveryMan =? "
+			+ "GROUP BY ord.ORD_idOrder "
 			+ "ORDER BY ord.ORD_dateAcceptedByDeliveryMan ASC ";
 	
 	/**
