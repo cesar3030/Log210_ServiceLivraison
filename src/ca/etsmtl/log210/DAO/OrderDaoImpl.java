@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import ca.etsmtl.log210.Beans.AddressBean;
 import ca.etsmtl.log210.Beans.OrderBean;
@@ -73,12 +74,24 @@ public class OrderDaoImpl implements OrderDao {
 			+ "AND	ord.ORD_status = 2 ";
 
 	private static final String SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER = ""
-			+ "UPDATE tborder " + "SET ORD_idDeliveryMan=?, ORD_status=? "
-			+ "WHERE ORD_idOrder=?";
+			+ "UPDATE tborder " + "SET ORD_idDeliveryMan=?, ORD_status=?, ORD_DateAcceptedByDeliveryMan=? "
+			+ "WHERE ORD_idOrder=? ";
 
 	private static final String SQL_GET_ORDER_WITH_ID = "" + "SELECT * "
 			+ "FROM tborder " + "WHERE ORD_idOrder = ?;";
 
+	private static final String SQL_GET_ORDER_BEING_DELIVERED=""
+			+ "SELECT * "
+			+ "FROM tborder ord, tborderitem it, tbplat pl, tbmenu me, tbrestaurant re, tbuseraccount usr, tbotheraddress adr "
+			+ "WHERE  ord.ORD_idOrder = it.ITM_idOrder "
+			+ "AND  it.ITM_idMeal = pl.PLA_idPlat "
+			+ "AND  pl.PLA_idMenu = me.MEN_idMenu "
+			+ "AND  adr.ADR_idAddress = ord.ORD_address "
+			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
+			+ "AND  usr.USR_idUser = ord.ORD_idUserAccount	"
+			+ "AND	ord.ORD_status = 3 "
+			+ "AND ORD_idDeliveryMan =?";
+	
 	/**
 	 * Methodde qui permet de recuperer la DAO
 	 * 
@@ -108,7 +121,7 @@ public class OrderDaoImpl implements OrderDao {
 			preparedStatement = initialisationRequetePreparee(connexion,
 					SQL_NEW_ORDER, true, newOrder.getIdUserAccount(),
 					newOrder.getIdAddress(), newOrder.getHourAndDate());
-
+  
 			System.out.println(preparedStatement);
 
 			preparedStatement.executeUpdate();
@@ -433,13 +446,15 @@ public class OrderDaoImpl implements OrderDao {
 			PreparedStatement preparedStatement = null;
 			ResultSet resultSet = null;
 			int codeRetour = 0;
+			
+			String currentTime = getCurrentDate();
 
 			try {
 				/* Recuperation d'une connexion depuis la Factory */
 				connexion = daoFactory.getConnection();
 				preparedStatement = initialisationRequetePreparee(connexion,
 						SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER, true,
-						idDeliveryMan, 3, idOrder);
+						idDeliveryMan, 3, currentTime, idOrder);
 
 				System.out.println(preparedStatement);
 				codeRetour = preparedStatement.executeUpdate();
@@ -461,6 +476,18 @@ public class OrderDaoImpl implements OrderDao {
 		}
 
 		return errorCode;
+	}
+
+	
+	public String getCurrentDate() 
+	{
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		Calendar cal = Calendar.getInstance();
+		
+		String currentTime = sdf.format(cal.getTime());
+		
+		return currentTime;
 	}
 
 	@Override
@@ -493,5 +520,36 @@ public class OrderDaoImpl implements OrderDao {
 		}
 
 		return orderTmp;
+	}
+
+	@Override
+	public ArrayList<OrderToDeliverBean> getListOrdersAcceptedOrderToBeDelivered(
+			UserAccountBean deliveryMan) {
+		
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<OrderToDeliverBean> orderToDeliver = new ArrayList<OrderToDeliverBean>();
+
+		try {
+			/* Recuperation d'une connexion depuis la Factory */
+			connexion = daoFactory.getConnection();
+			preparedStatement = initialisationRequetePreparee(connexion,
+					SQL_GET_ORDER_BEING_DELIVERED, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
+			while (resultSet.next()) {
+				orderToDeliver.add(mapOrderToDeliver(resultSet));
+			}
+
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+		}
+		return orderToDeliver;
+
 	}
 }

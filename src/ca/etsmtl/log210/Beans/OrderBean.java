@@ -35,6 +35,7 @@ public class OrderBean {
 	
 	
 	
+	
 	public List<OrderItemBean> getOrderItemsList() {
 		return orderItemsList;
 	}
@@ -136,6 +137,7 @@ public class OrderBean {
 	public void setIdDeliveryMan(int idLivreur) {
 		this.idDeliveryMan = idLivreur;
 	}
+
 
 	
 	

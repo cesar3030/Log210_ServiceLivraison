@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import ca.etsmtl.log210.Beans.OrderBean;
 import ca.etsmtl.log210.Beans.OrderToDeliverBean;
+import ca.etsmtl.log210.Beans.UserAccountBean;
 
 public interface OrderDao 
 {
@@ -33,6 +34,13 @@ public interface OrderDao
 	 * @return	La liste des commandes � livrer avec toutes les informations requises par le livreur
 	 */
 	ArrayList<OrderToDeliverBean> getListOrdersReadyForDelivery();
+	
+	/**
+	 * Methode qui retourne la liste des commandes acceptees par le livreur et qui sont en cours de livraison.
+	 * @param 	Le livreur dont on veut recuperer les commandes dont il est en charge
+	 * @return	La liste des commandes � livrer avec toutes les informations requises par le livreur
+	 */
+	ArrayList<OrderToDeliverBean> getListOrdersAcceptedOrderToBeDelivered(UserAccountBean deliveryMan);
 	
 	/**
 	 * Methode qui verifie si une commande a deja ete acceptee par un livreur

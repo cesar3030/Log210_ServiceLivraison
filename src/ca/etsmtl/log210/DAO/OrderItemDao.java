@@ -20,5 +20,6 @@ public interface OrderItemDao
 	 * @return la liste des items de la commande en question
 	 */
 	ArrayList<OrderDetailsItemsBean> showAllOrderItem(int idOrder);
+	
 	int calculMontantTotal(ArrayList<OrderDetailsItemsBean> liste);
 }
