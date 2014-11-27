@@ -71,7 +71,8 @@ public class OrderDaoImpl implements OrderDao {
 			+ "AND  adr.ADR_idAddress = ord.ORD_address "
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
 			+ "AND  usr.USR_idUser = ord.ORD_idUserAccount	"
-			+ "AND	ord.ORD_status = 2 ";
+			+ "AND	ord.ORD_status = 2 "
+			+ "GROUP BY ord.ORD_idOrder";
 
 	private static final String SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER = ""
 			+ "UPDATE tborder " + "SET ORD_idDeliveryMan=?, ORD_status=?, ORD_dateAcceptedByDeliveryMan=? "
