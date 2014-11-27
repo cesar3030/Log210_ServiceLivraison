@@ -33,7 +33,8 @@ public class OrderBean {
 	//identifiant du livreur qui prend en charge la commande
 	private int idDeliveryMan;
 	
-	
+	//Date et heure ou la commande a ete prise en charge par un livreur
+	private String dateAcceptedByDeliveryMan;
 	
 	
 	public List<OrderItemBean> getOrderItemsList() {
@@ -136,6 +137,14 @@ public class OrderBean {
 
 	public void setIdDeliveryMan(int idLivreur) {
 		this.idDeliveryMan = idLivreur;
+	}
+
+	public String getDateAcceptedByDeliveryMan() {
+		return dateAcceptedByDeliveryMan;
+	}
+
+	public void setDateAcceptedByDeliveryMan(String dateAcceptedByDeliveryMan) {
+		this.dateAcceptedByDeliveryMan = dateAcceptedByDeliveryMan;
 	}
 
 

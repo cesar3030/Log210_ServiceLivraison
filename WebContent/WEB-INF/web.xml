@@ -401,6 +401,15 @@
     <servlet-name>AcceptOrder</servlet-name>
     <url-pattern>/AcceptOrder</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MyCurrentDeliveryOrders</servlet-name>
+    <servlet-class>ca.etsmtl.log210.Controller.MyCurrentDeliveryOrders</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyCurrentDeliveryOrders</servlet-name>
+    <url-pattern>/MyCurrentDeliveryOrders</url-pattern>
+  </servlet-mapping>
 
   <filter>
     <filter-name>ApplicationFilter</filter-name>

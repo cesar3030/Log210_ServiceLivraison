@@ -31,14 +31,12 @@ public class SwitchLanguage extends HttpServlet
 		 {
 			 session.setAttribute("langue","fr");
 		 }
-		 System.out.println("Sortie controleur "+session.getAttribute("langue")+"   "+Calendar.getInstance().getTime());
-		
 //		 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
 //		 response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
 //		 response.setDateHeader("Expires", 0); // Proxies.
 		
-		 this.getServletContext().getRequestDispatcher( CALL_BACK ).forward( request, response );
-	 
+		 //this.getServletContext().getRequestDispatcher( CALL_BACK ).forward( request, response );
+		 response.sendRedirect(request.getHeader("referer"));
 	 }
 
 }

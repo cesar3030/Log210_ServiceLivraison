@@ -74,7 +74,7 @@ public class OrderDaoImpl implements OrderDao {
 			+ "AND	ord.ORD_status = 2 ";
 
 	private static final String SQL_UPDATE_SET_DELIVERY_MAN_TO_ORDER = ""
-			+ "UPDATE tborder " + "SET ORD_idDeliveryMan=?, ORD_status=?, ORD_DateAcceptedByDeliveryMan=? "
+			+ "UPDATE tborder " + "SET ORD_idDeliveryMan=?, ORD_status=?, ORD_dateAcceptedByDeliveryMan=? "
 			+ "WHERE ORD_idOrder=? ";
 
 	private static final String SQL_GET_ORDER_WITH_ID = "" + "SELECT * "
@@ -90,7 +90,8 @@ public class OrderDaoImpl implements OrderDao {
 			+ "AND  me.MEN_idRestaurant = re.RES_idRestaurant "
 			+ "AND  usr.USR_idUser = ord.ORD_idUserAccount	"
 			+ "AND	ord.ORD_status = 3 "
-			+ "AND ORD_idDeliveryMan =?";
+			+ "AND ord.ORD_idDeliveryMan =? "
+			+ "ORDER BY ord.ORD_dateAcceptedByDeliveryMan ASC ";
 	
 	/**
 	 * Methodde qui permet de recuperer la DAO
@@ -342,6 +343,8 @@ public class OrderDaoImpl implements OrderDao {
 		order.setHourAndDate(resultSet.getString("ORD_date"));
 		order.setStatus(resultSet.getInt("ORD_status"));
 		order.setIdDeliveryMan(resultSet.getInt("ORD_idDeliveryMan"));
+		order.setDateAcceptedByDeliveryMan(resultSet.getString("ORD_dateAcceptedByDeliveryMan"));
+	
 		return order;
 	}
 
@@ -535,8 +538,9 @@ public class OrderDaoImpl implements OrderDao {
 			/* Recuperation d'une connexion depuis la Factory */
 			connexion = daoFactory.getConnection();
 			preparedStatement = initialisationRequetePreparee(connexion,
-					SQL_GET_ORDER_BEING_DELIVERED, false);
+					SQL_GET_ORDER_BEING_DELIVERED, false, deliveryMan.getUserId());
 
+			System.out.println(preparedStatement);
 			resultSet = preparedStatement.executeQuery();
 
 			/* Parcours de la ligne de donnees de l'eventuel ResulSet retourne */
