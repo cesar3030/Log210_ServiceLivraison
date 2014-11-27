@@ -268,14 +268,14 @@
 					<form method=get action="<c:url value="/OrderFinishToBeDelivered"/>">
 						<input type="hidden" name="idOrder"
 							value="<c:out value="${orderForDelivery.order.idOrder}"/>">
-						<button type="submit" class="col-md-5 col-xs-offset-2 col-xs-10 btn btn-default btn-md">
+						<button type="submit" class="col-md-6 col-md-offset-0 col-xs-offset-2 col-xs-10 btn btn-default btn-md">
 							<span class="glyphicon glyphicon-road"></span>
 							<%=resourceBundle.getString("TERMINE")%>
 						</button>
 						<a href="#infos-${orderForDelivery.order.idOrder}"
 							data-toggle="modal">
 							<button type="submit"
-								class="col-md-5 col-xs-offset-2 col-xs-10 btn btn-default btn-md">
+								class="col-md-5 col-xs-offset-2 col-md-offset-1 col-xs-10 btn btn-default btn-md">
 								<span class="glyphicon glyphicon-search"></span>
 								<%=resourceBundle.getString("DETAILS")%>
 							</button>
