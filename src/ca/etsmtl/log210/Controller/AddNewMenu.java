@@ -79,7 +79,7 @@ public class AddNewMenu extends HttpServlet {
 		// Creation d un bean menu qui sera ajouter en bdd
 		String name= request.getParameter("nameMenu");
 		String description = request.getParameter("descriptionMenu");
-		int idResto = Integer.parseInt((String) session.getAttribute("restaurantActuel"));
+		int idResto = (int)session.getAttribute("restaurantActuel");
 		
 		menuAajouter= menuBeanFactory();
 		menuAajouter.setname(name);
