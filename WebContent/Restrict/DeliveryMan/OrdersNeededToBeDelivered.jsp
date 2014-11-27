@@ -19,16 +19,16 @@
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("ca.etsmtl.log210.Traduction.Bundle", localeFR);
 
 	if (session.getAttribute("langue").equals("en")) {
-		System.out.println("EN ANGLAIS");
+
 		resourceBundle = ResourceBundle.getBundle(
 				"ca.etsmtl.log210.Traduction.Bundle", localeUS);
 	}
 	if (session.getAttribute("langue").equals("fr")) {
-		System.out.println("EN FRANCAIS");
+
 		resourceBundle = ResourceBundle.getBundle(
 				"ca.etsmtl.log210.Traduction.Bundle", localeFR);
 	}
-	System.out.println("ici");
+
 %>
 
 
