@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ca.etsmtl.log210.Beans.UserAccountBean;
+import ca.etsmtl.log210.DAO.AddressDao;
 import ca.etsmtl.log210.DAO.DAOFactory;
 import ca.etsmtl.log210.DAO.UserAccountDao;
 import ca.etsmtl.log210.Utils.ExpressLivraisonSms;
@@ -27,6 +28,7 @@ public class Subscribe extends HttpServlet {
 	// The instance of UserAccountDao who give us the possibility to execute
 	// requests to the DB about userAccount
 	private UserAccountDao userAccountDao;
+	private AddressDao addressDao ;
 
 	/**
 	 * Method who is executed the fist time that the servlet is create. Here we
@@ -37,6 +39,8 @@ public class Subscribe extends HttpServlet {
 	public void init() throws ServletException {
 		this.userAccountDao = ((DAOFactory) getServletContext().getAttribute(
 				CONF_DAO_FACTORY)).getUserAccountDao();
+		this.addressDao=((DAOFactory) getServletContext().getAttribute(
+				CONF_DAO_FACTORY)).getAddressDao();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
